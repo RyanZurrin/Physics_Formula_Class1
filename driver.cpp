@@ -1,12 +1,14 @@
 #include "Physics.h"
+
 //all tests are examples from the open stax college physics textbook.
 int main()
 {
 
-	Physics car;
-	double val = car.time_using_VdA(20.0, 0, 400);
-	cout << val << endl;
+	Physics marble;
+	marble.val =  marble.acceleration_dispDtimeSqrd(0, -1.0, 0, .45173);
+	marble.print_val();
 
+	
 	
 	return 0;
 }
@@ -113,15 +115,24 @@ int main()
 		}
 	
 	// check your understanding pg59
-	Physics car;
-	double val = car.time_using_VdA(20.0, 0, 400);
-	cout << val << endl;
+		Physics car;
+		double val = car.time_using_VdA(20.0, 0, 400);
+		cout << val << endl;
 		
-	// Example 2.14
+	// Example 2.14 Calculating Position and velocity of a falling object: a rock thrown upward pg62
+		Physics rock;
+		rock.pos_vel_falling_object_upDown(0, 13.0, -9.80, 2);	
+		rock.print_vector_values();	
 	
-	//
+	// Example 2.15 Calculating Velocity of a Falling Object: A Rock Thrown Down pg65
+		Physics rock;
+		rock.val = rock.velocity_falling_object_down(0, -5.10, -13.0, -9.8);
+		rock.print_val();
 	
-	//
+	// Example 2.16 finding gravity from data on a falling object pg66
+		Physics marble;
+		marble.val =  marble.acceleration_dispDtimeSqrd(0, -1.0, 0, .45173);
+		marble.print_val();
 	
 	//
 	
@@ -130,17 +141,4 @@ int main()
 	//
 	
 */
-/*
-	Physics test;
-	double val = test.velocity_avg_DdT(80.0*5280, 105*3.28 * 60);
-	cout << val << endl;
-	
 
-
-
-	val = test.final_velocity(70.0, -1.50, 40.0);
-	cout << val << endl;
-	
-	val = test.displacement_Vstart_Vend(70.0, -1.50);
-	cout << val << endl;
-*/
