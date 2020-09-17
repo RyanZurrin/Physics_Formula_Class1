@@ -46,7 +46,7 @@ public:
 	std::vector<ld> time_using_quadratic(ld a, ld b, ld c);
 	std::vector<ld> pos_vel_falling_object_upDown(ld p, ld v, ld a, ld t);
 
-	void print_val() const;
+	void print() const;
 	void print_vector_values();
 	
 	

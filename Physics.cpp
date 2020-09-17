@@ -195,7 +195,7 @@ std::vector<ld> Physics::pos_vel_falling_object_upDown(ld p, ld v, ld a, ld t)
 	return rock.vector_values;
 }
 
-void Physics::print_val()const
+void Physics::print()const
 {
 	std::cout << "current calculation:  " << val << std::endl;
 }
