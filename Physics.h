@@ -13,6 +13,9 @@
 typedef long double ld;
 //using namespace std;
 
+// PI
+const ld PI = acos(-1);
+
 //gravitational acceleration force 9.80 m/s^2 average.
 const ld GA = 9.80;
 
@@ -41,10 +44,16 @@ public:
 	ld displacement_accelerating_object_PV(ld p, ld v, ld a, ld t);
 	ld displacement_halting_VdA(ld x0, ld V0, ld Vf, ld a);	
 	ld time_using_VdA(ld a, ld sV, ld fV);
+	ld time_by_DisTdV(ld distance, ld v);
 	ld velocity_falling_object_down(ld y0, ld yf, ld v, ld a);
 	ld acceleration_dispDtimeSqrd(ld y0, ld yf, ld v, ld t);
+	ld slope_formula(ld y1, ld y0, ld x1, ld x0);
+	ld rotation_speed_2PIxRdT(ld radius, ld rotations, ld time);
+	ld rotation_avgVelocity_2PIxRdT_in_1_rotation(ld radius, ld time);
 	std::vector<ld> time_using_quadratic(ld a, ld b, ld c);
 	std::vector<ld> pos_vel_falling_object_upDown(ld p, ld v, ld a, ld t);
+	
+	
 
 	void print() const;
 	void print_vector_values();

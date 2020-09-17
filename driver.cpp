@@ -1,14 +1,21 @@
 #include "Physics.h"
 
-//all tests are examples from the open stax college physics textbook.
+//all tests are examples below are from the open stax college physics textbook.
+//this Physics class has a built in long double for storing calculation called val. As well as a vector called vector_values.
+// you access them with the dot(.) operator
+//example: Physics object;
+//         object.val = objects.acceleration_VdT(-15.0, 1.80);  //this now has the result of that calculation stored in val.
+//to print out val to the screen use the print method. example: object.print();
+//if there are values stored in the vector_values vector use the object.print_vector_values()  method instead.
+//most of all have fun exploring and please if there is something I should be doing better let me know. Thanks.
+
+
 int main()
 {
+	Physics continent;
+	continent.val = continent.time_by_DisTdV(5.90 * pow(10, 5) * 100, 6);
+	continent.print();
 
-	Physics marble;
-	marble.val =  marble.acceleration_dispDtimeSqrd(0, -1.0, 0, .45173);
-	marble.print_val();
-
-	
 	
 	return 0;
 }
@@ -134,9 +141,20 @@ int main()
 		marble.val =  marble.acceleration_dispDtimeSqrd(0, -1.0, 0, .45173);
 		marble.print_val();
 	
-	//
+	// Example 2.17 Determining Average Velocity from a graph of Displacement versus time: jetcar
+		Physics jetcar;
+		jetcar.val = jetcar.slope_formula(2000, 525, 6.4, .50);
+		jetcar.print();
 	
-	//
+	// Chapter 2 Problems and Exercises, selected examples
+		2.3 Time, Velocity, and Speed
+			6.  Physics helicoptorBlades;
+				helicoptorBlades.val = helicoptorBlades.rotation_speed_2PIxRdT(5.0, 100, 60);
+				helicoptorBlades.print();
+
+			7.8.Physics continent;  PG82
+				continent.val = continent.time_by_DisTdV(5.90 * pow(10, 5) * 100, 6);
+				continent.print();
 	
 	//
 	
