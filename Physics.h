@@ -1,7 +1,7 @@
 #pragma once
 // class for doing physics problems
 // author: Ryan Zurrin
-// last Modified: 9/13/2020
+// last Modified: 9/17/2020
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
