@@ -12,10 +12,9 @@
 
 int main()
 {
-	Physics continent;
-	continent.val = continent.time_by_DisTdV(5.90 * pow(10, 5) * 100, 6);
-	continent.print();
+	
 
+	
 	
 	return 0;
 }
@@ -82,17 +81,18 @@ int main()
 	
 	// Example 2.10 Calculating Displacement of an accelerating object: Dragsters
 		Physics dragster;
-		double val = dragster.displacement_accelerating_object(26.0, 5.56);
-		cout << val << endl;
+		dragster.val = dragster.displacement_accelerating_object(26.0, 5.56);
+		dragster.print();
+
+		dragster.val = dragster.displacement_accelerating_object_PV(0, 0, 26.0, 5.56);
+		dragster.print();
 	
 	
 	// Example 2.11 Calculating Final Velocity: no time, dragsters
 		Physics dragster;
-		double val = dragster.final_velocity_no_time(0, 26.0, 402);
-		cout << val << endl;
-		Physics test;
-		val = test.final_velocity_no_time(2.5, 26.0, 402);
-		cout << val << endl;
+		double val = dragster.velocity_final_no_time(0,402,26.0);
+		std::cout << val << std::endl;
+		
 	
 	// Example 2.12 Calculating Displacement: How far does a car go when coming to a halt
 		//a:
@@ -104,14 +104,14 @@ int main()
 		double val = car.displacement_halting_VdA(0, 30.0, 0, -5.0);
 		cout << val << endl;
 		//c:  incorperating reaction time
-		a)
-			Physics car;
-			double val = car.displacement_halting_VdA(car.displacement_VxT(30.0, .50), 30.0, 0, -7.0);
-			cout << val << endl;		
-		b)
-			Physics car;
-			double val = car.displacement_halting_VdA(car.displacement_VxT(30.0, .50), 30.0, 0, -5.0);
-			cout << val << endl;
+			a)
+				Physics car;
+				double val = car.displacement_halting_VdA(car.displacement_VxT(30.0, .50), 30.0, 0, -7.0);
+				cout << val << endl;		
+			b)
+				Physics car;
+				double val = car.displacement_halting_VdA(car.displacement_VxT(30.0, .50), 30.0, 0, -5.0);
+				cout << val << endl;
 	
 	// Example 2.13 Calculating time: A car merges into traffic
 		Physics car;
@@ -123,7 +123,7 @@ int main()
 	
 	// check your understanding pg59
 		Physics car;
-		double val = car.time_using_VdA(20.0, 0, 400);
+		double val = car.time_by_avgVdA(20.0, 0, 400);
 		cout << val << endl;
 		
 	// Example 2.14 Calculating Position and velocity of a falling object: a rock thrown upward pg62
@@ -136,10 +136,16 @@ int main()
 		rock.val = rock.velocity_falling_object_down(0, -5.10, -13.0, -9.8);
 		rock.print_val();
 	
-	// Example 2.16 finding gravity from data on a falling object pg66
+	// Example 2.16 finding gravity from data on a falling object pg68
 		Physics marble;
-		marble.val =  marble.acceleration_dispDtimeSqrd(0, -1.0, 0, .45173);
-		marble.print_val();
+		marble.val = marble.acceleration_dispDtimeSqrd(-1.000, .45173);
+		marble.print();
+
+	// Check Your Understanding pg68 Ice breaks off a Glacier how long does it take to fall?
+		Physics glacier;
+		glacier.val = glacier.time_finalPos_and_acceleration(-30.0, -9.80);
+		glacier.print();
+	
 	
 	// Example 2.17 Determining Average Velocity from a graph of Displacement versus time: jetcar
 		Physics jetcar;
@@ -155,6 +161,15 @@ int main()
 			7.8.Physics continent;  PG82
 				continent.val = continent.time_by_DisTdV(5.90 * pow(10, 5) * 100, 6);
 				continent.print();
+
+			9.	Physics zephyr;
+				zephyr.val = zephyr.speed_avg_DdT(1633800, 47098); m/s
+				zephyr.print();
+				
+				Physics zephyr;
+				zephyr.val = zephyr.speed_avg_DdT(1633.8*3600, 47098); km/s
+				zephyr.print();
+	
 	
 	//
 	
