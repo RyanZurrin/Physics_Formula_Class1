@@ -70,7 +70,7 @@ ld Physics::displacement_VxT(ld velocity, ld time)
  * purpose:	find the displacement when start and end velocity is know
  * returns: ld, disp;acement
  */
-ld Physics::velocity_vStart_vEnd(ld velocityStart, ld velocityEnd)
+ld Physics::velocity_vStart_plus_vEndD2(ld velocityStart, ld velocityEnd)
 {
 	return (velocityStart + velocityEnd) / 2;
 }
@@ -99,12 +99,12 @@ ld Physics::displacement_accelerating_object(ld acceleration, ld time)
 
 /**
  * method: displacement_accelerating_object_PV(ld acceleration, ld time)
- * arguments: position, velocity, acceleration m/s , time in s
+ * arguments: velocity, acceleration m/s , position = 0m default, time in s
  * purpose: find the displacement of an accelerating object with a starting 
  * 			position and an initial velocity along with acceleration and a time
  * returns:	ld, displacement
  */
-ld Physics::displacement_accelerating_object_PV(ld pos, ld velocity, ld acceleration, ld time)
+ld Physics::displacement_accelerating_object_PV(ld velocity, ld acceleration, ld time, ld pos)
 {
 	return pos + (velocity * time) + (acceleration * (time * time)) / 2;
 }
@@ -116,9 +116,9 @@ ld Physics::displacement_accelerating_object_PV(ld pos, ld velocity, ld accelera
  * purpose: calculate displacement for the distance to stop from moving object
  * returns: ld, final displacement
  */
-ld Physics::displacement_halting_VdA(ld pos ,ld velocityStart, ld velocityFinal, ld acceleration)
+ld Physics::distance_VdA(ld pos ,ld velocityStart, ld velocityFinal, ld acceleration) const
 {
-	return (((velocityFinal * velocityFinal) - (velocityStart * velocityStart)) / (2 * acceleration)) + pos;
+	return abs(((velocityFinal * velocityFinal) - (velocityStart * velocityStart)) / (2 * acceleration)) + pos;
 }
 
 
@@ -130,10 +130,10 @@ ld Physics::displacement_halting_VdA(ld pos ,ld velocityStart, ld velocityFinal,
  */
 std::vector<ld> Physics::time_using_quadratic(ld a1, ld b_velocity, ld c_displacement)
 {
-	std::vector<ld> results = { 0.0, 0.0 };
-	results[0] = (-b_velocity + sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement)) / 2 * a1;
-	results[1] = (-b_velocity - sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement)) / 2 * a1;
-	return results;
+	
+	vector_values[0] = (-b_velocity + sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement)) / (2 * a1);
+	vector_values[1] = (-b_velocity - sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement))/ (2 * a1);
+	return this->vector_values;
 }
 
 
@@ -184,17 +184,28 @@ ld Physics::time_difference(ld startTime, ld endTime)
 	return endTime - startTime;
 }
 
+
+/**
+ * method: time_kinematic_rearranged(ld velocity, ld y0, ld acceleration) const
+ * arguments: velocity, y0 = position from 0, acceleration
+ * purpose: find the amount of time between two periods
+ * returns: ld, difference in two times
+ */
+ld Physics::time_kinematic_rearranged(ld velocity, ld displacement, ld acceleration) const
+{
+	return (-(velocity)-sqrt((velocity*velocity)-2*(acceleration)*(displacement)))/(acceleration);
+}
+
 /**
  * method: Physics::velocity_falling_object_down(ld y, ld yf, ld v, ld a)
  * arguments: y0 = start position,  yf = final position v = velocity, a = acceleration
  * purpose: find the velocity of a falling object thrown downwards
  * returns: ld, velocity
  */
-ld Physics::velocity_falling_object_down(ld y0, ld yf, ld velocity, ld acceleration)
+ld Physics::velocity_kinematic_constant_a(ld xY0, ld xYf, ld velocity, ld acceleration) const
 {
-	return sqrt((velocity * velocity) + (2 * (acceleration * (yf - y0))));
+	return sqrt((velocity * velocity) + (2 * (acceleration * (xYf - xY0))));
 }
-
 
 /**
  * method: acceleration_dispDtimeSqrd(ld y0, ld yf, ld v, ld t)
@@ -206,6 +217,18 @@ ld Physics::acceleration_dispDtimeSqrd(ld displacement, ld time)
 {
 	return (2 * (displacement)) / (time * time);
 }
+
+/**
+ * method: acceleration_vStart_vEndDdisplacement(ld velocityStart, ld velocityEnd, ld displacement)const
+ * arguments: velocity start, velocity end, total displacement
+ * purpose: finds the acceleration using the starting and ending velocity and total displacement as known values
+ * returns: ld, acceleration of object
+ */
+ld Physics::acceleration_vStart_vEndDdisplacement(ld velocityStart, ld velocityEnd, ld displacement)const
+{
+	return (velocityEnd * velocityEnd - velocityStart * velocityStart) / (2 * displacement);
+}
+
 /**
  * method: pos_vel_falling_object_upDown(double p, double v, double a, double t)
  * arguments: p = position (0),  v = velocity, a = acceleration, t = time is s
@@ -213,14 +236,14 @@ ld Physics::acceleration_dispDtimeSqrd(ld displacement, ld time)
  *			is: time, position, velocity, acceleration. use the print_vector_values() to see contents.
  * returns: ld, vector of the time, position, velocity, acceleration.
  */
-std::vector<ld> Physics::pos_vel_falling_object_upDown(ld p, ld v, ld a, ld t)
+std::vector<ld> Physics::pos_vel_falling_object_upDown(ld v, ld a, ld t, ld p)
 {
 	
 	this->vector_values[0] = t;
 	//solution for Position:
 	Physics rock;
 	
-	this->vector_values[1] = rock.displacement_accelerating_object_PV(p, v, a, t);
+	this->vector_values[1] = rock.displacement_accelerating_object_PV(v, a, t, p);
 	//Solution for Velocity:
 	
 	rock.val = rock.velocity_final_using_time(v, a, t);
@@ -268,6 +291,16 @@ ld Physics::rotation_avgVelocity_2PIxRdT_in_1_rotation(ld radius, ld time)
 	return (2 * PI * radius)/time;
 }
 
+/**
+ * method: multiple_of_gravity(ld value)
+ * arguments: value = the value you want to find the multiples of gravity of
+ * purpose:	finds the times gravity acceleration can be divided out of the value
+ * returns: ld, multiple of gravity
+ */
+ld Physics::multiple_of_gravity(ld value)
+{
+	return value/GA;
+}
 
 /**
  * method: print()const
@@ -302,5 +335,5 @@ void Physics::print_vector_values()
  */
 ld Physics::velocity_final_no_time(ld velocity, ld displacement, ld acceleration)
 {
-	return sqrt(velocity + (2 * acceleration) * (displacement));
+	return sqrt(velocity*velocity + (2 * (acceleration * displacement)));
 }

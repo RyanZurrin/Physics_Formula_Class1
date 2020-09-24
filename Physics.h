@@ -41,13 +41,13 @@ public:
 	ld displacement_accelerating_object(ld acceleration, ld time);
 	
 	// pos + (velocity * time) + (acceleration * (time * time)) / 2
-	ld displacement_accelerating_object_PV(ld p, ld v, ld a, ld t);
+	ld displacement_accelerating_object_PV(ld velocity, ld acceleration, ld time, ld pos = 0);
 	
 	// (((velocityFinal * velocityFinal) - (velocityStart * velocityStart)) / (2 * acceleration)) + pos;
-	ld displacement_halting_VdA(ld pos, ld velocityStart, ld velocityFinal, ld acceleration);
+	ld distance_VdA(ld pos, ld velocityStart, ld velocityFinal, ld acceleration) const;
 
 	// (velocityStart + velocityEnd) / 2;
-	ld velocity_vStart_vEnd(ld v0, ld vf);
+	ld velocity_vStart_plus_vEndD2(ld velocityStart, ld velocityEnd);
 
 	// velocity + acceleration * time;
 	ld velocity_final_using_time(ld velocity, ld acceleration, ld t);
@@ -58,14 +58,17 @@ public:
 	// displacement / time;
 	ld velocity_avg_DdT(ld displacement, ld t);
 	
-	// sqrt((velocity * velocity) + (2 * (acceleration * (yf - y0))))
-	ld velocity_falling_object_down(ld y0, ld yf, ld v, ld a);
+	// sqrt((velocity * velocity) + (2 * (acceleration * (xYf - xY0))))
+	ld velocity_kinematic_constant_a(ld xY0, ld xYf, ld velocity, ld acceleration) const; // 2.54
 	
 	// vChange / tChange;     change in velocity devided by change in time
 	ld acceleration_avg(ld vChange, ld tChange);
 
 	// (2 * (displacement)) / (time * time)
 	ld acceleration_dispDtimeSqrd(ld displacement, ld time);
+
+	// (velocityEnd * velocityEnd - velocityStart * velocityStart) / (2 * displacement)
+	ld acceleration_vStart_vEndDdisplacement(ld velocityStart, ld velocityEnd, ld displacement)const;
 
 	// total_distance/time;
 	ld speed_avg_DdT(ld total_distance, ld time);
@@ -82,6 +85,9 @@ public:
 	// endTime - startTime 
 	ld time_difference(ld startTime, ld endTime);
 
+	//
+	ld time_kinematic_rearranged(ld velocity, ld displacement, ld acceleration)const;
+	
 	// (y1 - y0) / (x1 - x0)
 	ld slope_formula(ld y1, ld y0, ld x1, ld x0);
 
@@ -90,9 +96,11 @@ public:
 
 	// (2 * PI * radius)/time
 	ld rotation_avgVelocity_2PIxRdT_in_1_rotation(ld radius, ld time);
+
+	ld multiple_of_gravity(ld value);
 	
-	std::vector<ld> time_using_quadratic(ld a, ld b, ld c);
-	std::vector<ld> pos_vel_falling_object_upDown(ld p, ld v, ld a, ld t);	
+	std::vector<ld> time_using_quadratic(ld a1, ld b_velocity, ld c_displacement);
+	std::vector<ld> pos_vel_falling_object_upDown(ld v, ld a, ld t, ld p = 0.0);
 
 	void print() const;
 	void print_vector_values();

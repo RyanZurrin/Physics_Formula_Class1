@@ -12,12 +12,14 @@
 
 int main()
 {
+	Physics rock;
+	rock.val = rock.time_kinematic_rearranged(15, 270, -9.8);
+	rock.print();
+	
 	
 
-	
-	
-	return 0;
 }
+
 /*_______________________________________________________________________________
 	Testing functions
 	
@@ -169,9 +171,13 @@ int main()
 				Physics zephyr;
 				zephyr.val = zephyr.speed_avg_DdT(1633.8*3600, 47098); km/s
 				zephyr.print();
+		
 	
-	
-	//
+	// Chapter 2b web assign HW #4	
+		Physics woodpecker;
+		woodpecker.val = woodpecker.acceleration_vStart_vEndDdisplacement(.570, 0, .00415);
+		std::cout << std::endl << woodpecker.multiple_of_gravity(woodpecker.val)<< std::endl;
+		woodpecker.print();
 	
 */
 
