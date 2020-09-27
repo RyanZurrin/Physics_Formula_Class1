@@ -20,10 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="Vector2d.h" />
+    <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="driver.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Vector2d.cpp" />
+    <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

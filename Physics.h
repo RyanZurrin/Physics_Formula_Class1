@@ -9,12 +9,13 @@
 //#include <iomanip>
 #include <cmath>
 #include <vector>
+#include "Vector2d.h"
 
 typedef long double ld;
 //using namespace std;
 
 // PI
-const ld PI = acos(-1);
+//const ld PI = acos(-1);
 
 //gravitational acceleration force 9.80 m/s^2 average.
 const ld GA = 9.80;

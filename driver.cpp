@@ -1,5 +1,3 @@
-#include "Physics.h"
-
 //all tests are examples below are from the open stax college physics textbook.
 //this Physics class has a built in long double for storing calculation called val. As well as a vector called vector_values.
 // you access them with the dot(.) operator
@@ -8,14 +6,18 @@
 //to print out val to the screen use the print method. example: object.print();
 //if there are values stored in the vector_values vector use the object.print_vector_values()  method instead.
 //most of all have fun exploring and please if there is something I should be doing better let me know. Thanks.
-
+#include "Physics.h"
+#include "Vector2d.h"
+#include "Vector3D.h"
 
 int main()
 {
 	Physics rock;
 	rock.val = rock.time_kinematic_rearranged(15, 270, -9.8);
 	rock.print();
-	
+
+	Vector test(2, 3);
+	test.showAllData();
 	
 
 }
