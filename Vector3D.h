@@ -19,7 +19,7 @@ public:
     void set_allAngles();
     void set_magnitude();
     Vector3D check_division(double);
-    //Vector3D* _ptr3d;
+    Vector3D* _ptr3d;
    
     Vector3D(); //constructor    
     Vector3D(double, double, double);  //initializing object with values.    

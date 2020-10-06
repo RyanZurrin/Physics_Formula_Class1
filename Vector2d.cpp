@@ -8,6 +8,7 @@
 
 using namespace std;
 int Vector::object_counter = 0;
+
 Vector::Vector()
 {
   vptr2d = nullptr;
@@ -81,6 +82,7 @@ void Vector::showVector()const
    show_arcLength();
   }      
 }
+
 void Vector::showRectCord()const
 {  
      cout << setprecision(5) << fixed;
@@ -106,27 +108,20 @@ void Vector::showRectCord()const
 void Vector::showPolarCord()const
 {  
     cout << setprecision(5) << fixed;
-	 if(magnitude < 0 || angle < 0){
-	    cout << setiosflags(ios::fixed);
-        cout << "\n<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";        
-        cout << resetiosflags(ios::fixed) << endl;  
- 	 }
+	 if(magnitude >= 0 && angle >= 0){
+		 cout << "\n<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";
+	 }
  	 else{
-         cout << "\n<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";
-		}
+		 cout << setiosflags(ios::fixed);
+		 cout << "\n<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";        
+		 cout << resetiosflags(ios::fixed) << endl;  
+	 }
 }
 void Vector::showRevolutionAngle()const
 {    
   double temp = 0;
   cout << "Angle in degrees:  " << revolutionAngle_inDegrees;
-          
-   //cout << "full revolutions:    " 
-	// 			<< static_cast<int>(revolutionAngle_inDegrees/360) << endl;
- //  if(revolutionAngle_inDegrees < 0){
-   //cout << "additional degrees:  " << (360 - angle)*(-1) << endl;
-   //}
-   //else
-   		// cout << "additional degrees:  " << angle << endl; 	
+          	
 }
 void Vector::show_x() const
 {
@@ -267,15 +262,15 @@ void Vector::set_mode(char _mode)
   mode = _mode;
   validate_setMode();
 }
-double Vector::square()
+double Vector::square()const
 {
     return  x * x + y * y;
 }
-double Vector::dot_product(const Vector& vec)
+double Vector::dot_product(const Vector& vec)const
 {
     return  x * vec.x + vec.y * y;
 }
-double Vector::distance(const Vector& vec)
+double Vector::distance(const Vector& vec)const
 {
     double x1, x2, y1, y2, t1, t2;
     x1 = this->x;
@@ -286,17 +281,17 @@ double Vector::distance(const Vector& vec)
     t2 = y2 - y1;
     return sqrt(pow(t1, 2) + pow(t2, 2));
 }
-double Vector::cross_product2D(const Vector& v)
+double Vector::cross_product2D(const Vector& v)const
 {
     return (x * v.y) - (y * v.x);   
 }
 Vector Vector::normalization()
 {
-    assert(find_magnitude() != 0);
+    assert(find_magnitude() != 0);  // NOLINT(clang-diagnostic-float-equal)
     *this /= find_magnitude();
     return *this;
 }
-double Vector::find_magnitude()
+double Vector::find_magnitude()const
 {
     return sqrt(square());
 }
@@ -339,7 +334,7 @@ void Vector::calculate_angle()
 }
 void Vector::adjust_angle()
 {
-  if(angle == -360 || angle == -720 || angle == -1080 || angle == -1440){
+  if(angle == -360 || angle == -720 || angle == -1080 || angle == -1440){  // NOLINT(clang-diagnostic-float-equal)
   	angle = 0;
   }
 	if (angle >= 360){
@@ -420,18 +415,19 @@ bool Vector::operator>=(const Vector& v) const
 {
     if (magnitude >= v.magnitude)
         return true;
-	return false;
+	
+	return false;  // NOLINT(clang-diagnostic-misleading-indentation)
 }
 bool Vector::operator==(const Vector & v)const
 {
-  if (magnitude == v.magnitude && angle == v.angle)
+  if (magnitude == v.magnitude && angle == v.angle)  // NOLINT(clang-diagnostic-float-equal)
     return true;
   return false;
 }
 
 bool Vector::operator!=(const Vector& v) const
 {
-    if (!(magnitude == v.magnitude && angle == v.angle))
+    if (!(magnitude == v.magnitude && angle == v.angle))  // NOLINT(clang-diagnostic-float-equal)
         return true;
     else
         return false;
@@ -479,7 +475,8 @@ Vector Vector::operator++(int)
   Vector sum(x++, y++, mode); 
   return sum; 
 }
-Vector Vector::operator-(const Vector& v)
+
+Vector Vector::operator-(const Vector& v) const
 { 
   Vector sum(x-v.x, y-v.y, mode);
   return sum;
@@ -623,7 +620,7 @@ istream& operator>>(istream& is, Vector& v)
 Vector::~Vector()
 {	
 	--object_counter;
-	cout << "In Vector destructor : "<< object_counter << " objects remain\n"
-			 << endl;
+	//cout << "In Vector destructor : "<< object_counter << " objects remain\n"
+	//		 << endl;
 }
 

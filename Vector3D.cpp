@@ -7,18 +7,24 @@ Vector3D::Vector3D() //constructor
   x=0;
   y=0;
   z=0;
- // _ptr3d = nullptr;
+  xAngle = 0.0;
+  yAngle = 0.0;
+  zAngle = 0.0;
+  _ptr3d = nullptr;
  // _ptr2d = nullptr;
   set_allAngles();
   object_counter++;
   //cout<< object_counter << ": " <<"in the 3dVector default constructor"<<endl;
 }
-Vector3D::Vector3D(double x1,double y1,double z1)  //initializing object with values.
+Vector3D::Vector3D(double x1,double y1,double z1) //initializing object with values.
 {
   x=x1;
   y=y1;
   z=z1;
- // _ptr3d = nullptr;
+  xAngle = 0.0;
+  yAngle = 0.0;
+  zAngle = 0.0;
+  _ptr3d = nullptr;
  // _ptr2d = nullptr;
   set_magnitude();
   set_allAngles();  
@@ -30,8 +36,10 @@ Vector3D::Vector3D(const Vector3D &vec)
   x=vec.x;
   y=vec.y;
   z=vec.z;
-  //_ptr3d = vec._ptr3d;
- // _ptr2d = vec._ptr2d;
+  xAngle = 0.0;
+  yAngle = 0.0;
+  zAngle = 0.0;
+  _ptr3d = nullptr;
   set_magnitude();
   set_allAngles();
   object_counter++;
@@ -197,9 +205,11 @@ Vector3D &Vector3D::operator/=(double value)
 }
 Vector3D &Vector3D::operator=(const Vector3D &vec)
 {
-    x=vec.x;
-    y=vec.y;
-    z=vec.z;
+    x = vec.x;
+    y = vec.y;
+    z = vec.z;
+    set_allAngles();
+	
     return *this;
 }
 

@@ -19,7 +19,7 @@
 using namespace std;
 
 
-const double PI		= 3.1415926535898;
+const double PI = acos(-1);
 const double DEGREE = 180/PI;
 const double RADIAN = PI/180; 
 
@@ -28,7 +28,8 @@ const double RADIAN = PI/180;
 class Vector
 {
    static int object_counter;	 	 
-   friend class Vector3D; 			  
+   friend class Vector3D;
+   //friend class Physics;
    public:
       Vector* vptr2d;
       double x, y, magnitude, angle,
@@ -58,11 +59,11 @@ class Vector
       Vector(char);//mode select, defaults to 0, in rectangular, constructor
       Vector(double, double, char _mode = 'r'); //constructor takes both coordinates and mode
       Vector(const Vector &);	//copy constructor		   
-      virtual void showAllData()const; //virtual so any derived classes must redefine
-      virtual void showVector()const;    
-      virtual void showRectCord()const;
-      virtual void showPolarCord()const;
-      virtual void showRevolutionAngle()const;
+      void showAllData()const; //virtual so any derived classes must redefine
+      void showVector()const;    
+      void showRectCord()const;
+      void showPolarCord()const;
+      void showRevolutionAngle()const;
       
       //virtual void showPolarCurve()const;
       //virtual void showParametricEquation()const;
@@ -93,11 +94,11 @@ class Vector
       void set_mode(char); 
       //void setPolarCurve();
 
-      virtual double square();              //gives square old the vector
-      virtual double find_magnitude();             //magnitude old the vector
-      virtual double dot_product(const Vector&); //scalar dot_product
-      virtual double distance(const Vector&);    //gives distance between two vectors
-      virtual double cross_product2D(const Vector&);    //cross_product
+      double square()const;              //gives square old the vector
+      double find_magnitude()const;             //magnitude old the vector
+      double dot_product(const Vector&)const; //scalar dot_product
+      double distance(const Vector&)const;    //gives distance between two vectors
+      double cross_product2D(const Vector&)const;    //cross_product
       Vector normalization();   //normalized vector    
       //virtual void setParametricPoints();      
       
@@ -123,7 +124,7 @@ class Vector
       Vector operator++();
       Vector operator++(int);
 
-      Vector operator-(const Vector &);     
+	  Vector operator-(const Vector&) const;     
       Vector operator-(const double number)const;
       Vector operator-()const;      
       Vector operator--();

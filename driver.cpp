@@ -7,19 +7,14 @@
 //if there are values stored in the vector_values vector use the object.print_vector_values()  method instead.
 //most of all have fun exploring and please if there is something I should be doing better let me know. Thanks.
 #include "Physics.h"
-#include "Vector2d.h"
-#include "Vector3D.h"
+
 
 int main()
+
 {
-	Physics rock;
-	rock.val = rock.time_kinematic_rearranged(15, 270, -9.8);
-	rock.print();
-
-	Vector test(2, 3);
-	test.showAllData();
 	
-
+	std::cout << Physics::drag_force(450000, 5000000, .075) << std::endl;
+	
 }
 
 /*_______________________________________________________________________________
@@ -180,6 +175,36 @@ int main()
 		woodpecker.val = woodpecker.acceleration_vStart_vEndDdisplacement(.570, 0, .00415);
 		std::cout << std::endl << woodpecker.multiple_of_gravity(woodpecker.val)<< std::endl;
 		woodpecker.print();
+
+	// chapter 3, question problem 27 A ball is thrown horizantally off a building
+		Physics ball;
+		ball.val = ball.air_time_initial_velocity0_y0(66.5);
+		ball.print();
+		ball.val = ball.velocity_initial_horizontal_component(66.5, 111.3);
+		ball.print();
+		ball.val = ball.velocity_vertical_component(66.5);
+		ball.print();
+		ball.final_projectile_velocity_vector(ball.velocity_vertical_component(60), ball.velocity_initial_horizontal_component(54, 123.8));
+		//ball.print();
+
+	// Chapter 3 bird with fish
+		Physics bird;	
+		bird.val = bird.velocity_vertical_component(6);
+		bird.print();
+		bird.final_projectile_velocity_vector(bird.velocity_vertical_component(6),3.60);
+
+	// chapter 3 soccer kick proble 42 in book
+		Physics soccarKick;
+		soccarKick.val = soccarKick.velocity_soccer_kick(40, 2.4, 28);
+		soccarKick.print();
 	
+
+	//
+
+	//
+
+	//
+
+	//
 */
 
