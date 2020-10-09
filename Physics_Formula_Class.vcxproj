@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Friction_coefficients.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Vector3D.h" />

@@ -1,74 +1,43 @@
 #include "Physics.h"
-
+ld Physics::val = 0.0;
+vector<ld> Physics::vector_values = { 0.0,0.0,0.0,0.0 };
+/*
+map<string, ld> Physics::static_friction = {
+	{"rubber_concrete_dry", 1.0},
+	{"rubber_concrete_wet", 0.7},
+	{"wood_wood", 0.5},
+	{"waxedWood_wetSnow", 0.14},
+	{"metal_wood", 0.5},
+	{"steel_steel_dry", 0.6},
+	{"steel_steel_oiled", 0.05},
+	{"teflon_steel", .04},
+	{"bone_lubricated_synovial_fluid", .016},
+	{"shoes_wood", .9},
+	{"shoes_ice", .1},
+	{"ice_ice", .1},
+	{"steel_ice", .4}
+};
+map<string, ld> Physics::kinetic_friction = {
+	{"rubber_concrete_dry", 0.7},
+	{"rubber_concrete_wet", 0.5},
+	{"wood_wood", 0.3},
+	{"waxedWood_wetSnow", 0.1},
+	{"metal_wood", 0.3},
+	{"steel_steel_dry", 0.3},
+	{"steel_steel_oiled", 0.03},
+	{"teflon_steel", .04},
+	{"bone_lubricated_synovial_fluid", .015},
+	{"shoes_wood", .7},
+	{"shoes_ice", .05},
+	{"ice_ice", .03},
+	{"steel_ice", .04}
+};
+*/
 
 Physics::Physics()
 {	
-	this->val = 0.0;
-	this->vector_values = { 0.0,0.0,0.0,0.0 };
+
 }
-
-
-/**
- * method: time_using_quadratic(ld a, ld b, ld c)
- * arguments: a1 = default to 1, b_velocity = constant velocity, c_displacement = total distance to travel
- * purpose: calculate the time of a merging object when velocity and displacement is know
- * returns: ld, total time
- */
-std::vector<ld> Physics::time_using_quadratic(ld a1, ld b_velocity, ld c_displacement)
-{
-	
-	vector_values[0] = (-b_velocity + sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement)) / (2 * a1);
-	vector_values[1] = (-b_velocity - sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement))/ (2 * a1);
-	return this->vector_values;
-}
-
-/**
- * method: time_finalPos_and_acceleration(ld displacement, ld acceleration)
- * arguments: displacement of object, acceleration of object
- * purpose: find how long it takes an object with a known acceleration to travel a know distance
- * returns: ld, time to accelerate a distance
- */
-ld Physics::time_by_finalPos_and_acceleration(ld displacement, ld acceleration)
-{
-	return sqrt((2*displacement)/acceleration);
-}
-
-/**
- * method: time_kinematic_rearranged(ld velocity, ld y0, ld acceleration) const
- * arguments: velocity, y0 = position from 0, acceleration
- * purpose: find the amount of time between two periods
- * returns: ld, difference in two times
- */
-ld Physics::time_kinematic_rearranged(ld velocity, ld displacement, ld acceleration)
-{
-	return (-(velocity)-sqrt((velocity*velocity)-2*(acceleration)*(displacement)))/(acceleration);
-}
-
-/**
- * method: pos_vel_falling_object_upDown(double p, double v, double a, double t)
- * arguments: p = position (0),  v = velocity, a = acceleration, t = time is s
- * purpose: this method will fill a vector with four pieces of data in order from the right to left it
- *			is: time, position, velocity, acceleration. use the print_vector_values() to see contents.
- * returns: ld, vector of the time, position, velocity, acceleration.
- */
-std::vector<ld> Physics::pos_vel_falling_object_upDown(ld v, ld a, ld t, ld p)
-{
-	
-	this->vector_values[0] = t;
-	//solution for Position:
-	Physics rock;
-	
-	this->vector_values[1] = rock.displacement_accelerating_object_PV(v, a, t, p);
-	//Solution for Velocity:
-	
-	rock.val = rock.velocity_final_using_time(v, a, t);
-	this->vector_values[2] = rock.val;
-	
-	this->vector_values[3] = a;
-	this->print_vector_values();
-	return rock.vector_values;
-}
-
 
 /**
  * method: projectile_range_level_ground(ld velocity, ld theta)
@@ -152,56 +121,6 @@ ld Physics::velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle) const
 	return sqrt(pow(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), 2) +
 		pow(vertical_velocity_by_Xvelocity_with_angle(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), angle), 2));
 }
-
-
-/**
- * method: slope_formula(ld y1, ld y0, ld x1, ld x0)
- * arguments: y1 , y0, x1, x0 
- * purpose:	the general slope equation of (y1 - y0)/(x1 - x0)
- *  to find the slope of a line between two points
- * returns: ld, slope of line between two points
- */
-ld Physics::slope_formula(ld y1, ld y0, ld x1, ld x0)
-{
-	return (y1 - y0)/(x1 - x0);
-}
-
-
-/**
- * method: rotation_speed_2PIxRdT(ld radius, ld rotations, ld time)
- * arguments: radius = length in m from center of rotation
- *			  rotations = how many rotations in a time period
- *			  time = time units
- * purpose: find the speed of a spinning object, such as fan blade 
- * returns: average speed of spinning object
- */
-ld Physics::rotation_speed_2PIxRdT(ld radius, ld rotations, ld time)
-{
-	return (2*PI*radius)/(time/rotations);
-}
-
-/**
- * method: rotation_avgVelocity_2PIxRdT_in_1_rotation(ld radius, ld time)
- * arguments: radius , time = time for one rotation
- * purpose: find average velocity of a spinning object
- * returns: ld, average velocity
- */
-ld Physics::rotation_avgVelocity_2PIxRdT_in_1_rotation(ld radius, ld time)
-{
-	return (2 * PI * radius)/time;
-}
-
-/**
- * method: multiple_of_gravity(ld value)
- * arguments: value = the value you want to find the multiples of gravity of
- * purpose:	finds the times gravity acceleration can be divided out of the value
- * returns: ld, multiple of gravity
- */
-ld Physics::multiple_of_gravity(ld value)
-{
-	return value/GA;
-}
-
 
 /**
  * method: horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration)

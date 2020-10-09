@@ -12,9 +12,12 @@
 int main()
 
 {
+	ld b = Friction_coefficients::static_rubber_concrete_dry;
+	ld a = Physics::normal_force_angle(62, 25);
+	std::cout << a << std::endl;
 	
-	std::cout << Physics::drag_force(450000, 5000000, .075) << std::endl;
-	
+	ld test = Physics::friction_coefficient(Physics::normal_force_angle(62, 25), 45.0);
+	std::cout << test << std::endl;
 }
 
 /*_______________________________________________________________________________

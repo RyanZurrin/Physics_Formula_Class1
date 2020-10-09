@@ -8,13 +8,12 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <map>
 #include "Vector3D.h"
+#include "Friction_coefficients.h"
 
-typedef long double ld;
+//typedef long double ld;
 //using namespace std;
-
-// PI
-//const ld PI = acos(-1);
 
 //gravitational acceleration force 9.80 m/s^2 average.
 const ld GA = -9.80;
@@ -27,8 +26,11 @@ const ld C = 2.99792458*pow(10, 8);
 class Physics
 {	
 public:
-	ld val;
-	std::vector<ld> vector_values;
+	static ld val;
+	static std::vector<ld> vector_values;
+	//static map<string, ld> static_friction;
+	//static map<string, ld> kinetic_friction;
+	
 	Physics();
 	void print() const;
 	void print_vector_values(); 	
@@ -135,7 +137,6 @@ public:
 	ld static acceleration_avg(const ld vChange, const ld tChange)
 	{ return vChange / tChange; }
 
-
 	/**
 	 * method: acceleration_dispDtimeSqrd(ld displacement, ld time)
 	 * arguments: 1)displacement 2)time
@@ -181,8 +182,14 @@ public:
 	ld static time_by_DisTdV(const ld distance, const ld velocity)
 	{ return distance / velocity; }
 
-	// sqrt((2*displacement)/acceleration)
-	ld time_by_finalPos_and_acceleration(ld displacement, ld acceleration);
+	/**
+	 * method: time_finalPos_acceleration(ld displacement, ld acceleration)
+	 * arguments: displacement of object, acceleration of object
+	 * purpose: find how long it takes an object with a known acceleration to travel a know distance
+	 * returns: ld, time to accelerate a distance
+	 */
+	ld static time_by_finalPos_acceleration(const ld displacement, const ld acceleration)
+	{ return sqrt((2 * displacement) / acceleration); }
 
 	/**
 	 * method: time(ld startTime, ld endTime)
@@ -193,27 +200,92 @@ public:
 	ld static time_difference(const ld startTime, const ld endTime)
 	{ return endTime - startTime; }
 
-	// (-(v)-sqrt((v*v)-2*(a)*(d)))/(d)
-	ld static time_kinematic_rearranged(const ld velocity, const ld displacement, const ld acceleration);
+	/**
+	 * method: time_kinematic_rearranged(ld velocity, ld y0, ld acceleration) const
+	 * arguments: velocity, y0 = position from 0, acceleration
+	 * purpose: find the amount of time between two periods
+	 * returns: ld, difference in two times
+	 */
+	ld static time_kinematic_rearranged(const ld velocity, const ld displacement, const ld acceleration)
+	{ return (-(velocity)-sqrt((velocity * velocity) - 2 * (acceleration) * (displacement))) / (acceleration); }
 	
-	// (y1 - y0) / (x1 - x0)
-	ld static slope_formula(const ld y1, const ld y0, const ld x1, const ld x0);
+	/**
+	 * method: slope_formula(ld y1, ld y0, ld x1, ld x0)
+	 * arguments: y1 , y0, x1, x0
+	 * purpose:	the general slope equation of (y1 - y0)/(x1 - x0)
+	 *  to find the slope of a line between two points
+	 * returns: ld, slope of line between two points
+	 */
+	ld static slope_formula(const ld y1, const ld y0, const ld x1, const ld x0)
+	{ return (y1 - y0) / (x1 - x0);	}
 
-	// (2 * PI * radius) / (time / rotations)
-	ld static rotation_speed_2PIxRdT(const ld radius, const ld rotations, const ld time);
+	/**
+	 * method: rotation_speed_2PIxRdT(ld radius, ld rotations, ld time)
+	 * arguments: radius = length in m from center of rotation
+	 *	rotations = how many rotations in a time period
+	 *	time = time units
+	 * purpose: find the speed of a spinning object, such as fan blade
+	 * returns: average speed of spinning object
+	 */
+	ld static rotation_speed_2PIxRdT(const ld radius, const ld rotations, const ld time)
+	{ return (2 * PI * radius) / (time / rotations); }
 
-	// (2 * PI * radius)/time
-	ld static rotation_avgVelocity_2PIxRdT_in_1_rotation(const ld radius, const ld time);
+	/**
+	 * method: rotation_avgVelocity_2PIxRdT_in_1_rotation(ld radius, ld time)
+	 * arguments: radius , time = time for one rotation
+	 * purpose: find average velocity of a spinning object
+	 * returns: ld, average velocity
+	 */
+	ld static rotation_avgVelocity_2PIxRdT_in_1_rotation(const ld radius, const ld time)
+	{ return (2 * PI * radius) / time; }
 
-	// value/GA;
-	ld multiple_of_gravity(ld value);
+	/**
+	 * method: multiple_of_gravity(ld value)
+	 * arguments: value = the value you want to find the multiples of gravity of
+	 * purpose:	finds the times gravity acceleration can be divided out of the value
+	 * returns: ld, multiple of gravity
+	 */
+	ld static multiple_of_gravity(const ld value)
+	{ return value / GA; }
 
-	//(-b + sqrt((b * b) - 4 * a1 * c)) / (2 * a1);
-	//(-b - sqrt((b * b) - 4 * a1 * c)) / (2 * a1);
-	std::vector<ld> time_using_quadratic(ld a1, ld b_velocity, ld c_displacement);
+	/**
+	 * method: time_using_quadratic(ld a, ld b, ld c)
+	 * arguments: a1 = default to 1, b_velocity = constant velocity, c_displacement = total distance to travel
+	 * purpose: calculate the time of a merging object when velocity and displacement is know
+	 * returns: ld, total time
+	 */
+	std::vector<ld> time_using_quadratic(ld a1, ld b_velocity, ld c_displacement)
+	{
+		vector_values[0] = (-b_velocity + sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement)) / (2 * a1);
+		vector_values[1] = (-b_velocity - sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement)) / (2 * a1);
+		
+		return this->vector_values;
+	}
 
-	//
-	std::vector<ld> pos_vel_falling_object_upDown(ld v, ld a, ld t, ld p = 0.0);
+		/**
+	 * method: pos_vel_falling_object_upDown(double p, double v, double a, double t)
+	 * arguments: p = position (0),  v = velocity, a = acceleration, t = time is s
+	 * purpose: this method will fill a vector with four pieces of data in order from the right to left it
+	 *			is: time, position, velocity, acceleration. use the print_vector_values() to see contents.
+	 * returns: ld, vector of the time, position, velocity, acceleration.
+	 */
+	std::vector<ld> pos_vel_falling_object_upDown(ld v, ld a, ld t, ld p = 0.0)
+	{
+		this->vector_values[0] = t;
+		//solution for Position:
+		Physics rock;
+
+		this->vector_values[1] = rock.displacement_accelerating_object_PV(v, a, t, p);
+		//Solution for Velocity:
+
+		rock.val = rock.velocity_final_using_time(v, a, t);
+		this->vector_values[2] = rock.val;
+
+		this->vector_values[3] = a;
+		this->print_vector_values();
+		
+		return rock.vector_values;
+	}
 	
 	//=================================================================================
 	// chapter 3 formulas
@@ -269,7 +341,7 @@ public:
 	 * purpose:	applies the force of gravity on a mass to give the weight
 	 * returns: ld weight
 	 */
-	ld static gravitational_force_on_mass(const ld mass)
+	ld static weight(const ld mass) 
 	{ return mass * GA; }
 	
 	/**
@@ -308,8 +380,37 @@ public:
 	ld static drag_force(const ld appliedForce, const ld mass, const ld acceleration)
 	{ return appliedForce - (mass * acceleration); }
 
+	/**
+	 * method: friction_force(const ld mass, const ld acceleration, const ld friction)
+	 * arguments: 1)mass 2)acceleration 3)friction
+	 * purpose:calculates the force of friction, which is the same as the force 
+	 * returns: ld, friction
+	 */
+	ld static friction_force(const ld mass, const ld acceleration, const ld friction)
+	{ return mass * acceleration + friction; }
+
+	/**
+	 * method: friction_coefficient(const ld normalForce, const ld weight, const ld frictionForce)
+	 * arguments: 1)normal force 2)weight 3)friction force
+	 * purpose: calculates the frictional coefficient
+	 * returns: ld, frictional coefficient
+	 */
+	ld static friction_coefficient(const ld normalForce, const ld frictionForce)
+	{ return (frictionForce) / (normalForce); }
+
+	/**
+	 * method: normal_force(const ld mass, const ld acceleration = GA)
+	 * arguments: 1)mass 2)acceleration 
+	 * purpose: calculates the normal force, weight
+	 * returns: ld, normal force
+	 */
+	ld static normal_force(const ld mass, const ld acceleration = GA)
+	{ return mass * acceleration; }
+
+	ld static normal_force_angle(const ld mass, const ld angleTheta)
+	{ return mass* -GA * cos(angleTheta*RADIAN); }
+	
+	~Physics() = default;
 };
-
-
 #endif // !PHYSICS_H
- 
+
