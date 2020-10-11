@@ -13,7 +13,7 @@
 #include <cassert>
 #include <cmath>
 #include <complex>
-#include <assert.h>
+//#include <assert.h>
 
 
 using namespace std;
@@ -31,7 +31,7 @@ class Vector
    friend class Vector3D;
    //friend class Physics;
    public:
-      Vector* vptr2d;
+      Vector* _vptr2d;
       double x, y, magnitude, angle,
          arcLength, revolutionAngle_inDegrees;
       char mode;  //sets mode to Polar w/ 'p' or Rectangular w/ 'r'           

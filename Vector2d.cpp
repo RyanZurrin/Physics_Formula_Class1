@@ -11,7 +11,7 @@ int Vector::object_counter = 0;
 
 Vector::Vector()
 {
-  vptr2d = nullptr;
+  _vptr2d = nullptr;
   x = 0;
   y = 0;  
   magnitude = 0.0;
@@ -54,7 +54,6 @@ Vector::Vector(double xMag, double yAng, char _mode)
 }
 Vector::Vector(const Vector &v)
 {
-
     x=v.x;
     y=v.y;
     mode = v.mode;
@@ -118,11 +117,10 @@ void Vector::showPolarCord()const
 	 }
 }
 void Vector::showRevolutionAngle()const
-{    
-  double temp = 0;
-  cout << "Angle in degrees:  " << revolutionAngle_inDegrees;
-          	
+{      
+  cout << "Angle in degrees:  " << revolutionAngle_inDegrees;          	
 }
+
 void Vector::show_x() const
 {
     cout << "\nx: " << x << endl;

@@ -32,6 +32,7 @@ Vector3D::Vector3D(double x1,double y1,double z1) //initializing object with val
 	//cout<< object_counter << ": " <<"in the x,y,z constructor" << endl;;
 }
 Vector3D::Vector3D(const Vector3D &vec)
+	: Vector(vec)
 {
   x=vec.x;
   y=vec.y;
@@ -203,8 +204,11 @@ Vector3D &Vector3D::operator/=(double value)
     set_allAngles();
     return *this;
 }
-Vector3D &Vector3D::operator=(const Vector3D &vec)
+
+Vector3D&
+Vector3D::operator=(const Vector3D& vec)
 {
+    this->_ptr3d = vec._ptr3d;
     x = vec.x;
     y = vec.y;
     z = vec.z;
@@ -246,7 +250,8 @@ double Vector3D::square()
 {
     return x*x+y*y+z*z;
 }
-Vector3D Vector3D::normalization()
+
+auto Vector3D::normalization() -> Vector3D
 {
     assert(find_magnitude()!=0);
     *this/=find_magnitude();
@@ -266,15 +271,15 @@ double Vector3D::distance(const Vector3D &vec)
     return sqrt((pow(x2 - x1, 2) + pow(y2 - y1, 2) + pow(z2 - z1, 2))); 
 }
 
-double Vector3D::returnX()
+double Vector3D::returnX()const
 {
     return x;
 }
-double Vector3D::returnY()
+double Vector3D::returnY()const
 {
     return y;
 }
-double Vector3D::returnZ()
+double Vector3D::returnZ()const
 {
     return z;
 }
@@ -290,7 +295,7 @@ double Vector3D::return_zAngle()const
 {
     return atan2(sqrt(x * x  + y * y), z) * DEGREE;
 }
-void Vector3D::disp()
+void Vector3D::display()
 {
     cout<<x<<" "<<y<<" "<<z<<endl;
 }
@@ -298,8 +303,9 @@ void Vector3D::disp()
 Vector3D::~Vector3D()
 {	
 	--object_counter;
-	cout << "In Vector3D destructor: "<< object_counter << " objects remain\n"
-			 << endl;
+    //delete this;
+	//cout << "In Vector3D destructor: "<< object_counter << " objects remain\n"
+	//		 << endl;
 }
 
 

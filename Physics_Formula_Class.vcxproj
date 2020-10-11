@@ -19,8 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Friction_coefficients.h" />
+    <ClInclude Include="Drag.h" />
+    <ClInclude Include="Elasticity.h" />
+    <ClInclude Include="Friction.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>
@@ -29,6 +32,9 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Vector2d.cpp" />
     <ClCompile Include="Vector3D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Physics_Formula_Class.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

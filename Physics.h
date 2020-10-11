@@ -1,22 +1,23 @@
 #pragma once
 // class for doing physics problems
 // author: Ryan Zurrin
-// last Modified: 9/17/2020
+// last Modified: 10/10/2020
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <map>
 #include "Vector3D.h"
-#include "Friction_coefficients.h"
+#include "Friction.h"
+#include "Drag.h"
+#include "Elasticity.h"
 
-//typedef long double ld;
+typedef long double ld;
 //using namespace std;
 
 //gravitational acceleration force 9.80 m/s^2 average.
-const ld GA = -9.80;
+const ld GA = 9.80;
 
 //Gravitational Constant 6.67408(31) * 10^(-11) * N 
 
@@ -24,16 +25,70 @@ const ld GA = -9.80;
 const ld C = 2.99792458*pow(10, 8);
 
 class Physics
-{	
-public:
-	static ld val;
-	static std::vector<ld> vector_values;
-	//static map<string, ld> static_friction;
-	//static map<string, ld> kinetic_friction;
+{
 	
+private:
+	static int objectCount;
+	static void countIncrease() { objectCount += 1; }
+	static void countDecrease() { objectCount -= 1; }
+	
+public:
+	static void countShow() { cout << "count: " << objectCount << endl; }
+	
+	ld _mass_;	
+	void show_mass()const { cout << "mass: " << _mass_ << endl; }
+	
+	ld _weight_;
+	void show_weight()const { cout << "weight: " << _weight_ << endl; }
+	
+	ld _length_;
+	void show_length()const { cout << "length: " << _length_ << endl; }
+	
+	ld _width_;
+	void show_width()const { cout << "width: " << _width_ << endl; }
+	
+	ld _height_;
+	void show_height()const { cout << "height: " << _height_ << endl; }
+	
+	ld _volume_;
+	void show_volume()const { cout << "volume: " << _volume_ << endl; }
+	
+	ld _density_;
+	void show_density()const { cout << "density: " << _density_ << endl; }
+	
+	static ld _val_;
+	static void show_val(){ cout << "val: " << _val_ << endl; }
+	
+	static std::vector<ld> vector_values;
+
+	Friction * friction;
+	Drag * drag;
+	Elasticity * elasticity;
+	Vector * vector2d;
+	Vector3D * vector3d;
+	Physics* _ptr_;
+		
 	Physics();
-	void print() const;
-	void print_vector_values(); 	
+	Physics(const Physics&); //copy constructor
+	Physics& operator=(const Physics&);
+	
+	void print(ld val = _val_) const;
+	void printAll()const;
+	void print_vector_values();
+	static ld return_val() { return _val_; }
+	static vector<ld> return_vector() { return vector_values; }
+	//============================================================================
+	// conversion methods
+
+	/**
+	 * method:  mps_to_kmh(ld mps)
+	 * arguments: meters per second
+	 * purpose:	returns the kilometers per hour value
+	 * returns: ld, kmh
+	 */
+	ld static mps_to_kmh(const ld mps)
+	{ return mps * 3.6;	}//meters per second to kilometers per hour conversion
+	
 	//============================================================================
 	//chapter 2 formulas	
 	
@@ -262,7 +317,7 @@ public:
 		return this->vector_values;
 	}
 
-		/**
+	/**
 	 * method: pos_vel_falling_object_upDown(double p, double v, double a, double t)
 	 * arguments: p = position (0),  v = velocity, a = acceleration, t = time is s
 	 * purpose: this method will fill a vector with four pieces of data in order from the right to left it
@@ -273,25 +328,31 @@ public:
 	{
 		this->vector_values[0] = t;
 		//solution for Position:
-		Physics rock;
+		Physics obj;
 
-		this->vector_values[1] = rock.displacement_accelerating_object_PV(v, a, t, p);
+		this->vector_values[1] = obj.displacement_accelerating_object_PV(v, a, t, p);
 		//Solution for Velocity:
 
-		rock.val = rock.velocity_final_using_time(v, a, t);
-		this->vector_values[2] = rock.val;
+		obj._val_ = obj.velocity_final_using_time(v, a, t);
+		this->vector_values[2] = obj._val_;
 
 		this->vector_values[3] = a;
 		this->print_vector_values();
 		
-		return rock.vector_values;
+		return obj.vector_values;
 	}
 	
 	//=================================================================================
 	// chapter 3 formulas
 
-	// ((velocity*velocity)*sin(2* angleTheta)/(GA))
-	ld projectile_range_level_ground(ld velocity, ld angleTheta)const;
+	/**
+	* method: projectile_range_level_ground(ld velocity, ld theta)
+	* arguments: velocity, theta (initial angle relative to the horizontal
+	* purpose:	calculates projectile range
+	* returns: ld, range of a projectile
+	*/
+	ld static projectile_range_level_ground(const ld velocity, const ld angleTheta)
+	{ return  ((velocity * velocity) * sin(2 * angleTheta) / (GA));	}
 
 	// (2* launchVelocity*sin(angleTheta))/(-GA);
 	ld time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)const;
@@ -381,24 +442,6 @@ public:
 	{ return appliedForce - (mass * acceleration); }
 
 	/**
-	 * method: friction_force(const ld mass, const ld acceleration, const ld friction)
-	 * arguments: 1)mass 2)acceleration 3)friction
-	 * purpose:calculates the force of friction, which is the same as the force 
-	 * returns: ld, friction
-	 */
-	ld static friction_force(const ld mass, const ld acceleration, const ld friction)
-	{ return mass * acceleration + friction; }
-
-	/**
-	 * method: friction_coefficient(const ld normalForce, const ld weight, const ld frictionForce)
-	 * arguments: 1)normal force 2)weight 3)friction force
-	 * purpose: calculates the frictional coefficient
-	 * returns: ld, frictional coefficient
-	 */
-	ld static friction_coefficient(const ld normalForce, const ld frictionForce)
-	{ return (frictionForce) / (normalForce); }
-
-	/**
 	 * method: normal_force(const ld mass, const ld acceleration = GA)
 	 * arguments: 1)mass 2)acceleration 
 	 * purpose: calculates the normal force, weight
@@ -410,7 +453,11 @@ public:
 	ld static normal_force_angle(const ld mass, const ld angleTheta)
 	{ return mass* -GA * cos(angleTheta*RADIAN); }
 	
-	~Physics() = default;
+	~Physics()
+	{
+		countDecrease();
+		countShow();
+	};
 };
 #endif // !PHYSICS_H
 

@@ -1,53 +1,67 @@
 #include "Physics.h"
-ld Physics::val = 0.0;
-vector<ld> Physics::vector_values = { 0.0,0.0,0.0,0.0 };
-/*
-map<string, ld> Physics::static_friction = {
-	{"rubber_concrete_dry", 1.0},
-	{"rubber_concrete_wet", 0.7},
-	{"wood_wood", 0.5},
-	{"waxedWood_wetSnow", 0.14},
-	{"metal_wood", 0.5},
-	{"steel_steel_dry", 0.6},
-	{"steel_steel_oiled", 0.05},
-	{"teflon_steel", .04},
-	{"bone_lubricated_synovial_fluid", .016},
-	{"shoes_wood", .9},
-	{"shoes_ice", .1},
-	{"ice_ice", .1},
-	{"steel_ice", .4}
-};
-map<string, ld> Physics::kinetic_friction = {
-	{"rubber_concrete_dry", 0.7},
-	{"rubber_concrete_wet", 0.5},
-	{"wood_wood", 0.3},
-	{"waxedWood_wetSnow", 0.1},
-	{"metal_wood", 0.3},
-	{"steel_steel_dry", 0.3},
-	{"steel_steel_oiled", 0.03},
-	{"teflon_steel", .04},
-	{"bone_lubricated_synovial_fluid", .015},
-	{"shoes_wood", .7},
-	{"shoes_ice", .05},
-	{"ice_ice", .03},
-	{"steel_ice", .04}
-};
-*/
 
+ld Physics::_val_ = 0.0;
+vector<ld> Physics::vector_values = { 0.0,0.0,0.0,0.0 };
+int Physics::objectCount = 0;
+ 
+// default constructor
 Physics::Physics()
 {	
-
+	_ptr_ = nullptr;
+	drag = new Drag;
+	elasticity = new Elasticity;
+	friction = new Friction;
+	vector2d = new Vector;
+	vector3d = new Vector3D;
+	_mass_ = 0.0;
+	_weight_ = 0.0;
+	_length_ = 0.0;
+	_width_ = 0.0;
+	_height_ = 0.0;
+	_volume_ = 0.0;
+	_density_ = 0.0;
+	countIncrease();
+	countShow();
 }
 
-/**
- * method: projectile_range_level_ground(ld velocity, ld theta)
- * arguments: velocity, theta (initial angle relitive to the horizontal
- * purpose:	calculates projectile range
- * returns: ld, range of a projectile
- */
-ld Physics::projectile_range_level_ground(ld velocity, ld angleTheta)const
+// copy constructor
+Physics::Physics(const Physics& p)
 {
-	return  ((velocity*velocity)*sin(2* angleTheta)/(GA));
+	_ptr_ = p._ptr_;
+	_val_ = p._val_;
+	vector_values = p.vector_values; 
+	_mass_ = p._mass_;	
+	_weight_ = p._weight_;
+	_length_ = p._length_;
+	_width_ = p._weight_;
+	_height_ = p._height_;
+	_volume_ = p._volume_;
+	_density_ = p._density_;
+	_ptr_ = nullptr;
+	drag = p.drag;
+	elasticity = p.elasticity;
+	friction = p.friction;
+	vector2d = p.vector2d;
+	vector3d = p.vector3d;
+	countIncrease();
+	countShow();
+}
+
+Physics& Physics::operator=(const Physics& r)
+{
+	if(this != &r)
+	{
+		_ptr_ = r._ptr_;
+		_val_ = r._val_;
+		_weight_ = r._weight_;
+		_density_ = r._density_;
+		_height_ = r._height_;
+		_length_ = r._length_;
+		_mass_ = r._mass_;
+		_width_ = r._width_;
+		countIncrease();
+	}
+	return *this;	
 }
 
 /**
@@ -164,9 +178,28 @@ std::vector<ld> Physics::basketball_angles(ld launchVelocity, ld releaseHeight, 
  * purpose:	print out the value stored in val
  * returns: void
  */
-void Physics::print()const
+void Physics::print(ld _val)const
 {
-	std::cout << "current calculation:  " << val << std::endl;
+	std::cout << "current calculation:  " << _val << std::endl;
+}
+
+/**
+ * method: printAll()const
+ * arguments: none
+ * purpose:	print out the value stored in val
+ * returns: void
+ */
+void Physics::printAll()const
+{
+	show_density();
+	show_height();
+	show_length();
+	show_mass();
+	show_volume();
+	show_width();
+	show_weight();
+	show_val();
+	
 }
 
 /**

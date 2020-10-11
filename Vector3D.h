@@ -35,10 +35,10 @@ public:
     
     void showAllData();
     void showPolarCord()const;
-    void disp();    //display value of vectors
-    double returnX(); //return x
-    double returnY(); //return y
-    double returnZ(); //return z
+    void display();    //display value of vectors
+    double returnX()const; //return x
+    double returnY()const; //return y
+    double returnZ()const; //return z
     double return_xAngle()const; //return x angle
     double return_yAngle()const; //return y angle
     double return_zAngle()const; //return z angle
