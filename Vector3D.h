@@ -63,7 +63,7 @@ public:
     Vector3D operator*(double value);    //multiplication
     Vector3D &operator*=(double value);  //assigning new result to the vector.  
     Vector3D operator/(double);    //division
-    Vector3D operator/(int);
+virtual Vector3D operator/(int);
     Vector3D &operator/=(double value);  //assigning new result to the vector
     Vector3D &operator=(const Vector3D &vec);      
     friend ostream& operator<<(ostream&, const Vector3D&);

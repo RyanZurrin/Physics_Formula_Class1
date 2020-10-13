@@ -1,5 +1,7 @@
 #include "Vector3D.h"
 
+#include <cassert>
+
 using namespace std;
 
 Vector3D::Vector3D() //constructor

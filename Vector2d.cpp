@@ -2,12 +2,10 @@
 // file:   		  Vector2d.cpp (XL)
 
 // Implementation for Vector class.
-
-#include "Vector2D.h"   
-//#include "exceptionHandler.h"
-
+#include <cassert>
+#include "Vector2D.h"
 using namespace std;
-int Vector::object_counter = 0;
+
 
 Vector::Vector()
 {
@@ -22,12 +20,13 @@ Vector::Vector()
   mode = 'r';   
   validate_setMode();  
  
-  object_counter++;
-  //cout<< object_counter << ": " <<"in the default constructor" <<endl;
+  countIncrease();
+  countShow();
 }
 
 Vector::Vector(char _mode)
-{  
+{
+    _vptr2d = nullptr;
   x = 0;
   y = 0;  
   magnitude = 0;
@@ -37,8 +36,8 @@ Vector::Vector(char _mode)
   revolutionAngle_inDegrees = 0;
   mode = _mode;
   validate_setMode();
-  object_counter++;
-	//cout<< object_counter << ": " <<"in the char constructor"<<endl;;
+  countIncrease();
+  countShow();
 }
 /*______________________________________________________________________________ 
   the third argument is the mode setting. 
@@ -46,11 +45,11 @@ Vector::Vector(char _mode)
 */ 
 Vector::Vector(double xMag, double yAng, char _mode)
 {  
- 
-  mode = _mode;
-  set_coordinates(xMag, yAng, _mode);
-  object_counter++;
-	//cout<< object_counter << ": " <<"in the select and set constructor"<<endl;
+    _vptr2d = nullptr;
+	mode = _mode;
+	set_coordinates(xMag, yAng, _mode);
+    countIncrease();
+    countShow();
 }
 Vector::Vector(const Vector &v)
 {
@@ -58,8 +57,8 @@ Vector::Vector(const Vector &v)
     y=v.y;
     mode = v.mode;
     calculate_polar();
-    object_counter++;
-	//cout<< object_counter << ": " <<"in the copy constructor"<<endl;
+    countIncrease();
+    countShow();
 }
 void Vector::showAllData()const
 {   
@@ -120,27 +119,22 @@ void Vector::showRevolutionAngle()const
 {      
   cout << "Angle in degrees:  " << revolutionAngle_inDegrees;          	
 }
-
 void Vector::show_x() const
 {
     cout << "\nx: " << x << endl;
 }
-
 void Vector::show_y() const
 {
     cout << "\ny: " << y << endl;
 }
-
 void Vector::show_mag() const
 {
     cout << "\nr: " << magnitude << endl;
 }
-
 void Vector::show_angle() const
 {
     cout << "\n\xE9: " << angle << "\xF8" << endl;
 }
-
 void Vector::show_mode()const
 {
     if (mode == 'p' || mode == 'P') {
@@ -149,27 +143,11 @@ void Vector::show_mode()const
     else
         cout << "\nmode: Rectangular" << endl;
 }
-
 void Vector::show_arcLength() const
 {
    cout << setprecision(7)<< fixed;
     cout << "\narc length: " << arcLength << endl;
-}
-
-
-/*
-void Vector::showPolarCurve()const{
-  cout << "\ncartiasian equation of curve is: ";
-  cout << "r: " << Curve.r << "  " << "theta: " << Curve.theta << endl;
-  cout << "x: " << Curve.x << "  " << "y: " << Curve.y << endl;
-}
-*/
-
-    /*______________________________________________________________________________
-returnX, no arguments or 'r'/'R' will just return, anything else will print out
-				 and return.
-*/
- 
+} 
 double Vector::return_x() const
 {
   	return x;
@@ -194,11 +172,10 @@ char Vector::return_mode()const
 {
   return mode;      
 }
-    
-
-/*______________________________________________________________________________
-  the third argument is the mode setting. 
-  Use 'r'/'R' for rectangular components, 'p'/'P' for polar components
+/**
+ *method: set_coordinates(double xMag, double yAng, char _mode)
+* arguments: x, y mode = 'r' or 'p' .by default is 'r'ectangular, 'p'= polar. 
+* Use 'r'/'R' for rectangular components, 'p'/'P' for polar components
 */  
 void Vector::set_coordinates(double xMag, double yAng, char _mode)
 {
@@ -221,7 +198,6 @@ void Vector::set_rectCord(double _x, double _y)
   calculate_polar();
   revolutionAngle_inDegrees = angle;
 }
-
 void Vector::set_polarCord(double mag, double ang)
 {
   magnitude = mag;
@@ -377,20 +353,11 @@ Vector Vector::check_division(double d)
 {   
     return *this;
 }
-
-
 Vector Vector::check_division(Vector d)
 {   
     Vector temp;   
     return temp;
 }
-/*
-Vector Vector::calculate_parallel_vector2d(Vector & v1, Vector & v2)
-{
-  cout << "in Calc Parallel vec2d: " << endl;
-  return Vector(v2.x - v1.x, v2.y - v1.y);
-}
-*/
 bool Vector::operator<(const Vector &v) const
 {
   if (magnitude < v.magnitude)
@@ -422,7 +389,6 @@ bool Vector::operator==(const Vector & v)const
     return true;
   return false;
 }
-
 bool Vector::operator!=(const Vector& v) const
 {
     if (!(magnitude == v.magnitude && angle == v.angle))  // NOLINT(clang-diagnostic-float-equal)
@@ -430,7 +396,6 @@ bool Vector::operator!=(const Vector& v) const
     else
         return false;
 }
-
 Vector Vector::operator+(const double n)const
 {
 	cout << "in  Vector::operator+(const double n)const"<<endl;
@@ -454,7 +419,6 @@ Vector Vector::operator+(const Vector& v)const
   sum.mode = mode;  
   return sum;
 }
-
 Vector Vector::operator+()const
 { 
 	cout << "in  Vector::operator+()const"<<endl;
@@ -473,7 +437,6 @@ Vector Vector::operator++(int)
   Vector sum(x++, y++, mode); 
   return sum; 
 }
-
 Vector Vector::operator-(const Vector& v) const
 { 
   Vector sum(x-v.x, y-v.y, mode);
@@ -513,7 +476,7 @@ Vector operator+(double s, Vector& v)
  Vector total(s+v.return_x(),s+v.return_y(),v.return_mode()); 
  return total; 
 }
-const Vector Vector::operator=(const Vector &right)
+Vector& Vector::operator=(const Vector &right)
 {  
   if (this != &right) {
 
@@ -524,7 +487,7 @@ const Vector Vector::operator=(const Vector &right)
     }
   return *this;
 }
-Vector &Vector::operator=(const Vector *vec)
+Vector& Vector::operator=(const Vector *vec)
 {
   x = vec->x;
   y = vec->y;
@@ -544,6 +507,7 @@ Vector& Vector::operator=(Vector&& right)noexcept
 }
 Vector::Vector(Vector&& temp) noexcept
 {
+    _vptr2d = nullptr;
     x = temp.x;
     y = temp.y;  
     mode = temp.mode;
@@ -559,7 +523,6 @@ Vector Vector::operator/(double d)
 {  
     return check_division(d);   
 }
-
 Vector Vector::operator/(int d)
 {
     return check_division(d);   
@@ -591,7 +554,7 @@ Vector operator*(Vector& v, Vector& s)
 {
    Vector results(v.x*s.x, v.y*s.y, v.mode);	
    return results;
-} 
+}
 ostream& operator<<(ostream& os, const Vector& v)
 {	
   if(v.mode == 'R' || v.mode == 'r'){
@@ -601,7 +564,7 @@ ostream& operator<<(ostream& os, const Vector& v)
   	v.showPolarCord();
   }  
   return os;
-} 
+}
 istream& operator>>(istream& is, Vector& v)
 {
   if(v.mode == 'R' || v.mode == 'r'){
@@ -614,11 +577,10 @@ istream& operator>>(istream& is, Vector& v)
   } 
   return is;
 }
-
 Vector::~Vector()
-{	
-	--object_counter;
-	//cout << "In Vector destructor : "<< object_counter << " objects remain\n"
-	//		 << endl;
+{
+    delete _vptr2d;
+    countDecrease();
+    countShow();
 }
 

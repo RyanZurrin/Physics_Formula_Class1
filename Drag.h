@@ -4,14 +4,28 @@
 // last Modified: 10/10/2020
 #ifndef DRAG_H
 #define DRAG_H
-#include "Friction.h"
+#include <iostream>
 
-class Drag
-{	
-private:
-	ld dragForce;
+#include "Friction.h"
+#include "Vector2d.h"
+
+static int drag_objectCount = 0;
+
+class Drag 
+{
+	
+private:	
+	static void countIncrease() { drag_objectCount += 1; }
+	static void countDecrease() { drag_objectCount -= 1; }
+	
+	
 public:
+	static void countShow() { std::cout << "drag count: " << drag_objectCount << std::endl; }
+	
 	Drag* _ptrDrag;
+	ld _dragForce_;
+	void show_dragForce()const { std::cout << "drag force: " << _dragForce_ << std::endl; }
+	
 	struct drag_coefficient
 	{
 		const ld airfoil = .05; // returns .05
@@ -34,7 +48,31 @@ public:
 	Drag()
 	{
 		_ptrDrag = nullptr;
-		dragForce = 0.0;
+		_dragForce_ = 0.0;
+		countIncrease();
+		countShow();
+	}
+
+	//copy constructor
+	Drag(const Drag& r)
+	{
+		_ptrDrag = r._ptrDrag;
+		_dragForce_ = r._dragForce_;
+		countIncrease();
+		countShow();
+	}
+
+	//copy assignment operator
+	Drag& operator=(const Drag& r)
+	{
+		if (this != &r)
+		{
+			_dragForce_ = r._dragForce_;
+			_ptrDrag = r._ptrDrag;
+			countIncrease();
+			countShow();
+		}
+		return *this;
 	}
 
 	/**
@@ -43,7 +81,7 @@ public:
 	 * purpose:	returns the value in the dragForce variable
 	 * returns: ld, displacement.
 	 */
-	ld return_drag_force()const { return dragForce; }
+	ld return_dragForce()const { return _dragForce_; }
 
 	/**
 	 * method:  terminal_velocity
@@ -77,13 +115,18 @@ public:
 	  */
 	 ld static stokes_law(const ld radius, const ld viscosity, const ld velocity)
 	 { return 6 * PI * radius * viscosity * velocity; }
-	
-	  /**
-	   * method:  terminal_velocity
-	   * arguments: 1)mass 2)drag coefficient 3)area face 4)density 5)acceleration
-	   * purpose:	returns the terminal velocity from drag force equation
-	   * returns: ld, terminal velocity.
-	   */
-	 ~Drag() = default;
+
+
+	/**
+	 * destructor
+	 */
+	~Drag()
+	{
+		delete _ptrDrag;
+		countDecrease();
+		countShow();
+	}
+
 };
+
 #endif

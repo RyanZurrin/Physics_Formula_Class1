@@ -2,7 +2,7 @@
 
 ld Physics::_val_ = 0.0;
 vector<ld> Physics::vector_values = { 0.0,0.0,0.0,0.0 };
-int Physics::objectCount = 0;
+int Physics::physics_objectCount = 0;
  
 // default constructor
 Physics::Physics()
@@ -20,6 +20,7 @@ Physics::Physics()
 	_height_ = 0.0;
 	_volume_ = 0.0;
 	_density_ = 0.0;
+	_force_ = 0.0;
 	countIncrease();
 	countShow();
 }
@@ -37,6 +38,7 @@ Physics::Physics(const Physics& p)
 	_height_ = p._height_;
 	_volume_ = p._volume_;
 	_density_ = p._density_;
+	_force_ = p._force_;
 	_ptr_ = nullptr;
 	drag = p.drag;
 	elasticity = p.elasticity;
@@ -47,6 +49,7 @@ Physics::Physics(const Physics& p)
 	countShow();
 }
 
+// copy assignment operator
 Physics& Physics::operator=(const Physics& r)
 {
 	if(this != &r)
@@ -59,6 +62,7 @@ Physics& Physics::operator=(const Physics& r)
 		_length_ = r._length_;
 		_mass_ = r._mass_;
 		_width_ = r._width_;
+		_force_ = r._force_;
 		countIncrease();
 	}
 	return *this;	
@@ -170,6 +174,18 @@ std::vector<ld> Physics::basketball_angles(ld launchVelocity, ld releaseHeight, 
 	this->print_vector_values();
 	
 	return vector_values;
+}
+
+Physics::~Physics()
+{
+	delete elasticity;
+	delete friction;
+	delete vector2d;
+	delete vector3d;
+	delete drag;
+	delete _ptr_;
+	countDecrease();
+	countShow();
 }
 
 /**

@@ -8,10 +8,11 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include "Vector3D.h"
 #include "Friction.h"
 #include "Drag.h"
 #include "Elasticity.h"
+#include "Vector3D.h"
+
 
 typedef long double ld;
 //using namespace std;
@@ -28,12 +29,12 @@ class Physics
 {
 	
 private:
-	static int objectCount;
-	static void countIncrease() { objectCount += 1; }
-	static void countDecrease() { objectCount -= 1; }
+	static int physics_objectCount;
+	static void countIncrease() { physics_objectCount += 1; }
+	static void countDecrease() { physics_objectCount -= 1; }
 	
 public:
-	static void countShow() { cout << "count: " << objectCount << endl; }
+	static void countShow() { cout << "physics count: " << physics_objectCount << endl; }
 	
 	ld _mass_;	
 	void show_mass()const { cout << "mass: " << _mass_ << endl; }
@@ -55,6 +56,10 @@ public:
 	
 	ld _density_;
 	void show_density()const { cout << "density: " << _density_ << endl; }
+
+	ld _force_;
+	void show_force()const { cout << "force: " << _force_ << endl; }
+	
 	
 	static ld _val_;
 	static void show_val(){ cout << "val: " << _val_ << endl; }
@@ -70,7 +75,7 @@ public:
 		
 	Physics();
 	Physics(const Physics&); //copy constructor
-	Physics& operator=(const Physics&);
+	Physics& operator=(const Physics&); //copy assignment operator
 	
 	void print(ld val = _val_) const;
 	void printAll()const;
@@ -453,11 +458,8 @@ public:
 	ld static normal_force_angle(const ld mass, const ld angleTheta)
 	{ return mass* -GA * cos(angleTheta*RADIAN); }
 	
-	~Physics()
-	{
-		countDecrease();
-		countShow();
-	};
+	// destructor
+	~Physics();
 };
 #endif // !PHYSICS_H
 

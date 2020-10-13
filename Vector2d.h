@@ -7,14 +7,12 @@
 // Specification file for a  vect class 
 #ifndef VECTOR2D_H
 #define VECTOR2D_H
-//#include "Numbers.h"
+
 #include <iostream>
 #include <iomanip>
-#include <cassert>
+
 #include <cmath>
 #include <complex>
-//#include <assert.h>
-
 
 using namespace std;
 
@@ -22,20 +20,23 @@ using namespace std;
 const double PI = acos(-1);
 const double DEGREE = 180/PI;
 const double RADIAN = PI/180; 
-
+static int object_counter = 0;
 
 
 class Vector
 {
-   static int object_counter;	 	 
+	
    friend class Vector3D;
    //friend class Physics;
-   public:
+private:
+    static void countIncrease() { object_counter += 1; }
+    static void countDecrease() { object_counter -= 1; }
+public:
       Vector* _vptr2d;
       double x, y, magnitude, angle,
-         arcLength, revolutionAngle_inDegrees;
+      arcLength, revolutionAngle_inDegrees;
       char mode;  //sets mode to Polar w/ 'p' or Rectangular w/ 'r'           
-      
+      static void countShow() { std::cout << "vector2d count: " << object_counter << std::endl; }
       //void    calculate_parametric_equation();
       void 	  validate_setMode();
       void    normalize_magnitude();
@@ -46,14 +47,7 @@ class Vector
       void    calculate_polar();
       void    calculate_arcLength();
       Vector  check_division(double);
-      Vector  check_division(Vector);
-      
-      //void    calculate_derivative();
-
-  // private:
-  //    Vector calculate_parallel_vector2d( Vector&, Vector&);
-
- 			
+      Vector  check_division(Vector);	
      
 	  Vector(); //default constructor      
       Vector(char);//mode select, defaults to 0, in rectangular, constructor
@@ -130,12 +124,12 @@ class Vector
       Vector operator--();
       Vector operator--(int);      
       
-      Vector operator/(double);     
-      Vector operator/(int);
+      Vector operator/(double);
+	  Vector operator/(int);
       Vector operator/(Vector);
      
       Vector &operator/=(double);
-      const Vector operator=(const Vector &);
+      Vector& operator=(const Vector &);
       Vector &operator=(const Vector *);
       Vector &operator=(Vector&& right)noexcept;
       Vector(Vector&& temp)noexcept;

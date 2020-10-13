@@ -12,18 +12,10 @@
 int main()
 
 {
-	Physics a;
-	ld f, xc, l, y;
-	f = 607.6;
-	xc = 1.257 * pow(10, -3);
-	l = .4;
-	y = a.elasticity->moduli.bone_compression[0];
-	
-	a._length_ = a.elasticity->change_L(f, y, xc, l);
-	a.show_length();
-	a.vector2d->set_rectCord(3, 5);
-	a.vector2d->showAllData();
+	Physics knee;
 
+	knee._val_ = knee.friction->acceleration_magnitude(558, .3, 114);
+	knee.show_val();
 }
 
 /*_______________________________________________________________________________
