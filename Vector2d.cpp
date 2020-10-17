@@ -21,7 +21,7 @@ Vector::Vector()
   validate_setMode();  
  
   countIncrease();
-  countShow();
+  //countShow();
 }
 
 Vector::Vector(char _mode)
@@ -37,7 +37,7 @@ Vector::Vector(char _mode)
   mode = _mode;
   validate_setMode();
   countIncrease();
-  countShow();
+  //countShow();
 }
 /*______________________________________________________________________________ 
   the third argument is the mode setting. 
@@ -49,7 +49,7 @@ Vector::Vector(double xMag, double yAng, char _mode)
 	mode = _mode;
 	set_coordinates(xMag, yAng, _mode);
     countIncrease();
-    countShow();
+   // countShow();
 }
 Vector::Vector(const Vector &v)
 {
@@ -58,7 +58,7 @@ Vector::Vector(const Vector &v)
     mode = v.mode;
     calculate_polar();
     countIncrease();
-    countShow();
+    //countShow();
 }
 void Vector::showAllData()const
 {   
@@ -581,6 +581,6 @@ Vector::~Vector()
 {
     delete _vptr2d;
     countDecrease();
-    countShow();
+    //countShow();
 }
 

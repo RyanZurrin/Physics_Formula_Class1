@@ -1,16 +1,18 @@
 #include "Physics.h"
 
 ld Physics::_val_ = 0.0;
-vector<ld> Physics::vector_values = { 0.0,0.0,0.0,0.0 };
 int Physics::physics_objectCount = 0;
  
-// default constructor
+/**
+ *default constructor
+ */
 Physics::Physics()
 {	
 	_ptr_ = nullptr;
 	drag = new Drag;
 	elasticity = new Elasticity;
 	friction = new Friction;
+	circularMotion = new Circular_Motion;
 	vector2d = new Vector;
 	vector3d = new Vector3D;
 	_mass_ = 0.0;
@@ -21,17 +23,20 @@ Physics::Physics()
 	_volume_ = 0.0;
 	_density_ = 0.0;
 	_force_ = 0.0;
+	_velocity_ = 0.0;
+	_acceleration_ = 0.0;
+	vector_values = { 0.0,0.0,0.0,0.0 };
 	countIncrease();
-	countShow();
+	//countShow();
 }
-
-// copy constructor
+/**
+ *copy constructor
+ */
 Physics::Physics(const Physics& p)
 {
-	_ptr_ = p._ptr_;
-	_val_ = p._val_;
-	vector_values = p.vector_values; 
-	_mass_ = p._mass_;	
+	_ptr_ = p._ptr_;	
+	vector_values = p.vector_values;
+	_mass_ = p._mass_;
 	_weight_ = p._weight_;
 	_length_ = p._length_;
 	_width_ = p._weight_;
@@ -39,23 +44,26 @@ Physics::Physics(const Physics& p)
 	_volume_ = p._volume_;
 	_density_ = p._density_;
 	_force_ = p._force_;
+	_velocity_ = p._velocity_;
+	_acceleration_ = p._acceleration_;	
 	_ptr_ = nullptr;
 	drag = p.drag;
 	elasticity = p.elasticity;
 	friction = p.friction;
 	vector2d = p.vector2d;
 	vector3d = p.vector3d;
+	circularMotion = p.circularMotion;
 	countIncrease();
-	countShow();
+	//countShow();
 }
-
-// copy assignment operator
+/**
+ *copy assignment operator
+ */
 Physics& Physics::operator=(const Physics& r)
 {
 	if(this != &r)
 	{
-		_ptr_ = r._ptr_;
-		_val_ = r._val_;
+		_ptr_ = r._ptr_;		
 		_weight_ = r._weight_;
 		_density_ = r._density_;
 		_height_ = r._height_;
@@ -63,9 +71,69 @@ Physics& Physics::operator=(const Physics& r)
 		_mass_ = r._mass_;
 		_width_ = r._width_;
 		_force_ = r._force_;
+		_velocity_ = r._velocity_;
+		_acceleration_ = r._acceleration_;
+		vector_values = r.vector_values;
 		countIncrease();
+		//countShow();
 	}
 	return *this;	
+}
+
+/**
+ * method: print()const
+ * arguments: none
+ * purpose:	print out the value stored in val
+ * returns: void
+ */
+void Physics::print(ld _val)const
+{
+	std::cout << "current calculation:  " << _val << std::endl;
+}
+
+/**
+ * method: printAll()const
+ * arguments: none
+ * purpose:	print out the value stored in val
+ * returns: void
+ */
+void Physics::printAll()const
+{
+	show_density();
+	show_height();
+	show_length();
+	show_mass();
+	show_volume();
+	show_width();
+	show_weight();
+	show_val();
+
+}
+
+
+/**
+ * @brief static member fuction to print values of objects vector variable
+ * @param obj is reference to a physics object  * 
+ */
+void Physics::show_vector_values(Physics &obj)
+{
+	for (auto it : obj.vector_values)
+	{
+		std::cout << it << ", ";
+	}
+	std::cout << std::endl;
+}
+
+/**
+ * @brief prints out the values stored in the objects vector
+ */
+void Physics::show_vector_values()
+{
+	for (auto it : this->vector_values)
+	{
+		std::cout << it << ", ";
+	}
+	std::cout << std::endl;
 }
 
 /**
@@ -124,7 +192,7 @@ std::vector<ld> Physics::final_projectile_velocity_vector(ld velocityY, ld veloc
 {
 	this->vector_values[0] = sqrt(velocityY * velocityY + velocityX * velocityX);
 	this->vector_values[1] = atan(velocityY / velocityX)*DEGREE;
-	this->print_vector_values();
+	this->show_vector_values();
 	return vector_values;
 }
 
@@ -171,7 +239,7 @@ std::vector<ld> Physics::basketball_angles(ld launchVelocity, ld releaseHeight, 
 	ld c = ((hoopHeight - releaseHeight) + a);
 	vector_values[0] = atan(-((b)+sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
 	vector_values[1] = atan(-((b)-sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
-	this->print_vector_values();
+	this->show_vector_values();
 	
 	return vector_values;
 }
@@ -185,50 +253,6 @@ Physics::~Physics()
 	delete drag;
 	delete _ptr_;
 	countDecrease();
-	countShow();
+	//countShow();
 }
 
-/**
- * method: print()const
- * arguments: none
- * purpose:	print out the value stored in val
- * returns: void
- */
-void Physics::print(ld _val)const
-{
-	std::cout << "current calculation:  " << _val << std::endl;
-}
-
-/**
- * method: printAll()const
- * arguments: none
- * purpose:	print out the value stored in val
- * returns: void
- */
-void Physics::printAll()const
-{
-	show_density();
-	show_height();
-	show_length();
-	show_mass();
-	show_volume();
-	show_width();
-	show_weight();
-	show_val();
-	
-}
-
-/**
- * method: print_vector_values()
- * arguments: none
- * purpose:	print the values contained within the vector variable;
- * returns: void
- */
-void Physics::print_vector_values()
-{
-	for (auto it : this->vector_values)
-	{
-		std::cout << it << ", ";
-	}
-	std::cout << std::endl;
-}

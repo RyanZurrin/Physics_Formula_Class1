@@ -103,7 +103,7 @@ public:
 		_force_ = 0.0;
 		_area_ = 0.0;
 		countIncrease();
-		countShow();
+		//countShow();
 	}
 
 	// copy constructor
@@ -115,13 +115,13 @@ public:
 		_force_ = e._force_;
 		_area_ = e._area_;
 		countIncrease();
-		countShow();
+		//countShow();
 	}
 
 	// copy assignment operator 
 	Elasticity& operator=(const Elasticity& r)
 	{
-		if(this != &r)
+		if (this != &r)
 		{
 			_ptrElastic = r._ptrElastic;
 			_area_ = r._area_;
@@ -129,11 +129,12 @@ public:
 			_strain_ = r._strain_;
 			_stress_ = r._stress_;
 			countIncrease();
-			countShow();
+			//countShow();
 		}
-		return  *this;	
+		return  *this;
 	}
 
+	
 	/**
 	 * method: cross_sectional(const ld radius)
 	 * arguments: radius
@@ -144,13 +145,15 @@ public:
 	{ return PI * (radius * radius); }
 
 	 /**
-	 * method: change_L(const ld appliedForce, const ld mod_Y, const ld crossSection, const ld originalLength)
-	 * arguments: 1)appliedForce 2)YoungsModulus 3)crossSection 4) originalLength
-	 * purpose:	calculates the deformation, or change in length
-	 * returns: ld, deformation
+	 * Returns the calculated deformation of an object which is used in hooks law equation
+	 * @param appliedForce the force in newtons
+	 * @param modulus <young's modulus, Shear modulus, Bulk modulus> values can be accessed by .moduli.
+	 * @param crossSectionalArea
+	 * @param original	 * 
+	 * @returns the deformation
 	 */
-	ld static deformations(const ld appliedForce, const ld modulus, const ld crossSectionalArea, const ld original)
-	{ return (1 / modulus) * (appliedForce / crossSectionalArea) * original; }
+	ld static deformations(const ld appliedForce, const ld modulus, const ld diameter, const ld original)
+	{ return (1 / modulus) * (appliedForce / (PI * (diameter * diameter)) * original); }
 
 	/**
 	* method: stress_usingY(const ld YoungsModulus, const ld strain)
@@ -158,8 +161,8 @@ public:
 	* purpose:	calculates the stress which is defined as the ratio of force to area
 	* returns: ld, stress
 	*/
-	ld static stress_usingY(const ld YoungsModulus, const ld strain)
-	{ return YoungsModulus * strain; }
+	ld static stress_usingY(const ld youngsModulus, const ld strain)
+	{ return youngsModulus * strain; }
 
 	/**
 	* method:  stress_usingF(const ld force, const ld area)
@@ -196,12 +199,49 @@ public:
 	*/
 	ld static deforming_force(const ld modulus, const ld crossSectionalArea, const ld originalLength, const ld amountDeformed)
 	{ return ((modulus) * (crossSectionalArea) / (originalLength)) * amountDeformed; }
+
+	/**
+	 * Returns the total displacement to the side of an object due to a sheering force.
+	 * @param length total length of the object
+	 * @param diameter
+	 * @param forceN in newtons
+	 * @param sheerModuli for the material being measured
+	 * @returns displacement of a material to side due to sheering force
+	 */
+	ld static displacement_side_sheer_force(const ld length, const ld diameter, const ld forceN, const ld sheerModuli)
+	{
+		return (1 / sheerModuli) * (4 / (PI * (diameter * diameter))) * forceN * length;
+	}
+	
+	/**
+	 * @brief Returns the amount of compression an object undergoes, such as weight on a steel beam
+	 * @param length is the length of the object
+	 * @param crossSectionalArea is the area as if it was sliced in half
+	 * @param youngsModulus is the modulus used in this equation
+	 * @param force is the amount of force being applied
+	 * @returns the compression amount in meters
+	 */
+	ld static compression(const ld length, const ld crossSectionalArea, const ld youngsModulus, const ld force)
+	{
+		return (force * length) / (youngsModulus * crossSectionalArea);
+	}
+
+	/**
+	 * @brief Returns the maximum force something will take before it fails
+	 * @param compressiveStrength is dependant on the material used
+	 * @param crosssSectionalArea is the area of a cross section of the object
+	 * @returns the max force before failure will occur 
+	 */
+	ld static max_support_force(const ld compressiveStrength, const ld crossSectionalArea)
+	{
+		return compressiveStrength * crossSectionalArea;
+	}
 	
 	~Elasticity()
 	{
 		delete _ptrElastic;
 		countDecrease();
-		countShow();
+		//countShow();
 	}
 };
 #endif

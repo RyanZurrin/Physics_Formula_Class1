@@ -1,4 +1,3 @@
-#pragma once
 // Drag class for extending the physics class 
 // author: Ryan Zurrin
 // last Modified: 10/10/2020
@@ -10,6 +9,7 @@
 #include "Vector2d.h"
 
 static int drag_objectCount = 0;
+
 
 class Drag 
 {
@@ -50,7 +50,7 @@ public:
 		_ptrDrag = nullptr;
 		_dragForce_ = 0.0;
 		countIncrease();
-		countShow();
+		//countShow();
 	}
 
 	//copy constructor
@@ -59,7 +59,7 @@ public:
 		_ptrDrag = r._ptrDrag;
 		_dragForce_ = r._dragForce_;
 		countIncrease();
-		countShow();
+		//countShow();
 	}
 
 	//copy assignment operator
@@ -76,18 +76,20 @@ public:
 	}
 
 	/**
-	 * method: return_drag_force()const 
-	 * arguments: none
-	 * purpose:	returns the value in the dragForce variable
-	 * returns: ld, displacement.
+	 * @brief Returns the value in the dragForce variable
+	 * @returns dragForce
 	 */
 	ld return_dragForce()const { return _dragForce_; }
 
 	/**
-	 * method:  terminal_velocity
-	 * arguments: 1)mass 2)drag coefficient 3)area face 4)density 5)acceleration
-	 * purpose:	returns the terminal velocity from drag force equation
-	 * returns: ld, terminal velocity.
+	 * @brief Returns the terminal velocity from drag force equation.
+	 * fx = sqrt((2 * (mass * acceleration))/(density * dragCoeff * areaFace))
+	 * @param mass of the object 
+	 * @param dragCoeff is the drag coefficient 
+	 * @param areaFace is the area the drag is working against
+	 * @param density 
+	 * @param acceleration
+	 * @returns the terminal velocity.
 	 */
 	ld static terminal_velocity(const ld mass,
 								const ld dragCoeff,
@@ -99,22 +101,43 @@ public:
 	}
 
 	/**
-	 * method:  drag_force(const ld dragCoeff, const ld areaFace, const ld density, const ld velocity)
-	 * arguments: 1)dragCoeff 2)areaFace 3) 4)density 5)velocity
-	 * purpose:	returns the drag force experienced by an object
-	 * returns: ld, drag force
+	 * @brief Returns the drag force experienced by an object.
+	 * fx =.5 * (dragCoeff * density * areaFace * pow(velocity, 2))
+	 * @param dragCoeff can be found with tables or by computation
+	 * @param areaFace is total area being effected by drag and resistance
+	 * @param density of the moving object
+	 * @param velocity is the speed with a direction
+	 * @returns: drag force
 	 */
 	ld static drag_force(const ld dragCoeff, const ld areaFace, const ld density, const ld velocity)
 	{ return .5 * (dragCoeff * density * areaFace * pow(velocity, 2)); }
 	
 	 /**
-	  * method:  stokes_law(const ld radius, const ld viscosity, const ld velocity)
-	  * arguments: 1)radius 2)viscosity 3)velocity
-	  * purpose:	returns the terminal velocity from drag force equation
-	  * returns: ld, force of sphere moving through a viscosious matter
+	  * @brief Returns the frictional force – also called drag force – exerted on spherical objects with very
+	  * small Reynolds numbers in a viscous fluid. fx = 6 * PI * radius * viscosity * velocity
+	  * @param radius
+	  * @param viscosity
+	  * @param velocity	
+	  * @returns force of sphere moving through a viscous matter
 	  */
 	 ld static stokes_law(const ld radius, const ld viscosity, const ld velocity)
 	 { return 6 * PI * radius * viscosity * velocity; }
+
+	/**
+	 * @brief Returns the viscosity of a fluid by using the time it takes an objects with
+	 * know density and diameter.
+	 * fx = (2 * density * time * (radius * radius) * _G_) / (9 * distance)
+	 * @param density of object being measured
+	 * @param diameter of the object
+	 * @param distance the object is falling through the fluid
+	 * @param time it takes in seconds for the objects to reach bottom
+	 * @returns the viscosity of a fluid
+	 */
+	 ld static viscosity(const ld density, const ld diameter, const ld distance, const ld time)
+	{
+		 const ld radius = diameter / 2;
+		 return (2 * density * time * (radius * radius) * _G_) / (9 * distance);
+	}
 
 
 	/**
@@ -124,7 +147,7 @@ public:
 	{
 		delete _ptrDrag;
 		countDecrease();
-		countShow();
+		//countShow();
 	}
 
 };

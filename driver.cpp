@@ -12,11 +12,11 @@
 int main()
 
 {
-	Physics knee;
-
-	knee._val_ = knee.friction->acceleration_magnitude(558, .3, 114);
-	knee.show_val();
-}
+	Physics car;
+	Physics::_val_ = car.circularMotion->ideal_speed_banked_curve(100, 65);
+	Physics::show_val();
+	
+}	
 
 /*_______________________________________________________________________________
 	Testing functions

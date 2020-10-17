@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Circular_Motion.h" />
     <ClInclude Include="Drag.h" />
     <ClInclude Include="Elasticity.h" />
     <ClInclude Include="Friction.h" />

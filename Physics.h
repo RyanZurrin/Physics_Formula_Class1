@@ -1,7 +1,10 @@
 #pragma once
-// class for doing physics problems
-// author: Ryan Zurrin
-// last Modified: 10/10/2020
+/**
+ * @class Physics
+ * @details driver class for solving complex physics problems
+ * @author Ryan Zurrin
+ * @date   10/15/2020
+ */
 #ifndef PHYSICS_H
 #define PHYSICS_H
 
@@ -11,6 +14,7 @@
 #include "Friction.h"
 #include "Drag.h"
 #include "Elasticity.h"
+#include "Circular_Motion.h"
 #include "Vector3D.h"
 
 
@@ -34,41 +38,42 @@ private:
 	static void countDecrease() { physics_objectCount -= 1; }
 	
 public:
-	static void countShow() { cout << "physics count: " << physics_objectCount << endl; }
-	
-	ld _mass_;	
-	void show_mass()const { cout << "mass: " << _mass_ << endl; }
-	
+	// variables contained in each object
+	ld _mass_;
 	ld _weight_;
-	void show_weight()const { cout << "weight: " << _weight_ << endl; }
-	
 	ld _length_;
-	void show_length()const { cout << "length: " << _length_ << endl; }
-	
 	ld _width_;
-	void show_width()const { cout << "width: " << _width_ << endl; }
-	
 	ld _height_;
-	void show_height()const { cout << "height: " << _height_ << endl; }
-	
 	ld _volume_;
-	void show_volume()const { cout << "volume: " << _volume_ << endl; }
-	
 	ld _density_;
-	void show_density()const { cout << "density: " << _density_ << endl; }
-
 	ld _force_;
-	void show_force()const { cout << "force: " << _force_ << endl; }
-	
-	
-	static ld _val_;
-	static void show_val(){ cout << "val: " << _val_ << endl; }
-	
-	static std::vector<ld> vector_values;
+	ld _velocity_;
+	ld _acceleration_;
 
+	// methods for showing what is contained in the variable without changing it
+	static void countShow() { cout << "physics count: " << physics_objectCount << endl; }
+	void show_mass()const { cout << "mass: " << _mass_ << endl; }		
+	void show_weight()const { cout << "weight: " << _weight_ << endl; }	
+	void show_length()const { cout << "length: " << _length_ << endl; }		
+	void show_width()const { cout << "width: " << _width_ << endl; }		
+	void show_height()const { cout << "height: " << _height_ << endl; }		
+	void show_volume()const { cout << "volume: " << _volume_ << endl; }		
+	void show_density()const { cout << "density: " << _density_ << endl; }	
+	void show_force()const { cout << "force: " << _force_ << endl; }
+	void show_velocity()const { cout << "velocity: " << _velocity_ << endl; }
+	void show_acceleration()const { cout << "acceleration: " << _acceleration_ << endl; }
+	
+	static ld _val_;	
+	static void show_val() { cout << "val: " << _val_ << endl; }
+	
+	std::vector<ld> vector_values;
+	static void show_vector_values(Physics &p);
+	void show_vector_values();
+	
 	Friction * friction;
 	Drag * drag;
 	Elasticity * elasticity;
+	Circular_Motion* circularMotion;
 	Vector * vector2d;
 	Vector3D * vector3d;
 	Physics* _ptr_;
@@ -79,38 +84,78 @@ public:
 	
 	void print(ld val = _val_) const;
 	void printAll()const;
-	void print_vector_values();
+	
 	static ld return_val() { return _val_; }
-	static vector<ld> return_vector() { return vector_values; }
+	static vector<ld> return_vector(Physics &v) { return v.vector_values; }
 	//============================================================================
 	// conversion methods
 
 	/**
-	 * method:  mps_to_kmh(ld mps)
-	 * arguments: meters per second
-	 * purpose:	returns the kilometers per hour value
-	 * returns: ld, kmh
+	 * @brief Returns the conversion from meters per second to kilometers per hour
+	 * @param mps is meters per second
+	 * @returns kilometers per hour
 	 */
 	ld static mps_to_kmh(const ld mps)
-	{ return mps * 3.6;	}//meters per second to kilometers per hour conversion
+	{ return mps * 3.6;	}
+
+
+	/**
+	 * @brief Returns the conversion from kilometers per hour to meters per second
+	 * @param kmh is kilometers per hour
+	 * @returns meters per second
+	 */
+	ld static kmh_to_mps(const ld kmh)
+	{
+		return kmh / 3.6;
+	}
+
+	/**
+	 * @brief Returns the conversion from miles per hour to meters per second
+	 * @param mph is miles per hour
+	 * @returns meters per second
+	 */
+	ld static mph_to_mps(const ld mph)
+	{
+		return mph / 2.237;
+	}
+
+	/**
+	 * @brief Returns the conversion from meters per second to miles per hour
+	 * @param mps is meters per second
+	 * @returns miles per hour
+	 */
+	ld static mps_to_mph(const ld mps)
+	{
+		return mps * 2.237;
+	}
+
+	/**
+	 * @brief Returns the conversion from hours to seconds
+	 * @param hours to be converted to seconds
+	 * @returns seconds that are in the hours argument
+	 */
+	ld static hours_to_seconds(const ld hours)
+	{
+		return hours * 3600;
+	}
 	
 	//============================================================================
 	//chapter 2 formulas	
 	
 	/**
-	 * method: displacement(ld length_1, ld length_2)
-	 * arguments: length_1 = starting position, length_2 = ending position
-	 * purpose:	find the displacement between two positions
-	 * returns: ld, displacement.
+	 * @brief Returns the displacement between two positions
+	 * @param startPos starting position
+	 * @param endPos ending position
+	 * @returns displacement.
 	 */
-	ld static displacement(const ld length_1,const ld length_2)
-	{ return length_2 - length_1; }
+	ld static displacement(const ld startPos,const ld endPos)
+	{ return endPos - startPos; }
 	
 	/**
-	 * method: Physics::displacement_VxT(ld velocity, ld time)
-	 * arguments: velocity = avg velocity m/s, time = in s
-	 * purpose:	find the displacement from knowing the velocity and time.
-	 * returns: ld, displacement.
+	 * @brief Returns the displacement from knowing the velocity and time.
+	 * @param velocity in m/s
+	 * @param time in seconds
+	 * @returns displacement.
 	 */
 	ld static displacement_VxT(const ld velocity, const ld time)
 	{ return velocity * time; }
@@ -342,7 +387,7 @@ public:
 		this->vector_values[2] = obj._val_;
 
 		this->vector_values[3] = a;
-		this->print_vector_values();
+		//this->show_vector_values();
 		
 		return obj.vector_values;
 	}
@@ -455,8 +500,24 @@ public:
 	ld static normal_force(const ld mass, const ld acceleration = GA)
 	{ return mass * acceleration; }
 
+	/**
+	 * method: normal_force_angle(const ld mass, const ld angleTheta)
+	 * arguments: 1)mass 2)acceleration
+	 * purpose: calculates the normal force on an angle
+	 * returns: ld, normal force
+	 */
 	ld static normal_force_angle(const ld mass, const ld angleTheta)
 	{ return mass* -GA * cos(angleTheta*RADIAN); }
+
+	/**
+	 * method: acceleration_slope_simpleFriction(const ld angleTheta, const ld kineticCoefficient)
+	 * arguments: 1)angleTheta 2)kineticCoefficient
+	 * purpose: calculates the normal force on an angle
+	 * returns: ld, normal force
+	 */
+	ld static acceleration_slope_simpleFriction(const ld angleTheta, const ld kineticCoefficient)
+	{ return GA * (sin(angleTheta * RADIAN ) - (kineticCoefficient * cos(angleTheta * RADIAN))); }
+	
 	
 	// destructor
 	~Physics();

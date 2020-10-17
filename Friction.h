@@ -6,7 +6,12 @@
 #ifndef FRICTION_H
 #define FRICTION_H
 
+
 typedef long double ld;
+static const ld _G_ = 9.8;
+const double _PI_ = acos(-1);
+const double _DEGREE_ = 180 / _PI_;
+const double _RADIAN_ = _PI_ / 180;
 static int friction_objectCount = 0;
 
 class Friction 
@@ -59,7 +64,7 @@ public:
 	{
 		_ptrFriction = nullptr;
 		countIncrease();
-		countShow();
+		//countShow();
 	}
 
 	// copy constructor
@@ -67,25 +72,25 @@ public:
 	{
 		_ptrFriction = f._ptrFriction;
 		countIncrease();
-		countShow();
+		//countShow();
 	}
 
 	/**
-	 * method: friction_force(const ld mass, const ld acceleration, const ld friction)
-	 * arguments: 1)mass 2)acceleration 3)friction
-	 * purpose:calculates the force of friction, which is the same as the force
-	 * returns: ld, friction
+	 * Returns the calculated force of friction, which is the same as the force
+	 * @param mass
+	 * @param coefficient of friction
+	 * @returns frictional force
 	 */
-	ld static friction_force(const ld mass, const ld acceleration, const ld coefficient)
+	ld static friction_force(const ld mass,  const ld coefficient)
 	{
-		return coefficient * mass * acceleration;
+		return coefficient * mass * _G_;
 	}
 
 	/**
-	 * method: friction_coefficient(const ld normalForce, const ld weight, const ld frictionForce)
-	 * arguments: 1)normal force 2)weight 3)friction force
-	 * purpose: calculates the frictional coefficient
-	 * returns: ld, frictional coefficient
+	 * Returns the friction coefficient using the Normal Force and the Friction Force as known data
+	 * @param normalForce is the amount of normal force found by multiplying mass(kg) * 9.8 (m/s^2)
+	 * @param frictionForce is the amount of force the friction is pushing back against something.
+	 * @returns the frictional coefficient of objects in question
 	 */
 	ld static friction_coefficient(const ld normalForce, const ld frictionForce)
 	{
@@ -93,21 +98,143 @@ public:
 	}
 
 	/**
-	 * method: acceleration_magnitude(const ld frictionForce, const ld kineticCoefficient, const ld mass)
-	 * arguments: 1)frictionForce 2)kineticCoefficient 3)mass
-	 * purpose: calculates the frictional coefficient
-	 * returns: ld, frictional coefficient
+	 * Returns the acceleration of an object taking into account its mass and the frictional coefficient
+	 * of the materials.
+	 * @param mass in kg
+	 * @param frictionCoefficient of the materials
+	 * @returns magnitude of the acceleration of an object
 	 */
-	ld static acceleration_magnitude(const ld frictionForce, const ld kineticCoefficient, const ld mass)
-	{ return ((frictionForce - (kineticCoefficient * mass * 9.8)) / (mass));	}
+	ld static acceleration_magnitude(const ld mass, const ld frictionCoefficient)
+	{
+		const ld normalForce = mass * _G_;
+		const ld frictionForce = normalForce * frictionCoefficient;	 
+		return frictionForce / mass;
+	}
+
+	/**
+	 * Returns the initial velocity when giving the amount of time it takes something
+	 * to come to a stop
+	 * @param mass of object in kg
+	 * @param frictionCoefficient for the materials in consideration
+	 * @param time in seconds it took to come to a stop
+	 * @returns initial velocity 
+	 */
+	ld static initial_velocity(const ld mass, const ld frictionCoefficient, const ld time)
+	{
+		const ld normalForce = mass * _G_;
+		const ld frictionForce = normalForce * frictionCoefficient;
+		const ld acceleration = frictionForce / mass;
+		return acceleration * time; 
+	}
+
+	/**
+	 * method: acceleration_slope_friction(const ld angleTheta, const ld kineticCoefficient)
+	 * arguments: 1)angleTheta 2)kineticCoefficient
+	 * purpose: calculates the normal force on an angle
+	 * returns: ld, normal force
+	 */
+	ld static acceleration_down_slope_friction(const ld angleTheta, const ld kineticCoefficient)
+	{
+		return _G_ * (sin(angleTheta * _RADIAN_) - (kineticCoefficient * cos(angleTheta * _RADIAN_)));
+	}
+
+	/**
+	 * method: acceleration_up_slope_friction(const ld angleTheta, const ld frictionalCoefficient)
+	 * arguments: 1)angleTheta 2)frictionalCoefficient
+	 * purpose: calculates the acceleration of an object going up a slope, like a 4 wheel drive car
+	 * returns: ld, acceleration
+	 */
+	ld static acceleration_up_slope_friction(const ld angleTheta, const ld frictionalCoefficient)
+	{
+		return _G_ * ((frictionalCoefficient*cos(angleTheta * _RADIAN_) - sin(angleTheta*_RADIAN_)));
+	}
 	
+	/**
+	 * method: car2wheel_acceleration_up_slope_friction(const ld angleTheta, const ld kineticCoefficient)
+	 * arguments: 1)angleTheta 2)kineticCoefficient
+	 * purpose: calculates the normal force on an angle
+	 * returns: ld, normal force
+	 */
+	ld static car2wheel_acceleration_up_slope_friction(const ld angleTheta, const ld kineticCoefficient)
+	{
+		return _G_ * ((kineticCoefficient*cos(angleTheta*_RADIAN_)/2)-(sin(angleTheta * _RADIAN_)));
+	}
+
+	/**
+	 * method: tension_rope_rockClimber(const ld angleRope, const ld angleLegs,  const ld mass)
+	 * arguments: 1)angleRope 2)angleLegs 3)mass
+	 * purpose: calculates the tension on a rope from a hanging rock climber or similar situation
+	 * returns: ld, tension force
+	 */
+	ld static tension_rope_rockClimber(const ld angleRope, const ld angleLegs,  const ld mass)
+	{	
+		return (mass * _G_) / (cos(angleRope*_RADIAN_) + sin(angleRope*_RADIAN_) * tan(angleLegs*_RADIAN_));
+	}
+
+	/**
+	 * method:  tension_legs_rockClimber(const ld angleRope, const ld angleLegs, const ld mass)
+	 * arguments: 1)angleRope 2)angleLegs 3)mass
+	 * purpose: calculates the tension on a rope from a hanging rock climber or similar situation
+	 * returns: ld, tension force on legs
+	 */
+	ld static tension_legs_rockClimber(const ld angleRope, const ld angleLegs, const ld mass)
+	{
+		return (tension_rope_rockClimber(angleRope, angleLegs, mass)*sin(angleRope*_RADIAN_)/cos(angleLegs*_RADIAN_));
+	}
+
+	/**
+	 * method:  minimum_force_start_move_push(const ld mass, const ld pushAngle, const ld frictionCoefficient)
+	 * arguments: 1)mass 2)pushAngle 3)frictionCoefficient
+	 * purpose: calculates the minimum force it takes to start moving an object pushing at a downward angle
+	 * returns: ld, minimum force to start moving block
+	 */
+	ld static minimum_force_start_move_downPush(const ld mass, const ld pushAngle, const ld staticCoefficient)
+	{
+		return (staticCoefficient * mass*_G_) / (cos(pushAngle*_RADIAN_)- staticCoefficient * sin(pushAngle*_RADIAN_));
+	}
+
+	/**
+	 * method:  magnitude_acceleration_moving_object_downPush(const ld mass, const ld pushAngle, const ld frictionCoefficient)
+	 * arguments: 1)mass 2)pushAngle 3)frictionCoefficient
+	 * purpose: calculates the acceleration of the object once it starts moving if force is maintained
+	 * returns: ld, acceleration
+	 */
+	ld static magnitude_acceleration_moving_object_downPush(const ld mass, const ld pushAngle, const ld kineticCoefficient, const ld staticCoefficient)
+	{
+		return ((minimum_force_start_move_downPush(mass, pushAngle, staticCoefficient) * cos(pushAngle*_RADIAN_) - kineticCoefficient *sin(pushAngle*_RADIAN_))-(kineticCoefficient)*mass*_G_)/(mass);
+	}
+
+	/**
+	 * method:   minimum_force_start_move_upPull(const ld mass, const ld pullAngle, const ld staticCoefficient)
+	 * arguments: 1)mass 2)pushAngle 3)frictionCoefficient
+	 * purpose: calculates the minimum force it takes to start moving an object pulling on it upward by a rope
+	 * returns: ld, minimum force to start moving block fro pulling up
+	 */
+	ld static minimum_force_start_move_upPull(const ld mass, const ld pullAngle, const ld staticCoefficient)
+	{
+		return (staticCoefficient*mass*_G_)/(cos(pullAngle*_RADIAN_) + staticCoefficient*sin(pullAngle*_RADIAN_));
+	}
+
+	/**
+	 * method:  magnitude_acceleration_moving_object_pullingUp(const ld mass, const ld pullAngle, const ld kineticCoefficient)
+	 * arguments: 1)mass 2)pushAngle 3)frictionCoefficient
+	 * purpose: calculates the minimum force it takes to start moving an object pulling on it upward by a rope
+	 * returns: ld, minimum force to start moving block fro pulling up
+	 */
+	ld static magnitude_acceleration_moving_object_pullingUp(const ld mass, const ld pullAngle, const ld kineticCoefficient, const ld maintainingForce)
+	{
+		ld a, b;
+		a = maintainingForce * cos(pullAngle * _RADIAN_);
+		b = kineticCoefficient * ((mass * _G_) - maintainingForce * sin(pullAngle * _RADIAN_));
+		return  (a-b)/(mass);
+	}
 	
 	// destructor
 	~Friction()
 	{
 		delete _ptrFriction;
 		countDecrease();
-		countShow();
+		//countShow();
 	}	
 	
 };
