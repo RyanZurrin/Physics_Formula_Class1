@@ -7,10 +7,18 @@
 #include <cmath>
 //constant for the degrees in one radian 
 const ld _RAD_ = 360 / (2 * _PI_);
+//Gravitational Constant 6.67408(31) * 10^(-11) * N 
+const ld _Gc_ = 6.674 * pow(10, -11);
+
+static int circularMotion_opbjectCount = 0;
+ld static _masses_[] = { 0.0, 0.0 };
 
 class Circular_Motion
 {
 private:
+	static void countIncrease() { circularMotion_opbjectCount += 1; }
+	static void countDecrease() { circularMotion_opbjectCount -= 1; }
+	
 	// pointer for the class object to use 
 	Circular_Motion* _circlePtr;
 
@@ -29,9 +37,12 @@ private:
 	// centripetal acceleration variable of object
 	ld _centripetalAcceleration_;
 
+	// array to hold the value of two masses
+	
+
 public:
 
-
+	static void countShow() { std::cout << "circular motion count: " << circularMotion_opbjectCount << std::endl; }
 	// constructor
 	Circular_Motion()
 	{
@@ -41,6 +52,7 @@ public:
 		_angularVelocity_ = 0.0;
 		_arcLength_ = 0.0;
 		_centripetalAcceleration_ = 0.0;
+		countIncrease();
 	}
 	Circular_Motion(ld radius, ld velocity)
 	{
@@ -50,19 +62,36 @@ public:
 		_rotationAngle_ = 0.0;		
 		_arcLength_ = 0.0;
 		_centripetalAcceleration_ = (velocity * velocity)/(radius);
+		countIncrease();
 	}
 	/*===================================================================
 	 * conversion methods
 	 */
+
+	ld static conversion_revolutions(const ld radTotal)
+	{
+		cout << "revolutions: " << radTotal / (2 * PI) << endl;
+		return radTotal / (2 * PI);
+	}
 
 	/**
 	 * @brief Returns the revolutions in radians per second which is the angular velocity as well
 	 * @param revMin revolutions per minute
 	 * @returns revolutions in radians per second
 	 */
-	ld static revolutions_min_to_radians_second(const ld revMin)
+	ld static conversion_revolutions_min_to_radians_second(const ld revMin)
 	{
 		return (revMin * 2 * PI) / 60;
+	}
+
+	/**
+	 * @brief Returns the conversion from revolutions per radian second to revolutions per minute
+	 * @param radSec is the rotation speed in radians per second
+	 * @returns the revolutions per minute
+	 */
+	ld static conversion_radians_second_to_revolutions_minute(const ld radSec)
+	{
+		return (radSec * 60) / (2 * PI);
 	}
 
 	/**
@@ -70,7 +99,7 @@ public:
 	 *  @param unit can be whatever you are dividing by gravity acceleration
 	 *  @returns the gravity ratio
 	 */
-	ld static gravity_ratio(const ld unit)
+	ld static conversion_gravity_ratio(const ld unit)
 	{
 		return unit / _G_;
 	}
@@ -78,6 +107,27 @@ public:
 	/*====================================================================
 	 * static methods
 	 */
+
+	/**
+	 * @brief Returns the arc length when the radius and rotations are known
+	 * @param radius is half the diameter
+	 * @param rotations are the number of rotations counted
+	 * @returns the arc length - linear distance traveled 
+	 */
+	ld static arc_length_meters(const ld radius, const ld rotations)
+	{
+		return (rotations * 2 * PI) * radius;
+	}
+
+	/**
+	 * @brief Returns the arc length in radians when the total rotations are known
+	 * @param rotations are the number of rotations counted
+	 * @returns the arc length - in radians
+	 */
+	ld static arc_length_radians(const ld rotations)
+	{
+		return (rotations * 2 * PI);
+	}
 
 	/**
 	 * @brief Returns the angular velocity(w) given the radius and speed 
@@ -99,7 +149,7 @@ public:
  */
 	ld static angular_velocity_t(const ld angleChange, const ld time)
 	{
-		return (angleChange/_RAD_) / time;
+		return (angleChange ) / time;
 	}
 
 	/**
@@ -158,9 +208,24 @@ public:
 	{
 		return (v * v) / (r * _G_);
 	}
-
+	
 	/**
-	 * @brief Returns the ideal speed to take going around a banked curve
+	 * @brief Returns the minimum static coefficient needed to safely take a turn with an specified
+	 * embankment angle at a specified speed with a radius of r.
+	 * fx = ((r * _G_) * tan(angle * RADIAN) - (speed * speed)) / ((r * _G_) + (speed * speed) * tan(15*RADIAN))
+	 * @param r is the radius to the center of the turn
+	 * @param angle is the angle of the embankment
+	 * @param speed is in m/s meters per second
+	 * @returns the minimum static coefficient needed
+	 */
+	ld static coefficient_static_minimum_for_embanked_turn(const ld r, const ld angle, const ld speed)
+	{
+		return ((r * _G_) * tan(angle * RADIAN) - (speed * speed)) / ((r * _G_) + (speed * speed) * tan(15*RADIAN));
+	}
+	
+	/**
+	 * @brief Returns the ideal speed to take going around a banked curve,
+	 * fx = pow(r * _G_ * tan(angle * RADIAN), .5)
 	 * @param r is the radius of the curve
 	 * @param angle of the embankment
 	 * @returns the ideal velocity to take the corner
@@ -170,9 +235,77 @@ public:
 		return pow(r * _G_ * tan(angle * RADIAN), .5);
 	}
 
+	/**
+	 * @brief Returns the ideal angle of an embankment for a given radius and velocity(speed m/s),
+	 * fx = atan((v * v) / (r * _G_))*DEGREE
+	 * @param r is the radius to the center of the curve
+	 * @param v is the velocity or speed in m/s
+	 * @returns the ideal angle in degrees 
+	 */
+	ld static ideal_angle_banked_curve(const ld r, const ld v)
+	{
+		return atan((v * v) / (r * _G_))*DEGREE;
+	}
 	
+	/**
+	 * @brief Returns the magnitude of the gravitational acceleration of two objects,
+	 * use 1 as a value as one of the m arguments if you want to calculate the gravitational
+	 * acceleration of one mass and use the radius to the center of the singe object.
+	 * fx = _Gc_ * (m * M) / (r * r), where _Gc_ is the gravitational constant
+	 * @param m mass 1
+	 * @param M mass 2
+	 * @param r is the distance from the center of one mass to the center of the other mass
+	 * @returns magnitude of acceleration between two masses
+	 */
+	ld static newtons_universal_law_gravitation(const ld m, const ld M, const ld r)
+	{
+		return _Gc_ * (m * M) / (r * r);
+	}
 
+	/**
+	 * @brief Returns the masses of two objects from knowing the radius and the magnitude of force between them
+	 * @param force is the magnitude of the force between the two 
+	 * @param r is the distance from the center of one mass to the center of the other mass
+	 * @param totalMass is the total mass of both objects combined
+	 * @returns a vector with 
+	 */
+	void static newtons_universal_law_gravitation2(const ld force, const ld r, const ld totalMass)
+	{
+		ld temp = (force * (r*r)) / (_Gc_);
+		_masses_[0] = (totalMass + sqrt((totalMass * totalMass) - 4 * temp)) / (2);
+		_masses_[1] = (totalMass - sqrt((totalMass * totalMass) - 4 * temp)) / (2);
+		show_mass_array();
+	}
+	/**
+ * @brief Prints the masses from the mass array 
+ * @param obj is reference to a array holding twwo masses
+ */
+	void static show_mass_array()
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			std::cout<< "mass" << i+1 << ": " << _masses_[i] << endl;
+		}		
+	}	
+
+	/**
+	 * @warning Not working needs to get worked on
+	 * @brief Returns the time it takes a satellite to orbit the earth when the distance from the earth is known
+	 * @param r2 is the radius from the center of the earth to the satellite. Earth core to crust is 6380 km
+	 * @param r1 is the radius to a first body and we use the moon as the default because the values are known
+	 * @param t1 is the time it takes the first body to orbit the earth, moon is default
+	 * @returns the time is hours to orbit the earth
+	 */
+	ld static orbit_time_earth_satellite()
+	{
+		return 1.0;
+	}
+
+		
+	~Circular_Motion() {
+		delete _circlePtr;
+		countDecrease();
+	};
 	
-	~Circular_Motion() = default;
 };
 #endif

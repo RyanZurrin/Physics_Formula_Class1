@@ -20,24 +20,27 @@
 
 typedef long double ld;
 //using namespace std;
-
-//gravitational acceleration force 9.80 m/s^2 average.
-const ld GA = 9.80;
+	//gravitational acceleration force 9.80 m/s^2 average.
+const ld _ga_ = 9.80;
 
 //Gravitational Constant 6.67408(31) * 10^(-11) * N 
+const ld _GC_ = 6.674 * pow(10, -11);
 
 // speed of light in a vacuum is 299792458 m/s
-const ld C = 2.99792458*pow(10, 8);
+const ld _c_ = 2.99792458 * pow(10, 8);
+
 
 class Physics
 {
 	
 private:
+	
 	static int physics_objectCount;
 	static void countIncrease() { physics_objectCount += 1; }
 	static void countDecrease() { physics_objectCount -= 1; }
 	
 public:
+
 	// variables contained in each object
 	ld _mass_;
 	ld _weight_;
@@ -69,6 +72,19 @@ public:
 	std::vector<ld> vector_values;
 	static void show_vector_values(Physics &p);
 	void show_vector_values();
+
+	/**
+	 * @brief Template method to print out an array that is passed to it
+	 * @param array of values
+ 	 */	
+	template <typename T, size_t size>
+	void static print_array(const T(&array)[size])
+	{
+		for (size_t i = 0; i < size; i++)
+			cout << array[i] << " ";
+
+		cout << endl;
+	}
 	
 	Friction * friction;
 	Drag * drag;
@@ -95,49 +111,125 @@ public:
 	 * @param mps is meters per second
 	 * @returns kilometers per hour
 	 */
-	ld static mps_to_kmh(const ld mps)
+	ld static conversion_mps_to_kmh(const ld mps)
 	{ return mps * 3.6;	}
-
-
 	/**
 	 * @brief Returns the conversion from kilometers per hour to meters per second
 	 * @param kmh is kilometers per hour
 	 * @returns meters per second
 	 */
-	ld static kmh_to_mps(const ld kmh)
+	ld static conversion_kmh_to_mps(const ld kmh)
 	{
 		return kmh / 3.6;
 	}
-
 	/**
 	 * @brief Returns the conversion from miles per hour to meters per second
 	 * @param mph is miles per hour
 	 * @returns meters per second
 	 */
-	ld static mph_to_mps(const ld mph)
+	ld static conversion_mph_to_mps(const ld mph)
 	{
 		return mph / 2.237;
 	}
-
 	/**
 	 * @brief Returns the conversion from meters per second to miles per hour
 	 * @param mps is meters per second
 	 * @returns miles per hour
 	 */
-	ld static mps_to_mph(const ld mps)
+	ld static conversion_mps_to_mph(const ld mps)
 	{
 		return mps * 2.237;
 	}
-
 	/**
-	 * @brief Returns the conversion from hours to seconds
-	 * @param hours to be converted to seconds
-	 * @returns seconds that are in the hours argument
+	 * @brief Returns the conversion from milliseconds to seconds
+	 * @param ms to be converted to seconds
+	 * @returns seconds from milliseconds
 	 */
-	ld static hours_to_seconds(const ld hours)
+	ld static conversion_millisecond_to_seconds(const ld ms)
+	{
+		return ms / 1000;
+	}
+	ld static conversion_minutes_to_seconds(const ld min)
+	{
+		return min * 60;
+	}
+	ld static conversion_hours_to_seconds(const ld hours)
 	{
 		return hours * 3600;
 	}
+	/**
+	 * @brief Returns the conversion from days to seconds for use in calculation
+	 * @param days can be expressed as a decimal, four and a half days would be 4.5
+	 * @returns total seconds converted from days
+	 */
+	ld static conversion_days_to_seconds(const ld days)
+	{
+		return days * 86400;
+	}
+	/**
+	 * @brief Returns the conversion from miles to meters
+	 * @param miles
+	 * @returns meters from miles
+	 */
+	ld static conversion_miles_to_meters(const ld miles)
+	{
+		return miles * 1609;
+	}
+	/**
+	 * @brief Returns the conversion from feet to meters
+	 * @param feet
+	 * @returns meters
+	 */
+	ld static conversion_feet_to_meters(const ld feet)
+	{
+		return feet / 3.281;
+	}
+	/**
+	 * @brief Returns the conversion from inches to meters
+	 * @param inches
+	 * @returns meters
+	 */
+	ld static conversion_inches_to_meters(const ld inches)
+	{
+		return inches / 39.37;
+	}
+	ld static conversion_centimeters_to_meters(const ld cm)
+	{
+		return cm / 100;
+	}
+	ld static conversion_kilometers_to_meters(const ld km)
+	{
+		return km * 1000;
+	}
+	ld static conversion_millimeters_to_meters(const ld mm)
+	{
+		return mm / 1000;
+	}
+	ld static conversion_micrometers_to_meters(const ld Mm)
+	{
+		return Mm / pow(1, -6);
+	}
+	ld static conversion_nanometers_to_meters(const ld nm)
+	{
+		return nm / pow(1, -9);
+	}
+	ld static conversion_pound_to_kilogram(const ld lbs)
+	{
+		return lbs / 2.205;
+	}
+	ld static conversion_milligram_to_kilogram(const ld mg)
+	{
+		return mg / pow(1, -6);
+	}
+	ld static conversion_gram_to_kilogram(const ld g)
+	{
+		return g / 1000;
+	}
+	ld static conversion_ounce_to_kilogram(const ld ounce)
+	{
+		return ounce / 35.274;
+	}
+	
 	
 	//============================================================================
 	//chapter 2 formulas	
@@ -345,13 +437,12 @@ public:
 	{ return (2 * PI * radius) / time; }
 
 	/**
-	 * method: multiple_of_gravity(ld value)
-	 * arguments: value = the value you want to find the multiples of gravity of
-	 * purpose:	finds the times gravity acceleration can be divided out of the value
-	 * returns: ld, multiple of gravity
+	 * @brief Returns the conversion of given value divided by the acceleration of gravity on earth, 9.80 m/s^2
+	 * @param value the value to find the multiples of gravity of
+	 * returns: g's
 	 */
-	ld static multiple_of_gravity(const ld value)
-	{ return value / GA; }
+	ld static conversion_multiple_of_gravity(const ld value)
+	{ return value / _ga_; }
 
 	/**
 	 * method: time_using_quadratic(ld a, ld b, ld c)
@@ -402,7 +493,7 @@ public:
 	* returns: ld, range of a projectile
 	*/
 	ld static projectile_range_level_ground(const ld velocity, const ld angleTheta)
-	{ return  ((velocity * velocity) * sin(2 * angleTheta) / (GA));	}
+	{ return  ((velocity * velocity) * sin(2 * angleTheta) / (_ga_));	}
 
 	// (2* launchVelocity*sin(angleTheta))/(-GA);
 	ld time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)const;
@@ -425,7 +516,7 @@ public:
 	ld velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle)const;
 	
 	// targetDistance * sqrt((abs(acceleration)/((2 * (targetDistance * (tan(angle)*DEGREE) - targetHeight)))))
-	ld horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration = GA)const;
+	ld horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration = _ga_)const;
 
 	// xVelocity * tan(angle*RADIAN)
 	ld vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angle)const;
@@ -453,7 +544,7 @@ public:
 	 * returns: ld weight
 	 */
 	ld static weight(const ld mass) 
-	{ return mass * GA; }
+	{ return mass * _ga_; }
 	
 	/**
 	 * method: newtons_second_law_for_force(ld mass, ld acceleration) 
@@ -497,7 +588,7 @@ public:
 	 * purpose: calculates the normal force, weight
 	 * returns: ld, normal force
 	 */
-	ld static normal_force(const ld mass, const ld acceleration = GA)
+	ld static normal_force(const ld mass, const ld acceleration = _ga_)
 	{ return mass * acceleration; }
 
 	/**
@@ -507,7 +598,7 @@ public:
 	 * returns: ld, normal force
 	 */
 	ld static normal_force_angle(const ld mass, const ld angleTheta)
-	{ return mass* -GA * cos(angleTheta*RADIAN); }
+	{ return mass* -_ga_ * cos(angleTheta*RADIAN); }
 
 	/**
 	 * method: acceleration_slope_simpleFriction(const ld angleTheta, const ld kineticCoefficient)
@@ -516,7 +607,7 @@ public:
 	 * returns: ld, normal force
 	 */
 	ld static acceleration_slope_simpleFriction(const ld angleTheta, const ld kineticCoefficient)
-	{ return GA * (sin(angleTheta * RADIAN ) - (kineticCoefficient * cos(angleTheta * RADIAN))); }
+	{ return _ga_ * (sin(angleTheta * RADIAN ) - (kineticCoefficient * cos(angleTheta * RADIAN))); }
 	
 	
 	// destructor

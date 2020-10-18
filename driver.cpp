@@ -12,10 +12,15 @@
 int main()
 
 {
-	Physics car;
-	Physics::_val_ = car.circularMotion->ideal_speed_banked_curve(100, 65);
-	Physics::show_val();
-	
+	float arrayT[] = { 1.5, 2.2, 4.89, 78.008, 5.5, 45.001, 2, 543, 23 };
+	int arr[] = { 1, 2, 3, 4, 5 };
+	string sent[] = { "This","is","a","string","array"};
+	//Physics sun;
+	//sun.circularMotion->newtons_universal_law_gravitation2(8.7*pow(10, -9), Physics::conversion_centimeters_to_meters(18.5), 5.4);
+	//sun.show_val();
+	Physics::print_array(arrayT);
+	Physics::print_array(arr);
+	Physics::print_array(sent);
 }	
 
 /*_______________________________________________________________________________
@@ -200,8 +205,12 @@ int main()
 		soccarKick.print();
 	
 
-	//
-
+	// chapter 6 problem # 30
+		Physics car;
+		car._val_ = Physics::conversion_mps_to_kmh(car.circularMotion->ideal_speed_banked_curve(110, 17));
+		car.show_val();//part a
+		car._val_ = car.circularMotion->coefficient_static_minimum_for_embanked_turn(110, 17, Physics::conversion_kmh_to_mps(30.0));
+		car.show_val();//part b
 	//
 
 	//

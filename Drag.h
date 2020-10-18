@@ -136,7 +136,7 @@ public:
 	 ld static viscosity(const ld density, const ld diameter, const ld distance, const ld time)
 	{
 		 const ld radius = diameter / 2;
-		 return (2 * density * time * (radius * radius) * _G_) / (9 * distance);
+		 return (2 * density * time * (radius * radius) * _G_) / (9 * distance);		
 	}
 
 

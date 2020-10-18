@@ -145,7 +145,7 @@ void Physics::show_vector_values()
  */
 ld Physics::time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)const
 {
-	return (2* launchVelocity*sin(angleTheta))/(GA);
+	return (2* launchVelocity*sin(angleTheta))/(_ga_);
 }
 
 /**
@@ -156,7 +156,7 @@ ld Physics::time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)
  */
 ld Physics::air_time_initial_velocity0_y0(ld displacement)const
 {
-	return sqrt((-2*(displacement))/-GA);
+	return sqrt((-2*(displacement))/_ga_);
 }
 
 /**
@@ -167,7 +167,7 @@ ld Physics::air_time_initial_velocity0_y0(ld displacement)const
  */
 ld Physics::velocity_initial_horizontal_component(ld y0, ld displacement) const
 {
-	return sqrt((-GA/(-2 * y0)))* displacement;
+	return sqrt((-_ga_/(-2 * y0)))* displacement;
 }
 
 /**
@@ -178,7 +178,7 @@ ld Physics::velocity_initial_horizontal_component(ld y0, ld displacement) const
  */
 ld Physics::velocity_vertical_component(ld y0, ld yf)const
 {
-	return -sqrt(2 * (-GA) * (yf - y0));
+	return -sqrt(2 * (-_ga_) * (yf - y0));
 }
 
 
@@ -234,7 +234,7 @@ ld Physics::vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angle) co
 std::vector<ld> Physics::basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)
 {
 	const ld hoopHeight = 3.05; //meters
-	ld a = (((-GA) * (hoopDistance * hoopDistance)) / (2 * (launchVelocity * launchVelocity)));
+	ld a = (((-_ga_) * (hoopDistance * hoopDistance)) / (2 * (launchVelocity * launchVelocity)));
 	ld b = -hoopDistance;
 	ld c = ((hoopHeight - releaseHeight) + a);
 	vector_values[0] = atan(-((b)+sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
