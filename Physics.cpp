@@ -9,12 +9,15 @@ int Physics::physics_objectCount = 0;
 Physics::Physics()
 {	
 	_ptr_ = nullptr;
+	//physics_common = new PhysicsCommon;
+	//world = physics_common->createPhysicsWorld();
 	drag = new Drag;
 	elasticity = new Elasticity;
 	friction = new Friction;
 	circularMotion = new Circular_Motion;
 	vector2d = new Vector;
 	vector3d = new Vector3D;
+	energy = new Energy;
 	_mass_ = 0.0;
 	_weight_ = 0.0;
 	_length_ = 0.0;
@@ -23,8 +26,13 @@ Physics::Physics()
 	_volume_ = 0.0;
 	_density_ = 0.0;
 	_force_ = 0.0;
-	_velocity_ = 0.0;
-	_acceleration_ = 0.0;
+	_distance_ = 0.0;
+	_positionStart_ = 0.0;
+	_positionEnd_ = 0.0;
+	_velocityStart_ = 0.0;
+	_velocityEnd_ = 0.0;
+	_accelerationStart_ = 0.0;
+	_accelerationEnd_ = 0.0;
 	vector_values = { 0.0,0.0,0.0,0.0 };
 	countIncrease();
 	//countShow();
@@ -44,8 +52,13 @@ Physics::Physics(const Physics& p)
 	_volume_ = p._volume_;
 	_density_ = p._density_;
 	_force_ = p._force_;
-	_velocity_ = p._velocity_;
-	_acceleration_ = p._acceleration_;	
+	_distance_ = p._distance_;
+	_positionStart_ = p._positionStart_;
+	_positionEnd_ = p._positionEnd_;
+	_velocityStart_ = p._velocityStart_;
+	_velocityEnd_ = p._velocityEnd_;
+	_accelerationStart_ = p._accelerationStart_;
+	_accelerationEnd_ = p._accelerationEnd_;
 	_ptr_ = nullptr;
 	drag = p.drag;
 	elasticity = p.elasticity;
@@ -53,6 +66,7 @@ Physics::Physics(const Physics& p)
 	vector2d = p.vector2d;
 	vector3d = p.vector3d;
 	circularMotion = p.circularMotion;
+	energy = p.energy;
 	countIncrease();
 	//countShow();
 }
@@ -71,25 +85,28 @@ Physics& Physics::operator=(const Physics& r)
 		_mass_ = r._mass_;
 		_width_ = r._width_;
 		_force_ = r._force_;
-		_velocity_ = r._velocity_;
-		_acceleration_ = r._acceleration_;
+		_distance_ = r._distance_;
+		_positionStart_ = r._positionStart_;
+		_positionEnd_ = r._positionEnd_;
+		_velocityStart_ = r._velocityStart_;
+		_velocityEnd_ = r._velocityEnd_;
+		_accelerationStart_ = r._accelerationStart_;
+		_accelerationEnd_ = r._accelerationEnd_;
 		vector_values = r.vector_values;
+		drag = r.drag;
+		elasticity = r.elasticity;
+		friction = r.friction;
+		vector2d = r.vector2d;
+		vector3d = r.vector3d;
+		circularMotion = r.circularMotion;
+		energy = r.energy;
+		
 		countIncrease();
 		//countShow();
 	}
 	return *this;	
 }
 
-/**
- * method: print()const
- * arguments: none
- * purpose:	print out the value stored in val
- * returns: void
- */
-void Physics::print(ld _val)const
-{
-	std::cout << "current calculation:  " << _val << std::endl;
-}
 
 /**
  * method: printAll()const
@@ -107,7 +124,15 @@ void Physics::printAll()const
 	show_width();
 	show_weight();
 	show_val();
-
+	show_force();
+	show_distance();
+	show_positionStart();
+	show_positionEnd();
+	show_velocityStart();
+	show_velocityEnd();
+	show_accelerationStart();
+	show_accelerationEnd();	
+	
 }
 
 

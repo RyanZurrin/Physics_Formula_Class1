@@ -346,7 +346,7 @@ void Vector::calculate_polar()
 void Vector::calculate_arcLength()
 {
   adjust_angle();
-  arcLength = (PI * (magnitude*2)) *
+  arcLength = (_PI_ * (magnitude*2)) *
         (angle / 360.0);
 }
 Vector Vector::check_division(double d)

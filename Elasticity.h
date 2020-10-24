@@ -142,7 +142,7 @@ public:
 	 * returns: ld, cross sectional 
 	 */
 	ld static cross_sectional_area(const ld radius)
-	{ return PI * (radius * radius); }
+	{ return _PI_ * (radius * radius); }
 
 	 /**
 	 * Returns the calculated deformation of an object which is used in hooks law equation
@@ -153,7 +153,7 @@ public:
 	 * @returns the deformation
 	 */
 	ld static deformations(const ld appliedForce, const ld modulus, const ld diameter, const ld original)
-	{ return (1 / modulus) * (appliedForce / (PI * (diameter * diameter)) * original); }
+	{ return (1 / modulus) * (appliedForce / (_PI_ * (diameter * diameter)) * original); }
 
 	/**
 	* method: stress_usingY(const ld YoungsModulus, const ld strain)
@@ -210,7 +210,7 @@ public:
 	 */
 	ld static displacement_side_sheer_force(const ld length, const ld diameter, const ld forceN, const ld sheerModuli)
 	{
-		return (1 / sheerModuli) * (4 / (PI * (diameter * diameter))) * forceN * length;
+		return (1 / sheerModuli) * (4 / (_PI_ * (diameter * diameter))) * forceN * length;
 	}
 	
 	/**

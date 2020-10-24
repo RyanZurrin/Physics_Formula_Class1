@@ -9,9 +9,9 @@
 
 typedef long double ld;
 static const ld _G_ = 9.8;
-const double _PI_ = acos(-1);
-const double _DEGREE_ = 180 / _PI_;
-const double _RADIAN_ = _PI_ / 180;
+const double _PI = acos(-1);
+const double _DEGREE_ = 180 / _PI;
+const double _RADIAN_ = _PI / 180;
 static int friction_objectCount = 0;
 
 class Friction 

@@ -16,8 +16,11 @@
 #include "Elasticity.h"
 #include "Circular_Motion.h"
 #include "Vector3D.h"
+#include "Energy.h"
 
 
+//#include <include/reactphysics3d/reactphysics3d.h>
+//using namespace rp3d;
 typedef long double ld;
 //using namespace std;
 	//gravitational acceleration force 9.80 m/s^2 average.
@@ -30,7 +33,7 @@ const ld _GC_ = 6.674 * pow(10, -11);
 const ld _c_ = 2.99792458 * pow(10, 8);
 
 
-class Physics
+class Physics 
 {
 	
 private:
@@ -40,31 +43,42 @@ private:
 	static void countDecrease() { physics_objectCount -= 1; }
 	
 public:
-
 	// variables contained in each object
-	ld _mass_;
-	ld _weight_;
-	ld _length_;
-	ld _width_;
-	ld _height_;
-	ld _volume_;
-	ld _density_;
-	ld _force_;
-	ld _velocity_;
-	ld _acceleration_;
+	ld _mass_ = 0.0;
+	ld _weight_ = 0.0;
+	ld _length_ = 0.0;	
+	ld _width_ = 0.0;
+	ld _height_ = 0.0;
+	ld _volume_ = 0.0;
+	ld _density_ = 0.0;
+	ld _force_ = 0.0;
+	ld _distance_ = 0.0;
+	ld _positionStart_ = 0.0;
+	ld _positionEnd_ = 0.0;	
+	ld _velocityStart_ = 0.0;
+	ld _velocityEnd_ = 0.0;
+	ld _accelerationStart_ = 0.0;
+	ld _accelerationEnd_ = 0.0;
+
 
 	// methods for showing what is contained in the variable without changing it
 	static void countShow() { cout << "physics count: " << physics_objectCount << endl; }
 	void show_mass()const { cout << "mass: " << _mass_ << endl; }		
-	void show_weight()const { cout << "weight: " << _weight_ << endl; }	
-	void show_length()const { cout << "length: " << _length_ << endl; }		
-	void show_width()const { cout << "width: " << _width_ << endl; }		
-	void show_height()const { cout << "height: " << _height_ << endl; }		
-	void show_volume()const { cout << "volume: " << _volume_ << endl; }		
-	void show_density()const { cout << "density: " << _density_ << endl; }	
+	void show_weight()const { cout << "weight: " << _weight_ << endl; }
+	void show_length()const { cout << "length: " << _length_ << endl; }
+	void show_width()const { cout << "width: " << _width_ << endl; }
+	void show_height()const { cout << "height: " << _height_ << endl; }
+	void show_volume()const { cout << "volume: " << _volume_ << endl; }
+	void show_density()const { cout << "density: " << _density_ << endl; }
 	void show_force()const { cout << "force: " << _force_ << endl; }
-	void show_velocity()const { cout << "velocity: " << _velocity_ << endl; }
-	void show_acceleration()const { cout << "acceleration: " << _acceleration_ << endl; }
+	void show_distance()const { cout << " distance: " << _distance_ << endl; }
+	void show_positionStart()const { cout << "start position: " << _positionStart_ << endl; }
+	void show_positionEnd()const { cout << "end position: " << _positionEnd_ << endl; }
+	void show_velocityStart()const { cout << "start velocity: " << _velocityStart_ << endl; }
+	void show_velocityEnd()const { cout << "end velocity: " << _velocityEnd_ << endl; }
+	void show_accelerationStart()const { cout << "start acceleration: " << _accelerationStart_ << endl; }
+	void show_accelerationEnd()const { cout << "end acceleration: " << _accelerationEnd_ << endl; }
+
 	
 	static ld _val_;	
 	static void show_val() { cout << "val: " << _val_ << endl; }
@@ -85,18 +99,45 @@ public:
 
 		cout << endl;
 	}
-	
+
+	//PhysicsCommon  physics_common;
+	//PhysicsWorld* world;
 	Friction * friction;
 	Drag * drag;
 	Elasticity * elasticity;
 	Circular_Motion* circularMotion;
 	Vector * vector2d;
 	Vector3D * vector3d;
+	Energy* energy;
 	Physics* _ptr_;
 		
 	Physics();
 	Physics(const Physics&); //copy constructor
 	Physics& operator=(const Physics&); //copy assignment operator
+	Physics(Physics&& o) noexcept :
+		_mass_(o._mass_),
+		_weight_(o._weight_),
+		_length_(o._length_),
+		_width_(o._width_),
+		_height_(o._height_),
+		_volume_(o._volume_),
+		_density_(o._density_),
+		_force_(o._force_),
+		_distance_(o._distance_),
+		_positionStart_(o._positionStart_),
+		_positionEnd_(o._positionEnd_),
+		_velocityStart_(o._velocityStart_),
+		_velocityEnd_(o._velocityEnd_),
+		_accelerationStart_(o._accelerationStart_),
+		_accelerationEnd_(o._accelerationEnd_),
+		friction(o.friction),
+		drag(o.drag),
+		elasticity(o.elasticity),
+		circularMotion(o.circularMotion),
+		vector2d(o.vector2d),
+		vector3d(o.vector3d),
+		energy(o.energy),
+		_ptr_(o._ptr_){} // move constructor
 	
 	void print(ld val = _val_) const;
 	void printAll()const;
@@ -425,7 +466,7 @@ public:
 	 * returns: average speed of spinning object
 	 */
 	ld static rotation_speed_2PIxRdT(const ld radius, const ld rotations, const ld time)
-	{ return (2 * PI * radius) / (time / rotations); }
+	{ return (2 * _PI_ * radius) / (time / rotations); }
 
 	/**
 	 * method: rotation_avgVelocity_2PIxRdT_in_1_rotation(ld radius, ld time)
@@ -434,7 +475,7 @@ public:
 	 * returns: ld, average velocity
 	 */
 	ld static rotation_avgVelocity_2PIxRdT_in_1_rotation(const ld radius, const ld time)
-	{ return (2 * PI * radius) / time; }
+	{ return (2 * _PI_ * radius) / time; }
 
 	/**
 	 * @brief Returns the conversion of given value divided by the acceleration of gravity on earth, 9.80 m/s^2

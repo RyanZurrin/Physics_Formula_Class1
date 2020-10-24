@@ -10,14 +10,14 @@ const ld _RAD_ = 360 / (2 * _PI_);
 //Gravitational Constant 6.67408(31) * 10^(-11) * N 
 const ld _Gc_ = 6.674 * pow(10, -11);
 
-static int circularMotion_opbjectCount = 0;
+static int circularMotion_objectCount = 0;
 ld static _masses_[] = { 0.0, 0.0 };
 
 class Circular_Motion
 {
 private:
-	static void countIncrease() { circularMotion_opbjectCount += 1; }
-	static void countDecrease() { circularMotion_opbjectCount -= 1; }
+	static void countIncrease() { circularMotion_objectCount += 1; }
+	static void countDecrease() { circularMotion_objectCount -= 1; }
 	
 	// pointer for the class object to use 
 	Circular_Motion* _circlePtr;
@@ -42,8 +42,8 @@ private:
 
 public:
 
-	static void countShow() { std::cout << "circular motion count: " << circularMotion_opbjectCount << std::endl; }
-	// constructor
+	static void countShow() { std::cout << "circular motion count: " << circularMotion_objectCount << std::endl; }
+	// suppresses default constructor
 	Circular_Motion()
 	{
 		_circlePtr = nullptr;
@@ -54,6 +54,7 @@ public:
 		_centripetalAcceleration_ = 0.0;
 		countIncrease();
 	}
+	// assignment constructor
 	Circular_Motion(ld radius, ld velocity)
 	{
 		_circlePtr = nullptr;
@@ -64,14 +65,42 @@ public:
 		_centripetalAcceleration_ = (velocity * velocity)/(radius);
 		countIncrease();
 	}
+	//copy constructor
+	Circular_Motion(const Circular_Motion& r)
+	{
+		_circlePtr = r._circlePtr;
+		_angularVelocity_ = r._angularVelocity_;
+		_centripetalAcceleration_ = r._centripetalAcceleration_;		
+		_arcLength_ = r._arcLength_;
+		_radius_ = r._radius_;
+		_rotationAngle_ = r._rotationAngle_;
+		countIncrease();
+		//countShow();
+	}
+	//copy assignment operator
+	Circular_Motion& operator=(const Circular_Motion& r)
+	{
+		if (this != &r)
+		{
+			_circlePtr = r._circlePtr;			
+			_centripetalAcceleration_ = r._centripetalAcceleration_;
+			_angularVelocity_ = r._angularVelocity_;
+			_arcLength_ = r._arcLength_;
+			_radius_ = r._radius_;
+			_rotationAngle_ = r._rotationAngle_;
+			countIncrease();
+			
+		}
+		return *this;
+	}
 	/*===================================================================
 	 * conversion methods
 	 */
 
 	ld static conversion_revolutions(const ld radTotal)
 	{
-		cout << "revolutions: " << radTotal / (2 * PI) << endl;
-		return radTotal / (2 * PI);
+		cout << "revolutions: " << radTotal / (2 * _PI_) << endl;
+		return radTotal / (2 * _PI_);
 	}
 
 	/**
@@ -81,7 +110,7 @@ public:
 	 */
 	ld static conversion_revolutions_min_to_radians_second(const ld revMin)
 	{
-		return (revMin * 2 * PI) / 60;
+		return (revMin * 2 * _PI_) / 60;
 	}
 
 	/**
@@ -91,7 +120,7 @@ public:
 	 */
 	ld static conversion_radians_second_to_revolutions_minute(const ld radSec)
 	{
-		return (radSec * 60) / (2 * PI);
+		return (radSec * 60) / (2 * _PI_);
 	}
 
 	/**
@@ -116,7 +145,7 @@ public:
 	 */
 	ld static arc_length_meters(const ld radius, const ld rotations)
 	{
-		return (rotations * 2 * PI) * radius;
+		return (rotations * 2 * _PI_) * radius;
 	}
 
 	/**
@@ -126,12 +155,12 @@ public:
 	 */
 	ld static arc_length_radians(const ld rotations)
 	{
-		return (rotations * 2 * PI);
+		return (rotations * 2 * _PI_);
 	}
 
 	/**
 	 * @brief Returns the angular velocity(w) given the radius and speed 
-	 * @param radius from the center of the spin to the outer edge
+	 * @param radius from the center of the s_PI_n to the outer edge
 	 * @param v is velocity of the object
 	 * @returns angular velocity 
 	 */
@@ -141,12 +170,12 @@ public:
 	}
 
 	/**
- * @brief Returns the angular velocity(w) given the radius and speed
- * @param angleChange in total degrees the angle rotated in the given time.
- * 360 degrees in one full rotation and is 2PI radians
- * @param time is time is seconds
- * @returns angular velocity
- */
+	 * @brief Returns the angular velocity(w) given the radius and speed
+	 * @param angleChange in total degrees the angle rotated in the given time.
+	 * 360 degrees in one full rotation and is 2_PI_ radians
+	 * @param time is time is seconds
+	 * @returns angular velocity
+	 */
 	ld static angular_velocity_t(const ld angleChange, const ld time)
 	{
 		return (angleChange ) / time;
@@ -263,30 +292,32 @@ public:
 	}
 
 	/**
-	 * @brief Returns the masses of two objects from knowing the radius and the magnitude of force between them
+	 * @brief Prints the masses of two objects from knowing the radius and the magnitude of force between them
+	 * as well as the combined weights of the two.
 	 * @param force is the magnitude of the force between the two 
 	 * @param r is the distance from the center of one mass to the center of the other mass
 	 * @param totalMass is the total mass of both objects combined
-	 * @returns a vector with 
 	 */
 	void static newtons_universal_law_gravitation2(const ld force, const ld r, const ld totalMass)
 	{
 		ld temp = (force * (r*r)) / (_Gc_);
 		_masses_[0] = (totalMass + sqrt((totalMass * totalMass) - 4 * temp)) / (2);
 		_masses_[1] = (totalMass - sqrt((totalMass * totalMass) - 4 * temp)) / (2);
-		show_mass_array();
+		show_array(_masses_);
+		
 	}
 	/**
- * @brief Prints the masses from the mass array 
- * @param obj is reference to a array holding twwo masses
- */
-	void static show_mass_array()
+	 * @brief Prints the masses from the mass array 
+	 * @param obj is reference to a array holding twwo masses
+	 */
+	template <typename T, size_t size>
+	void static show_array(const T(&array)[size])
 	{
-		for (int i = 0; i < 2; i++)
-		{
-			std::cout<< "mass" << i+1 << ": " << _masses_[i] << endl;
-		}		
-	}	
+		for (size_t i = 0; i < size; i++)
+			cout << array[i] << " ";
+
+		cout << endl;
+	}
 
 	/**
 	 * @warning Not working needs to get worked on

@@ -44,7 +44,7 @@ public:
 		const ld bird = .4; // returns .4
 		
 	}coefficient;
-	//default constructor
+	//suppresses the default constructor
 	Drag()
 	{
 		_ptrDrag = nullptr;
@@ -121,7 +121,7 @@ public:
 	  * @returns force of sphere moving through a viscous matter
 	  */
 	 ld static stokes_law(const ld radius, const ld viscosity, const ld velocity)
-	 { return 6 * PI * radius * viscosity * velocity; }
+	 { return 6 * _PI_ * radius * viscosity * velocity; }
 
 	/**
 	 * @brief Returns the viscosity of a fluid by using the time it takes an objects with

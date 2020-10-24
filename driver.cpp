@@ -9,18 +9,16 @@
 #include "Physics.h"
 
 
+
 int main()
 
 {
-	float arrayT[] = { 1.5, 2.2, 4.89, 78.008, 5.5, 45.001, 2, 543, 23 };
-	int arr[] = { 1, 2, 3, 4, 5 };
-	string sent[] = { "This","is","a","string","array"};
-	//Physics sun;
-	//sun.circularMotion->newtons_universal_law_gravitation2(8.7*pow(10, -9), Physics::conversion_centimeters_to_meters(18.5), 5.4);
-	//sun.show_val();
-	Physics::print_array(arrayT);
-	Physics::print_array(arr);
-	Physics::print_array(sent);
+	Physics car;
+	car._val_ =  car.circularMotion->ideal_angle_banked_curve(835, 35.8);
+	car.show_val();
+	
+	
+	return 0;
 }	
 
 /*_______________________________________________________________________________

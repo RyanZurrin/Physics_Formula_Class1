@@ -17,9 +17,9 @@
 using namespace std;
 
 
-const double PI = acos(-1);
-const double DEGREE = 180/PI;
-const double RADIAN = PI/180; 
+const double _PI_ = acos(-1);
+const double DEGREE = 180/_PI_;
+const double RADIAN = _PI_/180; 
 static int object_counter = 0;
 
 
