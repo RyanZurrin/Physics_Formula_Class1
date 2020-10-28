@@ -1,0 +1,10 @@
+166640	push ebp
+166641	mov ebp, esp
+166643	call 0x118b6
+166648	call 0x28b10
+166653	pop ebp
+166654	ret 
+166672	push ebp
+166673	mov ebp, esp
+166675	push 0xfffffffe
+166677	push 0x434a20

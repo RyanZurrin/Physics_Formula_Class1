@@ -24,6 +24,7 @@
     <ClInclude Include="Elasticity.h" />
     <ClInclude Include="Energy.h" />
     <ClInclude Include="Friction.h" />
+    <ClInclude Include="Momentum.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Vector3D.h" />

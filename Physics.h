@@ -17,9 +17,11 @@
 #include "Circular_Motion.h"
 #include "Vector3D.h"
 #include "Energy.h"
+#include "Momentum.h"
 
 
-//#include <include/reactphysics3d/reactphysics3d.h>
+
+
 //using namespace rp3d;
 typedef long double ld;
 //using namespace std;
@@ -105,11 +107,12 @@ public:
 	Friction * friction;
 	Drag * drag;
 	Elasticity * elasticity;
-	Circular_Motion* circularMotion;
+	Circular_Motion * circularMotion;
 	Vector * vector2d;
 	Vector3D * vector3d;
-	Energy* energy;
-	Physics* _ptr_;
+	Energy * energy;
+	Momentum * momentum;
+	Physics * _ptr_;
 		
 	Physics();
 	Physics(const Physics&); //copy constructor
@@ -137,9 +140,10 @@ public:
 		vector2d(o.vector2d),
 		vector3d(o.vector3d),
 		energy(o.energy),
+		momentum(o.momentum),
 		_ptr_(o._ptr_){} // move constructor
 	
-	void print(ld val = _val_) const;
+	
 	void printAll()const;
 	
 	static ld return_val() { return _val_; }
@@ -263,7 +267,7 @@ public:
 		return mg / pow(1, -6);
 	}
 	ld static conversion_gram_to_kilogram(const ld g)
-	{
+	{		
 		return g / 1000;
 	}
 	ld static conversion_ounce_to_kilogram(const ld ounce)

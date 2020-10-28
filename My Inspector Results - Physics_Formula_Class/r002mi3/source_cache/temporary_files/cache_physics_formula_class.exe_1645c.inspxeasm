@@ -1,0 +1,45 @@
+91136	?show_force@Physics@@QBEXXZ:
+91136	push ebp
+91137	mov ebp, esp
+91139	sub esp, 0xcc
+91145	push ebx
+91146	push esi
+91147	push edi
+91148	push ecx
+91149	lea edi, ptr [ebp-0xcc]
+91155	mov ecx, 0x33
+91160	mov eax, 0xcccccccc
+91165	rep stosd dword ptr [edi]
+91167	pop ecx
+91168	mov dword ptr [ebp-0x8], ecx
+91171	mov ecx, 0x438032
+91176	call 0x116c7
+91181	mov esi, esp
+91183	push 0x41174e
+91188	mov edi, esp
+91190	mov eax, dword ptr [ebp-0x8]
+91193	sub esp, 0x8
+91196	movsd xmm0, qword ptr [eax+0x38]
+91201	movsd qword ptr [esp], xmm0
+91206	push 0x430dac
+91211	mov ecx, dword ptr [0x436098]
+91217	push ecx
+91218	call 0x1158c
+91223	add esp, 0x8
+91226	mov ecx, eax
+91228	call dword ptr [0x4360e0]
+91234	cmp edi, esp
+91236	call 0x116e5
+91241	mov ecx, eax
+91243	call dword ptr [0x4360e4]
+91249	cmp esi, esp
+91251	call 0x116e5
+91256	pop edi
+91257	pop esi
+91258	pop ebx
+91259	add esp, 0xcc
+91265	cmp ebp, esp
+91267	call 0x116e5
+91272	mov esp, ebp
+91274	pop ebp
+91275	ret 

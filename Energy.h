@@ -100,10 +100,7 @@ public:
 		const ld typical_incandescent_light_buld_total_useful_and_heat_transfer = 60;
 		const ld heart_person_at_rest_total_useful_and_heat_transfer = 8;
 		const ld electric_clock = 3;
-		const ld pocket_calculator = pow(10, -3);
-		
-		
-		
+		const ld pocket_calculator = pow(10, -3);	
 		
 	}watts;
 	
@@ -148,6 +145,29 @@ public:
 	ld static work2(const ld mass, const ld vf, const ld h, const ld g = 9.8)
 	{
 		return (.5 * mass * (vf * vf) + (mass * g * h));
+	}
+	/**
+	 * @brief Returns the work going up stairs with constant acceleration
+	 * @param mass in kg
+	 * @param height in m
+	 * @returns total work
+	 */
+	ld static work3(const ld mass, const ld height)
+	{
+		return mass * _G_ * height;
+	}
+	/**
+	 * @brief Returns the work down by friction lowering something down a slope
+	 * @param coefficient is of friction
+	 * @param mass in kg
+	 * @param theta1
+	 * @param distance
+	 * @param theta2 is defaulted to 180 degrees if you set your coordinate system perpendicular to the motion
+	 * @returns the work done by friction
+	 */
+	ld static work_friction_down_slope(const ld coefficient, const ld mass, const ld theta1, const ld distance, const ld theta2 = 180)
+	{
+		return coefficient * mass * _G_ * cos(theta1 * RADIAN) * distance * cos(theta2);
 	}
 	/**
 	 * @brief Returns the kinetic energy of an object
@@ -198,9 +218,18 @@ public:
 	 * @param mass is in kg
 	 * @param height is the displacement in the y value
 	 */
-	ld static gravitational_potential_energy_change(const ld mass, const ld height)
+	ld static potential_energy_gravity_PEg(const ld mass, const ld height)
 	{
 		return mass * _G_ * height;
+	}
+	/**
+	 * @brief Returns the potential energy of a conservative source, such as a spring
+	 * @param forceConstant
+	 * @param deformation is the amount of change in the system
+	 */
+	ld static potential_energy_conservative_PEc(const ld forceConstant, const ld deformation)
+	{
+		return .5 * (forceConstant * (deformation * deformation));
 	}
 	/**
 	 * @brief Returns the force on impact
@@ -239,15 +268,6 @@ public:
 	ld static conservation_equation_for_velocityFinal_top(const ld k, const ld m, const ld x, const ld y)
 	{
 		return sqrt((k / m) * (x * x) - (2 * _G_ * y));
-	}
-	/**
-	 * @brief Returns the potential energy of a spring
-	 * @param forceConstant 
-	 * @param deformation is the amount of change in the system
-	 */
-	ld static potential_energy_PE(const ld forceConstant, const ld deformation)
-	{
-		return .5 * (forceConstant * (deformation * deformation));
 	}
 	/**
 	 * @brief Returns the distance traveled sliding on level surface
@@ -292,8 +312,30 @@ public:
 	{
 		return work / time;
 	}
-	
+	/**
+	 * @brief calculates the force needed to bring a car to rest given its mass, its speed and the distance
+	 * it took to stop. This can be used to calculate the force from crashes and similar scenarios
+	 * @param mass in gk
+	 * @param velocity in m/s
+	 * @param distance in m
+	 * @returns the force exerted to make stop
+	 */
+	ld static force_needed_to_bring_car_to_rest(const ld mass, const ld velocity, const ld distance)
+	{
+		return (.5 * mass * (velocity * velocity)) / (distance);
+	}
+	/**
+	 * @brief calculates the weight of a system from the loss in PE over a distance
+	 * @param jouleLoss is the total loss in PE(potential energy)
+	 * @param distance is the total distance that caused the energy loss
+	 * @returns the weight of a system
+	 */
+	ld static weight_from_joule_loss_over_distance(const ld jouleLoss, const ld distance)
+	{
+		return jouleLoss / distance;
+	}
 
+	//ld static force
 
 
 	

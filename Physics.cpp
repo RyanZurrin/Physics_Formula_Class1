@@ -18,6 +18,7 @@ Physics::Physics()
 	vector2d = new Vector;
 	vector3d = new Vector3D;
 	energy = new Energy;
+	momentum = new Momentum;
 	_mass_ = 0.0;
 	_weight_ = 0.0;
 	_length_ = 0.0;
@@ -66,6 +67,7 @@ Physics::Physics(const Physics& p)
 	vector2d = p.vector2d;
 	vector3d = p.vector3d;
 	circularMotion = p.circularMotion;
+	momentum = p.momentum;
 	energy = p.energy;
 	countIncrease();
 	//countShow();
@@ -100,6 +102,7 @@ Physics& Physics::operator=(const Physics& r)
 		vector3d = r.vector3d;
 		circularMotion = r.circularMotion;
 		energy = r.energy;
+		momentum = r.momentum;
 		
 		countIncrease();
 		//countShow();
@@ -276,6 +279,9 @@ Physics::~Physics()
 	delete vector2d;
 	delete vector3d;
 	delete drag;
+	delete circularMotion;
+	delete energy;
+	delete momentum;
 	delete _ptr_;
 	countDecrease();
 	//countShow();

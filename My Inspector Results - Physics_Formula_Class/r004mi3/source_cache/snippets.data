@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippets>
+  <file name="D:\c++_physics_functions\Physics_Formula_Class\Physics.h" md5="7b54bc7a5ba5efbf81b6d24dfcaecab5">
+    <snippet line="74">
+      <line line="71">    void show_volume()const { cout &lt;&lt; "volume: " &lt;&lt; _volume_ &lt;&lt; endl; }</line>
+      <line line="72">    void show_density()const { cout &lt;&lt; "density: " &lt;&lt; _density_ &lt;&lt; endl; }</line>
+      <line line="73">    void show_force()const { cout &lt;&lt; "force: " &lt;&lt; _force_ &lt;&lt; endl; }</line>
+      <line line="74">    void show_distance()const { cout &lt;&lt; " distance: " &lt;&lt; _distance_ &lt;&lt; endl; }</line>
+      <line line="75">    void show_positionStart()const { cout &lt;&lt; "start position: " &lt;&lt; _positionStart_ &lt;&lt; endl; }</line>
+    </snippet>
+    <snippet line="85">
+      <line line="82">    </line>
+      <line line="83">    static ld _val_;    </line>
+      <line line="84">    static void show_val() { cout &lt;&lt; "val: " &lt;&lt; _val_ &lt;&lt; endl; }</line>
+      <line line="85">    </line>
+      <line line="86">    std::vector&lt;ld&gt; vector_values;</line>
+    </snippet>
+  </file>
+  <file name="D:\c++_physics_functions\Physics_Formula_Class\Vector2d.cpp" md5="ac9cde3f5de595925dda97fbff9f73f8">
+    <snippet line="89">
+      <line line="86">{   </line>
+      <line line="87"> </line>
+      <line line="88">  showRectCord();</line>
+      <line line="89">  showPolarCord();</line>
+      <line line="90">  showRevolutionAngle();</line>
+    </snippet>
+    <snippet line="118">
+      <line line="115">   }</line>
+      <line line="116">     else{  </line>
+      <line line="117">     cout &lt;&lt; "(" &lt;&lt; x &lt;&lt; ",";               </line>
+      <line line="118">   }</line>
+      <line line="119">   if(y&lt;0 &amp;&amp; y&gt;-1){</line>
+    </snippet>
+    <snippet line="126">
+      <line line="123">     }</line>
+      <line line="124">     else{</line>
+      <line line="125">         cout &lt;&lt; y &lt;&lt; ")";</line>
+      <line line="126">     }</line>
+      <line line="127">}</line>
+    </snippet>
+    <snippet line="133">
+      <line line="130">    cout &lt;&lt; setprecision(5) &lt;&lt; fixed;</line>
+      <line line="131">     if(magnitude &gt;= 0 &amp;&amp; angle &gt;= 0){</line>
+      <line line="132">         cout &lt;&lt; "\n&lt;r,\xE9&gt; = &lt;" &lt;&lt; magnitude &lt;&lt; "," &lt;&lt; angle * RADIAN &lt;&lt; "&gt;";</line>
+      <line line="133">     }</line>
+      <line line="134">      else{</line>
+    </snippet>
+    <snippet line="143">
+      <line line="140">void Vector::showRevolutionAngle()const</line>
+      <line line="141">{      </line>
+      <line line="142">  cout &lt;&lt; "Angle in degrees:  " &lt;&lt; revolutionAngle_inDegrees;              </line>
+      <line line="143">}</line>
+      <line line="144">void Vector::show_x() const</line>
+    </snippet>
+    <snippet line="172">
+      <line line="169">{</line>
+      <line line="170">   cout &lt;&lt; setprecision(7)&lt;&lt; fixed;</line>
+      <line line="171">    cout &lt;&lt; "\narc length: " &lt;&lt; arcLength &lt;&lt; endl;</line>
+      <line line="172">} </line>
+      <line line="173">double Vector::return_x() const</line>
+    </snippet>
+  </file>
+  <file name="D:\c++_physics_functions\Physics_Formula_Class\driver.cpp" md5="d9d9f5c7c23d3ec8d4f3c0f2543596e8">
+    <snippet line="17">
+      <line line="14">{</line>
+      <line line="15">    Physics car;</line>
+      <line line="16">    cout &lt;&lt; "kg:" &lt;&lt; Physics::conversion_gram_to_kilogram(9.88) &lt;&lt; endl;</line>
+      <line line="17">    car._val_ =  car.circularMotion-&gt;ideal_angle_banked_curve(835, 35.8);</line>
+      <line line="18">    car.show_val();</line>
+    </snippet>
+    <snippet line="27">
+      <line line="24">	ball._distance_ = ball.circularMotion-&gt;centripetal_force_V(ball.vector3d-&gt;return_mag(), ball.vertical_velocity_by_Xvelocity_with_angle(23, 35), 22);</line>
+      <line line="25">	vect.vector2d-&gt;set_coordinates(25, 135, 'p');</line>
+      <line line="26">	vect.vector2d-&gt;showAllData();</line>
+      <line line="27">	ball.circularMotion-&gt;conversion_revolutions_min_to_radians_second(ball._distance_);</line>
+      <line line="28">	person.show_force();</line>
+    </snippet>
+    <snippet line="30">
+      <line line="27">    ball.circularMotion-&gt;conversion_revolutions_min_to_radians_second(ball._distance_);</line>
+      <line line="28">    person.show_force();</line>
+      <line line="29">    ball.show_distance();</line>
+      <line line="30">    cout &lt;&lt; "feet to meeters:" &lt;&lt; vect.conversion_feet_to_meters(car.displacement(10, 6984.6)) &lt;&lt; endl;</line>
+      <line line="31">    </line>
+    </snippet>
+    <snippet line="31">
+      <line line="28">    person.show_force();</line>
+      <line line="29">    ball.show_distance();</line>
+      <line line="30">    cout &lt;&lt; "feet to meeters:" &lt;&lt; vect.conversion_feet_to_meters(car.displacement(10, 6984.6)) &lt;&lt; endl;</line>
+      <line line="31">    </line>
+      <line line="32">    return 0;</line>
+    </snippet>
+  </file>
+</snippets>

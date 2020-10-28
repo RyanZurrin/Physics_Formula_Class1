@@ -10,11 +10,13 @@
 
 
 
+
 int main()
 
 {
 	Physics car;
-	car._val_ =  car.circularMotion->ideal_angle_banked_curve(835, 35.8);
+	car._val_ = car.energy->force_needed_to_bring_car_to_rest(900, 1.111, .2);
+	
 	car.show_val();
 	
 	

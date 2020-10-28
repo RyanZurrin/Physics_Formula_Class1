@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <column>
+    <active type="string_vector">
+      <item>asdpdata_category_name</item>
+      <item>asdpdata_category_count</item>
+    </active>
+    <default_sortby type="string">asdpdata_category_name</default_sortby>
+    <rules type="string_string_map">
+      <item key="asdpdata_category_count" value=""/>
+      <item key="asdpdata_category_name" value=""/>
+    </rules>
+  </column>
+  <filters>
+    <list type="string_string_map">
+      <item key="asdpdata_diag_type" value="prob_leaked"/>
+      <item key="asdpdata_filename" value="Physics.cpp"/>
+      <item key="asdpdata_investigated_string" value="not_investigated"/>
+      <item key="asdpdata_module_name" value="physics_formula_class.exe"/>
+      <item key="asdpdata_severity_string" value="error"/>
+      <item key="asdpdata_suppression_string" value="not_suppressed"/>
+    </list>
+  </filters>
+  <version type="string">3.17.4</version>
+</root>

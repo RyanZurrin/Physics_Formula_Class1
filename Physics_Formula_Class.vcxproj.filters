@@ -39,6 +39,9 @@
     <ClInclude Include="Energy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Momentum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="driver.cpp">

@@ -1,0 +1,163 @@
+166672	push ebp
+166673	mov ebp, esp
+166675	push 0xfffffffe
+166677	push 0x434a20
+166682	push 0x42ab60
+166687	mov eax, dword ptr fs:[0x0]
+166693	push eax
+166694	add esp, 0xffffffcc
+166697	push ebx
+166698	push esi
+166699	push edi
+166700	mov eax, dword ptr [0x435014]
+166705	xor dword ptr [ebp-0x8], eax
+166708	xor eax, ebp
+166710	push eax
+166711	lea eax, ptr [ebp-0x10]
+166714	mov dword ptr fs:[0x0], eax
+166720	mov dword ptr [ebp-0x18], esp
+166723	push 0x1
+166725	call 0x11384
+166730	add esp, 0x4
+166733	movzx eax, al
+166736	test eax, eax
+166738	jnz 0x28b5b
+166740	push 0x7
+166742	call 0x1191a
+166747	mov byte ptr [ebp-0x19], 0x0
+166751	mov dword ptr [ebp-0x4], 0x0
+166758	call 0x11b9a
+166763	mov byte ptr [ebp-0x1a], al
+166766	cmp dword ptr [0x435840], 0x1
+166773	jnz 0x28b80
+166775	push 0x7
+166777	call 0x1191a
+166782	jmp 0x28be1
+166784	cmp dword ptr [0x435840], 0x0
+166791	jnz 0x28bdd
+166793	mov dword ptr [0x435840], 0x1
+166803	push 0x430798
+166808	push 0x43048c
+166813	call 0x11140
+166818	add esp, 0x8
+166821	test eax, eax
+166823	jz 0x28bbf
+166825	mov dword ptr [ebp-0x38], 0xff
+166832	mov dword ptr [ebp-0x4], 0xfffffffe
+166839	mov eax, dword ptr [ebp-0x38]
+166842	jmp 0x28d12
+166847	push 0x430388
+166852	push 0x430000
+166857	call 0x115a0
+166862	add esp, 0x8
+166865	mov dword ptr [0x435840], 0x2
+166875	jmp 0x28be1
+166877	mov byte ptr [ebp-0x19], 0x1
+166881	movzx ecx, byte ptr [ebp-0x1a]
+166885	push ecx
+166886	call 0x111cc
+166891	add esp, 0x4
+166894	call 0x114ec
+166899	mov dword ptr [ebp-0x20], eax
+166902	mov edx, dword ptr [ebp-0x20]
+166905	cmp dword ptr [edx], 0x0
+166908	jz 0x28c31
+166910	mov eax, dword ptr [ebp-0x20]
+166913	push eax
+166914	call 0x11591
+166919	add esp, 0x4
+166922	movzx ecx, al
+166925	test ecx, ecx
+166927	jz 0x28c31
+166929	mov edx, dword ptr [ebp-0x20]
+166932	mov eax, dword ptr [edx]
+166934	mov dword ptr [ebp-0x3c], eax
+166937	push 0x0
+166939	push 0x2
+166941	push 0x0
+166943	mov ecx, dword ptr [ebp-0x3c]
+166946	mov dword ptr [ebp-0x28], ecx
+166949	mov ecx, dword ptr [ebp-0x28]
+166952	call dword ptr [0x439000]
+166958	call dword ptr [ebp-0x28]
+166961	call 0x11735
+166966	mov dword ptr [ebp-0x24], eax
+166969	mov edx, dword ptr [ebp-0x24]
+166972	cmp dword ptr [edx], 0x0
+166975	jz 0x28c62
+166977	mov eax, dword ptr [ebp-0x24]
+166980	push eax
+166981	call 0x11591
+166986	add esp, 0x4
+166989	movzx ecx, al
+166992	test ecx, ecx
+166994	jz 0x28c62
+166996	mov edx, dword ptr [ebp-0x24]
+166999	mov eax, dword ptr [edx]
+167001	push eax
+167002	call 0x11208
+167007	add esp, 0x4
+167010	call 0x28de0
+167015	mov dword ptr [ebp-0x2c], eax
+167018	call 0x115d2
+167023	movzx ecx, al
+167026	test ecx, ecx
+167028	jnz 0x28c7f
+167030	mov edx, dword ptr [ebp-0x2c]
+167033	push edx
+167034	call 0x117ee
+167039	movzx eax, byte ptr [ebp-0x19]
+167043	test eax, eax
+167045	jnz 0x28c8c
+167047	call 0x11069
+167052	push 0x0
+167054	push 0x1
+167056	call 0x117bc
+167061	add esp, 0x8
+167064	mov ecx, dword ptr [ebp-0x2c]
+167067	mov dword ptr [ebp-0x40], ecx
+167070	mov dword ptr [ebp-0x4], 0xfffffffe
+167077	mov eax, dword ptr [ebp-0x40]
+167080	jmp 0x28d12
+167082	mov dword ptr [ebp-0x4], 0xfffffffe
+167089	jmp 0x28d12
+167091	mov edx, dword ptr [ebp-0x14]
+167094	mov eax, dword ptr [edx]
+167096	mov ecx, dword ptr [eax]
+167098	mov dword ptr [ebp-0x30], ecx
+167101	mov edx, dword ptr [ebp-0x14]
+167104	push edx
+167105	mov eax, dword ptr [ebp-0x30]
+167108	push eax
+167109	call 0x11a05
+167114	add esp, 0x8
+167117	ret 
+167118	mov esp, dword ptr [ebp-0x18]
+167121	mov ecx, dword ptr [ebp-0x30]
+167124	mov dword ptr [ebp-0x34], ecx
+167127	call 0x115d2
+167132	movzx edx, al
+167135	test edx, edx
+167137	jnz 0x28cec
+167139	mov eax, dword ptr [ebp-0x34]
+167142	push eax
+167143	call 0x1140b
+167148	movzx ecx, byte ptr [ebp-0x19]
+167152	test ecx, ecx
+167154	jnz 0x28cf9
+167156	call 0x112b2
+167161	mov edx, dword ptr [ebp-0x34]
+167164	mov dword ptr [ebp-0x44], edx
+167167	mov dword ptr [ebp-0x4], 0xfffffffe
+167174	mov eax, dword ptr [ebp-0x44]
+167177	jmp 0x28d12
+167179	mov dword ptr [ebp-0x4], 0xfffffffe
+167186	mov ecx, dword ptr [ebp-0x10]
+167189	mov dword ptr fs:[0x0], ecx
+167196	pop ecx
+167197	pop edi
+167198	pop esi
+167199	pop ebx
+167200	mov esp, ebp
+167202	pop ebp
+167203	ret 
