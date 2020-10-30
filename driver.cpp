@@ -14,11 +14,9 @@
 int main()
 
 {
-	Physics car;
-	car._val_ = car.energy->force_needed_to_bring_car_to_rest(900, 1.111, .2);
-	
-	car.show_val();
-	
+	Physics truck;
+	truck._val_= truck.energy->power_to_reach_velocity_from_rest_given_mass(1.25 * pow(10, 4), 22.5, 6.2);
+	truck.show_val();
 	
 	return 0;
 }	

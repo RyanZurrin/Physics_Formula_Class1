@@ -9,7 +9,7 @@ using namespace std;
 
 Vector::Vector()
 {
-  _vptr2d = nullptr;
+  _vptr2d =  nullptr;
   x = 0;
   y = 0;  
   magnitude = 0.0;
@@ -26,7 +26,7 @@ Vector::Vector()
 
 Vector::Vector(char _mode)
 {
-    _vptr2d = nullptr;
+    _vptr2d =  nullptr;
   x = 0;
   y = 0;  
   magnitude = 0;
@@ -43,7 +43,7 @@ Vector::Vector(char _mode)
   the third argument is the mode setting. 
   Use 'r'/'R' for rectangular components, 'p'/'P' for polar components
 */ 
-Vector::Vector(double xMag, double yAng, char _mode)
+Vector::Vector(_ld_ xMag, _ld_ yAng, char _mode)
 {
     revolutionAngle_inDegrees = 0;
     magnitude = 0;
@@ -55,16 +55,9 @@ Vector::Vector(double xMag, double yAng, char _mode)
     set_coordinates(x, y, _mode);
     calculate_arcLength();
     arcLength = return_angle();
-    _vptr2d = nullptr;    
+    _vptr2d =  nullptr;
     countIncrease();
 
-	/*
-    _vptr2d = nullptr;
-	mode = _mode;
-	//set_coordinates(xMag, yAng, _mode);
-    countIncrease();
-   // countShow();
-   */
 }
 Vector::Vector(const Vector &v)
 {
@@ -80,7 +73,7 @@ Vector::Vector(const Vector &v)
     set_coordinates(x, y, mode);
     calculate_arcLength();
     arcLength = return_angle();
-    _vptr2d = nullptr;
+    _vptr2d =  nullptr;
     countIncrease();    
 }
 void Vector::showAllData()const
@@ -171,23 +164,23 @@ void Vector::show_arcLength() const
    cout << setprecision(7)<< fixed;
     cout << "\narc length: " << arcLength << endl;
 } 
-double Vector::return_x() const
+_ld_ Vector::return_x() const
 {
   	return x;
 }
-double Vector::return_y()const
+_ld_ Vector::return_y()const
 {  
 	return y;        
 }
-double Vector::return_mag()const
+_ld_ Vector::return_mag()const
 {    
   	return magnitude;	      
 }
-double Vector::return_angle()const
+_ld_ Vector::return_angle()const
 {  
   	return angle;   
 }
-double Vector::return_arcLength() const
+_ld_ Vector::return_arcLength() const
 {  
     return arcLength;
 }
@@ -196,11 +189,11 @@ char Vector::return_mode()const
   return mode;      
 }
 /**
- *method: set_coordinates(double xMag, double yAng, char _mode)
+ *method: set_coordinates(_ld_ xMag, _ld_ yAng, char _mode)
 * arguments: x, y mode = 'r' or 'p' .by default is 'r'ectangular, 'p'= polar. 
 * Use 'r'/'R' for rectangular components, 'p'/'P' for polar components
 */  
-void Vector::set_coordinates(double xMag, double yAng, char _mode)
+void Vector::set_coordinates(_ld_ xMag, _ld_ yAng, char _mode)
 {
   validate_setMode();
 
@@ -214,14 +207,14 @@ void Vector::set_coordinates(double xMag, double yAng, char _mode)
   }
   calculate_arcLength();
 }
-void Vector::set_rectCord(double _x, double _y)
+void Vector::set_rectCord(_ld_ _x, _ld_ _y)
 {
   x = _x;
   y = _y;
   calculate_polar();
   revolutionAngle_inDegrees = angle;
 }
-void Vector::set_polarCord(double mag, double ang)
+void Vector::set_polarCord(_ld_ mag, _ld_ ang)
 {
   magnitude = mag;
   normalize_magnitude();
@@ -230,24 +223,24 @@ void Vector::set_polarCord(double mag, double ang)
   adjust_angle();
   calculate_rectangular(); 
 }
-void Vector::set_x(double _x)
+void Vector::set_x(_ld_ _x)
 {
   x = _x;  
   calculate_polar();
 }
-void Vector::set_y(double _y)
+void Vector::set_y(_ld_ _y)
 { 
   y = _y;
   calculate_polar();
 }
-void Vector::set_mag(double mag)
+void Vector::set_mag(_ld_ mag)
 {  
   magnitude = mag; 
   normalize_magnitude();
   calculate_rectangular();
   calculate_arcLength();
 }
-void Vector::set_angle(double ang)
+void Vector::set_angle(_ld_ ang)
 {  
   angle = ang;
   adjust_angle();
@@ -259,17 +252,17 @@ void Vector::set_mode(char _mode)
   mode = _mode;
   validate_setMode();
 }
-double Vector::square()const
+_ld_ Vector::square()const
 {
     return  x * x + y * y;
 }
-double Vector::dot_product(const Vector& vec)const
+_ld_ Vector::dot_product(const Vector& vec)const
 {
     return  x * vec.x + vec.y * y;
 }
-double Vector::distance(const Vector& vec)const
+_ld_ Vector::distance(const Vector& vec)const
 {
-    double x1, x2, y1, y2, t1, t2;
+    _ld_ x1, x2, y1, y2, t1, t2;
     x1 = this->x;
     x2 = vec.x;
     y1 = this->y;
@@ -278,7 +271,7 @@ double Vector::distance(const Vector& vec)const
     t2 = y2 - y1;
     return sqrt(pow(t1, 2) + pow(t2, 2));
 }
-double Vector::cross_product2D(const Vector& v)const
+_ld_ Vector::cross_product2D(const Vector& v)const
 {
     return (x * v.y) - (y * v.x);   
 }
@@ -288,7 +281,7 @@ Vector Vector::normalization()
     *this /= find_magnitude();
     return *this;
 }
-double Vector::find_magnitude()const
+_ld_ Vector::find_magnitude()const
 {
     return sqrt(square());
 }
@@ -337,7 +330,7 @@ void Vector::adjust_angle()
 	if (angle >= 360){
         const int rev_degrees = static_cast<int>(angle) / 360;
 		const int to_subtract = rev_degrees *360;
-		const double new_angle = angle - to_subtract;
+		const _ld_ new_angle = angle - to_subtract;
 		angle = new_angle;
 	}else if (angle < 0 && angle > -360){
 		angle += 360;
@@ -345,7 +338,7 @@ void Vector::adjust_angle()
 	}else if(angle < -360){
 		const int rev_degrees = static_cast<int>(angle) /360;
 		const int to_subtract = rev_degrees *360;
-		const double newAngle = angle - to_subtract + 360;
+		const _ld_ newAngle = angle - to_subtract + 360;
 		angle = newAngle;
     }  
 }
@@ -372,7 +365,7 @@ void Vector::calculate_arcLength()
   arcLength = (_PI_ * (magnitude*2)) *
         (angle / 360.0);
 }
-Vector Vector::check_division(double d)
+Vector Vector::check_division(_ld_ d)
 {   
     return *this;
 }
@@ -419,9 +412,9 @@ bool Vector::operator!=(const Vector& v) const
     else
         return false;
 }
-Vector Vector::operator+(const double n)const
+Vector Vector::operator+(const _ld_ n)const
 {
-	cout << "in  Vector::operator+(const double n)const"<<endl;
+	cout << "in  Vector::operator+(const _ld_ n)const"<<endl;
 	Vector total(x + n, y + n);
 	total.mode = mode;	
 	return total;
@@ -465,7 +458,7 @@ Vector Vector::operator-(const Vector& v) const
   Vector sum(x-v.x, y-v.y, mode);
   return sum;
 }
-Vector Vector::operator-(const double number)const
+Vector Vector::operator-(const _ld_ number)const
 {
 	Vector total(x - number, y - number);  
 	total.mode = mode;  
@@ -489,12 +482,12 @@ Vector Vector::operator--(int)
   difference.mode = mode;
   return difference; 
 }	
-Vector operator-(double s, Vector& v)
+Vector operator-(_ld_ s, Vector& v)
 {
  Vector total(s-v.return_x(),s-v.return_y(),v.return_mode()); 
  return total;
 }
-Vector operator+(double s, Vector& v)
+Vector operator+(_ld_ s, Vector& v)
 {
  Vector total(s+v.return_x(),s+v.return_y(),v.return_mode()); 
  return total; 
@@ -542,7 +535,7 @@ Vector::Vector(Vector&& temp) noexcept
     arcLength = return_arcLength();     
     calculate_arcLength();   
 }
-Vector Vector::operator/(double d)
+Vector Vector::operator/(_ld_ d)
 {  
     return check_division(d);   
 }
@@ -554,7 +547,7 @@ Vector Vector::operator/(Vector v)
 {
     return check_division(v);
 }
-Vector &Vector::operator/=(double value)
+Vector &Vector::operator/=(_ld_ value)
 {
     x /= value;
     y /= value;
@@ -563,13 +556,13 @@ Vector &Vector::operator/=(double value)
     return *this;
     
 }
-Vector Vector::operator*(const double scalar)const
+Vector Vector::operator*(const _ld_ scalar)const
 {
 	Vector results(x*scalar, y*scalar);	
 	results.mode = mode;
 	return results;	
 }
-Vector operator*(double s, Vector& v)
+Vector operator*(_ld_ s, Vector& v)
 {
   return v * s;
 }

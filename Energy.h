@@ -21,12 +21,7 @@ public:
 	
 	// Energy pointer
 	Energy* _energyPtr;
-	// variable for storing calculations
-	ld _energy_;
-	// method to print out the energy variable to the screen
-	void show_energy()const { std::cout << "energy: " << _energy_ << std::endl; }
-	// method to return the value stored in the energy variable
-	ld get_energy()const { return _energy_; }
+
 	static void countIncrease() { energy_objectCount += 1; }
 	static void countDecrease() { energy_objectCount -= 1; }
 	static void countShow() { std::cout << "energy object count: " << energy_objectCount << std::endl; }
@@ -106,9 +101,8 @@ public:
 	
 	//constructor	
 	Energy()
-	{
-		_energy_ = 0.0;
-		_energyPtr = nullptr;
+	{		
+		_energyPtr =  nullptr;
 		countIncrease();
 	}
 	
@@ -130,7 +124,7 @@ public:
 	 * @param theta is the angle between the force vector and the displacement vector
 	 * @returns the work done on a system
 	 */
-	ld static work(const ld force, const ld displacement_magnitude, const ld theta = 1)
+	ld static work(const ld force, const ld displacement_magnitude, const ld theta = 0)
 	{
 		return force * displacement_magnitude * cos(theta * RADIAN);
 	}
@@ -148,6 +142,7 @@ public:
 	}
 	/**
 	 * @brief Returns the work going up stairs with constant acceleration
+	 * F = mgh
 	 * @param mass in kg
 	 * @param height in m
 	 * @returns total work
@@ -155,6 +150,30 @@ public:
 	ld static work3(const ld mass, const ld height)
 	{
 		return mass * _G_ * height;
+	}
+	/**
+	 * @brief calculates the amount of useful power output by elevator motor
+	 * P = (.5 * (balanceWeight * (velocityFinal * velocityFinal)) + ((9.8 * elevatorWeight * liftHeight) + 750 * (-35.0)))/(time)
+	 * @param elevatorWeight in kg
+	 * @param balanceWeight in kg
+	 * @param liftHeight in m, specifies the height the elevator must travel up
+	 * @param velocityFinal is the speed the elevator will achieve starting from a resting position,
+	 * initial velocity is assumed 0 in this formula
+	 * @param time in s the elevator travels up
+	 * @returns power output for elevator motor
+	 */
+	ld static power_output_of_useful_energy_by_elevator_motor(const ld elevatorWeight, const ld balanceWeight, const ld liftHeight, const ld velocityFinal, const ld time)
+	{
+		const ld calculatedMass = balanceWeight - elevatorWeight;
+		const ld v2 = pow(velocityFinal, 2);		
+		const ld m1 = _G_ * balanceWeight * liftHeight;
+		const ld m2 = _G_ * calculatedMass * -liftHeight;
+		const ld m3 = m1 + m2;
+		const ld m = (.5 * balanceWeight) * v2;
+		
+		cout << "calmass: " << calculatedMass << endl;
+		
+		return (m + m3)/time ;
 	}
 	/**
 	 * @brief Returns the work down by friction lowering something down a slope
@@ -200,7 +219,7 @@ public:
 	 */
 	ld static speed_from_height(const ld height, const ld initialVelocity = 0)
 	{
-		return sqrt(2 * _G_ * height + (initialVelocity*initialVelocity));
+		return sqrt(2 * _G_ * height ) + initialVelocity;
 	}
 	/**
 	 * @brief Returns the distance traveld
@@ -313,6 +332,42 @@ public:
 		return work / time;
 	}
 	/**
+	 * @brief Returns the power output of someone jumping
+	 * @param mass in kg
+	 * @param distanceBottom in meters is the height from ground to shoulder
+	 * @param distanceTop in meters is the height from the ground to hight of jump
+	 * @returns watts used to make the jump
+	 */
+	ld static power_to_jump(const ld mass, const ld distanceBottom, const ld distanceTop)
+	{
+		return mass * _Ga_ * distanceTop * sqrt((_Ga_ * ((distanceTop / distanceBottom) - 1) / (2 * distanceBottom)));
+	}
+	/**
+	 * @brief calculates the time to do work based off of power output
+	 * @param work is in joules. w = Fd = mgh
+	 * @param distance is how far the work is being done over
+	 * @param power is in watts
+	 * @returns the time to perform work 
+	 */
+	ld static time_to_do_work(const ld work, const ld power)
+	{
+		return work / power;
+	}
+
+	/**
+	 * @brief Returns the power in watts required to accelerate an object from rest to a specific velocity
+	 * over a period of time given the objects mass
+	 * @param mass in kg
+	 * @param velocity in m/s^2
+	 * @param time in s
+	 * @returns power in watts
+	 */
+	ld static power_to_reach_velocity_from_rest_given_mass(const ld mass, const ld velocity, const ld time)
+	{
+		return (mass * (velocity * velocity) / (2 * _Ga_ * time));
+	}
+	
+	/**
 	 * @brief calculates the force needed to bring a car to rest given its mass, its speed and the distance
 	 * it took to stop. This can be used to calculate the force from crashes and similar scenarios
 	 * @param mass in gk
@@ -334,9 +389,114 @@ public:
 	{
 		return jouleLoss / distance;
 	}
-
-	//ld static force
-
+	/**
+	 * @brief Returns the calculation of the amount of compression on a spring with a given K constant
+	 * and knowing the mass and velocity of the object that collides with it.
+	 * x = sqrt((mass * (velocity * velocity)) / k) 
+	 * @param mass in kg
+	 * @param velocity in m/s
+	 * @param k is the spring constant
+	 * @returns distance of compression in meters
+	 */
+	ld static compression_distance_on_spring(const ld mass, const ld velocity, const ld k)
+	{
+		return sqrt((mass * (velocity * velocity)) / k);
+	}
+	/**
+	 * @brief calculates the spring constant when the mass, velocity, and total amount of compression on the spring is known
+	 * @param mass in kg
+	 * @param velocity in m/s
+	 * @param totalCompression in m
+	 * @returns the spring constant k
+	 */
+	ld static spring_constant(const ld mass, const ld velocity, const ld totalCompression)
+	{
+		return mass * (velocity * velocity) / (totalCompression * totalCompression);
+	}
+	/**
+	 * @brief calculate the initial velocity needed to compress a spring a specified value
+	 * @param mass in kg
+	 * @param k is the spring constant
+	 * @param x is the distance of compression
+	 * @returns the initial speed needed to compress spring
+	 */
+	ld static initial_speed_to_compress_spring(const ld mass, const ld k, const ld x)
+	{
+		return sqrt((k * (x * x) / mass));
+	}
+	/**
+	 * @brief calculates the height of something from two velocities
+	 * @param velocityStart is the initial velocity
+	 * @param velocityEnd is the velocity at the height in question
+	 * @returns height in meters
+	 */
+	ld static height_from_velocity(const ld velocityStart, const ld velocityEnd)
+	{
+		return ((velocityStart * velocityStart) - (velocityEnd * velocityEnd)) / (2 * _G_);
+	}
+	/**
+	 * @brief calculates the kinetic energy in a falling mass.
+	 * @param mass in kg
+	 * @param finalDistance is the distance we are measureing the fall to ususally in a negitive
+	 * @param initialDistance is the where it fell from if not using zero as a start
+	 * @returns the kinetic energy
+	 */
+	ld static kinetic_energy_falling_mass(const ld mass, const ld finalDistance, const ld initialDistance = 0)
+	{
+		return -mass * _Ga_ * (finalDistance + initialDistance);
+	}
+	/**
+	 * @brief Calculates the cost of an electrical unit based on the charge rate and power usage
+	 * @param powerUsage in Watts
+	 * @param cost per kw/h
+	 * @returns cost per hour
+	 */
+	ld static cost_to_run_per_hour(const ld powerUsage, const ld cost)
+	{
+		return abs((powerUsage * cost) / 1000);
+	}
+	/**
+	 * @brief Calculates the cost of an electrical unit based on the charge rate and power usage
+	 * @param powerUsage in Watts
+	 * @param cost per kw/h
+	 * @returns cost per sec
+	 */
+	ld static cost_to_run_per_sec(const ld powerUsage, const ld cost)
+	{
+		return abs((powerUsage * cost) / 1000) * 12/3600 * 100;
+	}
+	/**
+	 * @brief calculates and returns the tension force on a elevator cable
+	 * @param mass in kg
+	 * @param acceleration in m/s^2
+	 * @param friction 
+	 */
+	ld static tension_elevator_cable(const ld mass, const ld acceleration, const ld friction)
+	{
+		return mass * (acceleration + _Ga_) + friction;
+	}
+	/**
+	 * @brief Returns the final velocity
+	 * vf = sqrt(2 * acceleration * distance)
+	 * @param acceleration
+	 * @param distance
+	 * @returns final velocity
+	 */
+	ld static final_velocity(const ld acceleration, const ld distance)
+	{
+		return sqrt(2 * acceleration * distance);
+	}
+	/**
+	 * @brief calculates the force needed to jump between two points
+	 * @param mass
+	 * @param distanceTop
+	 * @param distanceBottom
+	 * @returns force in N(newtons)
+	 */
+	ld static force_needed_to_jump_a_distance(const ld mass, const ld distanceTop, const ld distanceBottom)
+	{
+		return (mass * _Ga_ * distanceTop) / distanceBottom;
+	}
 
 	
 	~Energy()

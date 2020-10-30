@@ -62,7 +62,7 @@ public:
 	// constructor
 	Friction()
 	{
-		_ptrFriction = nullptr;
+		_ptrFriction =  nullptr;
 		countIncrease();
 		//countShow();
 	}

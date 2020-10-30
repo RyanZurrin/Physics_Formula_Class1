@@ -57,7 +57,7 @@ public:
 	// assignment constructor
 	Circular_Motion(ld radius, ld velocity)
 	{
-		_circlePtr = nullptr;
+		_circlePtr =  nullptr;
 		_radius_ = radius;
 		_angularVelocity_ = velocity / radius;
 		_rotationAngle_ = 0.0;		

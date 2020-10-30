@@ -47,7 +47,7 @@ public:
 	//suppresses the default constructor
 	Drag()
 	{
-		_ptrDrag = nullptr;
+		_ptrDrag =  nullptr;
 		_dragForce_ = 0.0;
 		countIncrease();
 		//countShow();

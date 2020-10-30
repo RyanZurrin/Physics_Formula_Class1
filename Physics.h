@@ -45,42 +45,6 @@ private:
 	static void countDecrease() { physics_objectCount -= 1; }
 	
 public:
-	// variables contained in each object
-	ld _mass_ = 0.0;
-	ld _weight_ = 0.0;
-	ld _length_ = 0.0;	
-	ld _width_ = 0.0;
-	ld _height_ = 0.0;
-	ld _volume_ = 0.0;
-	ld _density_ = 0.0;
-	ld _force_ = 0.0;
-	ld _distance_ = 0.0;
-	ld _positionStart_ = 0.0;
-	ld _positionEnd_ = 0.0;	
-	ld _velocityStart_ = 0.0;
-	ld _velocityEnd_ = 0.0;
-	ld _accelerationStart_ = 0.0;
-	ld _accelerationEnd_ = 0.0;
-
-
-	// methods for showing what is contained in the variable without changing it
-	static void countShow() { cout << "physics count: " << physics_objectCount << endl; }
-	void show_mass()const { cout << "mass: " << _mass_ << endl; }		
-	void show_weight()const { cout << "weight: " << _weight_ << endl; }
-	void show_length()const { cout << "length: " << _length_ << endl; }
-	void show_width()const { cout << "width: " << _width_ << endl; }
-	void show_height()const { cout << "height: " << _height_ << endl; }
-	void show_volume()const { cout << "volume: " << _volume_ << endl; }
-	void show_density()const { cout << "density: " << _density_ << endl; }
-	void show_force()const { cout << "force: " << _force_ << endl; }
-	void show_distance()const { cout << " distance: " << _distance_ << endl; }
-	void show_positionStart()const { cout << "start position: " << _positionStart_ << endl; }
-	void show_positionEnd()const { cout << "end position: " << _positionEnd_ << endl; }
-	void show_velocityStart()const { cout << "start velocity: " << _velocityStart_ << endl; }
-	void show_velocityEnd()const { cout << "end velocity: " << _velocityEnd_ << endl; }
-	void show_accelerationStart()const { cout << "start acceleration: " << _accelerationStart_ << endl; }
-	void show_accelerationEnd()const { cout << "end acceleration: " << _accelerationEnd_ << endl; }
-
 	
 	static ld _val_;	
 	static void show_val() { cout << "val: " << _val_ << endl; }
@@ -115,24 +79,11 @@ public:
 	Physics * _ptr_;
 		
 	Physics();
+	Physics(ld t1, ld t2, ld t3);
+	Physics(ld t1, ld t2);
 	Physics(const Physics&); //copy constructor
 	Physics& operator=(const Physics&); //copy assignment operator
-	Physics(Physics&& o) noexcept :
-		_mass_(o._mass_),
-		_weight_(o._weight_),
-		_length_(o._length_),
-		_width_(o._width_),
-		_height_(o._height_),
-		_volume_(o._volume_),
-		_density_(o._density_),
-		_force_(o._force_),
-		_distance_(o._distance_),
-		_positionStart_(o._positionStart_),
-		_positionEnd_(o._positionEnd_),
-		_velocityStart_(o._velocityStart_),
-		_velocityEnd_(o._velocityEnd_),
-		_accelerationStart_(o._accelerationStart_),
-		_accelerationEnd_(o._accelerationEnd_),
+	Physics(Physics&& o) noexcept :		
 		friction(o.friction),
 		drag(o.drag),
 		elasticity(o.elasticity),
@@ -144,8 +95,6 @@ public:
 		_ptr_(o._ptr_){} // move constructor
 	
 	
-	void printAll()const;
-	
 	static ld return_val() { return _val_; }
 	static vector<ld> return_vector(Physics &v) { return v.vector_values; }
 	//============================================================================
@@ -156,14 +105,14 @@ public:
 	 * @param mps is meters per second
 	 * @returns kilometers per hour
 	 */
-	ld static conversion_mps_to_kmh(const ld mps)
+	ld static conversion_mps_to_kmh(const ld mps = _val_)
 	{ return mps * 3.6;	}
 	/**
 	 * @brief Returns the conversion from kilometers per hour to meters per second
 	 * @param kmh is kilometers per hour
 	 * @returns meters per second
 	 */
-	ld static conversion_kmh_to_mps(const ld kmh)
+	ld static conversion_kmh_to_mps(const ld kmh = _val_)
 	{
 		return kmh / 3.6;
 	}
@@ -172,7 +121,7 @@ public:
 	 * @param mph is miles per hour
 	 * @returns meters per second
 	 */
-	ld static conversion_mph_to_mps(const ld mph)
+	ld static conversion_mph_to_mps(const ld mph = _val_)
 	{
 		return mph / 2.237;
 	}
@@ -181,7 +130,7 @@ public:
 	 * @param mps is meters per second
 	 * @returns miles per hour
 	 */
-	ld static conversion_mps_to_mph(const ld mps)
+	ld static conversion_mps_to_mph(const ld mps = _val_)
 	{
 		return mps * 2.237;
 	}
@@ -190,15 +139,15 @@ public:
 	 * @param ms to be converted to seconds
 	 * @returns seconds from milliseconds
 	 */
-	ld static conversion_millisecond_to_seconds(const ld ms)
+	ld static conversion_millisecond_to_seconds(const ld ms = _val_)
 	{
 		return ms / 1000;
 	}
-	ld static conversion_minutes_to_seconds(const ld min)
+	ld static conversion_minutes_to_seconds(const ld min = _val_)
 	{
 		return min * 60;
 	}
-	ld static conversion_hours_to_seconds(const ld hours)
+	ld static conversion_hours_to_seconds(const ld hours = _val_)
 	{
 		return hours * 3600;
 	}
@@ -207,16 +156,25 @@ public:
 	 * @param days can be expressed as a decimal, four and a half days would be 4.5
 	 * @returns total seconds converted from days
 	 */
-	ld static conversion_days_to_seconds(const ld days)
+	ld static conversion_days_to_seconds(const ld days = _val_)
 	{
 		return days * 86400;
+	}
+	/**
+	 * @brief Returns the conversion from seconds to days
+	 * @param seconds
+	 * @returns days
+	 */
+	ld static conversion_seconds_to_days(const ld seconds = _val_)
+	{
+		return seconds / 86400;
 	}
 	/**
 	 * @brief Returns the conversion from miles to meters
 	 * @param miles
 	 * @returns meters from miles
 	 */
-	ld static conversion_miles_to_meters(const ld miles)
+	ld static conversion_miles_to_meters(const ld miles = _val_)
 	{
 		return miles * 1609;
 	}
@@ -225,7 +183,7 @@ public:
 	 * @param feet
 	 * @returns meters
 	 */
-	ld static conversion_feet_to_meters(const ld feet)
+	ld static conversion_feet_to_meters(const ld feet = _val_)
 	{
 		return feet / 3.281;
 	}
@@ -234,45 +192,63 @@ public:
 	 * @param inches
 	 * @returns meters
 	 */
-	ld static conversion_inches_to_meters(const ld inches)
+	ld static conversion_inches_to_meters(const ld inches = _val_)
 	{
 		return inches / 39.37;
 	}
-	ld static conversion_centimeters_to_meters(const ld cm)
+	/**
+	 * @brief Returns the conversion from meters to inches
+	 * @param meters
+	 * @returns inches
+	 */
+	ld static conversion_meters_to_inches(const ld meters = _val_)
+	{
+		return meters * 39.37;
+	}
+	/**
+	 * @brief Returns the conversion from centimeters to meters
+	 * @param cm
+	 * @returns meters
+	 */
+	ld static conversion_centimeters_to_meters(const ld cm = _val_)
 	{
 		return cm / 100;
 	}
-	ld static conversion_kilometers_to_meters(const ld km)
+	ld static conversion_kilometers_to_meters(const ld km = _val_)
 	{
 		return km * 1000;
 	}
-	ld static conversion_millimeters_to_meters(const ld mm)
+	ld static conversion_millimeters_to_meters(const ld mm = _val_)
 	{
 		return mm / 1000;
 	}
-	ld static conversion_micrometers_to_meters(const ld Mm)
+	ld static conversion_micrometers_to_meters(const ld Mm = _val_)
 	{
 		return Mm / pow(1, -6);
 	}
-	ld static conversion_nanometers_to_meters(const ld nm)
+	ld static conversion_nanometers_to_meters(const ld nm = _val_)
 	{
 		return nm / pow(1, -9);
 	}
-	ld static conversion_pound_to_kilogram(const ld lbs)
+	ld static conversion_pound_to_kilogram(const ld lbs = _val_)
 	{
 		return lbs / 2.205;
 	}
-	ld static conversion_milligram_to_kilogram(const ld mg)
+	ld static conversion_milligram_to_kilogram(const ld mg = _val_)
 	{
 		return mg / pow(1, -6);
 	}
-	ld static conversion_gram_to_kilogram(const ld g)
+	ld static conversion_gram_to_kilogram(const ld g = _val_)
 	{		
 		return g / 1000;
 	}
-	ld static conversion_ounce_to_kilogram(const ld ounce)
+	ld static conversion_ounce_to_kilogram(const ld ounce = _val_)
 	{
 		return ounce / 35.274;
+	}
+	ld static conversion_watts_to_kilowatts(const ld watt = _val_)
+	{
+		return watt / 1000;
 	}
 	
 	

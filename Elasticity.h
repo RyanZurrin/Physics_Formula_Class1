@@ -21,17 +21,7 @@ private:
 public:
 	static void countShow() { std::cout << "elasticity count: " << elasticity_objectCount << std::endl; }
 	
-	ld _stress_;
-	void show_stress()const { cout << "stress: " << _stress_ << endl; }
-	
-	ld _strain_;
-	void show_strain()const { cout << "strain: " << _strain_ << endl; }
-	
-	ld _force_;
-	void show_force()const { cout << "force: " << _force_ << endl; }
-	
-	ld _area_;
-	void show_area()const { cout << "area: " << _area_ << endl; }
+
 
 	Elasticity* _ptrElastic;
 
@@ -97,11 +87,7 @@ public:
 	// default constructor
 	Elasticity()
 	{
-		_ptrElastic = nullptr;
-		_stress_ = 0.0;
-		_strain_ = 0.0;
-		_force_ = 0.0;
-		_area_ = 0.0;
+		_ptrElastic =  nullptr;	
 		countIncrease();
 		//countShow();
 	}
@@ -109,11 +95,7 @@ public:
 	// copy constructor
 	Elasticity(const Elasticity& e)
 	{
-		_ptrElastic = e._ptrElastic;
-		_stress_ = e._stress_;
-		_strain_ = e._strain_;
-		_force_ = e._force_;
-		_area_ = e._area_;
+		_ptrElastic = e._ptrElastic;	
 		countIncrease();
 		//countShow();
 	}
@@ -123,11 +105,7 @@ public:
 	{
 		if (this != &r)
 		{
-			_ptrElastic = r._ptrElastic;
-			_area_ = r._area_;
-			_force_ = r._force_;
-			_strain_ = r._strain_;
-			_stress_ = r._stress_;
+			_ptrElastic = r._ptrElastic;	
 			countIncrease();
 			//countShow();
 		}

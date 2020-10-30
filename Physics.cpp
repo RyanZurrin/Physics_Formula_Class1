@@ -18,22 +18,7 @@ Physics::Physics()
 	vector2d = new Vector;
 	vector3d = new Vector3D;
 	energy = new Energy;
-	momentum = new Momentum;
-	_mass_ = 0.0;
-	_weight_ = 0.0;
-	_length_ = 0.0;
-	_width_ = 0.0;
-	_height_ = 0.0;
-	_volume_ = 0.0;
-	_density_ = 0.0;
-	_force_ = 0.0;
-	_distance_ = 0.0;
-	_positionStart_ = 0.0;
-	_positionEnd_ = 0.0;
-	_velocityStart_ = 0.0;
-	_velocityEnd_ = 0.0;
-	_accelerationStart_ = 0.0;
-	_accelerationEnd_ = 0.0;
+	momentum = new Momentum;	
 	vector_values = { 0.0,0.0,0.0,0.0 };
 	countIncrease();
 	//countShow();
@@ -44,22 +29,7 @@ Physics::Physics()
 Physics::Physics(const Physics& p)
 {
 	_ptr_ = p._ptr_;	
-	vector_values = p.vector_values;
-	_mass_ = p._mass_;
-	_weight_ = p._weight_;
-	_length_ = p._length_;
-	_width_ = p._weight_;
-	_height_ = p._height_;
-	_volume_ = p._volume_;
-	_density_ = p._density_;
-	_force_ = p._force_;
-	_distance_ = p._distance_;
-	_positionStart_ = p._positionStart_;
-	_positionEnd_ = p._positionEnd_;
-	_velocityStart_ = p._velocityStart_;
-	_velocityEnd_ = p._velocityEnd_;
-	_accelerationStart_ = p._accelerationStart_;
-	_accelerationEnd_ = p._accelerationEnd_;
+	vector_values = p.vector_values;	
 	_ptr_ = nullptr;
 	drag = p.drag;
 	elasticity = p.elasticity;
@@ -80,20 +50,6 @@ Physics& Physics::operator=(const Physics& r)
 	if(this != &r)
 	{
 		_ptr_ = r._ptr_;		
-		_weight_ = r._weight_;
-		_density_ = r._density_;
-		_height_ = r._height_;
-		_length_ = r._length_;
-		_mass_ = r._mass_;
-		_width_ = r._width_;
-		_force_ = r._force_;
-		_distance_ = r._distance_;
-		_positionStart_ = r._positionStart_;
-		_positionEnd_ = r._positionEnd_;
-		_velocityStart_ = r._velocityStart_;
-		_velocityEnd_ = r._velocityEnd_;
-		_accelerationStart_ = r._accelerationStart_;
-		_accelerationEnd_ = r._accelerationEnd_;
 		vector_values = r.vector_values;
 		drag = r.drag;
 		elasticity = r.elasticity;
@@ -109,35 +65,39 @@ Physics& Physics::operator=(const Physics& r)
 	}
 	return *this;	
 }
-
-
-/**
- * method: printAll()const
- * arguments: none
- * purpose:	print out the value stored in val
- * returns: void
- */
-void Physics::printAll()const
+Physics::Physics(const ld test, const ld test2, const ld test3)
 {
-	show_density();
-	show_height();
-	show_length();
-	show_mass();
-	show_volume();
-	show_width();
-	show_weight();
-	show_val();
-	show_force();
-	show_distance();
-	show_positionStart();
-	show_positionEnd();
-	show_velocityStart();
-	show_velocityEnd();
-	show_accelerationStart();
-	show_accelerationEnd();	
+	_ptr_ = nullptr;
+	//physics_common = new PhysicsCommon;
+	//world = physics_common->createPhysicsWorld();
+	drag = new Drag;
+	elasticity = new Elasticity;
+	friction = new Friction;
+	circularMotion = new Circular_Motion;
+	vector2d = new Vector;
+	vector3d = new Vector3D;
+	energy = new Energy;
+	momentum = new Momentum;
 	
+	vector_values = { 0.0,0.0,0.0,0.0 };
+	this->vector3d->set_coordinates(test, test2, test3);
+	
+	countIncrease();
 }
-
+ 
+Physics::Physics(const ld t1, const ld t2)
+{
+	drag = new Drag;
+	elasticity = new Elasticity;
+	friction = new Friction;
+	circularMotion = new Circular_Motion;
+	vector2d = new Vector;
+	vector3d = new Vector3D;
+	energy = new Energy;
+	momentum = new Momentum;	
+	vector_values = { 0.0,0.0,0.0,0.0 };
+	this->vector2d->set_coordinates(t1, t2);
+}
 
 /**
  * @brief static member fuction to print values of objects vector variable

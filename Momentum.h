@@ -13,6 +13,10 @@ class Momentum
 private:
 public:
 	Momentum* _momentumPtr;
+	Momentum()
+	{
+		_momentumPtr = nullptr;
+	}
 
 	/**
 	 * @brief calculates the momentum of a system from mass and velocity (p = mv)
@@ -229,17 +233,6 @@ public:
 	{
 		return ((mass_a * v_a) + (mass_b * v_b)) / (mass_a + mass_b);
 	}
-
-	
-	
-	Momentum()
-	{
-		_momentumPtr = nullptr;
-	}
-
-
-
-
 	
 	~Momentum()
 	{
