@@ -26,6 +26,7 @@
     <ClInclude Include="Friction.h" />
     <ClInclude Include="Momentum.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="reactphysics3d\reactphysics3d.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>
@@ -89,7 +90,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\c++_physics_functions\Physics_Formula_Class\ReactPhysics3D;$(IncludePath)</IncludePath>
+    <IncludePath>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d\reactphysics3d;D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d;$(IncludePath)</IncludePath>
+    <ExecutablePath>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d\reactphysics3d;D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d;$(ExecutablePath)</ExecutablePath>
+    <ReferencePath>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d;$(ReferencePath)</ReferencePath>
+    <LibraryPath>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d;$(LibraryPath)</LibraryPath>
+    <SourcePath>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d\reactphysics3d;$(SourcePath)</SourcePath>
+    <LibraryWPath>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d\reactphysics3d;$(LibraryWPath)</LibraryWPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -107,6 +113,10 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>reactphysics3d.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -1,6 +1,7 @@
 #include "Physics.h"
 
 ld Physics::_val_ = 0.0;
+vector<ld> Physics::vector_values = { 0.0,0.0,0.0,0.0 };
 int Physics::physics_objectCount = 0;
  
 /**
@@ -8,9 +9,7 @@ int Physics::physics_objectCount = 0;
  */
 Physics::Physics()
 {	
-	_ptr_ = nullptr;
-	//physics_common = new PhysicsCommon;
-	//world = physics_common->createPhysicsWorld();
+	_ptr_ = nullptr;	
 	drag = new Drag;
 	elasticity = new Elasticity;
 	friction = new Friction;
@@ -19,7 +18,9 @@ Physics::Physics()
 	vector3d = new Vector3D;
 	energy = new Energy;
 	momentum = new Momentum;	
-	vector_values = { 0.0,0.0,0.0,0.0 };
+	//physics_common = new PhysicsCommon;
+	//world = physics_common->createPhysicsWorld();
+	
 	countIncrease();
 	//countShow();
 }
@@ -30,7 +31,6 @@ Physics::Physics(const Physics& p)
 {
 	_ptr_ = p._ptr_;	
 	vector_values = p.vector_values;	
-	_ptr_ = nullptr;
 	drag = p.drag;
 	elasticity = p.elasticity;
 	friction = p.friction;
@@ -39,6 +39,7 @@ Physics::Physics(const Physics& p)
 	circularMotion = p.circularMotion;
 	momentum = p.momentum;
 	energy = p.energy;
+	//physics_common = p.physics_common;
 	countIncrease();
 	//countShow();
 }
@@ -65,11 +66,9 @@ Physics& Physics::operator=(const Physics& r)
 	}
 	return *this;	
 }
-Physics::Physics(const ld test, const ld test2, const ld test3)
+Physics::Physics(const ld t1, const ld t2, const ld t3)
 {
 	_ptr_ = nullptr;
-	//physics_common = new PhysicsCommon;
-	//world = physics_common->createPhysicsWorld();
 	drag = new Drag;
 	elasticity = new Elasticity;
 	friction = new Friction;
@@ -79,8 +78,8 @@ Physics::Physics(const ld test, const ld test2, const ld test3)
 	energy = new Energy;
 	momentum = new Momentum;
 	
-	vector_values = { 0.0,0.0,0.0,0.0 };
-	this->vector3d->set_coordinates(test, test2, test3);
+	//vector_values = { 0.0,0.0,0.0,0.0 };
+	this->vector3d->set_coordinates(t1, t2, t3);
 	
 	countIncrease();
 }
@@ -95,17 +94,17 @@ Physics::Physics(const ld t1, const ld t2)
 	vector3d = new Vector3D;
 	energy = new Energy;
 	momentum = new Momentum;	
-	vector_values = { 0.0,0.0,0.0,0.0 };
+	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
 
 /**
- * @brief static member fuction to print values of objects vector variable
- * @param obj is reference to a physics object  * 
+ * @brief static member function to print values of passed in vector 
+ * @param vec 
  */
-void Physics::show_vector_values(Physics &obj)
+void Physics::show_vector_values(vector<ld> &vec)
 {
-	for (auto it : obj.vector_values)
+	for (auto it : vec)
 	{
 		std::cout << it << ", ";
 	}
@@ -117,7 +116,7 @@ void Physics::show_vector_values(Physics &obj)
  */
 void Physics::show_vector_values()
 {
-	for (auto it : this->vector_values)
+	for (auto it : vector_values)
 	{
 		std::cout << it << ", ";
 	}
@@ -241,7 +240,7 @@ Physics::~Physics()
 	delete drag;
 	delete circularMotion;
 	delete energy;
-	delete momentum;
+	delete momentum;	
 	delete _ptr_;
 	countDecrease();
 	//countShow();

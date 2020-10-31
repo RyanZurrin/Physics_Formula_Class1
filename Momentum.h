@@ -61,7 +61,7 @@ public:
 	 * @param time in seconds
 	 * @returns the net force in N (newtons)
 	 */
-	ld static force_net_using_time(const ld mass, const ld velocity, const ld time)
+	ld static newtons_2nd_law_as_momentum(const ld mass, const ld velocity, const ld time)
 	{
 		return (mass * velocity) / time;
 	}
@@ -81,13 +81,13 @@ public:
 
 	/**
 	 * @brief calculates the ratio of two numbers
-	 * @param numerator is the top number
-	 * @param denominator is the bottom number
-	 * @returns the ratio between two numbers
+	 * @param ratioOf is the ratio of something to 
+	 * @param to is the something the ratio is of
+	 * @returns the ratio of something to something else
 	 */
-	ld static ratio(const ld numerator, const ld denominator)
+	ld static ratio(const ld ratioOf, const ld to)
 	{
-		return numerator / denominator;
+		return ratioOf / to;
 	}
 
 	/**
@@ -229,10 +229,121 @@ public:
 	 * @param v_b velocity of mass_b in m/s
 	 * @returns the velocity of the colliding masses
 	 */
-	ld static velocity_collision_2_moving_masses(const ld mass_a, const ld v_a, const ld mass_b, const ld v_b)
+	ld static collision_velocity_2_moving_masses(const ld mass_a, const ld v_a, const ld mass_b, const ld v_b)
 	{
 		return ((mass_a * v_a) + (mass_b * v_b)) / (mass_a + mass_b);
 	}
+
+	/**
+	 * @brief Returns the velocities following an elastic collision with one still mass
+	 * @param movingMass1 in kg
+	 * @param stillMass in kg
+	 * @param v1 in m/s is the velocity of mass1
+	 * @returns vector<mass1, mass2>
+	 */
+	std::vector<ld> static collision_elastic(const ld movingMass1, const ld stillMass, const ld v1)
+	{
+		vector<ld> velocities = { 0.0, 0.0 };
+		velocities[0] = (v1 * (movingMass1 - stillMass)) / (movingMass1 + stillMass);
+		velocities[1] = v1 - abs(velocities[0]);		
+		return velocities;
+	}
+	
+	/**
+	 * @brief calculates the starting velocity of a mass2 in a totally inelastic collision
+	 */
+	ld static totally_inelastic_collision_v2(const ld mass1, const ld mass2, const ld m1StartingMomentum, const ld m1EndingMomentum)
+	{
+		const ld m1vs = m1StartingMomentum/mass1;
+		const ld m1vf = m1EndingMomentum / mass1;
+	
+
+		return ((mass1 * m1vf) + (mass2 * m1vf) - (mass1 * m1vs)) / (mass2);
+		
+	}
+
+	
+	/**
+	 * @brief Returns a vector with the values of recoil velocity, internal kinetic energy of system,
+	 * kinetic energy of system after system, and the total change of energy in system
+	 * @param movingMass1 in kg
+	 * @param stillMass in kg
+	 * @param v1 is the velocity of the movingMass1
+	 * @returns vector<recoilVelocity, internalKineticEnergySystem, afterCollisionKEofSystem, totalChangeInSystem>
+	 */
+	std::vector<ld> static collision_inelastic(const ld movingMass1, const ld stillMass, const ld v1)
+	{		
+		const ld recoilVelocity = (movingMass1) / (movingMass1 + stillMass) * v1;		
+		const ld internalKineticEnergySystem = .5 * (movingMass1) * (v1 * v1);		
+		const ld afterCollisionKEofSystem = .5 * (movingMass1 + stillMass) * (recoilVelocity * recoilVelocity);		
+		const ld totalChangeInSystem = afterCollisionKEofSystem - internalKineticEnergySystem;
+		vector<ld> results = { recoilVelocity, internalKineticEnergySystem, afterCollisionKEofSystem, totalChangeInSystem };
+			
+		return results;
+	}
+
+	/**
+	 * @brief Returns the velocity of a rocket launch when lift mass, ehaust velocity and fuel burn rate is known
+	 * @param liftMass in kg
+	 * @param exhaustVelocity in m/s
+	 * @param fuelBurnRate in kg/s
+	 * @returns acceleration of rocket
+	 */
+	ld static rocket_launch_acceleration(const ld liftMass, const ld exhaustVelocity, const ld fuelBurnRate)
+	{
+		return ((exhaustVelocity / liftMass) * (fuelBurnRate)) - _Ga_;
+	}
+
+	/**
+	 * @brief Returns the impact force experienced by a crash test dummy by the seat belt
+	 * @param mass in kg
+	 * @param v in m/s is the velocity of the moving object before coming to rest v=0
+	 * @param time in seconds
+	 * @returns Force in newtons of the impact 
+	 */
+	ld static force_impact(const ld mass, const ld v, const ld time)
+	{
+		return (-(mass)*v) / (time);
+	}
+
+	/**
+	 * @brief Returns the initial speed of a projectile as it launches from ground level at a particular angle
+	 * and returns to ground level a certain distance away 
+	 * Vi = sqrt((distance * _Ga_) / (2 * cos(angle * RADIAN) * sin(angle * RADIAN)))
+	 * @param distance
+	 * @param angle
+	 * @returns the initial launch speed
+	 */
+	ld static projectile_launch_speed(const ld distance, const ld angle)
+	{
+		return sqrt((distance * _Ga_) / (2 * cos(angle * RADIAN) * sin(angle * RADIAN)));
+	}
+
+	/**
+	 * @brief Returns the total amount of fuel mass loss a projectile would need to achieve the specified
+	 * launch speed  %loss = 1 - exp(-projectileLaunchSpeed / fuelEjectionSpeed)
+	 * @param projectileLaunchSpeed in m/s
+	 * @param fuelEjectionSpeed in m/s
+	 * @returns mass loss % 
+	 */
+	ld static mass_loss_of_projectile(const ld projectileLaunchSpeed, const ld fuelEjectionSpeed)
+	{
+		return 1 - exp(-projectileLaunchSpeed / fuelEjectionSpeed);
+	}
+
+	/**
+	 * @brief Returns the Range based off of velocity, angle and total time in seconds
+	 * @param v in m/s is the velocity or initial launch speed
+	 * @param angle is the angle of launch
+	 * @param time in seconds is the time in flight
+	 * @returns  range in meters
+	 */
+	ld static range_of_projectile(const ld v, const ld angle, const ld time)
+	{
+		return v * cos(angle * RADIAN) * time;
+	}
+
+	
 	
 	~Momentum()
 	{

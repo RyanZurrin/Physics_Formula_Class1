@@ -99,8 +99,8 @@ public:
 
 	ld static conversion_revolutions(const ld radTotal)
 	{
-		cout << "revolutions: " << radTotal / (2 * _PI_) << endl;
-		return radTotal / (2 * _PI_);
+		cout << "revolutions: " << radTotal / (2.0 * _PI_) << endl;
+		return radTotal / (2.0 * _PI_);
 	}
 
 	/**
@@ -110,7 +110,7 @@ public:
 	 */
 	ld static conversion_revolutions_min_to_radians_second(const ld revMin)
 	{
-		return (revMin * 2 * _PI_) / 60;
+		return (revMin * 2.0 * _PI_) / 60;
 	}
 
 	/**
@@ -120,7 +120,7 @@ public:
 	 */
 	ld static conversion_radians_second_to_revolutions_minute(const ld radSec)
 	{
-		return (radSec * 60) / (2 * _PI_);
+		return (radSec * 60.0) / (2.0 * _PI_);
 	}
 
 	/**

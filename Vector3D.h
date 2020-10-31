@@ -32,8 +32,9 @@ public:
     void set_xAngle(_ld);
     void set_yAngle(_ld);
     void set_zAngle(_ld);
+    void set_coordinates(_ld, _ld, _ld);
     
-    void showAlldata();
+    void showAllData();
     void showPolarCord()const;
     void display();    //display value of vectors
     _ld returnX()const; //return x

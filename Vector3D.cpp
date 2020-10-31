@@ -84,7 +84,21 @@ void Vector3D::set_zAngle(_ld _za)
     set_allAngles();
     set_magnitude();
 }
-void Vector3D::showAlldata()
+void Vector3D::set_coordinates(_ld x1, _ld y1, _ld z1)
+{
+    x = x1;
+    y = y1;
+    z = z1;
+    xAngle = 0.0;
+    yAngle = 0.0;
+    zAngle = 0.0;
+    _ptr3d = nullptr;
+    // _ptr2d = nullptr;
+    set_magnitude();
+    set_allAngles();
+    object_counter++;
+}
+void Vector3D::showAllData()
 {
     magnitude = find_magnitude();
     cout<< setprecision(9) << fixed;

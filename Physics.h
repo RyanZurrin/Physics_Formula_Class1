@@ -18,7 +18,8 @@
 #include "Vector3D.h"
 #include "Energy.h"
 #include "Momentum.h"
-
+#include "reactphysics3d.h"
+using namespace rp3d;
 
 
 
@@ -49,9 +50,9 @@ public:
 	static ld _val_;	
 	static void show_val() { cout << "val: " << _val_ << endl; }
 	
-	std::vector<ld> vector_values;
-	static void show_vector_values(Physics &p);
-	void show_vector_values();
+	static std::vector<ld> vector_values;
+	static void show_vector_values(vector<ld> &vec);
+	static void show_vector_values();
 
 	/**
 	 * @brief Template method to print out an array that is passed to it
@@ -76,6 +77,8 @@ public:
 	Vector3D * vector3d;
 	Energy * energy;
 	Momentum * momentum;
+	//PhysicsCommon * physics_common;
+	//PhysicsWorld * world;
 	Physics * _ptr_;
 		
 	Physics();
@@ -83,7 +86,7 @@ public:
 	Physics(ld t1, ld t2);
 	Physics(const Physics&); //copy constructor
 	Physics& operator=(const Physics&); //copy assignment operator
-	Physics(Physics&& o) noexcept :		
+	Physics(Physics&& o) noexcept :
 		friction(o.friction),
 		drag(o.drag),
 		elasticity(o.elasticity),
@@ -91,7 +94,7 @@ public:
 		vector2d(o.vector2d),
 		vector3d(o.vector3d),
 		energy(o.energy),
-		momentum(o.momentum),
+		momentum(o.momentum),		
 		_ptr_(o._ptr_){} // move constructor
 	
 	
@@ -446,7 +449,7 @@ public:
 	 * returns: average speed of spinning object
 	 */
 	ld static rotation_speed_2PIxRdT(const ld radius, const ld rotations, const ld time)
-	{ return (2 * _PI_ * radius) / (time / rotations); }
+	{ return (2.0 * _PI_ * radius) / (time / rotations); }
 
 	/**
 	 * method: rotation_avgVelocity_2PIxRdT_in_1_rotation(ld radius, ld time)
@@ -455,7 +458,7 @@ public:
 	 * returns: ld, average velocity
 	 */
 	ld static rotation_avgVelocity_2PIxRdT_in_1_rotation(const ld radius, const ld time)
-	{ return (2 * _PI_ * radius) / time; }
+	{ return (2.0 * _PI_ * radius) / time; }
 
 	/**
 	 * @brief Returns the conversion of given value divided by the acceleration of gravity on earth, 9.80 m/s^2

@@ -13,14 +13,14 @@
 
 #include <cmath>
 #include <complex>
-typedef  long _ld_;
+typedef  long double _ld_;
 using namespace std;
 
 
 const _ld_ _PI_ = acos(-1);
 const _ld_ DEGREE = 180/_PI_;
 const _ld_ RADIAN = _PI_/180;
-const double _Ga_ = 9.8;
+const _ld_ _Ga_ = 9.8;
 static int object_counter = 0;
 
 

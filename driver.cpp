@@ -12,11 +12,10 @@
 
 
 int main()
-
 {
-	Physics truck;
-	truck._val_= truck.energy->power_to_reach_velocity_from_rest_given_mass(1.25 * pow(10, 4), 22.5, 6.2);
-	truck.show_val();
+	Physics rocket;
+	rocket._val_ = rocket.momentum->totally_inelastic_collision_v2(13, 48, 100, 40);
+	rocket.show_val();
 	
 	return 0;
 }	
