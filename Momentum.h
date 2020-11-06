@@ -37,7 +37,7 @@ public:
 	 * @param time is seconds
 	 * @returns linear momentum kgm/s
 	 */
-	ld static momentum_linear(const ld mass, const ld distance, const ld time)
+	ld static momentumLinear(const ld mass, const ld distance, const ld time)
 	{
 		return (mass * distance) / time;
 	}
@@ -61,7 +61,7 @@ public:
 	 * @param time in seconds
 	 * @returns the net force in N (newtons)
 	 */
-	ld static newtons_2nd_law_as_momentum(const ld mass, const ld velocity, const ld time)
+	ld static newtons2ndLawAsMomentum(const ld mass, const ld velocity, const ld time)
 	{
 		return (mass * velocity) / time;
 	}
@@ -74,7 +74,7 @@ public:
 	 * @param distance in meters
 	 * @returns the net force in N (newtons)
 	 */
-	ld static force_net_using_distance(const ld mass, const ld velocity, const ld distance)
+	ld static forceNetUsingDistance(const ld mass, const ld velocity, const ld distance)
 	{
 		return (mass * (velocity * velocity) / (2 * distance));
 	}
@@ -116,6 +116,16 @@ public:
 	}
 
 	/**
+	 * @brief calculates the mass of a still  object that is pushing off another object on a frictionless
+	 * surface, such as two ice skaters pushing off each other
+	 * 
+	 */
+	ld static mass2FromMass1(const ld knownMass, const ld velocityForKnowMass, const ld velocityUnkownMass)
+	{
+		return (knownMass * velocityForKnowMass) / velocityUnkownMass;
+	}
+
+	/**
 	 * @brief computes the velocity of a system
 	 * @param momentum
 	 * @param mass
@@ -134,7 +144,7 @@ public:
 	 * @param velocityInitial in m/s
 	 * @returns the final velocity in m/s
 	 */
-	ld static velocity_final(const ld impulse, const ld mass, const ld velocityInitial = 0)
+	ld static velocityFinal(const ld impulse, const ld mass, const ld velocityInitial = 0)
 	{
 		return (impulse + mass * velocityInitial) / mass;
 	}
@@ -147,7 +157,7 @@ public:
 	 * @param velocity_a in m/s
 	 * @returns the velocity of the second mass 
 	 */
-	ld static velocity_B_final_mass(const ld mass_a, const ld mass_b, const ld velocity_a)
+	ld static velocityBFinalMass(const ld mass_a, const ld mass_b, const ld velocity_a)
 	{
 		return (mass_a * velocity_a) / mass_b;
 	}
@@ -162,7 +172,7 @@ public:
 	 * @returns the velocity
 	 * 
 	 */
-	ld static velocity_B_final_force(const ld mass_a, const ld velocity_a, const ld force_b, const ld time )
+	ld static velocityBfinalForce(const ld mass_a, const ld velocity_a, const ld force_b, const ld time )
 	{
 		return ((force_b * time) + (mass_a * velocity_a)) / (mass_a);
 	}
@@ -177,7 +187,7 @@ public:
 	 * @param velocity_f is the final velocity and it is 0 by default
 	 * @returns the time it takes to impact the system a given distance
 	 */
-	ld static time_impact_duration(const ld velocity_i,  const ld distance, const ld velocity_f = 0)
+	ld static timeImpactDuration(const ld velocity_i,  const ld distance, const ld velocity_f = 0)
 	{
 		return (2 * distance) / (velocity_i + velocity_f);
 	}
@@ -190,7 +200,7 @@ public:
 	 * @param stoppingForce in N (newtons)
 	 * @returns the time to stop in seconds
 	 */
-	ld static time_to_bring_to_rest(const ld mass, const ld velocity, const ld stoppingForce)
+	ld static timeToBringToRest(const ld mass, const ld velocity, const ld stoppingForce)
 	{
 		return (mass * velocity) / stoppingForce;
 	}
@@ -203,7 +213,7 @@ public:
 	 * defaulted to 0
 	 * @returns the magnitude of the y component of a vector
 	 */
-	ld static velocity_vector_y(const ld v, const ld theta, const ld y_vector90 = 0)
+	ld static velocityVectorY(const ld v, const ld theta, const ld y_vector90 = 0)
 	{
 		return v * sin(theta * RADIAN) + y_vector90;
 	}
@@ -216,7 +226,7 @@ public:
 	 * defaulted to 0
 	 * @returns the magnitude of the x component of a vector
 	 */
-	ld static velocity_vector_x(const ld v, const ld theta, const ld x_vector180 = 0)
+	ld static velocityVectorX(const ld v, const ld theta, const ld x_vector180 = 0)
 	{		
 		return v * cos(theta * RADIAN) + x_vector180;
 	}
@@ -229,7 +239,7 @@ public:
 	 * @param v_b velocity of mass_b in m/s
 	 * @returns the velocity of the colliding masses
 	 */
-	ld static collision_velocity_2_moving_masses(const ld mass_a, const ld v_a, const ld mass_b, const ld v_b)
+	ld static collisionVelocity2movingMasses(const ld mass_a, const ld v_a, const ld mass_b, const ld v_b)
 	{
 		return ((mass_a * v_a) + (mass_b * v_b)) / (mass_a + mass_b);
 	}
@@ -241,18 +251,77 @@ public:
 	 * @param v1 in m/s is the velocity of mass1
 	 * @returns vector<mass1, mass2>
 	 */
-	std::vector<ld> static collision_elastic(const ld movingMass1, const ld stillMass, const ld v1)
+	std::vector<ld> static collisionElasticVector(const ld movingMass1, const ld stillMass, const ld v1)
 	{
 		vector<ld> velocities = { 0.0, 0.0 };
 		velocities[0] = (v1 * (movingMass1 - stillMass)) / (movingMass1 + stillMass);
 		velocities[1] = v1 - abs(velocities[0]);		
 		return velocities;
 	}
+
+	/**
+	 * @brief Returns the final velocity of a elastic collision between two masses one being still
+	 * @param mm1 is the moving objects mass in kg
+	 * @param v is the moving masses velocity m/s
+	 * @param sm is the still mass that gets collided into
+	 * @returns final velocity
+	 */
+	ld static collisionElasticFinalVelocity(const ld mm1, const ld v, const ld sm)
+	{
+		return collisionElasticVector(mm1, sm, v)[1] / 2;
+	}
+
+	/**
+	 * @brief calculates the final velocities of an approximately elastic collision where one mass is still but in
+	 * a neutral state that is movable and the impact causes two seperate final velocities
+	 */
+	std::vector<ld> static collisionApproximatelyElastic(const ld m1, const ld m2, const ld v1)
+	{
+		vector<ld> velocityResults = {0.0, 0.0}; // <velocity m2, velocity m1>
+		velocityResults[0] = ((2 * m1 * v1) / (m1 + m2));
+		velocityResults[1] = (v1 * (m1 - m2)) / (m1 + m2);		
+		return velocityResults;
+	}
+
+	/**
+	 * @brief Returns the starting velocity of a mass involved in a totally inelastic collision with another mass,
+	 * coming from perpendicular directions and then forming one mass with one velocity facing a known angle theta
+	 * @param m1 is the mass of object 1 in kg
+	 * @param v1 is the starting velocity of m1 in m/s
+	 * @param m2 is the mass of the second object in kg
+	 * @param theta is the angle of the new direction the masses are going after the collision
+	 * @return the initial velocity of m2
+	 * 
+	 */
+	ld static  collisionTotallyInelasticPerpendicular_V2initial(const ld m1, const ld v1, const ld m2, const ld theta)
+	{
+		return ((m1 * v1 * tan(theta * RADIAN))) / (m2);
+	}
+
+	/**
+	 * @brief Returns the final velocity of two masses involved in a totally inelastic collision coming from perpendicular
+	 * directions and forming an angle theta which is known.
+	 * @param m1 is the mass of object 1 in kg
+	 * @param v1 is the starting velocity of m1 in m/s
+	 * @param m2 is the mass of the second object in kg
+	 * @param theta is the angle of the new direction the masses are going after the collision
+	 * @return the final velocity of the collision
+	 */
+	ld static collisionTotallyInelasticPerpendicular_Vfinal(const ld m1, const ld v1, const ld m2, const ld theta)
+	{
+		return (m1 * v1) / ((cos(theta * RADIAN) * m1) + (cos(theta * RADIAN) * m2));
+	}
 	
 	/**
-	 * @brief calculates the starting velocity of a mass2 in a totally inelastic collision
+	 * @brief calculates the starting velocity of  mass2 in a totally inelastic collision going in the same direction when the momentum start and final of
+	 * mass 1 is known
+	 * @param mass1 in kg is the mass with the known momentum
+	 * @param mass2 in kg is the mass object with unknowns
+	 * @param m1StartingMomentum
+	 * @param m1EndingMomentum
+	 * @return the starting velocity of mass2
 	 */
-	ld static totally_inelastic_collision_v2(const ld mass1, const ld mass2, const ld m1StartingMomentum, const ld m1EndingMomentum)
+	ld static collisionTotallyInelasticSameDirection_V2initial(const ld mass1, const ld mass2, const ld m1StartingMomentum, const ld m1EndingMomentum)
 	{
 		const ld m1vs = m1StartingMomentum/mass1;
 		const ld m1vf = m1EndingMomentum / mass1;
@@ -261,7 +330,6 @@ public:
 		return ((mass1 * m1vf) + (mass2 * m1vf) - (mass1 * m1vs)) / (mass2);
 		
 	}
-
 	
 	/**
 	 * @brief Returns a vector with the values of recoil velocity, internal kinetic energy of system,
@@ -271,7 +339,7 @@ public:
 	 * @param v1 is the velocity of the movingMass1
 	 * @returns vector<recoilVelocity, internalKineticEnergySystem, afterCollisionKEofSystem, totalChangeInSystem>
 	 */
-	std::vector<ld> static collision_inelastic(const ld movingMass1, const ld stillMass, const ld v1)
+	std::vector<ld> static collisionInelastic(const ld movingMass1, const ld stillMass, const ld v1)
 	{		
 		const ld recoilVelocity = (movingMass1) / (movingMass1 + stillMass) * v1;		
 		const ld internalKineticEnergySystem = .5 * (movingMass1) * (v1 * v1);		
@@ -289,7 +357,7 @@ public:
 	 * @param fuelBurnRate in kg/s
 	 * @returns acceleration of rocket
 	 */
-	ld static rocket_launch_acceleration(const ld liftMass, const ld exhaustVelocity, const ld fuelBurnRate)
+	ld static rocketLaunchAcceleration(const ld liftMass, const ld exhaustVelocity, const ld fuelBurnRate)
 	{
 		return ((exhaustVelocity / liftMass) * (fuelBurnRate)) - _Ga_;
 	}
@@ -301,7 +369,7 @@ public:
 	 * @param time in seconds
 	 * @returns Force in newtons of the impact 
 	 */
-	ld static force_impact(const ld mass, const ld v, const ld time)
+	ld static forceImpact(const ld mass, const ld v, const ld time)
 	{
 		return (-(mass)*v) / (time);
 	}
@@ -314,7 +382,7 @@ public:
 	 * @param angle
 	 * @returns the initial launch speed
 	 */
-	ld static projectile_launch_speed(const ld distance, const ld angle)
+	ld static projectileLaunchSpeed(const ld distance, const ld angle)
 	{
 		return sqrt((distance * _Ga_) / (2 * cos(angle * RADIAN) * sin(angle * RADIAN)));
 	}
@@ -326,7 +394,7 @@ public:
 	 * @param fuelEjectionSpeed in m/s
 	 * @returns mass loss % 
 	 */
-	ld static mass_loss_of_projectile(const ld projectileLaunchSpeed, const ld fuelEjectionSpeed)
+	ld static massLossOfProjectile(const ld projectileLaunchSpeed, const ld fuelEjectionSpeed)
 	{
 		return 1 - exp(-projectileLaunchSpeed / fuelEjectionSpeed);
 	}
@@ -338,9 +406,22 @@ public:
 	 * @param time in seconds is the time in flight
 	 * @returns  range in meters
 	 */
-	ld static range_of_projectile(const ld v, const ld angle, const ld time)
+	ld static rangeOfProjectile(const ld v, const ld angle, const ld time)
 	{
 		return v * cos(angle * RADIAN) * time;
+	}
+
+	/**
+	 * @brief Returns the amount a spring gets compressed when on a frictionless surface and a moving mass collides with it
+	 * @param sringAttachedMass is the mass of the objects that the spring is attached to
+	 * @param springConstant is the compression force of the spring and is usually a given value to plug it but can be found when the
+	 * spring force is known and over some distance in which that force is acting. k = F/(change in distance)
+	 * @param actingMass in kg is the mass of the object colliding with the spring mass
+	 * @param actingVelocity is the velocity of the actingMass in m/s
+	 */
+	ld static springCompressionAmount(const ld sringAttachedMass,const ld springConstant, const ld actingMass, const ld actingVelocity)
+	{
+		return ((actingMass * actingVelocity) / sqrt((springConstant * (actingMass + sringAttachedMass))));
 	}
 
 	

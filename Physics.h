@@ -18,8 +18,10 @@
 #include "Vector3D.h"
 #include "Energy.h"
 #include "Momentum.h"
-#include "reactphysics3d.h"
-using namespace rp3d;
+#include "Statics.h"
+#include "Torque.h"
+//#include "reactphysics3d.h"
+//using namespace rp3d;
 
 
 
@@ -69,14 +71,18 @@ public:
 
 	//PhysicsCommon  physics_common;
 	//PhysicsWorld* world;
-	Friction * friction;
-	Drag * drag;
-	Elasticity * elasticity;
-	Circular_Motion * circularMotion;
-	Vector * vector2d;
-	Vector3D * vector3d;
-	Energy * energy;
-	Momentum * momentum;
+	Friction* friction;
+	Drag* drag;
+	Elasticity* elasticity;
+	Circular_Motion* circularMotion;
+	Vector* vector2d;
+	Vector3D* vector3d;
+	Energy* energy;
+	Momentum* momentum;
+	Torque* torque;
+	Statics* statics;
+
+	
 	//PhysicsCommon * physics_common;
 	//PhysicsWorld * world;
 	Physics * _ptr_;
@@ -216,6 +222,10 @@ public:
 	ld static conversion_centimeters_to_meters(const ld cm = _val_)
 	{
 		return cm / 100;
+	}
+	ld static conversion_meters_to_centimeters(const ld m = _val_)
+	{
+		return m * 100;
 	}
 	ld static conversion_kilometers_to_meters(const ld km = _val_)
 	{

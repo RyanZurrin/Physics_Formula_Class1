@@ -45,6 +45,12 @@
     <ClInclude Include="reactphysics3d\reactphysics3d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Statics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Torque.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="driver.cpp">

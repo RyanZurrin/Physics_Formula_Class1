@@ -12,10 +12,9 @@
 
 
 int main()
-{
-	Physics rocket;
-	rocket._val_ = rocket.momentum->totally_inelastic_collision_v2(13, 48, 100, 40);
-	rocket.show_val();
+{	
+	Physics spring;
+
 	
 	return 0;
 }	

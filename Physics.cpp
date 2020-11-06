@@ -17,7 +17,9 @@ Physics::Physics()
 	vector2d = new Vector;
 	vector3d = new Vector3D;
 	energy = new Energy;
-	momentum = new Momentum;	
+	momentum = new Momentum;
+	torque = new Torque;
+	statics = new Statics;
 	//physics_common = new PhysicsCommon;
 	//world = physics_common->createPhysicsWorld();
 	
@@ -39,6 +41,8 @@ Physics::Physics(const Physics& p)
 	circularMotion = p.circularMotion;
 	momentum = p.momentum;
 	energy = p.energy;
+	torque = p.torque;
+	statics = p.statics;
 	//physics_common = p.physics_common;
 	countIncrease();
 	//countShow();
@@ -60,7 +64,8 @@ Physics& Physics::operator=(const Physics& r)
 		circularMotion = r.circularMotion;
 		energy = r.energy;
 		momentum = r.momentum;
-		
+		torque = r.torque;
+		statics = r.statics;
 		countIncrease();
 		//countShow();
 	}
@@ -77,6 +82,9 @@ Physics::Physics(const ld t1, const ld t2, const ld t3)
 	vector3d = new Vector3D;
 	energy = new Energy;
 	momentum = new Momentum;
+	torque = new Torque;
+	statics = new Statics;
+
 	
 	//vector_values = { 0.0,0.0,0.0,0.0 };
 	this->vector3d->set_coordinates(t1, t2, t3);
@@ -93,7 +101,9 @@ Physics::Physics(const ld t1, const ld t2)
 	vector2d = new Vector;
 	vector3d = new Vector3D;
 	energy = new Energy;
-	momentum = new Momentum;	
+	momentum = new Momentum;
+	torque = new Torque;
+	statics = new Statics;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -242,6 +252,7 @@ Physics::~Physics()
 	delete energy;
 	delete momentum;	
 	delete _ptr_;
+	delete torque;
 	countDecrease();
 	//countShow();
 }
