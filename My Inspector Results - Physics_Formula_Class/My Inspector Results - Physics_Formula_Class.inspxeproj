@@ -20,7 +20,7 @@
  <contextValues type="bag"/>
  <All_Configurations-All_Platforms>
   <analysis_type_settings>
-   <selected_analysis_type_path>D:\Program Files (x86)\IntelSWTools\Inspector 2020\config\analysis_type\mi3.cfg</selected_analysis_type_path>
+   <selected_analysis_type_path>D:\Program Files (x86)\IntelSWTools\Inspector 2020\config\analysis_type\mi2.cfg</selected_analysis_type_path>
   </analysis_type_settings>
   <target_settings>
    <selected_workload>
@@ -54,6 +54,12 @@
         </item>
         <item>
          <value>bin=D:\c++_physics_functions\Physics_Formula_Class</value>
+        </item>
+        <item>
+         <value>bin=D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d\reactphysics3d</value>
+        </item>
+        <item>
+         <value>bin=D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d</value>
         </item>
         <item>
          <value>bin=D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\bin\HostX86\x86</value>
@@ -200,6 +206,9 @@
          <value>bin=D:\Program Files\nodejs</value>
         </item>
         <item>
+         <value>bin=C:\Program Files\CMake\bin</value>
+        </item>
+        <item>
          <value>bin=C:\Users\ryanz\AppData\Local\Microsoft\WindowsApps</value>
         </item>
         <item>
@@ -273,6 +282,6 @@
  </All_Configurations-All_Platforms>
  <debugger_settings>
   <debugger_mode>off</debugger_mode>
-  <at_cliname>mi3</at_cliname>
+  <at_cliname>mi2</at_cliname>
  </debugger_settings>
 </root>

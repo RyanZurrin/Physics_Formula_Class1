@@ -2,8 +2,8 @@
 // class for doing physics problems
 // author: Ryan Zurrin
 // last Modified: 10/10/2020
-#ifndef CIRCULAR_MOTION_H
-#define CIRCULAR_MOTION_H
+#ifndef UNIFORMCIRCULARMOTION_H
+#define UNIFORMCIRCULARMOTION_H
 #include <cmath>
 //constant for the degrees in one radian 
 const ld _RAD_ = 360 / (2 * _PI_);
@@ -13,14 +13,14 @@ const ld _Gc_ = 6.674 * pow(10, -11);
 static int circularMotion_objectCount = 0;
 ld static _masses_[] = { 0.0, 0.0 };
 
-class Circular_Motion
+class UniformCircularMotion
 {
 private:
 	static void countIncrease() { circularMotion_objectCount += 1; }
 	static void countDecrease() { circularMotion_objectCount -= 1; }
 	
 	// pointer for the class object to use 
-	Circular_Motion* _circlePtr;
+	UniformCircularMotion* _circlePtr;
 
 	// radius variable of object
 	ld  _radius_;
@@ -29,7 +29,10 @@ private:
 	ld  _rotationAngle_;
 
 	// angular velocity variable of object
-	ld  _angularVelocity_;
+	ld  _angularVelocityW_;
+
+	// linear velocity variable
+	ld _linearVelocity;
 
 	// arc length variable of object
 	ld  _arcLength_;
@@ -44,32 +47,46 @@ public:
 
 	static void countShow() { std::cout << "circular motion count: " << circularMotion_objectCount << std::endl; }
 	// suppresses default constructor
-	Circular_Motion()
+	UniformCircularMotion()
 	{
 		_circlePtr = nullptr;
 		_radius_ = 0.0;
 		_rotationAngle_ = 0.0;
-		_angularVelocity_ = 0.0;
+		_angularVelocityW_ = 0.0;
+		_linearVelocity = 0.0;
 		_arcLength_ = 0.0;
 		_centripetalAcceleration_ = 0.0;
+		
 		countIncrease();
 	}
 	// assignment constructor
-	Circular_Motion(ld radius, ld velocity)
+	UniformCircularMotion(ld radius, ld velocity)
 	{
 		_circlePtr =  nullptr;
 		_radius_ = radius;
-		_angularVelocity_ = velocity / radius;
+		_angularVelocityW_ = velocity / radius;
+		_linearVelocity = radius * _angularVelocityW_;
 		_rotationAngle_ = 0.0;		
 		_arcLength_ = 0.0;
 		_centripetalAcceleration_ = (velocity * velocity)/(radius);
 		countIncrease();
 	}
+	// overloaded constructor
+	UniformCircularMotion(ld radius, ld velocity, ld time)
+	{
+		_circlePtr = nullptr;
+		_radius_ = radius;
+		_angularVelocityW_ = velocity / radius;
+		_rotationAngle_ = 0.0;
+		_arcLength_ = 0.0;
+		_centripetalAcceleration_ = (velocity * velocity) / (radius);
+		countIncrease();
+	}
 	//copy constructor
-	Circular_Motion(const Circular_Motion& r)
+	UniformCircularMotion(const UniformCircularMotion& r)
 	{
 		_circlePtr = r._circlePtr;
-		_angularVelocity_ = r._angularVelocity_;
+		_angularVelocityW_ = r._angularVelocityW_;
 		_centripetalAcceleration_ = r._centripetalAcceleration_;		
 		_arcLength_ = r._arcLength_;
 		_radius_ = r._radius_;
@@ -78,13 +95,13 @@ public:
 		//countShow();
 	}
 	//copy assignment operator
-	Circular_Motion& operator=(const Circular_Motion& r)
+	UniformCircularMotion& operator=(const UniformCircularMotion& r)
 	{
 		if (this != &r)
 		{
 			_circlePtr = r._circlePtr;			
 			_centripetalAcceleration_ = r._centripetalAcceleration_;
-			_angularVelocity_ = r._angularVelocity_;
+			_angularVelocityW_ = r._angularVelocityW_;
 			_arcLength_ = r._arcLength_;
 			_radius_ = r._radius_;
 			_rotationAngle_ = r._rotationAngle_;
@@ -93,6 +110,36 @@ public:
 		}
 		return *this;
 	}
+	/*===================================================================
+	 * setters
+	 */
+	void set_radius_(const ld r) { _radius_ = r; }
+	void set_rotationalAngle_(const ld ra) { _rotationAngle_ = ra; }
+	void set_angularVelocityW_(const ld av) { _angularVelocityW_ = av; }
+	void set_linearVelocity_(const ld lv) { _linearVelocity = lv; }
+	void set_arcLength_(const ld al) { _arcLength_ = al; }
+	void set_centripetalAcceleration_(const ld ca) { _centripetalAcceleration_ = ca; }
+
+	/*===================================================================
+	 * getters
+	 */
+	ld get_radius()const { return _radius_; }
+	ld get_rotationalAngle()const { return  _rotationAngle_; }
+	ld get_angularVelocityW()const { return _angularVelocityW_; }
+	ld get_linearVelocity()const { return _linearVelocity; }
+	ld get_arcLength()const { return _arcLength_; }
+	ld get_centripetalAcceleration()const { return _centripetalAcceleration_; }
+
+	/*===================================================================
+	 * display methods
+	 */
+	void show_radius()const { cout << "radius: " << _radius_ << endl; }
+	void show_rotationalAngle()const { cout << "rotational angle: " << _rotationAngle_ << endl;	}
+	void show_angularVelocityW()const { cout << "angular velocity: " << _angularVelocityW_ << endl;	}
+	void show_linearVelocity()const { cout << "linear velocity: " << _linearVelocity << endl; }
+	void show_arcLength()const { cout << "arcLength: " << _arcLength_ << endl; }
+	void show_centripetalAcceleration()const { cout << "centripetal acceleration: " << _centripetalAcceleration_ << endl; }
+	
 	/*===================================================================
 	 * conversion methods
 	 */
@@ -160,27 +207,25 @@ public:
 
 	/**
 	 * @brief Returns the angular velocity(w) given the radius and speed 
-	 * @param radius from the center of the s_PI_n to the outer edge
-	 * @param v is velocity of the object
+	 * @param v is the velocity or angle change
+	 * @param rt radius or time
 	 * @returns angular velocity 
 	 */
-	ld static angular_velocity(const ld radius, const ld v)
+	ld static angular_velocity(const ld v, const ld rt)
 	{
-		return v / radius;
+		return v / rt;
 	}
 
 	/**
 	 * @brief Returns the angular velocity(w) given the radius and speed
-	 * @param angleChange in total degrees the angle rotated in the given time.
-	 * 360 degrees in one full rotation and is 2_PI_ radians
-	 * @param time is time is seconds
-	 * @returns angular velocity
+	 * @param r is the radius of the spinning thing
+	 * @param av the angular velocity
+	 * @returns linear velocity
 	 */
-	ld static angular_velocity_t(const ld angleChange, const ld time)
+	ld static linear_velocity(const ld r, const ld av)
 	{
-		return (angleChange ) / time;
+		return r * av;
 	}
-
 	/**
 	 * @brief Returns the centripetal acceleration using the radius and the angular velocity
 	 * @param r radius
@@ -193,11 +238,11 @@ public:
 	}
 
 	/**
- * @brief Returns the centripetal acceleration using the radius and the velocity
- * @param r radius
- * @param v angular velocity in radian revolutions per second
- * @returns the centripetal acceleration
- */
+	 * @brief Returns the centripetal acceleration using the radius and the velocity
+	 * @param r radius
+	 * @param v angular velocity in radian revolutions per second
+	 * @returns the centripetal acceleration
+	 */
 	ld static centripetal_acceleration_V(const ld r, const ld v)
 	{
 		return (v * v) / r;
@@ -333,7 +378,7 @@ public:
 	}
 
 		
-	~Circular_Motion() {
+	~UniformCircularMotion() {
 		delete _circlePtr;
 		countDecrease();
 	};

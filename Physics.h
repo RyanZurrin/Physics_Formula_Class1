@@ -14,11 +14,12 @@
 #include "Friction.h"
 #include "Drag.h"
 #include "Elasticity.h"
-#include "Circular_Motion.h"
+#include "UniformCircularMotion.h"
 #include "Vector3D.h"
 #include "Energy.h"
 #include "Momentum.h"
 #include "Statics.h"
+#include "RotationalMotion.h"
 #include "Torque.h"
 //#include "reactphysics3d.h"
 //using namespace rp3d;
@@ -53,7 +54,20 @@ public:
 	static void show_val() { cout << "val: " << _val_ << endl; }
 	
 	static std::vector<ld> vector_values;
-	static void show_vector_values(vector<ld> &vec);
+
+	 /**
+	 * @brief static member function to print values of passed in vector
+	 * @param vec
+	 */
+	template <typename T, size_t size>
+	static void show_vector_values(T (&size_t) [size])
+	{
+		for (auto it : size_t)
+		{
+			std::cout << it << ", ";
+		}
+		std::cout << std::endl;
+	}
 	static void show_vector_values();
 
 	/**
@@ -74,13 +88,14 @@ public:
 	Friction* friction;
 	Drag* drag;
 	Elasticity* elasticity;
-	Circular_Motion* circularMotion;
+	UniformCircularMotion* uniformCircularMotion;
 	Vector* vector2d;
 	Vector3D* vector3d;
 	Energy* energy;
 	Momentum* momentum;
 	Torque* torque;
 	Statics* statics;
+	RotationalMotion* rotationalMotion;
 
 	
 	//PhysicsCommon * physics_common;
@@ -96,11 +111,14 @@ public:
 		friction(o.friction),
 		drag(o.drag),
 		elasticity(o.elasticity),
-		circularMotion(o.circularMotion),
+		uniformCircularMotion(o.uniformCircularMotion),
 		vector2d(o.vector2d),
 		vector3d(o.vector3d),
 		energy(o.energy),
-		momentum(o.momentum),		
+		momentum(o.momentum),
+		torque(o.torque),
+		statics(o.statics),		
+		//rotationalMotion(o.rotationalMotion),		
 		_ptr_(o._ptr_){} // move constructor
 	
 	
@@ -263,8 +281,18 @@ public:
 	{
 		return watt / 1000;
 	}
-	
-	
+	ld static conversion_newtonMeters_to_ftPounds(const ld Nm = _val_)
+	{
+		return Nm / .73756;
+	}
+	ld static conversion_radians_to_revolutions(const ld rad = _val_)
+	{
+		return rad / (2 * _PI_);
+	}
+	ld static convert_revolutions_to_radians(const ld rev = _val_)
+	{
+		return rev * 2 * _PI_;
+	}
 	//============================================================================
 	//chapter 2 formulas	
 	
@@ -304,6 +332,17 @@ public:
 	 */
 	ld static displacement_accelerating_object_PV(const ld velocity, const ld acceleration, const ld time, const ld pos = 0)
 	{ return pos + (velocity * time) + (acceleration * (time * time)) / 2; }
+
+	/**
+	 * @brief calculates the displacement using the kinematic formula X = Vi*t+ 1/2*a*t^2
+	 * @param velocity
+	 * @param acceleration
+	 * @param time
+	 */
+	ld static displacement_using_kinematic(const ld velocity, const ld acceleration, const ld time)
+	{
+		return (velocity * time) + (acceleration * (time * time)) / 2;
+	}
 	
 	/**
 	 * method: displacement_halting_VdA(ld velocity, ld acceleration)
@@ -324,22 +363,24 @@ public:
 	{ return (velocityStart + velocityEnd) / 2;	}
 
 	/**
-	 * method: velocity_final_using_time(ld velocity, ld acceleration, ld time)
-	 * arguments: initial velocity, amount of acceleration, and time
-	 * purpose:	calculate the final velocity using acceleration and time
-	 * returns: ld, final velocity
+	 *@brief calculates the final velocity using the kinematic equation Vf = Vi + a*t
+	 *@param initialVelocity is the initial velocity, many times this is zero
+	 *@param acceleration is the acceleration of object
+	 *@param time is amount of time taken
+	 *@returns the final velocity
 	 */
-	ld static velocity_final_using_time(const ld velocity, const ld acceleration, const ld time)
-	{	return velocity + acceleration * time; }
+	ld static velocity_final_from_kinematic_time(const ld initialVelocity, const ld acceleration, const ld time)
+	{	return initialVelocity + acceleration * time; }
 
 	/**
-	 * method: final_velocity_no_time(ld v, ld d, ld a)
-	 * arguments: v = velocity, d = displacement, a = acceleration
-	 * purpose: calculate the final velocity using velocity, displacement and acceleration
-	 * returns: ld, final velocity
+	 *@brief calculates the final velocity using the kinematic formula vf^2 = vi^2 + 2*a*d
+	 *@param initialVelocity
+	 *@param acceleration
+	 *@param displacement
+	 *@returns the final velocity
 	 */
-	ld static velocity_final_no_time(const ld velocity, const ld displacement, const ld acceleration)
-	{ return sqrt(velocity * velocity + (2 * (acceleration * displacement))); }
+	ld static velocity_final_kinematic_no_time(const ld initialVelocity, const ld acceleration , const ld displacement)
+	{ return sqrt(initialVelocity * initialVelocity + (2 * (acceleration * displacement))); }
 
 	/**
 	 * method: velocity_avg_DdT(ld displacement, ld time)   ss2.3 pg37
@@ -358,6 +399,17 @@ public:
 	 */
 	ld static velocity_kinematic_constant_a(const ld xY0, const ld xYf, const ld velocity, const ld acceleration)
 	{ return sqrt((velocity * velocity) + (2 * (acceleration * (xYf - xY0)))); }
+
+	/**
+	 * @brief calculates the final velocity using the kinematic formula Vf = Vi*t
+	 * @param vi initial velocity
+	 * @param t time
+	 * @returns the final velocity
+	 */
+	ld static velocityFinal_kinematic(const ld vi, const ld t)
+	{
+		return vi * t;
+	}
 	
 	/**
 	 * method: acceleration_avg(ld vChange, ld tChange)   ss2.4  pg40
@@ -508,7 +560,7 @@ public:
 		this->vector_values[1] = obj.displacement_accelerating_object_PV(v, a, t, p);
 		//Solution for Velocity:
 
-		obj._val_ = obj.velocity_final_using_time(v, a, t);
+		obj._val_ = obj.velocity_final_from_kinematic_time(v, a, t);
 		this->vector_values[2] = obj._val_;
 
 		this->vector_values[3] = a;
@@ -526,11 +578,31 @@ public:
 	* purpose:	calculates projectile range
 	* returns: ld, range of a projectile
 	*/
-	ld static projectile_range_level_ground(const ld velocity, const ld angleTheta)
-	{ return  ((velocity * velocity) * sin(2 * angleTheta) / (_ga_));	}
+	ld static range_projectile_level_ground(const ld velocity, const ld angleTheta)
+	{ return  ((velocity * velocity) * sin(2 * angleTheta * RADIAN) / (_ga_));	}
 
-	// (2* launchVelocity*sin(angleTheta))/(-GA);
-	ld time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)const;
+	/**
+	 * @brief calculates the angle theta of a projectile
+	 */
+	ld static projectile_theta(const ld distance, const ld velocity)
+	{
+		return (asinh(distance * _Ga_) / (velocity * velocity)) / 2;
+	}
+
+	
+	/**
+	 * @brief calculates the time a projectile with an initial velocity and angle
+	 *  take to reach the same level from which it was launched, forms a parabolic curve
+	 * (2* launchVelocity*sin(angleTheta))/(-GA);
+	 * @param launchVelocity
+	 * @param angleTheta
+	 * purpose:	
+	 * returns: ld, time units
+	 */
+	ld static time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)
+	{
+		return (2 * launchVelocity * sin(angleTheta)) / (_ga_);
+	}
 
 	// sqrt((-2*(displacement))/-GA)
 	ld air_time_initial_velocity0_y0(ld displacement)const;
@@ -642,7 +714,86 @@ public:
 	 */
 	ld static acceleration_slope_simpleFriction(const ld angleTheta, const ld kineticCoefficient)
 	{ return _ga_ * (sin(angleTheta * RADIAN ) - (kineticCoefficient * cos(angleTheta * RADIAN))); }
+
+	/**
+	 * @brief finds the ratio between two numbers
+	 * @param top is the top part of the ratio
+	 * @param bottom is the bottom part of the ratio
+	 * @returns the ratio between two numbers
+	 */
+	ld static ratio(const ld top, const ld bottom)
+	{
+		return top / bottom;
+	}
+
+	/**========================================================================
+	 * overloaded operators
+	 */
+	Physics operator+(const Physics& r)const
+	{
+		double x, y, z;
+		x = static_cast<ld>(vector3d->returnX() + r.vector3d->returnX());
+		y = static_cast<ld>(vector3d->returnY() + r.vector3d->returnY());
+		z = static_cast<ld>(vector3d->returnZ() + r.vector3d->returnZ());
+		Physics sum;
+		sum.vector3d->set_coordinates(x, y, z);
+		x = static_cast<ld>(vector2d->return_x() + r.vector2d->return_x());
+		y = static_cast<ld>(vector2d->return_y() + r.vector2d->return_y());
+		sum.vector2d->set_coordinates(x, y);
+		sum.vector3d->mode = r.vector3d->mode;
+		sum.vector2d->mode = this->vector2d->mode;
+		return sum;
+	}
+	Physics operator+(_ld_ n)const
+	{
+		double x, y, z;
+		x = static_cast<ld>(vector3d->returnX() + n);
+		y = static_cast<ld>(vector3d->returnY() + n);
+		z = static_cast<ld>(vector3d->returnZ() + n);
+		Physics sum;
+		sum.vector3d->set_coordinates(x, y, z);
+		x = static_cast<ld>(vector2d->return_x() + n);
+		y = static_cast<ld>(vector2d->return_y() + n);
+		sum.vector2d->set_coordinates(x, y);
+		sum.vector3d->mode = this->vector3d->mode;
+		sum.vector2d->mode = this->vector2d->mode;
+		sum._val_ = +n;
+		return sum;
+	}
+
+	Physics& operator+=(const Physics& r)
+	{
+		double x, y, z;
+		x = static_cast<ld>(vector3d->returnX() + r.vector3d->returnX());
+		y = static_cast<ld>(vector3d->returnY() + r.vector3d->returnY());
+		z = static_cast<ld>(vector3d->returnZ() + r.vector3d->returnZ());
+		Physics sum;
+		sum.vector3d->set_coordinates(x, y, z);
+		x = static_cast<ld>(vector2d->return_x() + r.vector2d->return_x());
+		y = static_cast<ld>(vector2d->return_y() + r.vector2d->return_y());
+		sum.vector2d->set_coordinates(x, y);
+		sum.vector3d->mode = r.vector3d->mode;
+		sum.vector2d->mode = this->vector2d->mode;
+		return sum;
 	
+	}
+	Physics operator+()const
+	{
+		double x, y, z;
+		x = static_cast<ld>(vector3d->returnX() + 1.0);
+		y = static_cast<ld>(vector3d->returnY() + 1.0);
+		z = static_cast<ld>(vector3d->returnZ() + 1.0);
+		Physics sum;
+		sum.vector3d->set_coordinates(x, y, z);
+		x = static_cast<ld>(vector2d->return_x() + 1.0);
+		y = static_cast<ld>( vector2d->return_y() + 1.0);
+		vector2d->set_coordinates(x, y);
+		vector3d->mode = this->vector3d->mode;
+		vector2d->mode = this->vector2d->mode;
+		_val_ += 1;
+		
+		return sum;
+	}
 	
 	// destructor
 	~Physics();

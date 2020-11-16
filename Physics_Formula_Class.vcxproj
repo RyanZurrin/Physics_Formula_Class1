@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Circular_Motion.h" />
+    <ClInclude Include="UniformCircularMotion.h" />
     <ClInclude Include="Drag.h" />
     <ClInclude Include="Elasticity.h" />
     <ClInclude Include="Energy.h" />
@@ -27,6 +27,7 @@
     <ClInclude Include="Momentum.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="reactphysics3d\reactphysics3d.h" />
+    <ClInclude Include="RotationalMotion.h" />
     <ClInclude Include="Statics.h" />
     <ClInclude Include="Torque.h" />
     <ClInclude Include="Vector2d.h" />

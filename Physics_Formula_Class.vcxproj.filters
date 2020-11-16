@@ -33,9 +33,6 @@
     <ClInclude Include="Elasticity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Circular_Motion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Energy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -49,6 +46,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Torque.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RotationalMotion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UniformCircularMotion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

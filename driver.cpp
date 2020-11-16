@@ -12,9 +12,15 @@
 
 
 int main()
-{	
-	Physics spring;
-
+{
+	Physics dust;
+	double theta = dust.rotationalMotion->timeToStopSpinning(31.8, .746);
+	cout << "theta: " << theta << endl;
+	cout << "theta * rev: " << (theta * 31.8)/(2*_PI_) << endl;
+	double r = Physics::conversion_centimeters_to_meters(4.1);
+	cout << "cent: " << r << endl;
+	cout << "distance dust traveled is: " << dust.rotationalMotion->distanceTraveled(r, theta);
+	
 	
 	return 0;
 }	
@@ -207,10 +213,119 @@ int main()
 		car.show_val();//part a
 		car._val_ = car.circularMotion->coefficient_static_minimum_for_embanked_turn(110, 17, Physics::conversion_kmh_to_mps(30.0));
 		car.show_val();//part b
-	//
+
+	// chapter 10 example 10.5
+	//Ai = 0, r = .350, w = .250 rad/sec^2, rev = 200,  a)how far? b)final angular velocity of wheels and velocity of train?
+		Physics train;
+		double radTot = train.convert_revolutions_to_radians (200);
+		cout << "radTot: " << radTot << endl;
+		double dis = train.displacement_VxT(radTot, .350);
+		train.uniformCircularMotion->set_angularVelocityW_(train.velocity_final_kinematic_no_time(0, .250, radTot));
+		train.uniformCircularMotion->set_linearVelocity_(train.uniformCircularMotion->linear_velocity(.350, train.uniformCircularMotion->get_angularVelocityW()));
+		train.uniformCircularMotion->show_linearVelocity();	
+		cout << "distance off train: " << dis << endl;
+	
+	
+	//chapter 10.7 calculating the effect of mass distrbution on a merry-go-round
+		Physics merry_go_round;
+		double torqueForce = merry_go_round.torque->torque(1.5, 250, 90);
+		cout << "torqueF: " << torqueForce << "N" <<endl;
+		double mI = merry_go_round.rotationalMotion->inertia.solidCylinderOrDisk_aboutCylinderAxis(50, 1.5);
+		cout << "Moment of inertia: " << mI << "kg/m^2" <<endl;
+		double angAccl = merry_go_round.rotationalMotion->angularAcceleration_usingTorque_andInertia(torqueForce, mI);
+		cout << "angular acceleration: " << angAccl << "rad/sec^2" << endl;
+
+		double inertiaKid = merry_go_round.rotationalMotion->inertia.hoop_aboutCylinderAxis(18, 1.25);
+		cout << "kid inertia: " << inertiaKid << "kg/m^2" << endl;
+
+		double finalAngularAcceleration = merry_go_round.rotationalMotion->angularAcceleration_usingTorque_andInertia(torqueForce, merry_go_round.rotationalMotion->inertiaSUM(mI, inertiaKid));
+		cout << "final angular acceleration: " << finalAngularAcceleration << "rad/sec^2" << endl;
+
+	//chapter 10.8 Calculating the work and energy for a spinning grindstone
+		Physics grindStone;
+		double netWork = grindStone.rotationalMotion->netWork(grindStone.torque->torque(.320, 200, 90), 1);
+		cout << "net work: " << netWork << endl;
+		double momentOfInertia = grindStone.rotationalMotion->inertia.solidCylinderOrDisk_aboutCylinderAxis(85, .320);
+		cout << "moment of inertia: " << momentOfInertia << "Nm" << endl;
+		double angAcc = grindStone.rotationalMotion->angularAcceleration_usingTorque_andInertia(netWork, momentOfInertia);
+		cout << "angular acceleration: " << angAcc << "rad/sec^2" << endl;
+		double w = grindStone.rotationalMotion->angularVelocity_kinematicsFomula(angAcc, 1);
+		cout << "angular velocity: " << w << "rad/s" << endl;
+		double KE = grindStone.rotationalMotion->kinetic_energy_for_rotation(momentOfInertia, w);
+		cout << "kinetic energy: " << KE << "J" << endl;
+
+	//chapter 10.9 calculating Helicopter Energies
+		Physics helicoptor;
+		double w = helicoptor.convert_revolutions_to_radians(300/60);
+		cout << "w: " << w << endl;
+		double momI = helicoptor.rotationalMotion->inertia.thinRod_aboutAxisThroughOneEndToLength(50, 4.0)*4;//multiplied by four because there are 4 blades
+		cout << "moment of inertia: " << momI << "kg m^2" << endl;
+		double KE = helicoptor.rotationalMotion->kinetic_energy_for_rotation(momI, w);
+		cout << "KE: " << KE << "J" << endl;
+		double KEtrans = helicoptor.rotationalMotion->kinetic_energy_for_rotation(1000, 20);
+		cout << "KEtrans: " << KEtrans << "J" << endl;
+		double compare = helicoptor.ratio(KEtrans, KE);
+		cout << "ratio of two energies: " << compare << endl;
+		double maxHeight = helicoptor.rotationalMotion->maxHeight(KE, 1000);
+		cout << "max height: " << maxHeight << "m" << endl;
+
+	//chapter 10.12 calculating the torque putting angular momentum into a lazy suzan
+		Physics lazySusan;
+		double momemtum = lazySusan.rotationalMotion->angularMomentum(.260, 2.50, .150);
+		cout << "angular momentum: " << momemtum << "kgm^2/s" << endl;
+		double inertia = lazySusan.rotationalMotion->inertia.solidCylinderOrDisk_aboutCylinderAxis(4, .260);
+		lazySusan._val_ = lazySusan.rotationalMotion->angularVelocity(momemtum, inertia);
+		cout << "angular velocity: " << lazySusan.return_val() << endl;
+
+	//chapter 10.13 Calculating the Torque in a kick
+		double F = 2000;
+		double r = .0220;
+		double I = 1.25;
+		double netT = r * F;
+		Physics knee;
+		knee._val_ =  knee.rotationalMotion->angularAcceleration_usingTorque_andInertia(netT, I);
+		cout << "angular acceleration: " << knee.return_val()<< " rad/s^2" << endl;
+		double finalAnglularVelocity = knee.rotationalMotion->angularVelocity_kinematicsFormula(knee.return_val(), 1);
+		cout << "final angular velocity: " << finalAnglularVelocity << endl;
+		double ke = knee.rotationalMotion->kinetic_energy_for_rotation(I, finalAnglularVelocity);
+		cout << "Kinetic Energy of knee after 1 radian of rotation: " << ke << "J" << endl;
+
+	//chapter 10.14 Calculating the Angular Momentum of a spinning skater
+		Physics skater;
+		skater._val_ = skater.rotationalMotion->angularVelocitySpinningSkater(2.34, .800, .363);
+		skater.show_val();
+		double ke1, ke2;
+		ke1 = skater.rotationalMotion->kinetic_energy_for_rotation(2.34, .800*(2*_PI_));
+		ke2 = skater.rotationalMotion->kinetic_energy_for_rotation(.363, 5.16*(2*_PI_));
+		cout << "ke1:" << ke1 << "  ke2: " << ke2 << endl;
+
+	//chapter 10.15 Rotation in a collision
+		Physics disk_and_stick;
+		double diskMass = .0500; //50g = .050kg
+		double diskVi = 30.0; // m/s
+		double stickLength = 1.20; // m
+		double stickMass = 2.00; // kg
+		double I = (diskMass + (stickMass/3.0)) * pow(stickLength, 2);
+		double L = diskMass * diskVi * stickLength;
+		double angularVelocity = disk_and_stick.rotationalMotion->angularVelocity(L, I);
+		cout << "anagular velocity after collision: " << angularVelocity << "rad/s" << endl;
+		double KEi, KEf;
+		KEi = disk_and_stick.energy->kinetic_energy_translational(.050, 30.0);
+		cout << "KEi: " << KEi << endl;
+		KEf = disk_and_stick.rotationalMotion->kinetic_energy_for_rotation(I, angularVelocity);
+		cout << "KEf: " << KEf << endl;
+		double p = disk_and_stick.momentum->momentum(diskMass, diskVi);
+		cout << "linear momentum before: " << p << endl;
+		double pf = (diskMass + (stickMass / 2)) * stickLength * angularVelocity;
+		cout << "linear momentut after collision: " << pf << endl;
 
 	//
 
 	//
+
+
+
+
+	
 */
 

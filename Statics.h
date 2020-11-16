@@ -8,9 +8,20 @@
 #ifndef STATICS_H
 #define STATICS_H
 
+
 class Statics
 {
 public:
+	
+	//constructor
+	Statics() = default;
+
+
+
+	
+	//destructor
+	~Statics() = default;
+
 };
 
 #endif

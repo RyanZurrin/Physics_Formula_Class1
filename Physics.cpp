@@ -13,13 +13,14 @@ Physics::Physics()
 	drag = new Drag;
 	elasticity = new Elasticity;
 	friction = new Friction;
-	circularMotion = new Circular_Motion;
+	uniformCircularMotion = new UniformCircularMotion;
 	vector2d = new Vector;
 	vector3d = new Vector3D;
 	energy = new Energy;
 	momentum = new Momentum;
 	torque = new Torque;
 	statics = new Statics;
+	rotationalMotion = new RotationalMotion;
 	//physics_common = new PhysicsCommon;
 	//world = physics_common->createPhysicsWorld();
 	
@@ -38,11 +39,12 @@ Physics::Physics(const Physics& p)
 	friction = p.friction;
 	vector2d = p.vector2d;
 	vector3d = p.vector3d;
-	circularMotion = p.circularMotion;
+	uniformCircularMotion = p.uniformCircularMotion;
 	momentum = p.momentum;
 	energy = p.energy;
 	torque = p.torque;
 	statics = p.statics;
+	rotationalMotion = p.rotationalMotion;
 	//physics_common = p.physics_common;
 	countIncrease();
 	//countShow();
@@ -61,11 +63,12 @@ Physics& Physics::operator=(const Physics& r)
 		friction = r.friction;
 		vector2d = r.vector2d;
 		vector3d = r.vector3d;
-		circularMotion = r.circularMotion;
+		uniformCircularMotion = r.uniformCircularMotion;
 		energy = r.energy;
 		momentum = r.momentum;
 		torque = r.torque;
 		statics = r.statics;
+		rotationalMotion = r.rotationalMotion;
 		countIncrease();
 		//countShow();
 	}
@@ -77,13 +80,14 @@ Physics::Physics(const ld t1, const ld t2, const ld t3)
 	drag = new Drag;
 	elasticity = new Elasticity;
 	friction = new Friction;
-	circularMotion = new Circular_Motion;
+	uniformCircularMotion = new UniformCircularMotion;
 	vector2d = new Vector;
 	vector3d = new Vector3D;
 	energy = new Energy;
 	momentum = new Momentum;
 	torque = new Torque;
 	statics = new Statics;
+	rotationalMotion = new RotationalMotion;
 
 	
 	//vector_values = { 0.0,0.0,0.0,0.0 };
@@ -97,29 +101,21 @@ Physics::Physics(const ld t1, const ld t2)
 	drag = new Drag;
 	elasticity = new Elasticity;
 	friction = new Friction;
-	circularMotion = new Circular_Motion;
+	uniformCircularMotion = new UniformCircularMotion;
 	vector2d = new Vector;
 	vector3d = new Vector3D;
 	energy = new Energy;
 	momentum = new Momentum;
 	torque = new Torque;
 	statics = new Statics;
+	rotationalMotion = new RotationalMotion;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
 
-/**
- * @brief static member function to print values of passed in vector 
- * @param vec 
- */
-void Physics::show_vector_values(vector<ld> &vec)
-{
-	for (auto it : vec)
-	{
-		std::cout << it << ", ";
-	}
-	std::cout << std::endl;
-}
+
+
+
 
 /**
  * @brief prints out the values stored in the objects vector
@@ -131,18 +127,6 @@ void Physics::show_vector_values()
 		std::cout << it << ", ";
 	}
 	std::cout << std::endl;
-}
-
-/**
- * method: projectile_time_to_reach_level(ld launchVelocity, ld angleTheta)
- * arguments: launch velocity, initial angle
- * purpose:	calculates the time a projectile with an initial velocity and angle
- *  take to reach the same level from which it was launched, forms a parabolic curve
- * returns: ld, time units
- */
-ld Physics::time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)const
-{
-	return (2* launchVelocity*sin(angleTheta))/(_ga_);
 }
 
 /**
@@ -248,11 +232,13 @@ Physics::~Physics()
 	delete vector2d;
 	delete vector3d;
 	delete drag;
-	delete circularMotion;
+	delete uniformCircularMotion;
 	delete energy;
 	delete momentum;	
 	delete _ptr_;
 	delete torque;
+	delete statics;
+	delete rotationalMotion;
 	countDecrease();
 	//countShow();
 }
