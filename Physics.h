@@ -21,6 +21,7 @@
 #include "Statics.h"
 #include "RotationalMotion.h"
 #include "Torque.h"
+
 //#include "reactphysics3d.h"
 //using namespace rp3d;
 
@@ -589,6 +590,14 @@ public:
 		return (asinh(distance * _Ga_) / (velocity * velocity)) / 2;
 	}
 
+	/**
+	 * @brief static template method to set val 
+	 */
+	template <typename T>
+	static void setVal(const T v)
+	{
+		_val_ = v;
+	}
 	
 	/**
 	 * @brief calculates the time a projectile with an initial velocity and angle

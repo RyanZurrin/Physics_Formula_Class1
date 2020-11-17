@@ -96,14 +96,27 @@ public:
 	
 	/**
 	 * @brief calculates the angular acceleration
-	 * @param v is the know angular velocity 
+	 * @param w is the know angular velocity 
 	 * @param rt is the radius or the time, works with either
 	 * @returns the angular acceleration
 	 */
-	ld static angularAcceleration(const ld v, const ld rt)
+	ld static angularAcceleration(const ld w, const ld rt)
 	{
-		return v / rt;
+		return w / rt;
 	}
+
+	/**
+	 * @brief calculates the angular acceleration using the transformed kinematics equation wf^2=wi^2+2*a*rad
+	 * @param wi initial angular velocity
+	 * @param wf final angular velocity
+	 * @param rad total rotation in rad usually being multiplied by PI
+	 * @returns the angular velocity rad/s^2
+	 */
+	ld static angularAcceleration(const ld wi, const ld wf, const ld rad)
+	{
+		return ((wf * wf) - (wi * wi)) / (2 * (rad));
+	}
+	
 	/**
 	 * @brief calculates the angular acceleration using net torque and the rotational inertia of an object
 	 * @param netTorque is the torque force
@@ -182,13 +195,32 @@ public:
 	{
 		return r * a;
 	}
+
+	/**
+	 * @brief calculates the angular displacement using the adapted kinematics formula wf^2 =wi^2 + 2*a*t
+	 * @param wi initial angular velocity
+	 * @param wf final angular velocity
+	 * @param Aa angular acceleration
+	 * @param mode "rad" or "rev", radians or revolutions 
+	 * @returns the total displacement in rad must divide 
+	 */
+	ld static theta_from_kinematics(const ld wi, const ld wf, const ld Aa, const string mode = "rev")
+	{
+		if(mode == "rad")
+		{
+			return ((wf * wf) - (wi * wi)) / (2 * (Aa));
+		}
+		return ((wf * wf) - (wi * wi)) / (2 * (Aa))/(2*_PI_);
+		
+	}
+	
 	
 	/**
 	 * @brief calculates the time to stop from known angular velocities
 	 */
-	ld static timeToStopSpinning(const ld startAngVelocity, const ld endAngVelocity)
+	ld static timeToStopSpinning(const ld startAngVelocity, const ld stoppingAngularAcceleration)
 	{
-		return -startAngVelocity / endAngVelocity;
+		return -startAngVelocity / stoppingAngularAcceleration;
 	}
 
 	/**
@@ -310,7 +342,13 @@ public:
 		return (exA_inertia / clA_inertia) * exA_angularVelocity;
 	}
 
-
+	/**
+	 * @brief calculates the amount of revolutions it takes to stop spinning
+	 */
+	ld static revolutionsToStop(const ld a, const ld wi, const ld wf =0.0)
+	{
+		return (((wf * wf) - (wi * wi)) / (2 * a)) / (2 * _PI_);
+	}
 
 
 	

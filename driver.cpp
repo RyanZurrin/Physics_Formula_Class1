@@ -13,13 +13,15 @@
 
 int main()
 {
-	Physics dust;
-	double theta = dust.rotationalMotion->timeToStopSpinning(31.8, .746);
-	cout << "theta: " << theta << endl;
-	cout << "theta * rev: " << (theta * 31.8)/(2*_PI_) << endl;
-	double r = Physics::conversion_centimeters_to_meters(4.1);
-	cout << "cent: " << r << endl;
-	cout << "distance dust traveled is: " << dust.rotationalMotion->distanceTraveled(r, theta);
+	Physics fan;
+	fan;
+	double rad = 3 * _PI_; //radians
+	double wi = 3.40; //rad/s
+	double wf = 1.80; //rad/s
+	fan.setVal(fan.rotationalMotion->angularAcceleration(wi, 0.0, rad));
+	fan.show_val();
+	double displacement = fan.rotationalMotion->theta_from_kinematics(wi, wf, fan.return_val());
+	cout << "displacement: " << displacement << endl;
 	
 	
 	return 0;

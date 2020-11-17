@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FluidStatics.h" />
     <ClInclude Include="UniformCircularMotion.h" />
     <ClInclude Include="Drag.h" />
     <ClInclude Include="Elasticity.h" />
