@@ -116,6 +116,19 @@ public:
 	{
 		return ((wf * wf) - (wi * wi)) / (2 * (rad));
 	}
+
+	/**
+	 * @brief calculates the angular acceleration of a spinning grind wheel with applied frictional coefficient
+	 * @param mass is in kg
+	 * @param r is the radius
+	 * @param Force is the force being applied
+	 * @param fC is the frictional Coefficient of the material being pressed to the wheel
+	 * @returns the angular acceleration (2 * fC * Force) / (mass * r)
+	 */
+	ld static angularAcceleration(const ld mass, const ld r, const ld Force, const ld fC)
+	{
+		return ((2 * fC * Force) / (mass * r));
+	}
 	
 	/**
 	 * @brief calculates the angular acceleration using net torque and the rotational inertia of an object
@@ -142,15 +155,26 @@ public:
 
 	/**
 	 * @brief calculates the angular velocity using the definition of angular momentum L=Iw so w=L/I
-	 * @param L is the momentum of an object
-	 * @param I is the inertia of an object
+	 * @param Lv is the momentum of an object if L/I or the velocity if v/r v=tangential velocity(linear)
+	 * @param Ir is the inertia of an object if L/I or the radius if v/r  r= radius
 	 * @return angular velocity rad/s
 	 */
-	ld static angularVelocity(const ld L, const ld I)
+	ld static angularVelocity(const ld Lv, const ld Ir)
 	{
-		return L / I;
+		return Lv / Ir;
 	}
-	
+
+	/**
+	 * @brief calculates the final angular velocity	
+	 * @param Aa is the angular acceleration
+	 * @param seconds is the amount of seconds that pass
+	 * @param wi is the initial angular velocity, default is at 0 
+	 * @returns the final angular velocity
+	 */
+	ld static angularVelocity_final(const ld Aa, const ld seconds, const ld wi = 0.0)
+	{
+		return wi + Aa * seconds;
+	}
 	/**
 	 * @brief calculates the linear acceleration
 	 * @param lv is the known linear velocity
@@ -194,6 +218,17 @@ public:
 	ld static tangentialAcceleration(const ld r, const ld a)
 	{
 		return r * a;
+	}
+
+	/**
+	 * @brief calculates the tangential velocity
+	 * @param w is the angular velocity
+	 * @param r is the radius
+	 * @returns tangential velocity m/s
+	 */
+	ld static tangentialVelocity(const ld w, const ld r)
+	{
+		return w * r;
 	}
 
 	/**
@@ -313,9 +348,21 @@ public:
 	 * @param radians is the total rotation in radians
 	 * @returns the distance traveled.
 	 */
-	ld static distanceTraveled(const ld radius, const ld radians)
+	ld static distance(const ld radius, const ld radians)
 	{
 		return radius * radians;
+	}
+
+	/**
+	 * @brief calculates the distance traveled using the tangential velocity
+	 * @param w is the angular velocity
+	 * @param r is the radius in m
+	 * @param seconds is the time in seconds
+	 * @returns the distance traveled
+	 */
+	ld static distance(const ld w, const ld r, const ld seconds)
+	{
+		return w * r * seconds;
 	}
 
 	/**

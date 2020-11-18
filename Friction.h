@@ -17,12 +17,17 @@ static int friction_objectCount = 0;
 class Friction 
 {
 private:
-	
+	ld _frictionCoefficient_;
 	static void countIncrease() { friction_objectCount += 1; }
 	static void countDecrease() { friction_objectCount -= 1; }
 public:
 	static void countShow() { std::cout << "friction count: " << friction_objectCount << std::endl; }
 	Friction* _ptrFriction;
+
+	void set_frictionalCoefficient(const ld fC) { _frictionCoefficient_ = fC; }
+	ld return_frictionCoefficient()const { return _frictionCoefficient_; }
+	void show_frictionalCoefficient()const { std::cout << "frictional coefficient: " << return_frictionCoefficient() << std::endl; }
+	
 // static friction coefficients	
 	struct Static
 	{
@@ -63,6 +68,15 @@ public:
 	Friction()
 	{
 		_ptrFriction =  nullptr;
+		_frictionCoefficient_ = 0.0;
+		countIncrease();
+		//countShow();
+	}
+
+	Friction(ld fC)
+	{
+		_ptrFriction = nullptr;
+		_frictionCoefficient_ = fC;
 		countIncrease();
 		//countShow();
 	}
@@ -70,7 +84,7 @@ public:
 	// copy constructor
 	Friction(const Friction& f)
 	{
-		_ptrFriction = f._ptrFriction;
+		_ptrFriction = f._ptrFriction;		
 		countIncrease();
 		//countShow();
 	}

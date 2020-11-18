@@ -13,15 +13,9 @@
 
 int main()
 {
-	Physics fan;
-	fan;
-	double rad = 3 * _PI_; //radians
-	double wi = 3.40; //rad/s
-	double wf = 1.80; //rad/s
-	fan.setVal(fan.rotationalMotion->angularAcceleration(wi, 0.0, rad));
-	fan.show_val();
-	double displacement = fan.rotationalMotion->theta_from_kinematics(wi, wf, fan.return_val());
-	cout << "displacement: " << displacement << endl;
+	Physics tornado;
+	tornado.setVal(tornado.rotationalMotion->angularVelocity(138.89, 30*2*_PI_));
+	tornado.show_val();
 	
 	
 	return 0;
@@ -321,8 +315,21 @@ int main()
 		double pf = (diskMass + (stickMass / 2)) * stickLength * angularVelocity;
 		cout << "linear momentut after collision: " << pf << endl;
 
-	//
+	// Web assign homework
+		Physics fan;
+		fan;
+		double rad = 3 * _PI_; //radians
+		double wi = 3.40; //rad/s
+		double wf = 1.80; //rad/s
+		fan.setVal(fan.rotationalMotion->angularAcceleration(wi, 0.0, rad));
+		fan.show_val();
+		double displacement = fan.rotationalMotion->theta_from_kinematics(wi, wf, fan.return_val());
+		cout << "displacement: " << displacement << endl;
 
+	//
+	//
+	//
+	//
 	//
 
 
