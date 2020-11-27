@@ -135,16 +135,37 @@ public:
 
 	/**
  * calculates the total force required to life a wheelbarrow
- * @param Fo is the weight of the wheelbarrow load in this device
- * @param lo is the the distance from cg(center of gravity to where the wheel touches the ground
- * @param li is the distance from the cg to where you are holding the wheelbarrow
+ * @param w is the weight of the wheelbarrow and load
+ * @param ro is the the distance from cg(center of gravity to where the wheel touches the ground
+ * @param ri is the distance from the cg to where you are holding the wheelbarrow
  * @returns force needed to lift wheelbarrow
  */
-	ld static  force_to_lift_wheelbarrow(const ld Fo, const ld lo, const ld li)
+	ld static  force_to_lift_wheelbarrow(const ld w, const ld ro, const ld ri)
 	{
-		return Fo * _Ga_ * (lo / li);
+		return w * _Ga_ * (ro / ri);
 	}
 
+	/**
+	 * @brief calculates the weight of the load in a wheelbarrow
+	 * @param Mb is the mass of the wheelbarrow
+	 * @param rToHandlesTo_cg is the lever arm from the lifting point on handles to the center of gravity(cg)
+	 * @param cg_toPivot is the lever arm from the pivot to the center of gravity(cg)
+	 * @param liftingForce is the force required to lift up the wheelbarrow, can be found by standing on a scale while holding
+	 * the wheelbarrow up and getting a reading in pounds and then converting
+	 * @returns the weight of a wheelbarrow load
+	 */
+	ld static weight_load_of_wheelbarrow(const ld Mb, const ld rToHandlesTo_cg, const ld cg_toPivot, const ld liftingForce)
+	{
+		ld  a, b,  c;
+		a = ((Mb * _Ga_ * cg_toPivot) / (rToHandlesTo_cg));
+		b = ((_Ga_ * cg_toPivot) / rToHandlesTo_cg);
+		c = (liftingForce - a) / b;
+		
+		return c;
+	}
+
+
+	
 	/**
 	 * Returns the machanical advantage of a simple machine
 	 * MA = Fo/Fi = li/lo  ;where Fo = output force, Fi = input force, li = distance from input source to pivot

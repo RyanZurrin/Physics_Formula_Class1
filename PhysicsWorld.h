@@ -1,12 +1,12 @@
 #pragma once
 /**
- * @class Physics
+ * @class PhysicsWorld
  * @details driver class for solving complex physics problems
  * @author Ryan Zurrin
  * @date   10/15/2020
  */
-#ifndef PHYSICS_H
-#define PHYSICS_H
+#ifndef PHYSICSWORLD_H
+#define PHYSICSWORLD_H
 
 #include <iostream>
 #include <cmath>
@@ -21,6 +21,7 @@
 #include "Statics.h"
 #include "RotationalMotion.h"
 #include "Torque.h"
+#include "Temperature.h"
 
 //#include "reactphysics3d.h"
 //using namespace rp3d;
@@ -40,7 +41,7 @@ const ld _GC_ = 6.674 * pow(10, -11);
 const ld _c_ = 2.99792458 * pow(10, 8);
 
 
-class Physics 
+class PhysicsWorld 
 {
 	
 private:
@@ -55,6 +56,11 @@ public:
 	static void show_val() { cout << "val: " << _val_ << endl; }
 	
 	static std::vector<ld> vector_values;
+	static void setVector(vector<ld> v)
+	{
+		vector_values = v;
+	}
+	
 
 	 /**
 	 * @brief static member function to print values of passed in vector
@@ -97,18 +103,19 @@ public:
 	Torque* torque;
 	Statics* statics;
 	RotationalMotion* rotationalMotion;
+	Temperature* temperature;
 
 	
 	//PhysicsCommon * physics_common;
 	//PhysicsWorld * world;
-	Physics * _ptr_;
+	PhysicsWorld * _ptr_;
 		
-	Physics();
-	Physics(ld t1, ld t2, ld t3);
-	Physics(ld t1, ld t2);
-	Physics(const Physics&); //copy constructor
-	Physics& operator=(const Physics&); //copy assignment operator
-	Physics(Physics&& o) noexcept :
+	PhysicsWorld();
+	PhysicsWorld(ld t1, ld t2, ld t3);
+	PhysicsWorld(ld t1, ld t2);
+	PhysicsWorld(const PhysicsWorld&); //copy constructor
+	PhysicsWorld& operator=(const PhysicsWorld&); //copy assignment operator
+	PhysicsWorld(PhysicsWorld&& o) noexcept :
 		friction(o.friction),
 		drag(o.drag),
 		elasticity(o.elasticity),
@@ -119,12 +126,12 @@ public:
 		momentum(o.momentum),
 		torque(o.torque),
 		statics(o.statics),		
-		//rotationalMotion(o.rotationalMotion),		
+		rotationalMotion(o.rotationalMotion),		
 		_ptr_(o._ptr_){} // move constructor
 	
 	
 	static ld return_val() { return _val_; }
-	static vector<ld> return_vector(Physics &v) { return v.vector_values; }
+	static vector<ld> return_vector(PhysicsWorld &v) { return v.vector_values; }
 	//============================================================================
 	// conversion methods
 
@@ -190,7 +197,7 @@ public:
 	}
 	/**
 	 * @brief Returns the conversion from seconds to days
-	 * @param seconds
+	 * @param seconds to be converted
 	 * @returns days
 	 */
 	ld static conversion_seconds_to_days(const ld seconds = _val_)
@@ -199,7 +206,7 @@ public:
 	}
 	/**
 	 * @brief Returns the conversion from miles to meters
-	 * @param miles
+	 * @param miles to be converted
 	 * @returns meters from miles
 	 */
 	ld static conversion_miles_to_meters(const ld miles = _val_)
@@ -208,7 +215,7 @@ public:
 	}
 	/**
 	 * @brief Returns the conversion from feet to meters
-	 * @param feet
+	 * @param feet to be converted
 	 * @returns meters
 	 */
 	ld static conversion_feet_to_meters(const ld feet = _val_)
@@ -217,7 +224,7 @@ public:
 	}
 	/**
 	 * @brief Returns the conversion from inches to meters
-	 * @param inches
+	 * @param inches to be converted
 	 * @returns meters
 	 */
 	ld static conversion_inches_to_meters(const ld inches = _val_)
@@ -226,7 +233,7 @@ public:
 	}
 	/**
 	 * @brief Returns the conversion from meters to inches
-	 * @param meters
+	 * @param meters is the total meters
 	 * @returns inches
 	 */
 	ld static conversion_meters_to_inches(const ld meters = _val_)
@@ -235,8 +242,8 @@ public:
 	}
 	/**
 	 * @brief Returns the conversion from centimeters to meters
-	 * @param cm
-	 * @returns meters
+	 * @param cm centimeters
+	 * @returns meters 
 	 */
 	ld static conversion_centimeters_to_meters(const ld cm = _val_)
 	{
@@ -331,16 +338,22 @@ public:
 	 * 			position and an initial velocity along with acceleration and a time
 	 * returns:	ld, displacement
 	 */
-	ld static displacement_accelerating_object_PV(const ld velocity, const ld acceleration, const ld time, const ld pos = 0)
+	ld static displacement_accelerating_object_PV(const ld velocity, 
+												  const ld acceleration,
+												  const ld time, 
+												  const ld pos = 0)
 	{ return pos + (velocity * time) + (acceleration * (time * time)) / 2; }
 
 	/**
-	 * @brief calculates the displacement using the kinematic formula X = Vi*t+ 1/2*a*t^2
-	 * @param velocity
-	 * @param acceleration
-	 * @param time
+	 * @brief calculates the displacement using the kinematic formula
+	 * X = Vi*t+ 1/2*a*t^2
+	 * @param velocity in m/s
+	 * @param acceleration in m/s^2
+	 * @param time in s
 	 */
-	ld static displacement_using_kinematic(const ld velocity, const ld acceleration, const ld time)
+	ld static displacement_using_kinematic(const ld velocity, 
+										   const ld acceleration, 
+										   const ld time)
 	{
 		return (velocity * time) + (acceleration * (time * time)) / 2;
 	}
@@ -375,9 +388,9 @@ public:
 
 	/**
 	 *@brief calculates the final velocity using the kinematic formula vf^2 = vi^2 + 2*a*d
-	 *@param initialVelocity
-	 *@param acceleration
-	 *@param displacement
+	 *@param initialVelocity m/s
+	 *@param acceleration m/s^2
+	 *@param displacement m
 	 *@returns the final velocity
 	 */
 	ld static velocity_final_kinematic_no_time(const ld initialVelocity, const ld acceleration , const ld displacement)
@@ -393,7 +406,7 @@ public:
 	{ return  displacement / time; }
 	
 	/**
-	 * method: Physics::velocity_falling_object_down(ld y, ld yf, ld v, ld a)
+	 * method: PhysicsWorld::velocity_falling_object_down(ld y, ld yf, ld v, ld a)
 	 * arguments: y0 = start position,  yf = final position v = velocity, a = acceleration
 	 * purpose: find the velocity of a falling object thrown downwards
 	 * returns: ld, velocity
@@ -556,7 +569,7 @@ public:
 	{
 		this->vector_values[0] = t;
 		//solution for Position:
-		Physics obj;
+		PhysicsWorld obj;
 
 		this->vector_values[1] = obj.displacement_accelerating_object_PV(v, a, t, p);
 		//Solution for Velocity:
@@ -593,8 +606,7 @@ public:
 	/**
 	 * @brief static template method to set val 
 	 */
-	template <typename T>
-	static void setVal(const T v)
+	static void setVal(const ld v)
 	{
 		_val_ = v;
 	}
@@ -603,10 +615,9 @@ public:
 	 * @brief calculates the time a projectile with an initial velocity and angle
 	 *  take to reach the same level from which it was launched, forms a parabolic curve
 	 * (2* launchVelocity*sin(angleTheta))/(-GA);
-	 * @param launchVelocity
-	 * @param angleTheta
-	 * purpose:	
-	 * returns: ld, time units
+	 * @param launchVelocity is the initial velocity in m/s
+	 * @param angleTheta the angle of te launch	
+	 * @returns ld, time units
 	 */
 	ld static time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)
 	{
@@ -738,13 +749,13 @@ public:
 	/**========================================================================
 	 * overloaded operators
 	 */
-	Physics operator+(const Physics& r)const
+	PhysicsWorld operator+(const PhysicsWorld& r)const
 	{
 		double x, y, z;
 		x = static_cast<ld>(vector3d->returnX() + r.vector3d->returnX());
 		y = static_cast<ld>(vector3d->returnY() + r.vector3d->returnY());
 		z = static_cast<ld>(vector3d->returnZ() + r.vector3d->returnZ());
-		Physics sum;
+		PhysicsWorld sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + r.vector2d->return_x());
 		y = static_cast<ld>(vector2d->return_y() + r.vector2d->return_y());
@@ -753,13 +764,13 @@ public:
 		sum.vector2d->mode = this->vector2d->mode;
 		return sum;
 	}
-	Physics operator+(_ld_ n)const
+	PhysicsWorld operator+(_ld_ n)const
 	{
 		double x, y, z;
 		x = static_cast<ld>(vector3d->returnX() + n);
 		y = static_cast<ld>(vector3d->returnY() + n);
 		z = static_cast<ld>(vector3d->returnZ() + n);
-		Physics sum;
+		PhysicsWorld sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + n);
 		y = static_cast<ld>(vector2d->return_y() + n);
@@ -770,13 +781,13 @@ public:
 		return sum;
 	}
 
-	Physics& operator+=(const Physics& r)
+	PhysicsWorld& operator+=(const PhysicsWorld& r)
 	{
 		double x, y, z;
 		x = static_cast<ld>(vector3d->returnX() + r.vector3d->returnX());
 		y = static_cast<ld>(vector3d->returnY() + r.vector3d->returnY());
 		z = static_cast<ld>(vector3d->returnZ() + r.vector3d->returnZ());
-		Physics sum;
+		PhysicsWorld sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + r.vector2d->return_x());
 		y = static_cast<ld>(vector2d->return_y() + r.vector2d->return_y());
@@ -786,13 +797,13 @@ public:
 		return sum;
 	
 	}
-	Physics operator+()const
+	PhysicsWorld operator+()const
 	{
 		double x, y, z;
 		x = static_cast<ld>(vector3d->returnX() + 1.0);
 		y = static_cast<ld>(vector3d->returnY() + 1.0);
 		z = static_cast<ld>(vector3d->returnZ() + 1.0);
-		Physics sum;
+		PhysicsWorld sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + 1.0);
 		y = static_cast<ld>( vector2d->return_y() + 1.0);
@@ -805,7 +816,7 @@ public:
 	}
 	
 	// destructor
-	~Physics();
+	~PhysicsWorld();
 };
-#endif // !PHYSICS_H
+#endif // !PHYSICSWORLD_H
 

@@ -18,17 +18,19 @@ private:
 	ld _linear_acceleration_;
 	static void countIncrease() { rotationalMotion_objectCount += 1; }
 	static void countDecrease() { rotationalMotion_objectCount -= 1; }
-public:
+public:	
 	RotationalMotion* _rotational_motionPtr;
 	/**
 	 * @brief a structure filled with methods for finding the rotational inertia's of some commonly shaped objects
-	 * @param M is the mass in kg
-	 * @param R is the radius
-	 * @param l is length
-	 * @returns rotational Inertia (I)
 	 */
-	static struct RotationalInertias
+	static struct RotationalInertia
 	{
+		/**
+		 * @brief calculates the moment of Inertia for a hoop about a cylinder axis
+		 * @param M is the mass
+		 * @param R is the radius
+		 * @returns moment of inertia
+		 */
 		ld static hoop_aboutCylinderAxis(const ld M, const ld R)
 		{
 			return M * (R * R);
@@ -96,13 +98,22 @@ public:
 	
 	/**
 	 * @brief calculates the angular acceleration
-	 * @param w is the know angular velocity 
-	 * @param rt is the radius or the time, works with either
+	 * @param w is the know angular velocity or torque
+	 * @param rt is the radius or the time, if using torque use inertia(I) here Not r ro t
 	 * @returns the angular acceleration
 	 */
 	ld static angularAcceleration(const ld w, const ld rt)
 	{
 		return w / rt;
+	}
+
+	/**
+	 * @brief calculate the angular acceleration using using net torque and the Inertia T/I
+	 * 
+	 */
+	ld static angularAcceleration(const ld F, const ld r, const ld I)
+	{
+		return (F*r)/ I;
 	}
 
 	/**
@@ -112,7 +123,7 @@ public:
 	 * @param rad total rotation in rad usually being multiplied by PI
 	 * @returns the angular velocity rad/s^2
 	 */
-	ld static angularAcceleration(const ld wi, const ld wf, const ld rad)
+	ld static angularAcceleration_K(const ld wi, const ld wf, const ld rad)
 	{
 		return ((wf * wf) - (wi * wi)) / (2 * (rad));
 	}
@@ -125,7 +136,7 @@ public:
 	 * @param fC is the frictional Coefficient of the material being pressed to the wheel
 	 * @returns the angular acceleration (2 * fC * Force) / (mass * r)
 	 */
-	ld static angularAcceleration(const ld mass, const ld r, const ld Force, const ld fC)
+	ld static angularAcceleration_K(const ld mass, const ld r, const ld Force, const ld fC)
 	{
 		return ((2 * fC * Force) / (mass * r));
 	}
@@ -133,20 +144,20 @@ public:
 	/**
 	 * @brief calculates the angular acceleration using net torque and the rotational inertia of an object
 	 * @param netTorque is the torque force
-	 * @param inertia can be calculated with the inertia methods structure if not given
+	 * @param I can be calculated with the inertia methods structure if not given
 	 * @returns the angular acceleration
 	 */ 
-	ld static angularAcceleration_usingTorque_andInertia(const ld netTorque, const ld inertia)
+	ld static angularAcceleration_usingTorque_andInertia(const ld netTorque, const ld I)
 	{
-		return netTorque / inertia;
+		return netTorque / I;
 	}
 
 	/**
 	 * @brief calculates the angular acceleration using the kinematics formula vf^2 = vi^2 + 2*a*t
 	 * reworked as wf^2 = wi^2 + 2 * a * rotationTheta = w = (2*a*rotationTheta)^.5
-	 * @param angularAcceleration
-	 * @param radians
-	 * @return anguloar velocity
+	 * @param angularAcceleration is the alpha
+	 * @param radians is the angle rotating in radians
+	 * @return angular velocity
 	 */
 	ld static angularVelocity_kinematicsFormula(const ld angularAcceleration, const ld radians)
 	{
@@ -178,7 +189,7 @@ public:
 	/**
 	 * @brief calculates the linear acceleration
 	 * @param lv is the known linear velocity
-	 * @param t is the time or radius, works with both
+	 * @param tr is the time or radius, works with both
 	 * @returns linear acceleration(tangential acceleration)
 	 */
 	ld static linearAcceleration(const ld lv, const ld tr)
@@ -272,7 +283,7 @@ public:
 	/**
 	 * @brief calculate the net Work done in rotation
 	 * @param netTorque is the total sum of all the torques acting in a system
-	 * @param totalTheta is the total distance of rotation expressed in rad
+	 * @param rad is the total distance of rotation expressed in rad
 	 * @returns net work causing rotation
 	 */
 	ld static netWork(const ld netTorque, const ld rad)
@@ -397,6 +408,46 @@ public:
 		return (((wf * wf) - (wi * wi)) / (2 * a)) / (2 * _PI_);
 	}
 
+	/**
+	 * @brief calculates the force needed to be applied on a chain to get a bike wheel of a certain mass to
+	 * a certain acceleration.
+	 * @param tangentialResistiveForce is the resistive force applied against the force of the chain
+	 * @param mass is the mass of the wheel in kg
+	 * @param rOuter is the outer radius of wheel which is half of the diameter if that is what is given and it
+	 * must be converted to m and not cm
+	 * @param rInner is the radius of the the chain sprocket must be converted to m as well
+	 * @param angAccel is the angular acceleration in question, we are looking for the force on the chain to
+	 * reach this angular acceleration
+	 * @returns the force on the chain in N (newtons)
+	 */
+	ld static forceOnChainToReachAngularAcceleration(const ld tangentialResistiveForce, const ld mass, const ld rOuter, const ld rInner, const ld angAccel )
+	{
+		ld I = mass * (rOuter * rOuter);
+		ld Ti = rOuter * tangentialResistiveForce;
+		return (I * angAccel + Ti) / rInner;
+	}
+
+	/**
+	 * @brief calculates the system of answers for two point particles of mass m1 and m2 situated at the ends of a uniform rod of mass mRod that is capable
+	 * of rotating about an axis through its center and perpendicular to its length.
+	 * @param mRod is the mass of the rod
+	 * @param lRod is the length of the rod
+	 * @param m1 is the mass of point particle 1
+	 * @param m2 is the mass of point particle 2
+	 * @param w is the angular speed the rod rotates at
+	 * @returns the vector with
+	 * <total moment of inertia for system, KE of system in J, if rod mass negligible new Inertia of system, new KE of system if rods mass negligible>
+	 */
+	vector<ld> static inertiaAndKEofRotatingPointParticlesOnRod(const ld mRod, const ld lRod, const ld m1, const ld m2, const ld w)
+	{
+		vector<ld> results = { 0.0,0.0,0.0,0.0 };
+		results[0] = (mRod * (lRod * lRod)) / (12) + (m1 * (lRod / 2.0)) + (m2 * (lRod / 2.0));
+		results[1] = .5 * results[0] * (w * w);
+		results[2] = (m1 * (lRod / 2.0)) + (m2 * (lRod / 2.0));
+		results[3] = .5 * results[2] * (w * w);
+
+		return results;
+	}
 
 	
 	~RotationalMotion()

@@ -108,8 +108,8 @@ public:
 	
 	/**
 	 * @brief Returns the conversion from joules to kilo calories
-	 * @param joules
-	 * @returns kilocalories
+	 * @param joules J
+	 * @returns kilocalories kc
 	 */
 	ld static conversion_joules_to_kcal(const ld joules)
 	{
@@ -179,8 +179,8 @@ public:
 	 * @brief Returns the work down by friction lowering something down a slope
 	 * @param coefficient is of friction
 	 * @param mass in kg
-	 * @param theta1
-	 * @param distance
+	 * @param theta1 in angle of force
+	 * @param distance is how far they travel over
 	 * @param theta2 is defaulted to 180 degrees if you set your coordinate system perpendicular to the motion
 	 * @returns the work done by friction
 	 */
@@ -243,7 +243,7 @@ public:
 	}
 	/**
 	 * @brief Returns the potential energy of a conservative source, such as a spring
-	 * @param forceConstant
+	 * @param forceConstant us unitless
 	 * @param deformation is the amount of change in the system
 	 */
 	ld static potential_energy_conservative_PEc(const ld forceConstant, const ld deformation)
@@ -345,7 +345,6 @@ public:
 	/**
 	 * @brief calculates the time to do work based off of power output
 	 * @param work is in joules. w = Fd = mgh
-	 * @param distance is how far the work is being done over
 	 * @param power is in watts
 	 * @returns the time to perform work 
 	 */
@@ -469,7 +468,7 @@ public:
 	 * @brief calculates and returns the tension force on a elevator cable
 	 * @param mass in kg
 	 * @param acceleration in m/s^2
-	 * @param friction 
+	 * @param friction frictional force
 	 */
 	ld static tension_elevator_cable(const ld mass, const ld acceleration, const ld friction)
 	{
@@ -478,8 +477,8 @@ public:
 	/**
 	 * @brief Returns the final velocity
 	 * vf = sqrt(2 * acceleration * distance)
-	 * @param acceleration
-	 * @param distance
+	 * @param acceleration in m/s^2
+	 * @param distance in m
 	 * @returns final velocity
 	 */
 	ld static final_velocity(const ld acceleration, const ld distance)
@@ -488,16 +487,16 @@ public:
 	}
 	/**
 	 * @brief calculates the force needed to jump between two points
-	 * @param mass
-	 * @param distanceTop
-	 * @param distanceBottom
+	 * @param mass in kg
+	 * @param distanceTop in m
+	 * @param distanceBottom in m
 	 * @returns force in N(newtons)
 	 */
 	ld static force_needed_to_jump_a_distance(const ld mass, const ld distanceTop, const ld distanceBottom)
 	{
 		return (mass * _Ga_ * distanceTop) / distanceBottom;
 	}
-
+	
 	
 	~Energy()
 	{

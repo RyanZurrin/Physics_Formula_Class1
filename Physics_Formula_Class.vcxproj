@@ -20,14 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FluidStatics.h" />
+    <ClInclude Include="Temperature.h" />
     <ClInclude Include="UniformCircularMotion.h" />
     <ClInclude Include="Drag.h" />
     <ClInclude Include="Elasticity.h" />
     <ClInclude Include="Energy.h" />
     <ClInclude Include="Friction.h" />
     <ClInclude Include="Momentum.h" />
-    <ClInclude Include="Physics.h" />
-    <ClInclude Include="reactphysics3d\reactphysics3d.h" />
+    <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="RotationalMotion.h" />
     <ClInclude Include="Statics.h" />
     <ClInclude Include="Torque.h" />

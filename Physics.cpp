@@ -1,13 +1,13 @@
-#include "Physics.h"
+#include "PhysicsWorld.h"
 
-ld Physics::_val_ = 0.0;
-vector<ld> Physics::vector_values = { 0.0,0.0,0.0,0.0 };
-int Physics::physics_objectCount = 0;
+ld PhysicsWorld::_val_ = 0.0;
+vector<ld> PhysicsWorld::vector_values = { 0.0,0.0,0.0,0.0 };
+int PhysicsWorld::physics_objectCount = 0;
  
 /**
  *default constructor
  */
-Physics::Physics()
+PhysicsWorld::PhysicsWorld()
 {	
 	_ptr_ = nullptr;	
 	drag = new Drag;
@@ -21,6 +21,7 @@ Physics::Physics()
 	torque = new Torque;
 	statics = new Statics;
 	rotationalMotion = new RotationalMotion;
+	temperature = new Temperature;
 	//physics_common = new PhysicsCommon;
 	//world = physics_common->createPhysicsWorld();
 	
@@ -30,7 +31,7 @@ Physics::Physics()
 /**
  *copy constructor
  */
-Physics::Physics(const Physics& p)
+PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 {
 	_ptr_ = p._ptr_;	
 	vector_values = p.vector_values;	
@@ -45,14 +46,15 @@ Physics::Physics(const Physics& p)
 	torque = p.torque;
 	statics = p.statics;
 	rotationalMotion = p.rotationalMotion;
-	//physics_common = p.physics_common;
+	temperature = p.temperature;
+	//PhysicsWorld_common = p.PhysicsWorld_common;
 	countIncrease();
 	//countShow();
 }
 /**
  *copy assignment operator
  */
-Physics& Physics::operator=(const Physics& r)
+PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 {
 	if(this != &r)
 	{
@@ -69,12 +71,13 @@ Physics& Physics::operator=(const Physics& r)
 		torque = r.torque;
 		statics = r.statics;
 		rotationalMotion = r.rotationalMotion;
+		temperature = r.temperature;
 		countIncrease();
 		//countShow();
 	}
 	return *this;	
 }
-Physics::Physics(const ld t1, const ld t2, const ld t3)
+PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 {
 	_ptr_ = nullptr;
 	drag = new Drag;
@@ -88,6 +91,7 @@ Physics::Physics(const ld t1, const ld t2, const ld t3)
 	torque = new Torque;
 	statics = new Statics;
 	rotationalMotion = new RotationalMotion;
+	temperature = new Temperature;
 
 	
 	//vector_values = { 0.0,0.0,0.0,0.0 };
@@ -96,7 +100,7 @@ Physics::Physics(const ld t1, const ld t2, const ld t3)
 	countIncrease();
 }
  
-Physics::Physics(const ld t1, const ld t2)
+PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 {
 	drag = new Drag;
 	elasticity = new Elasticity;
@@ -109,6 +113,7 @@ Physics::Physics(const ld t1, const ld t2)
 	torque = new Torque;
 	statics = new Statics;
 	rotationalMotion = new RotationalMotion;
+	temperature = new Temperature;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -120,7 +125,7 @@ Physics::Physics(const ld t1, const ld t2)
 /**
  * @brief prints out the values stored in the objects vector
  */
-void Physics::show_vector_values()
+void PhysicsWorld::show_vector_values()
 {
 	for (auto it : vector_values)
 	{
@@ -135,7 +140,7 @@ void Physics::show_vector_values()
  * purpose:	calculates time projectile is in the air
  * returns: ld, time units
  */
-ld Physics::air_time_initial_velocity0_y0(ld displacement)const
+ld PhysicsWorld::air_time_initial_velocity0_y0(ld displacement)const
 {
 	return sqrt((-2*(displacement))/_ga_);
 }
@@ -146,7 +151,7 @@ ld Physics::air_time_initial_velocity0_y0(ld displacement)const
  * purpose:	calculates initial velocity of an object
  * returns: ld, initial velocity
  */
-ld Physics::velocity_initial_horizontal_component(ld y0, ld displacement) const
+ld PhysicsWorld::velocity_initial_horizontal_component(ld y0, ld displacement) const
 {
 	return sqrt((-_ga_/(-2 * y0)))* displacement;
 }
@@ -157,7 +162,7 @@ ld Physics::velocity_initial_horizontal_component(ld y0, ld displacement) const
  * purpose:	calculates the final vertical component
  * returns: ld, final vertical velocity
  */
-ld Physics::velocity_vertical_component(ld y0, ld yf)const
+ld PhysicsWorld::velocity_vertical_component(ld y0, ld yf)const
 {
 	return -sqrt(2 * (-_ga_) * (yf - y0));
 }
@@ -169,7 +174,7 @@ ld Physics::velocity_vertical_component(ld y0, ld yf)const
  * purpose:	calculates the final vertical component
  * returns: ld, final vertical velocity
  */
-std::vector<ld> Physics::final_projectile_velocity_vector(ld velocityY, ld velocityX)
+std::vector<ld> PhysicsWorld::final_projectile_velocity_vector(ld velocityY, ld velocityX)
 {
 	this->vector_values[0] = sqrt(velocityY * velocityY + velocityX * velocityX);
 	this->vector_values[1] = atan(velocityY / velocityX)*DEGREE;
@@ -183,7 +188,7 @@ std::vector<ld> Physics::final_projectile_velocity_vector(ld velocityY, ld veloc
  * purpose:	calculates the final velocity of both component vectors
  * returns: ld, magnitude of final velocity vector
  */
-ld Physics::velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle) const
+ld PhysicsWorld::velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle) const
 {
 	return sqrt(pow(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), 2) +
 		pow(vertical_velocity_by_Xvelocity_with_angle(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), angle), 2));
@@ -195,12 +200,12 @@ ld Physics::velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle) const
  * purpose:	finds x componant velocity
  * returns: ld, velocity of X component
  */
-ld Physics::horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration)const
+ld PhysicsWorld::horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration)const
 {
 	return targetDistance * sqrt(-acceleration/((2 * (targetDistance * tan(angle*RADIAN) - targetHeight))));
 }
 
-ld Physics::vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angle) const
+ld PhysicsWorld::vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angle) const
 {
 	return xVelocity * tan(angle*RADIAN);
 }
@@ -212,7 +217,7 @@ ld Physics::vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angle) co
  * purpose:	uses quadratic formula to return two angles in a vector, the larger angle is the best angle to use
  * returns: vector data
  */
-std::vector<ld> Physics::basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)
+std::vector<ld> PhysicsWorld::basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)
 {
 	const ld hoopHeight = 3.05; //meters
 	ld a = (((-_ga_) * (hoopDistance * hoopDistance)) / (2 * (launchVelocity * launchVelocity)));
@@ -225,7 +230,7 @@ std::vector<ld> Physics::basketball_angles(ld launchVelocity, ld releaseHeight, 
 	return vector_values;
 }
 
-Physics::~Physics()
+PhysicsWorld::~PhysicsWorld()
 {
 	delete elasticity;
 	delete friction;
@@ -239,6 +244,7 @@ Physics::~Physics()
 	delete torque;
 	delete statics;
 	delete rotationalMotion;
+	delete temperature;
 	countDecrease();
 	//countShow();
 }

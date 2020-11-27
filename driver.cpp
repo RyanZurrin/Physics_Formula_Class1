@@ -2,23 +2,23 @@
 //this Physics class has a built in long double for storing calculation called val. As well as a vector called vector_values.
 // you access them with the dot(.) operator
 //example: Physics object;
-//         object.val = objects.acceleration_VdT(-15.0, 1.80);  //this now has the result of that calculation stored in val.
-//to print out val to the screen use the print method. example: object.print();
+//         object.setVal(objects.acceleration_VdT(-15.0, 1.80));
+//         //this now has the result of that calculation stored in val.
+//to print out val to the screen use the print method. example: object.showVal();
 //if there are values stored in the vector_values vector use the object.print_vector_values()  method instead.
 //most of all have fun exploring and please if there is something I should be doing better let me know. Thanks.
-#include "Physics.h"
+#include "PhysicsWorld.h"
 
 
 
 
 int main()
 {
-	Physics tornado;
-	tornado.setVal(tornado.rotationalMotion->angularVelocity(138.89, 30*2*_PI_));
-	tornado.show_val();
-	
-	
-	return 0;
+	PhysicsWorld temp;
+	temp.temperature->set_fahrenheit(180);
+	temp.temperature->showAll();
+	PhysicsWorld bridge;
+	bridge.setVal(bridge.temperature.)
 }	
 
 /*_______________________________________________________________________________
