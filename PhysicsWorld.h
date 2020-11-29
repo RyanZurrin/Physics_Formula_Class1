@@ -22,6 +22,7 @@
 #include "RotationalMotion.h"
 #include "Torque.h"
 #include "Temperature.h"
+#include "Heat.h"
 
 //#include "reactphysics3d.h"
 //using namespace rp3d;
@@ -41,6 +42,15 @@ const ld _GC_ = 6.674 * pow(10, -11);
 const ld _c_ = 2.99792458 * pow(10, 8);
 
 
+static ld _val_;// = 0.0;
+static void show_val() { cout << "val: " << _val_ << endl; }
+/**
+ * @brief static template method to set val
+ */
+static void setVal(const ld v)
+{
+	_val_ = v;
+}
 class PhysicsWorld 
 {
 	
@@ -50,10 +60,7 @@ private:
 	static void countIncrease() { physics_objectCount += 1; }
 	static void countDecrease() { physics_objectCount -= 1; }
 	
-public:
-	
-	static ld _val_;	
-	static void show_val() { cout << "val: " << _val_ << endl; }
+public:	
 	
 	static std::vector<ld> vector_values;
 	static void setVector(vector<ld> v)
@@ -104,6 +111,7 @@ public:
 	Statics* statics;
 	RotationalMotion* rotationalMotion;
 	Temperature* temperature;
+	Heat* heat;
 
 	
 	//PhysicsCommon * physics_common;
@@ -126,7 +134,9 @@ public:
 		momentum(o.momentum),
 		torque(o.torque),
 		statics(o.statics),		
-		rotationalMotion(o.rotationalMotion),		
+		rotationalMotion(o.rotationalMotion),
+		temperature(o.temperature),
+		heat(o.heat),
 		_ptr_(o._ptr_){} // move constructor
 	
 	
@@ -574,8 +584,8 @@ public:
 		this->vector_values[1] = obj.displacement_accelerating_object_PV(v, a, t, p);
 		//Solution for Velocity:
 
-		obj._val_ = obj.velocity_final_from_kinematic_time(v, a, t);
-		this->vector_values[2] = obj._val_;
+		_val_ = obj.velocity_final_from_kinematic_time(v, a, t);
+		this->vector_values[2] = _val_;
 
 		this->vector_values[3] = a;
 		//this->show_vector_values();
@@ -603,13 +613,7 @@ public:
 		return (asinh(distance * _Ga_) / (velocity * velocity)) / 2;
 	}
 
-	/**
-	 * @brief static template method to set val 
-	 */
-	static void setVal(const ld v)
-	{
-		_val_ = v;
-	}
+
 	
 	/**
 	 * @brief calculates the time a projectile with an initial velocity and angle
@@ -777,7 +781,7 @@ public:
 		sum.vector2d->set_coordinates(x, y);
 		sum.vector3d->mode = this->vector3d->mode;
 		sum.vector2d->mode = this->vector2d->mode;
-		sum._val_ = +n;
+		_val_ = +n;
 		return sum;
 	}
 

@@ -14,12 +14,17 @@
 
 int main()
 {
-	PhysicsWorld temp;
-	temp.temperature->set_fahrenheit(180);
-	temp.temperature->showAll();
-	PhysicsWorld bridge;
-	bridge.setVal(bridge.temperature.)
-}	
+	PhysicsWorld glassesFrames;
+	setVal(glassesFrames.heat->heatRequired(.250,c.water_L[0],60.0));
+	show_val();
+
+
+	
+
+	return 0;
+}
+
+
 
 /*_______________________________________________________________________________
 	Testing functions

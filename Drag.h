@@ -11,6 +11,33 @@
 
 static int drag_objectCount = 0;
 
+static struct DragCoefficients
+{
+	const ld airfoil = .05; // returns .05
+	const ld toyotaCamry = .28; // returns .28
+	const ld fordFocus = .32; // returns .32
+	const ld hodnaCivic = .36; // returns .36
+	const ld ferrariTestarossa = .37; // returns .37
+	const ld dodgeRamPickup = .43; // returns .43
+	const ld sphere = .45; // returns.45
+	const ld hummerH2SUV = .64; // returns .64
+	const ld skyDiver_feetFirst = .70; // returns .70 
+	const ld bicycle = .90; // returns .90
+	const ld skyDiver_horizontal = 1.0; // returns  1.0
+	const ld circularFlatPlate = 1.12; // returns 1.12
+	const ld dolphin = .0036; // returns .0036
+	const ld bird = .4; // returns .4
+	const ld frisbee = .080; // returns .080
+	const ld rectangularBox = 2.1; //returns 2.1
+	const ld longFlatPlate90deg = 1.98; // returns 1.98
+	const ld motorcycleAndRider = 1.8; // returns 1.8
+	const ld personUpright = 1.15; // returns 1.15
+	const ld convertibleOpenTop = .65; // returns .65
+	const ld supersonicFighter = .016; // returns .016
+	const ld solarPanelArray6x4 = 4.1; // returns 4.1
+
+
+}drag_coefficients;
 
 class Drag 
 {
@@ -43,33 +70,7 @@ public:
 	 */
 	void set_dragCoefficient(const ld C) { _dragCoefficient_ = C; }
 	
-	struct drag_coefficient
-	{
-		const ld airfoil = .05; // returns .05
-		const ld toyotaCamry = .28; // returns .28
-		const ld fordFocus = .32; // returns .32
-		const ld hodnaCivic = .36; // returns .36
-		const ld ferrariTestarossa = .37; // returns .37
-		const ld dodgeRamPickup = .43; // returns .43
-		const ld sphere = .45; // returns.45
-		const ld hummerH2SUV = .64; // returns .64
-		const ld skyDiver_feetFirst = .70; // returns .70 
-		const ld bicycle = .90; // returns .90
-		const ld skyDiver_horizontal = 1.0; // returns  1.0
-		const ld circularFlatPlate = 1.12; // returns 1.12
-		const ld dolphin = .0036; // returns .0036
-		const ld bird = .4; // returns .4
-		const ld frisbee = .080; // returns .080
-		const ld rectangularBox = 2.1; //returns 2.1
-		const ld longFlatPlate90deg = 1.98; // returns 1.98
-		const ld motorcycleAndRider = 1.8; // returns 1.8
-		const ld personUpright = 1.15; // returns 1.15
-		const ld convertibleOpenTop = .65; // returns .65
-		const ld supersonicFighter = .016; // returns .016
-		const ld solarPanelArray6x4 = 4.1; // returns 4.1
-		
-		
-	}coefficient;
+
 	//suppresses the default constructor
 	Drag()
 	{

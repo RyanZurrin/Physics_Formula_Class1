@@ -8,7 +8,15 @@
 #ifndef TEMPERATURE_H
 #define TEMPERATURE_H
 #include <iostream>
-
+static struct TemperatureConversions
+{
+	static ld  celsius_to_fahrenheit(const ld c) { return (9.0 / 5.0) * (c + 32.0); }
+	static ld  fahrenheit_to_celsius(const ld f) { return (5.0 / 9.0) * (f - 32.0); }
+	static ld  celsius_to_kelvin(const ld c) { return c + 273.15; }
+	static ld  kelvin_to_celsius(const ld k) { return k - 273.15; }
+	static ld  fahrenheit_to_kelvin(const ld f) { return (5.0 / 9.0) * (f - 32) + 273.15; }
+	static ld  kelvin_to_fahrenheit(const ld k) { return (9.0 / 5.0) * (k - 273.15) + 32.0; }
+}tempConverter;
 /**
  * @brief Global Constant _K_ is the Boltzmann constant
  * .0000000000000000000000138 J/K
@@ -43,9 +51,13 @@ private:
 	static void countIncrease() { temperature_objectCount += 1; }
 	static void countDecrease() { temperature_objectCount -= 1; }
 public:
-	ld _celsius;
-	ld _fahrenheit;
-	ld _kelvin;
+	struct Temp
+	{
+		ld _celsius;
+		ld _fahrenheit;
+		ld _kelvin;
+	}T;
+	
 	/**
 	 * @brief char variable when set will change the default of the constructor arguments being
 	 * passed in
@@ -84,9 +96,9 @@ public:
 	 */
 	void set_fahrenheit(const ld f)
 	{
-		_fahrenheit = f;
-		_celsius =  tempConverter.fahrenheit_to_celsius(_fahrenheit);		
-		_kelvin = tempConverter.fahrenheit_to_kelvin(_fahrenheit);
+		T._fahrenheit = f;
+		T._celsius =  tempConverter.fahrenheit_to_celsius(T._fahrenheit);		
+		T._kelvin = tempConverter.fahrenheit_to_kelvin(T._fahrenheit);
 	}
 	/**
  * @brief method to set the celsius instance variable. will update other
@@ -95,9 +107,9 @@ public:
  */
 	void set_celsius(const ld c)
 	{
-		_celsius = c;
-		_fahrenheit = tempConverter.celsius_to_fahrenheit(_celsius);
-		_kelvin = tempConverter.celsius_to_kelvin(_celsius);
+		T._celsius = c;
+		T._fahrenheit = tempConverter.celsius_to_fahrenheit(T._celsius);
+		T._kelvin = tempConverter.celsius_to_kelvin(T._celsius);
 	}
 	/**
 	* @brief method to set the kelvin instance variable. will update other
@@ -106,13 +118,13 @@ public:
 	*/
 	void set_kelvin(const ld k)
 	{
-		_kelvin = k;
-		_celsius = tempConverter.kelvin_to_celsius(_kelvin);
-		_fahrenheit = tempConverter.kelvin_to_fahrenheit(_kelvin);		
+		T._kelvin = k;
+		T._celsius = tempConverter.kelvin_to_celsius(T._kelvin);
+		T._fahrenheit = tempConverter.kelvin_to_fahrenheit(T._kelvin);		
 	}
-	ld getFahrenheit()const { return _fahrenheit; }
-	ld getCelsius()const { return _celsius; }
-	ld getKelvin()const { return _kelvin; }
+	ld getFahrenheit()const { return T._fahrenheit; }
+	ld getCelsius()const { return T._celsius; }
+	ld getKelvin()const { return T._kelvin; }
 	void showFahrenheit()const { std::cout << "F: " << getFahrenheit() << std::endl; }
 	void showCelsius()const { std::cout << "C: " << getCelsius() << std::endl; }
 	void showKelvin()const { std::cout << "K: " << getKelvin() << std::endl; }
@@ -124,15 +136,7 @@ public:
 	}
 	
 
-	struct TemperatureConversions
-	{
-	static ld  celsius_to_fahrenheit(const ld c) { return (9.0 / 5.0) * (c + 32.0); }
-	static ld  fahrenheit_to_celsius(const ld f) { return (5.0 / 9.0) * (f - 32.0); }
-	static ld  celsius_to_kelvin(const ld c) { return c + 273.15; }
-	static ld  kelvin_to_celsius(const ld k) { return k - 273.15; }
-	static ld  fahrenheit_to_kelvin(const ld f) { return (5.0 / 9.0) * (f - 32) +273.15; }
-	static ld  kelvin_to_fahrenheit(const ld k) { return (9.0 / 5.0) * (k -273.15) + 32.0; }		
-	}tempConverter;
+	
 
 	/**
 	 * @brief structure of thermal expansion coefficients, each is a vector  of two
@@ -174,9 +178,9 @@ public:
 	Temperature()
 	{
 		_tempPtr = nullptr;
-		_celsius = 0.0;
-		_fahrenheit = 0.0;
-		_kelvin = 0.0;
+		T._celsius = 0.0;
+		T._fahrenheit = 0.0;
+		T._kelvin = 0.0;
 		_mode = 'f';
 		countIncrease();
 	}
@@ -185,9 +189,9 @@ public:
 	 */
 	Temperature(const Temperature& t)
 	{
-		_celsius = t._celsius;
-		_fahrenheit = t._fahrenheit;		
-		_kelvin = t._kelvin;
+		T._celsius = t.T._celsius;
+		T._fahrenheit = t.T._fahrenheit;		
+		T._kelvin = t.T._kelvin;
 		_mode = t._mode;
 		_tempPtr = t._tempPtr;
 		countIncrease();
@@ -199,9 +203,9 @@ public:
 	{
 		if (this != &t)
 		{
-			_celsius = t._celsius;
-			_fahrenheit = t._fahrenheit;
-			_kelvin = t._kelvin;
+			T._celsius = t.T._celsius;
+			T._fahrenheit = t.T._fahrenheit;
+			T._kelvin = t.T._kelvin;
 			_mode = t._mode;			
 			_tempPtr = t._tempPtr;
 			countIncrease();
@@ -212,14 +216,15 @@ public:
 	/**
 	 * #brief move constructor
 	 */
-	Temperature(Temperature&& t) noexcept :
-		_celsius(t._celsius),
-		_fahrenheit(t._fahrenheit),		
-		_kelvin(t._kelvin),
-		_mode(t._mode),
-		_tempPtr(t._tempPtr){}	
-	
-	static void show_temperature_objectCount() { std::cout << "\nrotational motion Count: " << temperature_objectCount << std::endl; }
+	Temperature(Temperature&& t) noexcept: _mode(t._mode), _tempPtr(nullptr)
+	{
+		T._fahrenheit = t.T._fahrenheit;
+		T._celsius = t.T._celsius;
+		T._kelvin = t.T._kelvin;
+	}
+
+
+	static void show_temperature_objectCount() { std::cout << "\ntemperature object count: " << temperature_objectCount << std::endl; }
 	static int get_temperature_objectCount() { return temperature_objectCount; }
 
 	/**
@@ -267,6 +272,20 @@ public:
 	static ld thermalExpansionVolume3D(const ld av, const ld vChange, const ld tempChange)
 	{
 		return av * vChange * tempChange;
+	}
+
+	/**
+	 * @brief calculates the final temperature needed for an object to reach a certain expansion as
+	 * described by the reworked linear thermal equation Tf = ((lRf -lRi)/(a * lRi)) + Ti.
+	 * @param a is the coefficient of 'linear expansion'
+	 * @param lRi is the initial length or radius of object at an initial temp 
+	 * @param lRf is the final length or radius caused from thermal expansion
+	 * @param Ti is the initial temperature
+	 * @returns final temperature needed for a object to expand a certain amount
+	 */
+	static ld tempFinalFromThermalExpansionLinear1D(const ld a, const ld lRi, const ld lRf, const ld Ti)
+	{
+		return ((lRf-lRi)/(a*lRi))+Ti;
 	}
 
 	/**
@@ -387,6 +406,13 @@ public:
 		return (vD / svD) * 100.0;
 	}
 
+	/**
+	 * @brief calculates the change in temperature
+	 */
+	static ld temperatureChange(const ld startTemp, const ld finishTemp)
+	{
+		return finishTemp - startTemp;
+	}
 	
 	~Temperature()
 	{

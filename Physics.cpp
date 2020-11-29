@@ -1,6 +1,6 @@
 #include "PhysicsWorld.h"
 
-ld PhysicsWorld::_val_ = 0.0;
+//ld PhysicsWorld::_val_ = 0.0;
 vector<ld> PhysicsWorld::vector_values = { 0.0,0.0,0.0,0.0 };
 int PhysicsWorld::physics_objectCount = 0;
  
@@ -22,6 +22,7 @@ PhysicsWorld::PhysicsWorld()
 	statics = new Statics;
 	rotationalMotion = new RotationalMotion;
 	temperature = new Temperature;
+	heat = new Heat;
 	//physics_common = new PhysicsCommon;
 	//world = physics_common->createPhysicsWorld();
 	
@@ -47,6 +48,7 @@ PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	statics = p.statics;
 	rotationalMotion = p.rotationalMotion;
 	temperature = p.temperature;
+	heat = p.heat;
 	//PhysicsWorld_common = p.PhysicsWorld_common;
 	countIncrease();
 	//countShow();
@@ -72,6 +74,7 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		statics = r.statics;
 		rotationalMotion = r.rotationalMotion;
 		temperature = r.temperature;
+		heat = r.heat;
 		countIncrease();
 		//countShow();
 	}
@@ -92,6 +95,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	statics = new Statics;
 	rotationalMotion = new RotationalMotion;
 	temperature = new Temperature;
+	heat = new Heat;
 
 	
 	//vector_values = { 0.0,0.0,0.0,0.0 };
@@ -114,6 +118,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	statics = new Statics;
 	rotationalMotion = new RotationalMotion;
 	temperature = new Temperature;
+	heat = new Heat;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -245,6 +250,7 @@ PhysicsWorld::~PhysicsWorld()
 	delete statics;
 	delete rotationalMotion;
 	delete temperature;
+	delete heat;
 	countDecrease();
 	//countShow();
 }
