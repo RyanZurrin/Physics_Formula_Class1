@@ -23,6 +23,8 @@ PhysicsWorld::PhysicsWorld()
 	rotationalMotion = new RotationalMotion;
 	temperature = new Temperature;
 	heat = new Heat;
+	thermodynamic = new Thermodynamics;
+	periodic_elements = new PeriodicElements;
 	//physics_common = new PhysicsCommon;
 	//world = physics_common->createPhysicsWorld();
 	
@@ -49,6 +51,8 @@ PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	rotationalMotion = p.rotationalMotion;
 	temperature = p.temperature;
 	heat = p.heat;
+	thermodynamic = p.thermodynamic;
+	periodic_elements = p.periodic_elements;
 	//PhysicsWorld_common = p.PhysicsWorld_common;
 	countIncrease();
 	//countShow();
@@ -75,6 +79,8 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		rotationalMotion = r.rotationalMotion;
 		temperature = r.temperature;
 		heat = r.heat;
+		thermodynamic = r.thermodynamic;
+		periodic_elements = r.periodic_elements;
 		countIncrease();
 		//countShow();
 	}
@@ -96,7 +102,8 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	rotationalMotion = new RotationalMotion;
 	temperature = new Temperature;
 	heat = new Heat;
-
+	thermodynamic = new Thermodynamics;
+	periodic_elements = new PeriodicElements;
 	
 	//vector_values = { 0.0,0.0,0.0,0.0 };
 	this->vector3d->set_coordinates(t1, t2, t3);
@@ -119,6 +126,8 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	rotationalMotion = new RotationalMotion;
 	temperature = new Temperature;
 	heat = new Heat;
+	thermodynamic = new Thermodynamics;
+	periodic_elements = new PeriodicElements;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -147,7 +156,7 @@ void PhysicsWorld::show_vector_values()
  */
 ld PhysicsWorld::air_time_initial_velocity0_y0(ld displacement)const
 {
-	return sqrt((-2*(displacement))/_ga_);
+	return sqrt((-2*(displacement))/GA);
 }
 
 /**
@@ -158,7 +167,7 @@ ld PhysicsWorld::air_time_initial_velocity0_y0(ld displacement)const
  */
 ld PhysicsWorld::velocity_initial_horizontal_component(ld y0, ld displacement) const
 {
-	return sqrt((-_ga_/(-2 * y0)))* displacement;
+	return sqrt((-GA/(-2 * y0)))* displacement;
 }
 
 /**
@@ -169,7 +178,7 @@ ld PhysicsWorld::velocity_initial_horizontal_component(ld y0, ld displacement) c
  */
 ld PhysicsWorld::velocity_vertical_component(ld y0, ld yf)const
 {
-	return -sqrt(2 * (-_ga_) * (yf - y0));
+	return -sqrt(2 * (-GA) * (yf - y0));
 }
 
 
@@ -225,7 +234,7 @@ ld PhysicsWorld::vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angl
 std::vector<ld> PhysicsWorld::basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)
 {
 	const ld hoopHeight = 3.05; //meters
-	ld a = (((-_ga_) * (hoopDistance * hoopDistance)) / (2 * (launchVelocity * launchVelocity)));
+	ld a = (((-GA) * (hoopDistance * hoopDistance)) / (2 * (launchVelocity * launchVelocity)));
 	ld b = -hoopDistance;
 	ld c = ((hoopHeight - releaseHeight) + a);
 	vector_values[0] = atan(-((b)+sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
@@ -251,6 +260,8 @@ PhysicsWorld::~PhysicsWorld()
 	delete rotationalMotion;
 	delete temperature;
 	delete heat;
+	delete thermodynamic;
+	delete periodic_elements;
 	countDecrease();
 	//countShow();
 }

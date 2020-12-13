@@ -9,6 +9,7 @@
 #define STATICS_H
 
 
+
 class Statics
 {
 public:

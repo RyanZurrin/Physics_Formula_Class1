@@ -14,13 +14,10 @@
 
 int main()
 {
-	PhysicsWorld glassesFrames;
-	setVal(glassesFrames.heat->heatRequired(.250,c.water_L[0],60.0));
-	show_val();
-
-
+	PhysicsWorld heat;
+	heat.vector_values = heat.thermodynamic->systemOfAnswers_workDone_heatTransfer_internalChange(7.2, 27.0, 69.0, 387.0, 8.94*pow(10, 3), 17.0*pow(10.0, -6.0), 200.0);
+	heat.show_vector_values();	
 	
-
 	return 0;
 }
 
@@ -331,7 +328,11 @@ int main()
 		double displacement = fan.rotationalMotion->theta_from_kinematics(wi, wf, fan.return_val());
 		cout << "displacement: " << displacement << endl;
 
-	//
+	//web assign chapter 14 problem 4
+		PhysicsWorld missingMassfromEquillibrium;
+		cout << "temp: " << 
+			missingMassfromEquillibrium.heat->
+		massOfFluid2AddedToFluid1In1Container(.115, .2604, 22.0, .140, 1.0, 78.7, 1.0, 7.50, 59, 'g') << endl;
 	//
 	//
 	//

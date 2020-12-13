@@ -21,7 +21,9 @@
   <ItemGroup>
     <ClInclude Include="FluidStatics.h" />
     <ClInclude Include="Heat.h" />
+    <ClInclude Include="PeriodicElements.h" />
     <ClInclude Include="Temperature.h" />
+    <ClInclude Include="Thermodynamics.h" />
     <ClInclude Include="UniformCircularMotion.h" />
     <ClInclude Include="Drag.h" />
     <ClInclude Include="Elasticity.h" />
@@ -37,7 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="driver.cpp" />
-    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Vector2d.cpp" />
     <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>

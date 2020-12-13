@@ -17,11 +17,47 @@ static struct TemperatureConversions
 	static ld  fahrenheit_to_kelvin(const ld f) { return (5.0 / 9.0) * (f - 32) + 273.15; }
 	static ld  kelvin_to_fahrenheit(const ld k) { return (9.0 / 5.0) * (k - 273.15) + 32.0; }
 }tempConverter;
+
+/**
+	 * @brief structure of thermal expansion coefficients, each is a vector  of two
+	 * and is followed by a capitol letter of either a S for solid a L for liquid or
+	 * a G for gases, only solids have vectors with two values the others are ld's here is an example:
+	 * aluminum_S[0] = coefficient of linear expansion // holds the value 25*10^-6
+	 * aluminum_S[1] = coefficient of volume expansion //holds the value 75*10^-6
+	 * of ether_L = coefficient of volume expansion // holds the value of 1650*10^-6
+	 */
+static struct ThermalExpansionCoefficients
+{
+	const vector<ld> aluminum_S = { 25 * pow(10, -6), 75 * pow(10, -6) };
+	const vector<ld> brass_S = { 19 * pow(10, -6), 56 * pow(10, -6) };
+	const vector<ld> copper_S = { 17 * pow(10, -6), 51 * pow(10, -6) };
+	const vector<ld> gold_S = { 14 * pow(10, -6), 42 * pow(10, -6) };
+	const vector<ld> iron_or_steel_S = { 12 * pow(10, -6), 35 * pow(10, -6) };
+	const vector<ld> invar_nickel_iron_allow_S = { 0.9 * pow(10, -6), 2.7 * pow(10, -6) };
+	const vector<ld> lead_S = { 29 * pow(10, -6), 87 * pow(10, -6) };
+	const vector<ld> silver_S = { 18 * pow(10, -6), 54 * pow(10, -6) };
+	const vector<ld> glass_ordinary_S = { 9 * pow(10, -6), 27 * pow(10, -6) };
+	const vector<ld> glass_pyrex_S = { 3 * pow(10, -6), 9 * pow(10, -6) };
+	const vector<ld> quartz_S = { 0.4 * pow(10, -6), 1 * pow(10, -6) };
+	const vector<ld> concrete_brick_S = { -12 * pow(10, -6), -36 * pow(10, -6) }; //average
+	const vector<ld> marble_S = { 7 * pow(10, -6), 2.1 * pow(10, -6) }; //average
+	const ld ether_L = 1650 * pow(10, -6);
+	const ld ethyl_alcohol = 1100 * pow(10, -6);
+	const ld petrol = 950 * pow(10, -6);
+	const ld glycerin = 500 * pow(10, -6);
+	const ld mercury = 180 * pow(10, -6);
+	const ld water = 210 * pow(10, -6);
+	const ld air_and_most_gases_at_atmospheric_pressure = 3400 * pow(10, -6);
+
+}aB;
+
 /**
  * @brief Global Constant _K_ is the Boltzmann constant
  * .0000000000000000000000138 J/K
  */
 const ld _K_ = 1.38 * pow(10, -23);
+
+const ld GAMMA_MONO_ATOMIC = 1.66;
 
 /**
  * @brief Global Constant _Na_ is  Avogadro's number and is used to express
@@ -36,10 +72,10 @@ const ld _Na_ = 6.02 * pow(10, 23);
  */
 const struct UniversalGasConstant
 {
-	const ld joules = 8.31;
-	const ld cal = 1.99;
-	const ld L_atm = .0821;
-}_R_;
+	const ld joules = 8.31; //8.31 J/mol * K 
+	const ld cal = 1.99; // 1.99 cal/mol * k
+	const ld L_atm = .0821; // .0821 L * atm/mol * K
+}R;
 
 
 static int temperature_objectCount = 0;
@@ -51,12 +87,68 @@ private:
 	static void countIncrease() { temperature_objectCount += 1; }
 	static void countDecrease() { temperature_objectCount -= 1; }
 public:
+	Temperature* _tempPtr;
+	/**
+	 * @brief no argument constructor
+	 */
+	Temperature()
+	{
+		_tempPtr = nullptr;
+		T._celsius = 0.0;
+		T._fahrenheit = 0.0;
+		T._kelvin = 0.0;
+		_mode = 'f';
+		countIncrease();
+	}
+	/**
+	 * @brief copy constructor
+	 */
+	Temperature(const Temperature& t)
+	{
+		T._celsius = t.T._celsius;
+		T._fahrenheit = t.T._fahrenheit;
+		T._kelvin = t.T._kelvin;
+		_mode = t._mode;
+		_tempPtr = t._tempPtr;
+		countIncrease();
+	}
+	/**
+	 * @brief copy assignment operator
+	 */
+	Temperature& operator=(const Temperature& t)
+	{
+		if (this != &t)
+		{
+			T._celsius = t.T._celsius;
+			T._fahrenheit = t.T._fahrenheit;
+			T._kelvin = t.T._kelvin;
+			_mode = t._mode;
+			_tempPtr = t._tempPtr;
+			countIncrease();
+		}
+		return *this;
+	}
+
+	/**
+	 * #brief move constructor
+	 */
+	Temperature(Temperature&& t) noexcept : _mode(t._mode), _tempPtr(nullptr)
+	{
+		T._fahrenheit = t.T._fahrenheit;
+		T._celsius = t.T._celsius;
+		T._kelvin = t.T._kelvin;
+	}
+	
+	static void show_temperature_objectCount() { std::cout << "\ntemperature object count: " << temperature_objectCount << std::endl; }
+	static int get_temperature_objectCount() { return temperature_objectCount; }
+	
 	struct Temp
 	{
 		ld _celsius;
 		ld _fahrenheit;
 		ld _kelvin;
 	}T;
+	
 	
 	/**
 	 * @brief char variable when set will change the default of the constructor arguments being
@@ -134,98 +226,8 @@ public:
 		showCelsius();
 		showKelvin();
 	}
+		
 	
-
-	
-
-	/**
-	 * @brief structure of thermal expansion coefficients, each is a vector  of two
-	 * and is followed by a capitol letter of either a S for solid a L for liquid or
-	 * a G for gases, only solids have vectors with two values the others are ld's here is an example:
-	 * aluminum_S[0] = coefficient of linear expansion // holds the value 25*10^-6
-	 * aluminum_S[1] = coefficient of volume expansion //holds the value 75*10^-6
-	 * of ether_L = coefficient of volume expansion // holds the value of 1650*10^-6
-	 */
-	struct ThermalExpansionCoefficients
-	{
-		const vector<ld> aluminum_S = { 25 * pow(10, -6), 75 * pow(10, -6) };
-		const vector<ld> brass_S = { 19 * pow(10, -6), 56 * pow(10, -6) };
-		const vector<ld> copper_S = { 17 * pow(10, -6), 51 * pow(10, -6) };
-		const vector<ld> gold_S = { 14 * pow(10, -6), 42 * pow(10, -6) };
-		const vector<ld> iron_or_steel_S = { 12 * pow(10, -6), 35 * pow(10, -6) };
-		const vector<ld> invar_nickel_iron_allow_S = { 0.9 * pow(10, -6), 2.7 * pow(10, -6) };
-		const vector<ld> lead_S = { 29 * pow(10, -6), 87 * pow(10, -6) };
-		const vector<ld> silver_S = { 18 * pow(10, -6), 54 * pow(10, -6) };
-		const vector<ld> glass_ordinary_S = { 9 * pow(10, -6), 27 * pow(10, -6) };
-		const vector<ld> glass_pyrex_S = { 3 * pow(10, -6), 9 * pow(10, -6) };
-		const vector<ld> quartz_S = { 0.4 * pow(10, -6), 1 * pow(10, -6) };
-		const vector<ld> concrete_brick_S = { -12 * pow(10, -6), -36 * pow(10, -6) }; //average
-		const vector<ld> marble_S = { 7 * pow(10, -6), 2.1 * pow(10, -6) }; //average
-		const ld ether_L = 1650 * pow(10, -6);
-		const ld ethyl_alcohol = 1100 * pow(10, -6);
-		const ld petrol = 950 * pow(10, -6);
-		const ld glycerin = 500 * pow(10, -6);
-		const ld mercury = 180 * pow(10, -6);
-		const ld water = 210 * pow(10, -6);
-		const ld air_and_most_gases_at_atmospheric_pressure = 3400 * pow(10, -6);
-
-	}coefficients;
-	
-	Temperature* _tempPtr;
-	/**
-	 * @brief no argument constructor
-	 */
-	Temperature()
-	{
-		_tempPtr = nullptr;
-		T._celsius = 0.0;
-		T._fahrenheit = 0.0;
-		T._kelvin = 0.0;
-		_mode = 'f';
-		countIncrease();
-	}
-	/**
-	 * @brief copy constructor
-	 */
-	Temperature(const Temperature& t)
-	{
-		T._celsius = t.T._celsius;
-		T._fahrenheit = t.T._fahrenheit;		
-		T._kelvin = t.T._kelvin;
-		_mode = t._mode;
-		_tempPtr = t._tempPtr;
-		countIncrease();
-	}
-	/**
-	 * @brief copy assignment operator
-	 */
-	Temperature& operator=(const Temperature& t)
-	{
-		if (this != &t)
-		{
-			T._celsius = t.T._celsius;
-			T._fahrenheit = t.T._fahrenheit;
-			T._kelvin = t.T._kelvin;
-			_mode = t._mode;			
-			_tempPtr = t._tempPtr;
-			countIncrease();
-		}
-		return *this;				
-	}
-	
-	/**
-	 * #brief move constructor
-	 */
-	Temperature(Temperature&& t) noexcept: _mode(t._mode), _tempPtr(nullptr)
-	{
-		T._fahrenheit = t.T._fahrenheit;
-		T._celsius = t.T._celsius;
-		T._kelvin = t.T._kelvin;
-	}
-
-
-	static void show_temperature_objectCount() { std::cout << "\ntemperature object count: " << temperature_objectCount << std::endl; }
-	static int get_temperature_objectCount() { return temperature_objectCount; }
 
 	/**
 	 * @brief converts from molecules to moles

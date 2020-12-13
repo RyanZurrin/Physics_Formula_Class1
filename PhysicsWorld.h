@@ -23,30 +23,339 @@
 #include "Torque.h"
 #include "Temperature.h"
 #include "Heat.h"
+#include "Thermodynamics.h"
+#include "PeriodicElements.h"
 
 //#include "reactphysics3d.h"
 //using namespace rp3d;
 
 
-
+//____________________________________________________________________________
+//global constants, methods and structures
+//
+//
 //using namespace rp3d;
 typedef long double ld;
 //using namespace std;
 	//gravitational acceleration force 9.80 m/s^2 average.
-const ld _ga_ = 9.80;
+const ld GA = 9.80;
 
 //Gravitational Constant 6.67408(31) * 10^(-11) * N 
-const ld _GC_ = 6.674 * pow(10, -11);
+const ld _GC_ = 6.674 * pow(10.0, -11.0);
 
 // speed of light in a vacuum is 299792458 m/s
-const ld _c_ = 2.99792458 * pow(10, 8);
+const ld _c_ = 2.99792458 * pow(10.0, 8.0);
 
+/**
+ * @brief area of sphere with radius r
+ */
+inline ld sphereArea(const ld r)
+{
+	return 4.0 * _PI_ * (r * r);
+}
 
+/**
+ * @brief volume of sphere with radius r
+ */
+inline ld sphereVolume(const ld r)
+{
+	return (4.0 / 3.0) * (_PI_ * (r * r * r));
+}
+
+/**
+ * @circumference of a circle with radius r or diameter d
+ */
+inline ld circleCircumference(const ld rd, const char mode = 'r')
+{
+	if(mode == 'r')
+	{
+		return 2.0 * _PI_ * rd;
+	}
+	return _PI_ * rd;
+}
+/**
+ * @brief global method for finding the area of a circle
+ * @param rd is the radius or diameter of the circle
+ * @param mode in radius default, for diameter add 'd' as a second argument
+ * @returns the total area of a circle
+ */
+inline ld circleArea(const ld rd, const char mode = 'r')
+{
+	if (mode == 'r')
+	{
+		return _PI_ * (rd * rd);
+	}
+	return (_PI_ * (rd * rd)) / 4.0;
+}
+/**
+ * @brief global method for finding the change in two values
+ * @param xi is the starting value
+ * @param xf is the ending value
+ * @return the difference between xf and xi
+ */
+inline ld delta(const ld xi, const ld xf)
+{
+	return xf - xi;
+}
 static ld _val_;// = 0.0;
 static void show_val() { cout << "val: " << _val_ << endl; }
+
 /**
- * @brief static template method to set val
+ * @brief structure for conversion methods
  */
+static struct Conversions
+{
+	ld static kiloJoulesToCalories(const ld kJ)
+	{
+		return (kJ * 1000.0) / 4186.0;
+	}
+	
+	ld static revolutionsFromRadians(const ld radTotal)
+	{
+		//cout << "revolutions: " << radTotal / (2.0 * _PI_) << endl;
+		return radTotal / (2.0 * _PI_);
+	}
+
+	/**
+	 * @brief Returns the revolutions in radians per second which is the angular velocity as well
+	 * @param revMin revolutions per minute
+	 * @returns revolutions in radians per second
+	 */
+	ld static revolutions_min_to_radians_second(const ld revMin)
+	{
+		return (revMin * 2.0 * _PI_) / 60;
+	}
+
+	/**
+	 * @brief Returns the conversion from revolutions per radian second to revolutions per minute
+	 * @param radSec is the rotation speed in radians per second
+	 * @returns the revolutions per minute
+	 */
+	ld static radians_second_to_revolutions_minute(const ld radSec)
+	{
+		return (radSec * 60.0) / (2.0 * _PI_);
+	}
+
+	/**
+	 *  @brief Returns the ratio of the value to gravity
+	 *  @param unit can be whatever you are dividing by gravity acceleration
+	 *  @returns the gravity ratio
+	 */
+	ld static gravity_ratio(const ld unit)
+	{
+		return unit / _G_;
+	}
+
+	
+	/**
+	 * @brief Returns the conversion from meters per second to kilometers per hour
+	 * @param mps is meters per second
+	 * @returns kilometers per hour
+	 */
+	ld static mps_to_kmh(const ld mps = _val_)
+	{
+		return mps * 3.6;
+	}
+	/**
+	 * @brief Returns the conversion from kilometers per hour to meters per second
+	 * @param kmh is kilometers per hour
+	 * @returns meters per second
+	 */
+	ld static kmh_to_mps(const ld kmh = _val_)
+	{
+		return kmh / 3.6;
+	}
+	/**
+	 * @brief Returns the conversion from miles per hour to meters per second
+	 * @param mph is miles per hour
+	 * @returns meters per second
+	 */
+	ld static mph_to_mps(const ld mph = _val_)
+	{
+		return mph / 2.237;
+	}
+	/**
+	 * @brief Returns the conversion from meters per second to miles per hour
+	 * @param mps is meters per second
+	 * @returns miles per hour
+	 */
+	ld static mps_to_mph(const ld mps = _val_)
+	{
+		return mps * 2.237;
+	}
+	/**
+	 * @brief Returns the conversion from milliseconds to seconds
+	 * @param ms to be converted to seconds
+	 * @returns seconds from milliseconds
+	 */
+	ld static millisecond_to_seconds(const ld ms = _val_)
+	{
+		return ms / 1000;
+	}
+	ld static minutes_to_seconds(const ld min = _val_)
+	{
+		return min * 60;
+	}
+	ld static hours_to_seconds(const ld hours = _val_)
+	{
+		return hours * 3600;
+	}
+	/**
+	 * @brief Returns the conversion from days to seconds for use in calculation
+	 * @param days can be expressed as a decimal, four and a half days would be 4.5
+	 * @returns total seconds converted from days
+	 */
+	ld static days_to_seconds(const ld days = _val_)
+	{
+		return days * 86400;
+	}
+	/**
+	 * @brief Returns the conversion from seconds to days
+	 * @param seconds to be converted
+	 * @returns days
+	 */
+	ld static seconds_to_days(const ld seconds = _val_)
+	{
+		return seconds / 86400;
+	}
+	/**
+	 * @brief Returns the conversion from miles to meters
+	 * @param miles to be converted
+	 * @returns meters from miles
+	 */
+	ld static miles_to_meters(const ld miles = _val_)
+	{
+		return miles * 1609;
+	}
+	/**
+	 * @brief Returns the conversion from feet to meters
+	 * @param feet to be converted
+	 * @returns meters
+	 */
+	ld static feet_to_meters(const ld feet = _val_)
+	{
+		return feet / 3.281;
+	}
+	/**
+	 * @brief Returns the conversion from inches to meters
+	 * @param inches to be converted
+	 * @returns meters
+	 */
+	ld static inches_to_meters(const ld inches = _val_)
+	{
+		return inches / 39.37;
+	}
+	/**
+	 * @brief Returns the conversion from meters to inches
+	 * @param meters is the total meters
+	 * @returns inches
+	 */
+	ld static meters_to_inches(const ld meters = _val_)
+	{
+		return meters * 39.37;
+	}
+	/**
+	 * @brief Returns the conversion from centimeters to meters
+	 * @param cm centimeters
+	 * @returns meters
+	 */
+	ld static centimeters_to_meters(const ld cm = _val_)
+	{
+		return cm / 100;
+	}
+	ld static meters_to_centimeters(const ld m = _val_)
+	{
+		return m * 100;
+	}
+	ld static kilometers_to_meters(const ld km = _val_)
+	{
+		return km * 1000;
+	}
+	ld static millimeters_to_meters(const ld mm = _val_)
+	{
+		return mm / 1000;
+	}
+	ld static micrometers_to_meters(const ld Mm = _val_)
+	{
+		return Mm / pow(1, -6);
+	}
+	ld static nanometers_to_meters(const ld nm = _val_)
+	{
+		return nm / pow(1, -9);
+	}
+	ld static pound_to_kilogram(const ld lbs = _val_)
+	{
+		return lbs / 2.205;
+	}
+	ld static milligram_to_kilogram(const ld mg = _val_)
+	{
+		return mg / pow(1, -6);
+	}
+	ld static gram_to_kilogram(const ld g = _val_)
+	{
+		return g / 1000;
+	}
+	ld static ounce_to_kilogram(const ld ounce = _val_)
+	{
+		return ounce / 35.274;
+	}
+	ld static watts_to_kilowatts(const ld watt = _val_)
+	{
+		return watt / 1000;
+	}
+	ld static newtonMeters_to_ftPounds(const ld Nm = _val_)
+	{
+		return Nm / .73756;
+	}
+	ld static radians_to_revolutions(const ld rad = _val_)
+	{
+		return rad / (2 * _PI_);
+	}
+	ld static revolutions_to_radians(const ld rev = _val_)
+	{
+		return rev * 2 * _PI_;
+	}
+	ld static atm_to_pascals(const ld atm = _val_)
+	{
+		return atm * 101325.0;
+	}
+	
+}converter;
+
+static struct Densities
+{
+	const ld aluminum_S = 2.7 * pow(10, 3); // 2700 g/m^3
+	const ld brass_S = 8.44 * pow(10, 3); // 8440 g/m^3
+	const ld copperAverage_S = 8.8 * pow(10, 3); // 8800 g/m^3
+	const ld gold_S = 19.32 * pow(10, 3); // 19320 g/m^3
+	const ld ironOrSteele_S = 7.8 * pow(10, 3); // 7800 g/m^3
+	const ld lead_S = 11.3 * pow(10, 3); // 11300 g/m^3
+	const ld polystyrene_S = .10 * pow(10, 3); // 100 g/m^3
+	const ld tungsten = 19.30 * pow(10, 3); // 19300 g/m^3
+	const ld uranium = 18.7 * pow(10, 3); // 18700 g/m^3
+	const ld concrete_light_S = 2.30 * pow(10, 3); // 2300 g/m^3
+	const ld concrete_med_S = 2.7 * pow(10, 3); // 2700 g/m^3
+	const ld concrete_heavyDuty_S = 3.0 * pow(10, 3); // 3000 g/m^3
+	const ld cork_S = .24 * pow(10, 3); // 240 g/m^3
+	const ld glassAverage_S = 2.6 * pow(10, 3); // 2600 g/m^3
+	const ld granite = 2.7 * pow(10, 3); // 2700 g/m^3
+	const ld earthsCrust_S = 3.3 * pow(10, 3); // 3300 g/m^3
+	const ld woodSoft_S = .3 * pow(10, 3); // 300 g/m^3
+	const ld woodMed_S = .6 * pow(10, 3); // 600 g/m^3
+	const ld woodHard_S = .9 * pow(10, 3); // 900 g/m^3
+	const ld ice_0deg_S = .917 * pow(10, 3); // 917 g/m^3
+	const ld boneSoft_S = 1.7 * pow(10, 3); // 1700 g/m^3
+	const ld boneHard_S = 2.0 * pow(10, 3); // 2000 g/m^3
+	const ld water_L = 1.0 * pow(10, 3); // 2700 g/m^3
+	const ld blood_L = 1.05 * pow(10, 3); // 1050 g/m^3
+	const ld seaWater_L = 1.025 * pow(10, 3); // 1025 g/m^3
+	const ld mercury_L = 13.6 * pow(10, 3); // 13600 g/m^3
+	const ld ethylAlcohol_L = .79 * pow(10, 3); // 790 g/m^3
+	const ld petrol_L = .68 * pow(10, 3); // 680 g/m^3
+	const ld glycerin_L = 1.26 * pow(10, 3); // 1260 g/m^3
+	const ld oliveOil = .92 * pow(10, 3); // 920 g/m^3
+}p;
+
 static void setVal(const ld v)
 {
 	_val_ = v;
@@ -71,7 +380,7 @@ public:
 
 	 /**
 	 * @brief static member function to print values of passed in vector
-	 * @param vec
+	 * 
 	 */
 	template <typename T, size_t size>
 	static void show_vector_values(T (&size_t) [size])
@@ -112,6 +421,8 @@ public:
 	RotationalMotion* rotationalMotion;
 	Temperature* temperature;
 	Heat* heat;
+	Thermodynamics* thermodynamic;
+	PeriodicElements* periodic_elements;
 
 	
 	//PhysicsCommon * physics_common;
@@ -142,175 +453,7 @@ public:
 	
 	static ld return_val() { return _val_; }
 	static vector<ld> return_vector(PhysicsWorld &v) { return v.vector_values; }
-	//============================================================================
-	// conversion methods
-
-	/**
-	 * @brief Returns the conversion from meters per second to kilometers per hour
-	 * @param mps is meters per second
-	 * @returns kilometers per hour
-	 */
-	ld static conversion_mps_to_kmh(const ld mps = _val_)
-	{ return mps * 3.6;	}
-	/**
-	 * @brief Returns the conversion from kilometers per hour to meters per second
-	 * @param kmh is kilometers per hour
-	 * @returns meters per second
-	 */
-	ld static conversion_kmh_to_mps(const ld kmh = _val_)
-	{
-		return kmh / 3.6;
-	}
-	/**
-	 * @brief Returns the conversion from miles per hour to meters per second
-	 * @param mph is miles per hour
-	 * @returns meters per second
-	 */
-	ld static conversion_mph_to_mps(const ld mph = _val_)
-	{
-		return mph / 2.237;
-	}
-	/**
-	 * @brief Returns the conversion from meters per second to miles per hour
-	 * @param mps is meters per second
-	 * @returns miles per hour
-	 */
-	ld static conversion_mps_to_mph(const ld mps = _val_)
-	{
-		return mps * 2.237;
-	}
-	/**
-	 * @brief Returns the conversion from milliseconds to seconds
-	 * @param ms to be converted to seconds
-	 * @returns seconds from milliseconds
-	 */
-	ld static conversion_millisecond_to_seconds(const ld ms = _val_)
-	{
-		return ms / 1000;
-	}
-	ld static conversion_minutes_to_seconds(const ld min = _val_)
-	{
-		return min * 60;
-	}
-	ld static conversion_hours_to_seconds(const ld hours = _val_)
-	{
-		return hours * 3600;
-	}
-	/**
-	 * @brief Returns the conversion from days to seconds for use in calculation
-	 * @param days can be expressed as a decimal, four and a half days would be 4.5
-	 * @returns total seconds converted from days
-	 */
-	ld static conversion_days_to_seconds(const ld days = _val_)
-	{
-		return days * 86400;
-	}
-	/**
-	 * @brief Returns the conversion from seconds to days
-	 * @param seconds to be converted
-	 * @returns days
-	 */
-	ld static conversion_seconds_to_days(const ld seconds = _val_)
-	{
-		return seconds / 86400;
-	}
-	/**
-	 * @brief Returns the conversion from miles to meters
-	 * @param miles to be converted
-	 * @returns meters from miles
-	 */
-	ld static conversion_miles_to_meters(const ld miles = _val_)
-	{
-		return miles * 1609;
-	}
-	/**
-	 * @brief Returns the conversion from feet to meters
-	 * @param feet to be converted
-	 * @returns meters
-	 */
-	ld static conversion_feet_to_meters(const ld feet = _val_)
-	{
-		return feet / 3.281;
-	}
-	/**
-	 * @brief Returns the conversion from inches to meters
-	 * @param inches to be converted
-	 * @returns meters
-	 */
-	ld static conversion_inches_to_meters(const ld inches = _val_)
-	{
-		return inches / 39.37;
-	}
-	/**
-	 * @brief Returns the conversion from meters to inches
-	 * @param meters is the total meters
-	 * @returns inches
-	 */
-	ld static conversion_meters_to_inches(const ld meters = _val_)
-	{
-		return meters * 39.37;
-	}
-	/**
-	 * @brief Returns the conversion from centimeters to meters
-	 * @param cm centimeters
-	 * @returns meters 
-	 */
-	ld static conversion_centimeters_to_meters(const ld cm = _val_)
-	{
-		return cm / 100;
-	}
-	ld static conversion_meters_to_centimeters(const ld m = _val_)
-	{
-		return m * 100;
-	}
-	ld static conversion_kilometers_to_meters(const ld km = _val_)
-	{
-		return km * 1000;
-	}
-	ld static conversion_millimeters_to_meters(const ld mm = _val_)
-	{
-		return mm / 1000;
-	}
-	ld static conversion_micrometers_to_meters(const ld Mm = _val_)
-	{
-		return Mm / pow(1, -6);
-	}
-	ld static conversion_nanometers_to_meters(const ld nm = _val_)
-	{
-		return nm / pow(1, -9);
-	}
-	ld static conversion_pound_to_kilogram(const ld lbs = _val_)
-	{
-		return lbs / 2.205;
-	}
-	ld static conversion_milligram_to_kilogram(const ld mg = _val_)
-	{
-		return mg / pow(1, -6);
-	}
-	ld static conversion_gram_to_kilogram(const ld g = _val_)
-	{		
-		return g / 1000;
-	}
-	ld static conversion_ounce_to_kilogram(const ld ounce = _val_)
-	{
-		return ounce / 35.274;
-	}
-	ld static conversion_watts_to_kilowatts(const ld watt = _val_)
-	{
-		return watt / 1000;
-	}
-	ld static conversion_newtonMeters_to_ftPounds(const ld Nm = _val_)
-	{
-		return Nm / .73756;
-	}
-	ld static conversion_radians_to_revolutions(const ld rad = _val_)
-	{
-		return rad / (2 * _PI_);
-	}
-	ld static convert_revolutions_to_radians(const ld rev = _val_)
-	{
-		return rev * 2 * _PI_;
-	}
+	
 	//============================================================================
 	//chapter 2 formulas	
 	
@@ -552,7 +695,7 @@ public:
 	 * returns: g's
 	 */
 	ld static conversion_multiple_of_gravity(const ld value)
-	{ return value / _ga_; }
+	{ return value / GA; }
 
 	/**
 	 * method: time_using_quadratic(ld a, ld b, ld c)
@@ -603,7 +746,7 @@ public:
 	* returns: ld, range of a projectile
 	*/
 	ld static range_projectile_level_ground(const ld velocity, const ld angleTheta)
-	{ return  ((velocity * velocity) * sin(2 * angleTheta * RADIAN) / (_ga_));	}
+	{ return  ((velocity * velocity) * sin(2 * angleTheta * RADIAN) / (GA));	}
 
 	/**
 	 * @brief calculates the angle theta of a projectile
@@ -625,7 +768,7 @@ public:
 	 */
 	ld static time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)
 	{
-		return (2 * launchVelocity * sin(angleTheta)) / (_ga_);
+		return (2 * launchVelocity * sin(angleTheta)) / (GA);
 	}
 
 	// sqrt((-2*(displacement))/-GA)
@@ -646,7 +789,7 @@ public:
 	ld velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle)const;
 	
 	// targetDistance * sqrt((abs(acceleration)/((2 * (targetDistance * (tan(angle)*DEGREE) - targetHeight)))))
-	ld horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration = _ga_)const;
+	ld horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration = GA)const;
 
 	// xVelocity * tan(angle*RADIAN)
 	ld vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angle)const;
@@ -674,7 +817,7 @@ public:
 	 * returns: ld weight
 	 */
 	ld static weight(const ld mass) 
-	{ return mass * _ga_; }
+	{ return mass * GA; }
 	
 	/**
 	 * method: newtons_second_law_for_force(ld mass, ld acceleration) 
@@ -718,7 +861,7 @@ public:
 	 * purpose: calculates the normal force, weight
 	 * returns: ld, normal force
 	 */
-	ld static normal_force(const ld mass, const ld acceleration = _ga_)
+	ld static normal_force(const ld mass, const ld acceleration = GA)
 	{ return mass * acceleration; }
 
 	/**
@@ -728,7 +871,7 @@ public:
 	 * returns: ld, normal force
 	 */
 	ld static normal_force_angle(const ld mass, const ld angleTheta)
-	{ return mass* -_ga_ * cos(angleTheta*RADIAN); }
+	{ return mass* -GA * cos(angleTheta*RADIAN); }
 
 	/**
 	 * method: acceleration_slope_simpleFriction(const ld angleTheta, const ld kineticCoefficient)
@@ -737,7 +880,7 @@ public:
 	 * returns: ld, normal force
 	 */
 	ld static acceleration_slope_simpleFriction(const ld angleTheta, const ld kineticCoefficient)
-	{ return _ga_ * (sin(angleTheta * RADIAN ) - (kineticCoefficient * cos(angleTheta * RADIAN))); }
+	{ return GA * (sin(angleTheta * RADIAN ) - (kineticCoefficient * cos(angleTheta * RADIAN))); }
 
 	/**
 	 * @brief finds the ratio between two numbers
