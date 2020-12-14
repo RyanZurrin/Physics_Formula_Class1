@@ -2,8 +2,9 @@
 /**
  * @class Heat
  * @details driver class for solving physics problems
- * @author Ryan Zurrin
+ * @author Ryan Zurrin testing a push to git hub with this line here
  * @date   11/29/2020
+ * @last_modified_on 12/14/2020
  */
 #ifndef HEAT_H
 #define HEAT_H
