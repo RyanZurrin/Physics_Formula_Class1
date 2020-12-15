@@ -38,7 +38,7 @@
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="driver.cpp" />
+    <ClCompile Include="testFactory.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Vector2d.cpp" />
     <ClCompile Include="Vector3D.cpp" />

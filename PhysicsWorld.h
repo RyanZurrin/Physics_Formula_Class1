@@ -30,12 +30,14 @@
 //using namespace rp3d;
 
 
+class PhysicsWorld;
 //____________________________________________________________________________
 //global constants, methods and structures
 //
 //
 //using namespace rp3d;
 typedef long double ld;
+typedef PhysicsWorld PW;
 //using namespace std;
 	//gravitational acceleration force 9.80 m/s^2 average.
 const ld GA = 9.80;
@@ -303,6 +305,14 @@ static struct Conversions
 	{
 		return watt / 1000;
 	}
+	ld static kWh_to_joules(const ld kWh = _val_)
+	{
+		return kWh * (3.6*pow(10, 6));
+	}
+	ld static joules_to_kWh(const ld j = _val_)
+	{
+		return j / (3.6 * pow(10, 6));
+	}	
 	ld static newtonMeters_to_ftPounds(const ld Nm = _val_)
 	{
 		return Nm / .73756;
@@ -448,6 +458,8 @@ public:
 		rotationalMotion(o.rotationalMotion),
 		temperature(o.temperature),
 		heat(o.heat),
+		thermodynamic(o.thermodynamic),
+		periodic_elements(o.periodic_elements),
 		_ptr_(o._ptr_){} // move constructor
 	
 	

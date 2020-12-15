@@ -381,6 +381,17 @@ public:
 	{
 		return (pressureConstant * (Vf - Vi)) / (GAMMA_MONO_ATOMIC - 1);
 	}
+	/**
+	 * @brief calculates the work done during an isobaric process
+	 * @param gP gauge pressure supplied
+	 * @param A cross sectional area of piston head A = pi*radius^2
+	 * @param d is the distance it travels
+	 * @returns work in J 
+	 */
+	static ld work_isobaricProcessOnPiston(const ld gP, const ld A, const ld d)
+	{
+		return gP * A * d;
+	}
 	
 	/**
 	 * @brief destructor

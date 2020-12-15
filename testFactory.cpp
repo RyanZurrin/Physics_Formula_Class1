@@ -14,9 +14,10 @@
 
 int main()
 {
-	PhysicsWorld heat;
-	heat.vector_values = heat.thermodynamic->systemOfAnswers_workDone_heatTransfer_internalChange(7.2, 27.0, 69.0, 387.0, 8.94*pow(10, 3), 17.0*pow(10.0, -6.0), 200.0);
-	heat.show_vector_values();	
+	PhysicsWorld cupOfWater;
+	setVal(cupOfWater.thermodynamic->heatTransferToEnvironment(1000.0, 3.0));
+	show_val();
+	printf("temp F: %Lg ,  temp k: %Lg", tempConverter.celsius_to_fahrenheit(10), tempConverter.celsius_to_kelvin(10));
 	
 	return 0;
 }

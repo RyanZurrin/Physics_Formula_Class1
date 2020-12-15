@@ -348,7 +348,7 @@ public:
 	 * @returns thermal equilibrium {is when two objects come in contact and the hotter
 	 * object transfers heat to the cooler object until a equal temp is reached between two objects}
 	 */
-	static ld thermalEquilibrium2objects(const ld m1, const ld c1, const ld t1, const ld m2, const ld c2, const ld t2)
+	static ld finalTemp_ThermalEquilibrium2objects(const ld m1, const ld c1, const ld t1, const ld m2, const ld c2, const ld t2)
 	{
 		return ((m1 * c1 * t1) + (m2 * c2 * t2)) / ((m1 * c1) + (m2 * c2));
 	}	
@@ -393,12 +393,12 @@ public:
 	 * @param k is the thermal conductivity
 	 * @param A is total surface area
 	 * @param deltaTemp is the change in temperature
-	 * @param timeSeconds is the time in seconds of measurement period
+	 * @param d the thickness of substance
 	 * @returns the Q value or heat transfer total
 	 */
-	static ld heatTransferConduction_Q(const ld k, const ld A, const ld deltaTemp, const ld d, const ld timeSeconds)
+	static ld heatTransferConduction_Q(const ld k, const ld A, const ld deltaTemp, const ld d)
 	{
-		return ((k * A * deltaTemp) / d) * timeSeconds;
+		return ((k * A * deltaTemp) / d);
 	}
 	
 	/**
@@ -576,6 +576,31 @@ public:
 	{
 		return ((((m_b * c_b) * (Ti)) + ((m_s * c_s) * (Ti))) + (m_s * Lf) - Q) / ((m_b * c_b) + (m_s * c_i));
 	}
+
+	/**
+	 * @brief calculates the specific heat of a substance
+	 * @param m mass in kg
+	 * @param Ti initial temp
+	 * @param Tf final temp
+	 * @param Q heat energy used
+	 */
+	static ld specificHeat(const ld m, const ld Ti, const ld Tf, const ld Q)
+	{
+		return Q / (m * (Tf - Ti));
+	}
+
+	/**
+	 * @brief calculates the time to heat water
+	 * @param Q heat energy
+	 * @param P power in watts
+	 * @returns time in seconds
+	 */
+	static ld timeToHeatWater(const ld Q, const ld P)
+	{
+		return Q / P;
+	}
+
+
 	
 	/**
 	 *@brief destructor
