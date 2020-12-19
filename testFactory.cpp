@@ -14,10 +14,12 @@
 
 int main()
 {
-	PhysicsWorld cupOfWater;
-	setVal(cupOfWater.thermodynamic->heatTransferToEnvironment(1000.0, 3.0));
-	show_val();
-	printf("temp F: %Lg ,  temp k: %Lg", tempConverter.celsius_to_fahrenheit(10), tempConverter.celsius_to_kelvin(10));
+	PhysicsWorld exam(-4, 3, 7);
+	exam.vector3d->showAllData();
+	printf("f: %lf ", tempConverter.celsius_to_kelvin(52.0));
+	
+
+	
 	
 	return 0;
 }

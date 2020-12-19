@@ -11,7 +11,7 @@
 
 static struct TemperatureConversions
 {
-	static ld  celsius_to_fahrenheit(const ld c) { return (9.0 / 5.0) * (c + 32.0); }
+	static ld  celsius_to_fahrenheit(const ld c) { return (9.0 / 5.0) * c + 32.0; }
 	static ld  fahrenheit_to_celsius(const ld f) { return (5.0 / 9.0) * (f - 32.0); }
 	static ld  celsius_to_kelvin(const ld c) { return c + 273.15; }
 	static ld  kelvin_to_celsius(const ld k) { return k - 273.15; }
@@ -64,7 +64,7 @@ const ld GAMMA_MONO_ATOMIC = 1.66;
  * @brief Global Constant _Na_ is  Avogadro's number and is used to express
  * units in moles, abb(mol) and is equal to 6.02e23 mol^-1
  */
-const ld _Na_ = 6.02 * pow(10, 23);
+const ld AVOGADRO = 6.02 * pow(10, 23);//6.02*10^23
 
 /**
  * @brief Global constant _R_ is the universal gas constant struct which has _R_
@@ -133,7 +133,7 @@ public:
 	/**
 	 * #brief move constructor
 	 */
-	Temperature(Temperature&& t) noexcept : _mode(t._mode), _tempPtr(nullptr)
+	Temperature(Temperature&& t) noexcept : _tempPtr(nullptr), _mode(t._mode)
 	{
 		T._fahrenheit = t.T._fahrenheit;
 		T._celsius = t.T._celsius;
@@ -284,7 +284,7 @@ public:
 	 */
 	ld static convert_to_mol(const ld N)
 	{
-		return N / _Na_;
+		return N / AVOGADRO;
 	}
 
 	/**
@@ -410,7 +410,7 @@ public:
 	 * @param T is the absolute temperature in kelvin
 	 * @returns Thermal energy, molecular interpretation of temperature
 	 */
-	static ld thermal_energy_KE(const ld T)
+	static ld translationalKineticEnergy_molecules(const ld T)
 	{
 		return (3.0 / 2.0)* _K_* T;
 	}

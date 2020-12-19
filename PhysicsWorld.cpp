@@ -24,6 +24,7 @@ PhysicsWorld::PhysicsWorld()
 	temperature = new Temperature;
 	heat = new Heat;
 	thermodynamic = new Thermodynamics;
+	dynamics_and_forces = new DynamicsAndForces;
 	periodic_elements = new PeriodicElements;
 	//physics_common = new PhysicsCommon;
 	//world = physics_common->createPhysicsWorld();
@@ -52,6 +53,7 @@ PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	temperature = p.temperature;
 	heat = p.heat;
 	thermodynamic = p.thermodynamic;
+	dynamics_and_forces = p.dynamics_and_forces;
 	periodic_elements = p.periodic_elements;
 	//PhysicsWorld_common = p.PhysicsWorld_common;
 	countIncrease();
@@ -80,6 +82,7 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		temperature = r.temperature;
 		heat = r.heat;
 		thermodynamic = r.thermodynamic;
+		dynamics_and_forces = r.dynamics_and_forces;
 		periodic_elements = r.periodic_elements;
 		countIncrease();
 		//countShow();
@@ -103,6 +106,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	temperature = new Temperature;
 	heat = new Heat;
 	thermodynamic = new Thermodynamics;
+	dynamics_and_forces = new DynamicsAndForces;
 	periodic_elements = new PeriodicElements;
 	
 	//vector_values = { 0.0,0.0,0.0,0.0 };
@@ -127,6 +131,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	temperature = new Temperature;
 	heat = new Heat;
 	thermodynamic = new Thermodynamics;
+	dynamics_and_forces = new DynamicsAndForces;
 	periodic_elements = new PeriodicElements;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
@@ -261,6 +266,7 @@ PhysicsWorld::~PhysicsWorld()
 	delete temperature;
 	delete heat;
 	delete thermodynamic;
+	delete dynamics_and_forces;
 	delete periodic_elements;
 	countDecrease();
 	//countShow();

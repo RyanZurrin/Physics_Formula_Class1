@@ -292,11 +292,23 @@ public:
 	 * @param speed is in m/s meters per second
 	 * @returns the minimum static coefficient needed
 	 */
-	ld static coefficient_static_minimum_for_embanked_turn(const ld r, const ld angle, const ld speed)
+	ld static coefficientOfFriction_minimumForEmbankedTurn(const ld r, const ld angle, const ld speed)
 	{
 		return ((r * _G_) * tan(angle * RADIAN) - (speed * speed)) / ((r * _G_) + (speed * speed) * tan(15*RADIAN));
 	}
-	
+	/**
+	 * @brief Returns the minimum static coefficient needed to safely take a turn with an specified
+	 * embankment angle at a specified speed with a radius of r.
+	 * fx = ((r * _G_) * tan(angle * RADIAN) - (speed * speed)) / ((r * _G_) + (speed * speed) * tan(15*RADIAN))
+	 * @param r is the radius to the center of the turn
+	 * @param angle is the angle of the embankment
+	 * @param speed is in m/s meters per second
+	 * @returns the minimum static coefficient needed
+	 */
+	ld static coefficientFriction_minimumForFlatCurve(const ld r,  const ld speed)
+	{
+		return (speed * speed) / (r * _Ga_);
+	}
 	/**
 	 * @brief Returns the ideal speed to take going around a banked curve,
 	 * fx = pow(r * _G_ * tan(angle * RADIAN), .5)

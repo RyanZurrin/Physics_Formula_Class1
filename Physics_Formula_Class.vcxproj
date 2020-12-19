@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DynamicsAndForces.h" />
     <ClInclude Include="FluidStatics.h" />
     <ClInclude Include="Heat.h" />
     <ClInclude Include="PeriodicElements.h" />
     <ClInclude Include="Temperature.h" />
+    <ClInclude Include="TemplateClass.h" />
     <ClInclude Include="Thermodynamics.h" />
     <ClInclude Include="UniformCircularMotion.h" />
     <ClInclude Include="Drag.h" />

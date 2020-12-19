@@ -66,6 +66,12 @@
     <ClInclude Include="Thermodynamics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DynamicsAndForces.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector2d.cpp">

@@ -35,7 +35,7 @@ static struct HeatEnergyUnitConversion
  * c.aluminum[1] holds the value of .215 kCal/kg*C` respectfully.
  * @variable c stands for specific heat
  */
-static struct SubstanceHeatValues 
+static struct SpecificHeatCapacity 
 {
 	
 	const vector<ld> aluminum_S = { 900.0, .215 };//< 900J/kg*C`, .215kCal/kg*C` >
@@ -43,6 +43,7 @@ static struct SubstanceHeatValues
 	const vector<ld> concrete_granite_average_S = { 840.0, .20 };//< 840J/kg*C`, .20kCal/kg*C` >
 	const vector<ld> copper_S = { 387.0, .0924 };//< 387J/kg*C`, .0924kCal/kg*C` >
 	const vector<ld> glass_S = { 840.0, .20 };//< 840.0J/kg*C`, .20kCal/kg*C` >
+	const vector<ld> sand_s = { 840.0, };//< 840.0J/kg*C`, .20kCal/kg*C` >
 	const vector<ld> gold_S = { 129.0, .0308 };//< 129.0J/kg*C`,.0308kCal/kg*C` >
 	const vector<ld> human_body_average_S = { 3500.0, .83 };//< 3500.0J/kg*C`, .83kCal/kg*C` >
 	const vector<ld> ice_average_S = { 2090.0, .50 };//< 2090.0J/kg*C`, .50kCal/kg*C` >
