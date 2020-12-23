@@ -66,11 +66,14 @@
     <ClInclude Include="Thermodynamics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DynamicsAndForces.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="driver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Vector2d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="testFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

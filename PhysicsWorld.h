@@ -24,21 +24,22 @@
 #include "Temperature.h"
 #include "Heat.h"
 #include "Thermodynamics.h"
+#include "DynamicsAndForces.h"
 #include "PeriodicElements.h"
 
 //#include "reactphysics3d.h"
 //using namespace rp3d;
 
 
+class PhysicsWorld;
 //____________________________________________________________________________
 //global constants, methods and structures
 //
 //
 //using namespace rp3d;
 typedef long double ld;
+typedef PhysicsWorld PW;
 //using namespace std;
-	//gravitational acceleration force 9.80 m/s^2 average.
-const ld GA = 9.80;
 
 //Gravitational Constant 6.67408(31) * 10^(-11) * N 
 const ld _GC_ = 6.674 * pow(10.0, -11.0);
@@ -98,14 +99,34 @@ inline ld delta(const ld xi, const ld xf)
 	return xf - xi;
 }
 static ld _val_;// = 0.0;
-static void show_val() { cout << "val: " << _val_ << endl; }
+static void show_val() { cout << "_val_: " << _val_ << endl; }
+static void show_val(const ld val) { cout << "val: " << val << endl; }
+static void show_val(const string label) { cout << label+": " << _val_ << endl; }
 
 /**
  * @brief structure for conversion methods
  */
 static struct Conversions
 {
-	ld static kiloJoulesToCalories(const ld kJ)
+	struct SpecificHeatConverter
+	{
+		ld static joulesKgC_to_kcalKgC(const ld j = _val_)
+		{
+			return j * .000238845896627;
+		}
+		ld static _kcalKgC_to_joulesKgC_IT(const ld kcal = _val_)
+		{
+			return kcal * 4186.8;
+		}		
+	}heat;
+
+	
+	ld static atomicWeight_to_kilograms(const ld u = _val_)
+	{
+		return u * 1.6605402 * pow(10, -27);
+	}
+	
+	ld static kiloJoules_to_calories(const ld kJ)
 	{
 		return (kJ * 1000.0) / 4186.0;
 	}
@@ -303,6 +324,14 @@ static struct Conversions
 	{
 		return watt / 1000;
 	}
+	ld static kWh_to_joules(const ld kWh = _val_)
+	{
+		return kWh * (3.6*pow(10, 6));
+	}
+	ld static joules_to_kWh(const ld j = _val_)
+	{
+		return j / (3.6 * pow(10, 6));
+	}	
 	ld static newtonMeters_to_ftPounds(const ld Nm = _val_)
 	{
 		return Nm / .73756;
@@ -422,6 +451,7 @@ public:
 	Temperature* temperature;
 	Heat* heat;
 	Thermodynamics* thermodynamic;
+	DynamicsAndForces* dynamics_and_forces;
 	PeriodicElements* periodic_elements;
 
 	
@@ -448,6 +478,9 @@ public:
 		rotationalMotion(o.rotationalMotion),
 		temperature(o.temperature),
 		heat(o.heat),
+		thermodynamic(o.thermodynamic),
+		dynamics_and_forces(o.dynamics_and_forces),
+		periodic_elements(o.periodic_elements),
 		_ptr_(o._ptr_){} // move constructor
 	
 	
@@ -798,100 +831,9 @@ public:
 	//  atan(-((b)-sqrt((b * b) - 4 * a * c)) / (2 * a)) * DEGREE;
 	std::vector<ld> basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance);
 
-	//=================================================================================
-	// chapter 4 formulas
-
-	/**
-	 * method: netForce(const ld totalForces, const ld totalFriction)
-	 * arguments: 1)total forces  2)total friction
-	 * purpose:	calculates the forces total including frictions
-	 * returns: ld net force
-	 */
-	ld static netForce(const ld totalForces, const ld totalFriction)
-	{ return totalForces - totalFriction; }
 	
-	/**
-	 * method: gravitational_force_on_mass(ld mass) const
-	 * arguments: mass
-	 * purpose:	applies the force of gravity on a mass to give the weight
-	 * returns: ld weight
-	 */
-	ld static weight(const ld mass) 
-	{ return mass * GA; }
 	
-	/**
-	 * method: newtons_second_law_for_force(ld mass, ld acceleration) 
-	 * arguments: ld mass, ld acceleration
-	 * purpose:	uses Newtons second law of motion to calculate the force of a something
-	 * returns: ld, force
-	 */
-	ld static newtons_second_law_for_force(const ld mass, const ld acceleration)
-	{ return mass * acceleration; }
-
-	/**
-	 * method: newtons_second_law_for_acceleration(ld netForce, ld mass) const
-	 * arguments: netForce, mass
-	 * purpose:	calculates the acceleration due to a force
-	 * returns: ld, acceleration
-	 */
-	ld static newtons_second_law_for_acceleration(const ld netForce, const ld mass)
-	{ return netForce / mass; }
-
-	/**
-	 * method: newtons_second_law_for_mass(ld netForce, ld acceleration) const
-	 * arguments: netForce, acceleration
-	 * purpose:calculates the mass of an object from the force and acceleration
-	 * returns: ld, mass
-	 */
-	ld static newtons_second_law_for_mass(ld netForce, ld acceleration)
-	{ return netForce / acceleration; }
-
-	/**
-	 * method: drag_force(const ld appliedForce, const ld mass, const ld acceleration)
-	 * arguments: 1)appliedForce 2)mass 3)acceleration
-	 * purpose:calculates the drag or resistance
-	 * returns: ld, drag
-	 */
-	ld static drag_force(const ld appliedForce, const ld mass, const ld acceleration)
-	{ return appliedForce - (mass * acceleration); }
-
-	/**
-	 * method: normal_force(const ld mass, const ld acceleration = GA)
-	 * arguments: 1)mass 2)acceleration 
-	 * purpose: calculates the normal force, weight
-	 * returns: ld, normal force
-	 */
-	ld static normal_force(const ld mass, const ld acceleration = GA)
-	{ return mass * acceleration; }
-
-	/**
-	 * method: normal_force_angle(const ld mass, const ld angleTheta)
-	 * arguments: 1)mass 2)acceleration
-	 * purpose: calculates the normal force on an angle
-	 * returns: ld, normal force
-	 */
-	ld static normal_force_angle(const ld mass, const ld angleTheta)
-	{ return mass* -GA * cos(angleTheta*RADIAN); }
-
-	/**
-	 * method: acceleration_slope_simpleFriction(const ld angleTheta, const ld kineticCoefficient)
-	 * arguments: 1)angleTheta 2)kineticCoefficient
-	 * purpose: calculates the normal force on an angle
-	 * returns: ld, normal force
-	 */
-	ld static acceleration_slope_simpleFriction(const ld angleTheta, const ld kineticCoefficient)
-	{ return GA * (sin(angleTheta * RADIAN ) - (kineticCoefficient * cos(angleTheta * RADIAN))); }
-
-	/**
-	 * @brief finds the ratio between two numbers
-	 * @param top is the top part of the ratio
-	 * @param bottom is the bottom part of the ratio
-	 * @returns the ratio between two numbers
-	 */
-	ld static ratio(const ld top, const ld bottom)
-	{
-		return top / bottom;
-	}
+	
 
 	/**========================================================================
 	 * overloaded operators

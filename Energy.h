@@ -211,6 +211,30 @@ public:
 		return sqrt((2 * netWork) / (mass));
 	}
 	/**
+	 * @brief calculates the initial velocity of a falling mass when friction is negligible
+	 * such as a roller coaster
+	 * @param h height in m
+	 * @param vi velocity initial
+	 * @returns the final velocity
+	 */
+	ld static velocityFinal_fromHeight(const ld h, const ld vi = 0.0)
+	{
+		return sqrt((2 *_G_* abs(h) + (vi * vi)));
+	}
+
+	/**
+	 * @brief calculates the final velocity of a falling mass when friction is negligible
+	 * such as a roller coaster
+	 * @param h height in m
+	 * @param vf velocity initial
+	 * @returns the final velocity
+	 */
+	ld static velocityInitial_fromHeight(const ld h, const ld vf = 0.0)
+	{
+		return sqrt((vf*vf)-2*_G_*abs(h));
+	}
+	
+	/**
 	 * @brief Returns the speed calculated from something falling from a specified height
 	 * @param height is the height of the object
 	 * @param initialVelocity is the initial speed if not starting from a rest.

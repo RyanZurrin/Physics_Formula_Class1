@@ -35,7 +35,7 @@ static struct HeatEnergyUnitConversion
  * c.aluminum[1] holds the value of .215 kCal/kg*C` respectfully.
  * @variable c stands for specific heat
  */
-static struct SubstanceHeatValues 
+static struct SpecificHeatCapacity 
 {
 	
 	const vector<ld> aluminum_S = { 900.0, .215 };//< 900J/kg*C`, .215kCal/kg*C` >
@@ -43,6 +43,7 @@ static struct SubstanceHeatValues
 	const vector<ld> concrete_granite_average_S = { 840.0, .20 };//< 840J/kg*C`, .20kCal/kg*C` >
 	const vector<ld> copper_S = { 387.0, .0924 };//< 387J/kg*C`, .0924kCal/kg*C` >
 	const vector<ld> glass_S = { 840.0, .20 };//< 840.0J/kg*C`, .20kCal/kg*C` >
+	const vector<ld> sand_s = { 840.0, };//< 840.0J/kg*C`, .20kCal/kg*C` >
 	const vector<ld> gold_S = { 129.0, .0308 };//< 129.0J/kg*C`,.0308kCal/kg*C` >
 	const vector<ld> human_body_average_S = { 3500.0, .83 };//< 3500.0J/kg*C`, .83kCal/kg*C` >
 	const vector<ld> ice_average_S = { 2090.0, .50 };//< 2090.0J/kg*C`, .50kCal/kg*C` >
@@ -348,7 +349,7 @@ public:
 	 * @returns thermal equilibrium {is when two objects come in contact and the hotter
 	 * object transfers heat to the cooler object until a equal temp is reached between two objects}
 	 */
-	static ld thermalEquilibrium2objects(const ld m1, const ld c1, const ld t1, const ld m2, const ld c2, const ld t2)
+	static ld finalTemp_ThermalEquilibrium2objects(const ld m1, const ld c1, const ld t1, const ld m2, const ld c2, const ld t2)
 	{
 		return ((m1 * c1 * t1) + (m2 * c2 * t2)) / ((m1 * c1) + (m2 * c2));
 	}	
@@ -393,12 +394,12 @@ public:
 	 * @param k is the thermal conductivity
 	 * @param A is total surface area
 	 * @param deltaTemp is the change in temperature
-	 * @param timeSeconds is the time in seconds of measurement period
+	 * @param d the thickness of substance
 	 * @returns the Q value or heat transfer total
 	 */
-	static ld heatTransferConduction_Q(const ld k, const ld A, const ld deltaTemp, const ld d, const ld timeSeconds)
+	static ld heatTransferConduction_Q(const ld k, const ld A, const ld deltaTemp, const ld d)
 	{
-		return ((k * A * deltaTemp) / d) * timeSeconds;
+		return ((k * A * deltaTemp) / d);
 	}
 	
 	/**
@@ -576,6 +577,31 @@ public:
 	{
 		return ((((m_b * c_b) * (Ti)) + ((m_s * c_s) * (Ti))) + (m_s * Lf) - Q) / ((m_b * c_b) + (m_s * c_i));
 	}
+
+	/**
+	 * @brief calculates the specific heat of a substance
+	 * @param m mass in kg
+	 * @param Ti initial temp
+	 * @param Tf final temp
+	 * @param Q heat energy used
+	 */
+	static ld specificHeat(const ld m, const ld Ti, const ld Tf, const ld Q)
+	{
+		return Q / (m * (Tf - Ti));
+	}
+
+	/**
+	 * @brief calculates the time to heat water
+	 * @param Q heat energy
+	 * @param P power in watts
+	 * @returns time in seconds
+	 */
+	static ld timeToHeatWater(const ld Q, const ld P)
+	{
+		return Q / P;
+	}
+
+
 	
 	/**
 	 *@brief destructor

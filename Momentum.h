@@ -245,7 +245,7 @@ public:
 	 * @param v_b velocity of mass_b in m/s
 	 * @returns the velocity of the colliding masses
 	 */
-	ld static collisionVelocity2movingMasses(const ld mass_a, const ld v_a, const ld mass_b, const ld v_b)
+	ld static collisioninPerfectlyInelasticFinalVelocity2movingMasses(const ld mass_a, const ld v_a, const ld mass_b, const ld v_b)
 	{
 		return ((mass_a * v_a) + (mass_b * v_b)) / (mass_a + mass_b);
 	}

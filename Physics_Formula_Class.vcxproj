@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DynamicsAndForces.h" />
     <ClInclude Include="FluidStatics.h" />
     <ClInclude Include="Heat.h" />
     <ClInclude Include="PeriodicElements.h" />
     <ClInclude Include="Temperature.h" />
+    <ClInclude Include="TemplateClass.h" />
     <ClInclude Include="Thermodynamics.h" />
     <ClInclude Include="UniformCircularMotion.h" />
     <ClInclude Include="Drag.h" />
@@ -38,7 +40,7 @@
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="driver.cpp" />
+    <ClCompile Include="testFactory.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Vector2d.cpp" />
     <ClCompile Include="Vector3D.cpp" />

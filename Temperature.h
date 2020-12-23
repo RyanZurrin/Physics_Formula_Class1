@@ -8,9 +8,10 @@
 #ifndef TEMPERATURE_H
 #define TEMPERATURE_H
 #include <iostream>
+
 static struct TemperatureConversions
 {
-	static ld  celsius_to_fahrenheit(const ld c) { return (9.0 / 5.0) * (c + 32.0); }
+	static ld  celsius_to_fahrenheit(const ld c) { return (9.0 / 5.0) * c + 32.0; }
 	static ld  fahrenheit_to_celsius(const ld f) { return (5.0 / 9.0) * (f - 32.0); }
 	static ld  celsius_to_kelvin(const ld c) { return c + 273.15; }
 	static ld  kelvin_to_celsius(const ld k) { return k - 273.15; }
@@ -39,7 +40,7 @@ static struct ThermalExpansionCoefficients
 	const vector<ld> glass_ordinary_S = { 9 * pow(10, -6), 27 * pow(10, -6) };
 	const vector<ld> glass_pyrex_S = { 3 * pow(10, -6), 9 * pow(10, -6) };
 	const vector<ld> quartz_S = { 0.4 * pow(10, -6), 1 * pow(10, -6) };
-	const vector<ld> concrete_brick_S = { -12 * pow(10, -6), -36 * pow(10, -6) }; //average
+	const vector<ld> concrete_brick_S = { 12 * pow(10, -6), 36 * pow(10, -6) }; //average
 	const vector<ld> marble_S = { 7 * pow(10, -6), 2.1 * pow(10, -6) }; //average
 	const ld ether_L = 1650 * pow(10, -6);
 	const ld ethyl_alcohol = 1100 * pow(10, -6);
@@ -49,7 +50,7 @@ static struct ThermalExpansionCoefficients
 	const ld water = 210 * pow(10, -6);
 	const ld air_and_most_gases_at_atmospheric_pressure = 3400 * pow(10, -6);
 
-}aB;
+}a;
 
 /**
  * @brief Global Constant _K_ is the Boltzmann constant
@@ -63,7 +64,7 @@ const ld GAMMA_MONO_ATOMIC = 1.66;
  * @brief Global Constant _Na_ is  Avogadro's number and is used to express
  * units in moles, abb(mol) and is equal to 6.02e23 mol^-1
  */
-const ld _Na_ = 6.02 * pow(10, 23);
+const ld AVOGADRO = 6.02 * pow(10, 23);//6.02*10^23
 
 /**
  * @brief Global constant _R_ is the universal gas constant struct which has _R_
@@ -132,7 +133,7 @@ public:
 	/**
 	 * #brief move constructor
 	 */
-	Temperature(Temperature&& t) noexcept : _mode(t._mode), _tempPtr(nullptr)
+	Temperature(Temperature&& t) noexcept : _tempPtr(nullptr), _mode(t._mode)
 	{
 		T._fahrenheit = t.T._fahrenheit;
 		T._celsius = t.T._celsius;
@@ -147,6 +148,53 @@ public:
 		ld _celsius;
 		ld _fahrenheit;
 		ld _kelvin;
+
+		ld getFahrenheit()const { return _fahrenheit; }
+		ld getCelsius()const { return _celsius; }
+		ld getKelvin()const { return _kelvin; }
+		void showFahrenheit()const { std::cout << "F: " << getFahrenheit() << std::endl; }
+		void showCelsius()const { std::cout << "C: " << getCelsius() << std::endl; }
+		void showKelvin()const { std::cout << "K: " << getKelvin() << std::endl; }
+		void showAllTemps()const
+		{
+			showFahrenheit();
+			showCelsius();
+			showKelvin();
+		}
+		
+		/**
+		 * @brief method to set the fahrenheit instance variable. will update other
+		 * instance variables to reflect.
+		 * @param f is the temp in fahrenheit
+		 */
+		void set_fahrenheit(const ld f)
+		{
+			_fahrenheit = f;
+			_celsius = tempConverter.fahrenheit_to_celsius(_fahrenheit);
+			_kelvin = tempConverter.fahrenheit_to_kelvin(_fahrenheit);
+		}
+		/**
+		* @brief method to set the celsius instance variable. will update other
+		* instance variables to reflect.
+		* @param c is the temp in celsius
+		*/
+		void set_celsius(const ld c)
+		{
+			_celsius = c;
+			_fahrenheit = tempConverter.celsius_to_fahrenheit(_celsius);
+			_kelvin = tempConverter.celsius_to_kelvin(_celsius);
+		}
+		/**
+		* @brief method to set the kelvin instance variable. will update other
+		* instance variables to reflect.
+		* @param k is the temp in kelvin
+		*/
+		void set_kelvin(const ld k)
+		{
+			_kelvin = k;
+			_celsius = tempConverter.kelvin_to_celsius(_kelvin);
+			_fahrenheit = tempConverter.kelvin_to_fahrenheit(_kelvin);
+		}
 	}T;
 	
 	
@@ -220,7 +268,7 @@ public:
 	void showFahrenheit()const { std::cout << "F: " << getFahrenheit() << std::endl; }
 	void showCelsius()const { std::cout << "C: " << getCelsius() << std::endl; }
 	void showKelvin()const { std::cout << "K: " << getKelvin() << std::endl; }
-	void showAll()const
+	void showAllTemps()const
 	{
 		showFahrenheit();
 		showCelsius();
@@ -236,7 +284,7 @@ public:
 	 */
 	ld static convert_to_mol(const ld N)
 	{
-		return N / _Na_;
+		return N / AVOGADRO;
 	}
 
 	/**
@@ -349,21 +397,20 @@ public:
 	 * @param P is the absolute pressure of a gas
 	 * @param V is the volume it occupies
 	 * @param T is the absolute Temperature in kelvins
-	 * @param R is the universal gas law constant default in J
+	 * @param _R is the universal gas law constant default in J
 	 * @returns the absolute pressure
 	 */
-	static ld numberMoles_idealGasLaw(const ld P, const ld V, const ld T, const ld R = _R_.joules)
+	static ld numberMoles_idealGasLaw(const ld P, const ld V, const ld T, const ld _R = R.joules)
 	{
-		return (P * V) / (R * T);
+		return (P * V) / (_R * T);
 	}
 
 	/**
 	 * @brief calculates the KE of a cloud or gas of N molecules
-	 * @param k boltzmann constant
 	 * @param T is the absolute temperature in kelvin
 	 * @returns Thermal energy, molecular interpretation of temperature
 	 */
-	static ld thermal_energy_KE(const ld T)
+	static ld translationalKineticEnergy_molecules(const ld T)
 	{
 		return (3.0 / 2.0)* _K_* T;
 	}
@@ -371,7 +418,7 @@ public:
 	/**
 	 * @brief calculates the average speed of molecules at a certain temperature
 	 * @param m is the mass of a single molecule
-	 * @param k is the boltmann constant
+	 * @param T Temp K
 	 */
 	static ld speedAverage_rms(const ld m, const ld T)
 	{
@@ -392,9 +439,9 @@ public:
 	/**
 	 * @brief calculates the density of vapor
 	 */
-	static ld vaporDensity(const ld p, const ld m, const ld T, const ld R = _R_.joules)
+	static ld vaporDensity(const ld p, const ld m, const ld T, const ld _R = R.joules)
 	{
-		return (p * m) / (R * T);
+		return (p * m) / (_R * T);
 	}
 	
 	/**
