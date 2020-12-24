@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 /**
  * @class FluidStatics
  * @details driver class for solving complex physics problems
@@ -8,25 +9,73 @@
 #ifndef FLUIDSTATICS_H
 #define FLUIDSTATICS_H
 
+static int fluidStatics_objectCount = 0;
+
+
 class FluidStatics
 {
 private:
+	static void countIncrease() { fluidStatics_objectCount += 1; }
+	static void countDecrease() { fluidStatics_objectCount -= 1; }
 public:
-	FluidStatics* _fluidPtr;
-	struct Density
-	{
-		const double aluminum = 2.7;
-		
-	}density;
+	FluidStatics* _fluidStaticPtr;
+	
 
 	FluidStatics()
 	{
-		_fluidPtr = nullptr;
+		_fluidStaticPtr = nullptr;
+		countIncrease();
 	}
+
+	/**
+ * @brief copy constructor
+ */
+	FluidStatics(const FluidStatics& t)
+	{
+		_fluidStaticPtr = t._fluidStaticPtr;
+		countIncrease();
+	}
+	/**
+	 * #brief move constructor
+	 */
+	FluidStatics(FluidStatics&& t) noexcept
+	{
+		_fluidStaticPtr = t._fluidStaticPtr;
+		countIncrease();
+	}
+	/**
+	 * @brief copy assignment operator
+	 */
+	FluidStatics& operator=(const FluidStatics& t)
+	{
+		if (this != &t)
+		{
+			_fluidStaticPtr = t._fluidStaticPtr;
+			countIncrease();
+		}
+		return *this;
+	}
+
+	static void show_objectCount() { std::cout << "\nfluid statics object count: " << fluidStatics_objectCount << std::endl; }
+	static int get_objectCount() { return fluidStatics_objectCount; }
+
+	/**
+	*@brief calculates density
+	* @param m mass kg
+	* @param V volume in m^3
+	*/
+	static ld density(const ld m, const ld V) {
+		return m / V;
+	}
+
+
+
+
 
 	~FluidStatics()
 	{
-		delete _fluidPtr;
+		delete _fluidStaticPtr;
+		countDecrease();
 	}
 };
 

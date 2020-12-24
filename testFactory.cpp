@@ -13,12 +13,8 @@
 
 
 int main()
-{
-	PhysicsWorld exam(-4, 3, 7);
-	exam.vector3d->showAllData();
-	printf("f: %lf ", tempConverter.celsius_to_kelvin(52.0));
-	
-
+{	
+	PhysicsWorld test;
 	
 	
 	return 0;
