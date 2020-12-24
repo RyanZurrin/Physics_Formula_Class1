@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 /**
  * @class FluidStatics
  * @details driver class for solving complex physics problems
@@ -8,7 +7,8 @@
  */
 #ifndef FLUIDSTATICS_H
 #define FLUIDSTATICS_H
-
+#include <iostream>
+typedef long double ld;
 static int fluidStatics_objectCount = 0;
 
 
@@ -61,12 +61,38 @@ public:
 
 	/**
 	*@brief calculates density
+	* p = m * v
 	* @param m mass kg
 	* @param V volume in m^3
 	*/
-	static ld density(const ld m, const ld V) {
-		return m / V;
+	static ld density(const ld m, const ld v) {
+		return m / v;
 	}
+
+	/**
+	*@brief calculates volume
+	* v = m / p
+	* @param m mass kg
+	* @param p volume in m^3
+	*/
+	static ld volume(const ld m, const ld p) {
+		return m / p;
+	}
+
+	/**
+	*@brief calculates mass
+	* m = p * v
+	* @param p mass kg
+	* @param v volume in m^3
+	*/
+	static ld mass(const ld p, const ld v) {
+		return p * v;
+	}
+
+	/**
+	* 
+	*/
+
 
 
 
