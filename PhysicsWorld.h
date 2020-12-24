@@ -25,6 +25,7 @@
 #include "Heat.h"
 #include "Thermodynamics.h"
 #include "DynamicsAndForces.h"
+#include "FluidStatics.h"
 #include "PeriodicElements.h"
 
 //#include "reactphysics3d.h"
@@ -452,6 +453,7 @@ public:
 	Heat* heat;
 	Thermodynamics* thermodynamic;
 	DynamicsAndForces* dynamics_and_forces;
+	FluidStatics* fluid_statics;
 	PeriodicElements* periodic_elements;
 
 	
@@ -474,12 +476,13 @@ public:
 		energy(o.energy),
 		momentum(o.momentum),
 		torque(o.torque),
-		statics(o.statics),		
+		statics(o.statics),
 		rotationalMotion(o.rotationalMotion),
 		temperature(o.temperature),
 		heat(o.heat),
 		thermodynamic(o.thermodynamic),
 		dynamics_and_forces(o.dynamics_and_forces),
+		fluid_statics(o.fluid_statics),
 		periodic_elements(o.periodic_elements),
 		_ptr_(o._ptr_){} // move constructor
 	
