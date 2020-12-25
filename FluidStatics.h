@@ -84,7 +84,7 @@ static ld radiusFromCircumfrence(const ld c) {
 /**
 * @brief diameter to radius
 */
-static ld radiusFromCircumfrence(const ld d){
+static ld radiusFromDiameter(const ld d){
 	return d/2;
 }
 
@@ -154,16 +154,29 @@ public:
 	static ld volume(const ld m, const ld p) {
 		return m / p;
 	}
+	static ld volumeRelatedContainer(const ld A, const ld h) {
+
+	}
 
 	/**
 	*@brief calculates mass
 	* m = p * v
-	* @param p mass kg
+	* @param p density 
 	* @param v volume in m^3
 	*/
 	static ld mass(const ld p, const ld v) {
 		return p * v;
 	}
+
+	/**
+	* @brief calculate the pressure 
+	* @param F is the force
+	* @param A is the area perpendicular to force
+	*/
+	static ld pressure(const ld F, const ld A) {
+		return F / A;
+	}
+
 
 	/**
 	* @brief calculates force of air on flat end of tank
