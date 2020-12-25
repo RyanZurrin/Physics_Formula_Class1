@@ -1,9 +1,5 @@
 # Physics_Formula_Class1
 Physics_Formula_Class
 
-I decided to make a c++ class called Physics and implement each physics example from my tesx book.
-At the bottom of the driver.cpp file in the commented out zone, is where each method example is from the book and how it was
-solved using this Physics Class. I statred the first couple chapters out keeping accurate track but as more and more methods were
-added I decided it was best to start building new classes for the new concepts that are used. Only the first 3 chapters are tracked in
-this manner. I tried to build each method using accurate names and i included method header documentation as well to help with what each 
-method does and how it is used. 
+I decided to make a c++ class called PhysicsWorld and implement each physics example from the open stax college physics  tesx book.
+The first few chapters dealing with kinetics were initially implemented in PhysicsWorld cpp file and around chapter 4(DynamicsAndForces) I started seperating the chapters into thier onn unique classes whcih made more sense to me at that time. I will eventually go back and make a kintetics class and move all the methods related to that out of the physics world and the physics world will just be a driver with some static structs of common things like conversions and constants that are used in multiple fields of physics. The initial examples from the first few chapters are worked out and labeled in the commented out area below the main method in the testFactory.cpp file. Once I started making individual classes the methods are more from solving the problems from the back of the book as well as the examples but there is no order to it. It is labeled well so it should be easy to find what you are solving for, as that is usually in the name of the method someplace. 
