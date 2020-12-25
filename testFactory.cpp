@@ -15,8 +15,8 @@
 int main()
 {	
 	PhysicsWorld test;
-	
-	
+	setVal(test.fluid_statics->force(6.90 * pow(10, 6), circleArea(.150, 'd')));
+	show_val();
 	return 0;
 }
 
