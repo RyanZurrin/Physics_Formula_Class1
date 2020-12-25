@@ -166,8 +166,11 @@ public:
 	}
 
 	/**
-	* 
+	* @brief calculates force of air on flat end of tank
 	*/
+	static ld force(const ld p, const ld A) {
+		return p * A;
+	}
 
 
 
