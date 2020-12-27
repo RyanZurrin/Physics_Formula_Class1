@@ -42,7 +42,7 @@ typedef long double ld;
 typedef PhysicsWorld PW;
 //using namespace std;
 
-//Gravitational Constant 6.67408(31) * 10^(-11) * N 
+//Gravitational Constant 6.67408(31) * 10^(-11) * N
 const ld _GC_ = 6.674 * pow(10.0, -11.0);
 
 // speed of light in a vacuum is 299792458 m/s
@@ -118,20 +118,20 @@ static struct Conversions
 		ld static _kcalKgC_to_joulesKgC_IT(const ld kcal = _val_)
 		{
 			return kcal * 4186.8;
-		}		
+		}
 	}heat;
 
-	
+
 	ld static atomicWeight_to_kilograms(const ld u = _val_)
 	{
 		return u * 1.6605402 * pow(10, -27);
 	}
-	
+
 	ld static kiloJoules_to_calories(const ld kJ)
 	{
 		return (kJ * 1000.0) / 4186.0;
 	}
-	
+
 	ld static revolutionsFromRadians(const ld radTotal)
 	{
 		//cout << "revolutions: " << radTotal / (2.0 * _PI_) << endl;
@@ -168,7 +168,7 @@ static struct Conversions
 		return unit / _G_;
 	}
 
-	
+
 	/**
 	 * @brief Returns the conversion from meters per second to kilometers per hour
 	 * @param mps is meters per second
@@ -332,7 +332,7 @@ static struct Conversions
 	ld static joules_to_kWh(const ld j = _val_)
 	{
 		return j / (3.6 * pow(10, 6));
-	}	
+	}
 	ld static newtonMeters_to_ftPounds(const ld Nm = _val_)
 	{
 		return Nm / .73756;
@@ -349,68 +349,78 @@ static struct Conversions
 	{
 		return atm * 101325.0;
 	}
-	
+
 }converter;
 
 static struct Densities
 {
-	const ld aluminum_S = 2.7 * pow(10, 3); // 2700 g/m^3
-	const ld brass_S = 8.44 * pow(10, 3); // 8440 g/m^3
-	const ld copperAverage_S = 8.8 * pow(10, 3); // 8800 g/m^3
-	const ld gold_S = 19.32 * pow(10, 3); // 19320 g/m^3
-	const ld ironOrSteele_S = 7.8 * pow(10, 3); // 7800 g/m^3
-	const ld lead_S = 11.3 * pow(10, 3); // 11300 g/m^3
-	const ld polystyrene_S = .10 * pow(10, 3); // 100 g/m^3
-	const ld tungsten = 19.30 * pow(10, 3); // 19300 g/m^3
-	const ld uranium = 18.7 * pow(10, 3); // 18700 g/m^3
-	const ld concrete_light_S = 2.30 * pow(10, 3); // 2300 g/m^3
-	const ld concrete_med_S = 2.7 * pow(10, 3); // 2700 g/m^3
-	const ld concrete_heavyDuty_S = 3.0 * pow(10, 3); // 3000 g/m^3
-	const ld cork_S = .24 * pow(10, 3); // 240 g/m^3
-	const ld glassAverage_S = 2.6 * pow(10, 3); // 2600 g/m^3
-	const ld granite = 2.7 * pow(10, 3); // 2700 g/m^3
-	const ld earthsCrust_S = 3.3 * pow(10, 3); // 3300 g/m^3
-	const ld woodSoft_S = .3 * pow(10, 3); // 300 g/m^3
-	const ld woodMed_S = .6 * pow(10, 3); // 600 g/m^3
-	const ld woodHard_S = .9 * pow(10, 3); // 900 g/m^3
-	const ld ice_0deg_S = .917 * pow(10, 3); // 917 g/m^3
-	const ld boneSoft_S = 1.7 * pow(10, 3); // 1700 g/m^3
-	const ld boneHard_S = 2.0 * pow(10, 3); // 2000 g/m^3
-	const ld water_L = 1.0 * pow(10, 3); // 2700 g/m^3
-	const ld blood_L = 1.05 * pow(10, 3); // 1050 g/m^3
-	const ld seaWater_L = 1.025 * pow(10, 3); // 1025 g/m^3
-	const ld mercury_L = 13.6 * pow(10, 3); // 13600 g/m^3
-	const ld ethylAlcohol_L = .79 * pow(10, 3); // 790 g/m^3
-	const ld petrol_L = .68 * pow(10, 3); // 680 g/m^3
-	const ld glycerin_L = 1.26 * pow(10, 3); // 1260 g/m^3
-	const ld oliveOil = .92 * pow(10, 3); // 920 g/m^3
+	const ld aluminum_S = 2.7; // 2700 kg/m^3
+	const ld brass_S = 8.44; // 8440 kg/m^3
+	const ld copperAverage_S = 8.8; // 8800 kg/m^3
+	const ld gold_S = 19.32; // 19320 kg/m^3
+	const ld ironOrSteele_S = 7.8; // 7800 kg/m^3
+	const ld lead_S = 11.3; // 11300 kg/m^3
+	const ld polystyrene_S = .10; // 100 kg/m^3
+	const ld tungsten = 19.30; // 19300 kg/m^3
+	const ld uranium = 18.7; // 18700 kg/m^3
+	const ld concrete_light_S = 2.30; // 2300 kg/m^3
+	const ld concrete_med_S = 2.7; // 2700 kg/m^3
+	const ld concrete_heavyDuty_S = 3.0; // 3000 kg/m^3
+	const ld cork_S = .24; // 240 kg/m^3
+	const ld glassAverage_S = 2.6; // 2600 kg/m^3
+	const ld granite = 2.7; // 2700 kg/m^3
+	const ld earthsCrust_S = 3.3; // 3300 kg/m^3
+	const ld woodSoft_S = .3; // 300 kg/m^3
+	const ld woodMed_S = .6 ; // 600 kg/m^3
+	const ld woodHard_S = .9; // 900 kg/m^3
+	const ld ice_0deg_S = .917; // 917 kg/m^3
+	const ld boneSoft_S = 1.7; // 1700 kg/m^3
+	const ld boneHard_S = 2.0; // 2000 kg/m^3
+	const ld water_L = 1.0; // 2700 kg/m^3
+	const ld blood_L = 1.05; // 1050 kg/m^3
+	const ld seaWater_L = 1.025; // 1025 kg/m^3
+	const ld mercury_L = 13.6; // 13600 kg/m^3
+	const ld ethylAlcohol_L = .79; // 790 kg/m^3
+	const ld petrol_L = .68; // 680 kg/m^3
+	const ld glycerin_L = 1.26; // 1260 kg/m^3
+	const ld oliveOil_L = .92; // 920 kg/m^3
+	const ld air_G = 1.29 * pow(10, -3); // 1.29 kg/m^3
+	const ld carbon_dioxide_G = 1.98 * pow(10, -3); // 1.98 kg/m^3
+	const ld carbon_monoxide_G = 1.25 * pow(10, -3); // 1.25 kg/m^3
+	const ld hydrogen_G = 0.090 * pow(10, -3); // 0.090 kg/m^3
+	const ld helium_G = 0.18 * pow(10, -3); // 0.18 kg/m^3
+	const ld methane_G = 0.72 * pow(10, -3); // 0.72 kg/m^3
+	const ld nitrogen_G = 1.25 * pow(10, -3); // 1.25 kg/m^3
+	const ld nitrous_oxide_G = 1.98 * pow(10, -3); // 1.98 kg/m^3
+	const ld oxygen_G = 1.43 * pow(10, -3); // 1.43 kg/m^3
+	const ld steam_G = 0.60 * pow(10, -3); // 0.60 kg/m^3
 }p;
 
 static void setVal(const ld v)
 {
 	_val_ = v;
 }
-class PhysicsWorld 
+class PhysicsWorld
 {
-	
+
 private:
-	
+
 	static int physics_objectCount;
 	static void countIncrease() { physics_objectCount += 1; }
 	static void countDecrease() { physics_objectCount -= 1; }
-	
-public:	
-	
+
+public:
+
 	static std::vector<ld> vector_values;
 	static void setVector(vector<ld> v)
 	{
 		vector_values = v;
 	}
-	
+
 
 	 /**
 	 * @brief static member function to print values of passed in vector
-	 * 
+	 *
 	 */
 	template <typename T, size_t size>
 	static void show_vector_values(T (&size_t) [size])
@@ -426,7 +436,7 @@ public:
 	/**
 	 * @brief Template method to print out an array that is passed to it
 	 * @param array of values
- 	 */	
+ 	 */
 	template <typename T, size_t size>
 	void static print_array(const T(&array)[size])
 	{
@@ -456,11 +466,11 @@ public:
 	FluidStatics* fluid_statics;
 	PeriodicElements* periodic_elements;
 
-	
+
 	//PhysicsCommon * physics_common;
 	//PhysicsWorld * world;
 	PhysicsWorld * _ptr_;
-		
+
 	PhysicsWorld();
 	PhysicsWorld(ld t1, ld t2, ld t3);
 	PhysicsWorld(ld t1, ld t2);
@@ -485,14 +495,14 @@ public:
 		fluid_statics(o.fluid_statics),
 		periodic_elements(o.periodic_elements),
 		_ptr_(o._ptr_){} // move constructor
-	
-	
+
+
 	static ld return_val() { return _val_; }
 	static vector<ld> return_vector(PhysicsWorld &v) { return v.vector_values; }
-	
+
 	//============================================================================
-	//chapter 2 formulas	
-	
+	//chapter 2 formulas
+
 	/**
 	 * @brief Returns the displacement between two positions
 	 * @param startPos starting position
@@ -501,7 +511,7 @@ public:
 	 */
 	ld static displacement(const ld startPos,const ld endPos)
 	{ return endPos - startPos; }
-	
+
 	/**
 	 * @brief Returns the displacement from knowing the velocity and time.
 	 * @param velocity in m/s
@@ -510,7 +520,7 @@ public:
 	 */
 	ld static displacement_VxT(const ld velocity, const ld time)
 	{ return velocity * time; }
-	
+
 	/**
 	 * method: displacement_accelerating_object(ld acceleration, ld time)
 	 * arguments: acceleration m/s , time in s
@@ -519,7 +529,7 @@ public:
 	 */
 	ld static displacement_accelerating_object(const ld acceleration, const ld time)
 	{ return ((acceleration) * (time * time)) / 2; }
-	
+
 	/**
 	 * method: displacement_accelerating_object_PV(ld acceleration, ld time)
 	 * arguments: velocity, acceleration m/s , position = 0m default, time in s
@@ -527,9 +537,9 @@ public:
 	 * 			position and an initial velocity along with acceleration and a time
 	 * returns:	ld, displacement
 	 */
-	ld static displacement_accelerating_object_PV(const ld velocity, 
+	ld static displacement_accelerating_object_PV(const ld velocity,
 												  const ld acceleration,
-												  const ld time, 
+												  const ld time,
 												  const ld pos = 0)
 	{ return pos + (velocity * time) + (acceleration * (time * time)) / 2; }
 
@@ -540,13 +550,13 @@ public:
 	 * @param acceleration in m/s^2
 	 * @param time in s
 	 */
-	ld static displacement_using_kinematic(const ld velocity, 
-										   const ld acceleration, 
+	ld static displacement_using_kinematic(const ld velocity,
+										   const ld acceleration,
 										   const ld time)
 	{
 		return (velocity * time) + (acceleration * (time * time)) / 2;
 	}
-	
+
 	/**
 	 * method: displacement_halting_VdA(ld velocity, ld acceleration)
 	 * arguments: x0 = starting position(0), Sv = starting velocity, fV = ending velocity(0) a = acceleration
@@ -555,7 +565,7 @@ public:
 	 */
 	ld static distance_VdA(const ld pos, const ld velocityStart, const ld velocityFinal, const ld acceleration)
 	{ return abs(((velocityFinal * velocityFinal) - (velocityStart * velocityStart)) / (2 * acceleration)) + pos; }
-	
+
 	/**
 	 * method: velocity_vStart_plus_vEndD2(const ld velocityStart, const ld velocityEnd)
 	 * arguments: vStart = starting velocity m/s, vEnd = ending velocity m/s
@@ -593,7 +603,7 @@ public:
 	 */
 	ld static velocity_avg_DdT(const ld displacement, const ld time)
 	{ return  displacement / time; }
-	
+
 	/**
 	 * method: PhysicsWorld::velocity_falling_object_down(ld y, ld yf, ld v, ld a)
 	 * arguments: y0 = start position,  yf = final position v = velocity, a = acceleration
@@ -613,7 +623,7 @@ public:
 	{
 		return vi * t;
 	}
-	
+
 	/**
 	 * method: acceleration_avg(ld vChange, ld tChange)   ss2.4  pg40
 	 * arguments: vChange = average change in velocity in m/s, tChange = change in time in seconds
@@ -649,7 +659,7 @@ public:
 	 */
 	ld static speed_avg_DdT(const ld total_distance, const ld time)
 	{ return abs(total_distance / time); }
-	
+
 	/**
 	 * method: time_by_avgVdA(ld acceleration, ld velocityStart, ld velocityEnd)
 	 * arguments: a = acceleration, sV = start velocity(default 0), fV = final velocity
@@ -694,7 +704,7 @@ public:
 	 */
 	ld static time_kinematic_rearranged(const ld velocity, const ld displacement, const ld acceleration)
 	{ return (-(velocity)-sqrt((velocity * velocity) - 2 * (acceleration) * (displacement))) / (acceleration); }
-	
+
 	/**
 	 * method: slope_formula(ld y1, ld y0, ld x1, ld x0)
 	 * arguments: y1 , y0, x1, x0
@@ -743,7 +753,7 @@ public:
 	{
 		vector_values[0] = (-b_velocity + sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement)) / (2 * a1);
 		vector_values[1] = (-b_velocity - sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement)) / (2 * a1);
-		
+
 		return this->vector_values;
 	}
 
@@ -768,10 +778,10 @@ public:
 
 		this->vector_values[3] = a;
 		//this->show_vector_values();
-		
+
 		return obj.vector_values;
 	}
-	
+
 	//=================================================================================
 	// chapter 3 formulas
 
@@ -793,13 +803,13 @@ public:
 	}
 
 
-	
+
 	/**
 	 * @brief calculates the time a projectile with an initial velocity and angle
 	 *  take to reach the same level from which it was launched, forms a parabolic curve
 	 * (2* launchVelocity*sin(angleTheta))/(-GA);
 	 * @param launchVelocity is the initial velocity in m/s
-	 * @param angleTheta the angle of te launch	
+	 * @param angleTheta the angle of te launch
 	 * @returns ld, time units
 	 */
 	ld static time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)
@@ -823,7 +833,7 @@ public:
 	// sqrt(pow(horizontal_velocity_using_distance_angle_height(toGoal,height_at_goal, angle), 2) +
 	// pow(vertical_velocity_by_Xvelocity_with_angle(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), angle), 2))
 	ld velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle)const;
-	
+
 	// targetDistance * sqrt((abs(acceleration)/((2 * (targetDistance * (tan(angle)*DEGREE) - targetHeight)))))
 	ld horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration = GA)const;
 
@@ -834,9 +844,9 @@ public:
 	//  atan(-((b)-sqrt((b * b) - 4 * a * c)) / (2 * a)) * DEGREE;
 	std::vector<ld> basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance);
 
-	
-	
-	
+
+
+
 
 	/**========================================================================
 	 * overloaded operators
@@ -887,7 +897,7 @@ public:
 		sum.vector3d->mode = r.vector3d->mode;
 		sum.vector2d->mode = this->vector2d->mode;
 		return sum;
-	
+
 	}
 	PhysicsWorld operator+()const
 	{
@@ -903,10 +913,10 @@ public:
 		vector3d->mode = this->vector3d->mode;
 		vector2d->mode = this->vector2d->mode;
 		_val_ += 1;
-		
+
 		return sum;
 	}
-	
+
 	// destructor
 	~PhysicsWorld();
 };
