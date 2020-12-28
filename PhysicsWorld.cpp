@@ -3,13 +3,13 @@
 //ld PhysicsWorld::_val_ = 0.0;
 vector<ld> PhysicsWorld::vector_values = { 0.0,0.0,0.0,0.0 };
 int PhysicsWorld::physics_objectCount = 0;
- 
+
 /**
  *default constructor
  */
 PhysicsWorld::PhysicsWorld()
-{	
-	_ptr_ = nullptr;	
+{
+	_ptr_ = nullptr;
 	drag = new Drag;
 	elasticity = new Elasticity;
 	friction = new Friction;
@@ -27,9 +27,10 @@ PhysicsWorld::PhysicsWorld()
 	dynamics_and_forces = new DynamicsAndForces;
 	fluid_statics = new FluidStatics;
 	periodic_elements = new PeriodicElements;
+	fluid_dynamics = new FluidDynamics;
 	//physics_common = new PhysicsCommon;
 	//world = physics_common->createPhysicsWorld();
-	
+
 	countIncrease();
 	//countShow();
 }
@@ -38,8 +39,8 @@ PhysicsWorld::PhysicsWorld()
  */
 PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 {
-	_ptr_ = p._ptr_;	
-	vector_values = p.vector_values;	
+	_ptr_ = p._ptr_;
+	vector_values = p.vector_values;
 	drag = p.drag;
 	elasticity = p.elasticity;
 	friction = p.friction;
@@ -56,6 +57,7 @@ PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	thermodynamic = p.thermodynamic;
 	dynamics_and_forces = p.dynamics_and_forces;
 	fluid_statics = p.fluid_statics;
+	fluid_dynamics = p.fluid_dynamics;
 	periodic_elements = p.periodic_elements;
 	//PhysicsWorld_common = p.PhysicsWorld_common;
 	countIncrease();
@@ -68,7 +70,7 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 {
 	if(this != &r)
 	{
-		_ptr_ = r._ptr_;		
+		_ptr_ = r._ptr_;
 		vector_values = r.vector_values;
 		drag = r.drag;
 		elasticity = r.elasticity;
@@ -86,11 +88,12 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		thermodynamic = r.thermodynamic;
 		dynamics_and_forces = r.dynamics_and_forces;
 		fluid_statics = r.fluid_statics;
+		fluid_dynamics = r.fluid_dynamics;
 		periodic_elements = r.periodic_elements;
 		countIncrease();
 		//countShow();
 	}
-	return *this;	
+	return *this;
 }
 PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 {
@@ -110,14 +113,16 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	heat = new Heat;
 	thermodynamic = new Thermodynamics;
 	dynamics_and_forces = new DynamicsAndForces;
+	fluid_statics = new FluidStatics;
+	fluid_dynamics = new FluidDynamics;
 	periodic_elements = new PeriodicElements;
-	
+
 	//vector_values = { 0.0,0.0,0.0,0.0 };
 	this->vector3d->set_coordinates(t1, t2, t3);
-	
+
 	countIncrease();
 }
- 
+
 PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 {
 	drag = new Drag;
@@ -136,14 +141,11 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	thermodynamic = new Thermodynamics;
 	dynamics_and_forces = new DynamicsAndForces;
 	fluid_statics = new FluidStatics;
+	fluid_dynamics = new FluidDynamics;
 	periodic_elements = new PeriodicElements;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
-
-
-
-
 
 /**
  * @brief prints out the values stored in the objects vector
@@ -157,23 +159,24 @@ void PhysicsWorld::show_vector_values()
 	std::cout << std::endl;
 }
 
-/**
- * method: air_time_initial_velocity0_y0(ld displacement)const
- * arguments: displacement, assumes initial velocity to be 0 and y0 to be 0
- * purpose:	calculates time projectile is in the air
- * returns: ld, time units
- */
+
+/// <summary>
+/// calculates the air time from an initial velocity of 0
+/// </summary>
+/// <param name="displacement">The total displacement.</param>
+/// <returns>time is seconds in air</returns>
 ld PhysicsWorld::air_time_initial_velocity0_y0(ld displacement)const
 {
 	return sqrt((-2*(displacement))/GA);
 }
 
-/**
- * method: velocity_initial_horizontal_component(ld y0, ld displacement) const
- * arguments: y0 = starting height, displacement. this equation assumes horizontal start 
- * purpose:	calculates initial velocity of an object
- * returns: ld, initial velocity
- */
+
+/// <summary>
+/// calculates the initial velocity of the horizontal component
+/// </summary>
+/// <param name="y0">The initial starting height.</param>
+/// <param name="displacement">The displacement.</param>
+/// <returns></returns>
 ld PhysicsWorld::velocity_initial_horizontal_component(ld y0, ld displacement) const
 {
 	return sqrt((-GA/(-2 * y0)))* displacement;
@@ -249,7 +252,7 @@ std::vector<ld> PhysicsWorld::basketball_angles(ld launchVelocity, ld releaseHei
 	vector_values[0] = atan(-((b)+sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
 	vector_values[1] = atan(-((b)-sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
 	this->show_vector_values();
-	
+
 	return vector_values;
 }
 
@@ -262,7 +265,7 @@ PhysicsWorld::~PhysicsWorld()
 	delete drag;
 	delete uniformCircularMotion;
 	delete energy;
-	delete momentum;	
+	delete momentum;
 	delete _ptr_;
 	delete torque;
 	delete statics;
@@ -272,6 +275,7 @@ PhysicsWorld::~PhysicsWorld()
 	delete thermodynamic;
 	delete dynamics_and_forces;
 	delete fluid_statics;
+	delete fluid_dynamics;
 	delete periodic_elements;
 	countDecrease();
 	//countShow();

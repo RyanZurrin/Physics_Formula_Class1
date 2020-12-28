@@ -8,10 +8,11 @@
 #ifndef FLUIDSTATICS_H
 #define FLUIDSTATICS_H
 #include <iostream>
+
 typedef long double ld;
 static int fluidStatics_objectCount = 0;
 
-static struct Volumes
+static struct VolumeCalculator
 {
 	/**
 	* @brief calculates the volume of a sphere
@@ -217,7 +218,38 @@ static struct PressureConversions
 	{
 		return n / 1013;// atm
 	}
-}converter_pressures;
+}pressure_converter;
+
+static struct SurfaceTensions
+{
+	const ld water_0C = 0.0756; // 0.0756 N/m
+	const ld water_20C = 0.0728; // 0.0728 N/m
+	const ld water_100C = 0.0589; // 0.0589 N/m
+	const ld soapyWater_typical = 0.0370; // 0.0370 N/m
+	const ld ethyl_alcohol = 0.0223; // 0.0223 N/m
+	const ld glycerin = 0.0631; // 0.0631 N/m
+	const ld mercury = 0.465; // 0.465 N/m
+	const ld olive_oil = 0.032; // 0.032 N/m
+	const ld tissueFluids_typical = 0.050; // 0.050 N/m
+	const ld blood_whole_at_37C = 0.058; // 0.058 N/m
+	const ld blood_plasma_at_37C = 0.073; // 0.073 N/m
+	const ld gold_at_1070C = 1.00; // 1.00 N/m
+	const ld oxygen_at_negative193C = 0.0157; // 0.0157 N/m
+	const ld helium_at_negative269C = 0.00012; // 0.00012 N/m
+
+}surface_tensions;
+
+static struct ContactAngles
+{
+	const ld mercury_glass = 140.0; // 140 degrees
+	const ld water_glass = 0.0; // 0.0 degrees
+	const ld water_paraffin = 107.0; // 107.0 degrees
+	const ld water_silver = 90.0; // 90.0 degrees
+	const ld organic_liquids_most_glass = 0.0; // 0.0 degrees
+	const ld ethyl_alcohol_glass = 0.0; // 0.0 degrees
+	const ld kerosene_glass = 26.0; // 26.0 degrees
+}contact_angles;
+
 
 /**
 * @brief circumference to radius
@@ -281,18 +313,23 @@ public:
 	static void show_objectCount() { std::cout << "\nfluid statics object count: " << fluidStatics_objectCount << std::endl; }
 	static int get_objectCount() { return fluidStatics_objectCount; }
 
-	/**
-	* @brief calculates density
-	* p = m / v
-	* @param m mass kg
-	* @param v volume in m^3
-	*/
-	static ld density(const ld m, const ld v) {
-		return m / v;
+
+	/// <summary>
+	/// calculates the density with know mass and volume.
+	/// </summary>
+	/// <param name="mass">The mass.</param>
+	/// <param name="volume">The volume.</param>
+	/// <returns>density</returns>
+	static ld density(const ld mass, const ld volume) {
+		return mass / volume;
 	}
 
 	/// <summary>
-	/// Densities the parts by mass.
+	/// calculates the density of a substance made of other substances by adding the total parts together.
+	/// example: 18.0-karat gold that is a mixture of 18 parts gold, 5 parts silver, and 1 part copper?
+	/// (These values are parts by mass, not volume.)
+	/// Assume that this is a simple mixture having an average density equal to the weighted densities
+	/// of its constituents
 	/// </summary>
 	/// <param name="partsA">The parts of substance A.</param>
 	/// <param name="pA">The density of substance A.</param>
@@ -301,38 +338,66 @@ public:
 	/// <param name="partsC">The parts of substance dC</param>
 	/// <param name="pC">The density of substance C.</param>
 	/// <returns></returns>
-	static ld density_partsByMass(const ld partsA, const ld pA, const ld partsB, const ld pB, const ld partsC, const ld pC)
+	static ld densityAvg_partsByMass(const ld partsA, const ld pA, const ld partsB = 0.0, const ld pB = 0.0, const ld partsC = 0.0, const ld pC = 0.0)
 	{
 		return (partsA + partsB + partsC) / ((partsA / pA) + (partsB / pB) + (partsC / pC));
 	}
 
-	/**
-	*@brief calculates volume
-	* v = m / p
-	* @param m mass kg
-	* @param p volume in m^3
-	*/
-	static ld volume(const ld m, const ld p) {
-		return m / p;
+
+	/// <summary>
+	/// calculates the average density using mass and density of .
+	/// </summary>
+	/// <param name="massA">The mass a.</param>
+	/// <param name="pA">The p a.</param>
+	/// <param name="massB">The mass b.</param>
+	/// <param name="pB">The p b.</param>
+	/// <param name="massC">The mass c.</param>
+	/// <param name="pC">The p c.</param>
+	/// <returns></returns>
+	static ld densityAvg(const ld massA, const ld pA, const ld massB = 0.0, const ld pB = 0.0, const ld massC = 0.0, const ld pC = 0.0)
+	{
+		return (massA + massB + massB) / ((massA / pA) + (massB / pB) + (massC / pC));
 	}
 
-	/**
-	*@brief calculates mass
-	* m = p * v
-	* @param p density
-	* @param v volume in m^3
-	*/
-	static ld mass(const ld p, const ld v) {
-		return p * v;
+	/// <summary>
+	/// calculates the volume from the mass and density.
+	/// </summary>
+	/// <param name="mass">The mass.</param>
+	/// <param name="density">The density.</param>
+	/// <returns>the volume</returns>
+	static ld volume(const ld mass, const ld density) {
+		return mass / density;
 	}
 
-	/**
-	* @brief calculate the pressure
-	* @param F is the force
-	* @param A is the area perpendicular to force
-	*/
-	static ld pressure(const ld F, const ld A) {
-		return F / A;
+	/// <summary>
+	/// calculates the mass from the density and volume.
+	/// </summary>
+	/// <param name="density">The density.</param>
+	/// <param name="volume">The volume.</param>
+	/// <returns>the mass</returns>
+	static ld mass(const ld density, const ld volume) {
+		return density * volume;
+	}
+
+	/// <summary>
+	/// Calculates the mass of fluid displaced my weight of object.
+	/// </summary>
+	/// <param name="massOut">The mass of object out of fluid.</param>
+	/// <param name="massIn">The mass of object in the fluid.</param>
+	/// <returns>mass of displaced fluid</returns>
+	static ld massOfFluidDisplaced(const ld massOut, const ld massIn)
+	{
+		return massOut - massIn;
+	}
+
+	/// <summary>
+	/// calculates the pressure form force and area.
+	/// </summary>
+	/// <param name="force">The force.</param>
+	/// <param name="area">The area.</param>
+	/// <returns>pressure</returns>
+	static ld pressure(const ld force, const ld area) {
+		return force / area;
 	}
 
 	/**
@@ -361,13 +426,46 @@ public:
 	}
 
 	/// <summary>
+	/// calculates the surface tension
+	/// </summary>
+	/// <param name="force">The force per unit length.</param>
+	/// <param name="length">length exerted by a stretched liquid membrane.</param>
+	/// <returns>surface tension</returns>
+	static ld surfaceTension(const ld force, const ld length)
+	{
+		return force / length;
+	}
+
+	/// <summary>
+	/// calculates the pressure in a sphere.
+	/// </summary>
+	/// <param name="surfaceTension">The surface tension.</param>
+	/// <param name="radius">The radius.</param>
+	/// <returns>pressure inside a sphere</returns>
+	static ld pressureInSphericalObject(const ld surfaceTension, const ld radius)
+	{
+		return (4.0 * surfaceTension) / radius;
+	}
+
+	/// <summary>
+	/// the surface tension of a spherical object.
+	/// </summary>
+	/// <param name="pressure">The pressure.</param>
+	/// <param name="radius">The radius.</param>
+	/// <returns>surface tension</returns>
+	static ld surfaceTensionSphericalObject(const ld pressure, const ld radius)
+	{
+		return (pressure * radius) / 4.0;
+	}
+
+	/// <summary>
 	/// Force caused by a pressure.
 	/// </summary>
-	/// <param name="P">The pressure</param>
-	/// <param name="a">the area</param>
+	/// <param name="pressure">the pressure</param>
+	/// <param name="area">the area</param>
 	/// <returns>force</returns>
-	static ld force(const ld P, const ld a) {
-		return P * a;
+	static ld force(const ld pressure, const ld area) {
+		return pressure * area;
 	}
 
 	/// <summary>
@@ -394,7 +492,6 @@ public:
 		return F1 * (a2 / a1);
 	}
 
-
 	/// <summary>
 	/// Radius of a cylinder.
 	/// </summary>
@@ -406,7 +503,6 @@ public:
 	{
 		return sqrt((m * _p) / (_PI * h));
 	}
-
 
 	 /// <summary>
 	 /// Depth of a rectangular tank.
@@ -421,7 +517,6 @@ public:
 		return m / (_p * l * w);
 	}
 
-
 	/// <summary>
 	/// Ratios the of density.
 	/// </summary>
@@ -431,7 +526,6 @@ public:
 	{
 		return 1.0 / percentDecrease;
 	}
-
 
 	/// <summary>
 	/// Radius of a sphere with a known mass and density
@@ -444,27 +538,201 @@ public:
 		return pow((3.0 * m) / (4.0 * _PI * p),1/3);
 	}
 
-	/**
-	 * @brief calculates the height from known pressure and density
-	 * (think mercury in a tube)
-	 * @param P the pressure
-	 * @param _p the density
-	 * @return the height of a fluid
-	 */
-	static ld heightOfFluid(const ld P, const ld _p)
+	/// <summary>
+	/// calculates the height of the fluid.
+	/// </summary>
+	/// <param name="pressure">The pressure.</param>
+	/// <param name="density">The density.</param>
+	/// <returns>height</returns>
+	static ld heightOfFluid(const ld pressure, const ld density)
 	{
-		return P / (_p * _Ga_);
+		return pressure / (density * _Ga_);
 	}
 
-	/**
-	 * @brief calculates the Gage pressure
-	 *
-	 */
-	static ld pressureGauge(const ld p, const ld h)
+	/// <summary>
+	/// calculates the gauge-pressure from density and height of a fluid.
+	/// </summary>
+	/// <param name="density">The density.</param>
+	/// <param name="height">The height.</param>
+	/// <returns></returns>
+	static ld gaugePressure(const ld density, const ld height)
 	{
-		return p * _Ga_ * h;
+		return density * _Ga_ * height;
 	}
 
+	/// <summary>
+	/// Area the in contact
+	/// </summary>
+	/// <param name="F">The force.</param>
+	/// <param name="P">The pressure.</param>
+	/// <returns>area in contact</returns>
+	static ld area(const ld F, const ld P)
+	{
+		return F / P;
+	}
+
+	/// <summary>
+	/// Fraction of object submerged.
+	/// </summary>
+	/// <param name="avgDensityObject">The average density of the object.</param>
+	/// <param name="densityFluid">The density of the fluid.</param>
+	/// <returns>the fraction of the object that will be submerged</returns>
+	static ld fractionSubmerged(const ld avgDensityObject, const ld densityFluid)
+	{
+		return avgDensityObject / densityFluid;
+	}
+
+	/// <summary>
+	/// calculates the relative density. if object floats will be less than 1.0
+	/// if object sinks will be over 1, and if is 1 will remain suspended in the
+	/// fluid, either sinking or floating
+	/// </summary>
+	/// <param name="densitySubstance">The density of the test substance.</param>
+	/// <param name="densityReference">The density of the reference substance.</param>
+	/// <returns>the relative density</returns>
+	static ld relativeDensity(const ld densitySubstance, const ld densityReference)
+	{
+		return densitySubstance / densityReference;
+	}
+
+	/// <summary>
+	/// Density of the fluid.
+	/// </summary>
+	/// <param name="densityObject">The density of the object.</param>
+	/// <param name="percentSubmerged">The percent of the object that is submerged.</param>
+	/// <returns>the density of the fluid</returns>
+	static ld densityOfFluid(const ld densityObject, const ld percentSubmerged)
+	{
+		return densityObject / (percentSubmerged / 100.0);
+	}
+
+	/// <summary>
+	/// Force required to stay submerged. think fish
+	/// </summary>
+	/// <param name="massObj">The mass object.</param>
+	/// <param name="densityObj">The density object.</param>
+	/// <param name="densityFluid">The density fluid.</param>
+	/// <returns>force</returns>
+	static ld forceToStaySubmerged(const ld massObj, const ld densityObj, const ld densityFluid)
+	{
+		return massObj * _Ga_ * ((densityFluid / densityObj) - 1.0);
+	}
+
+	/// <summary>
+	/// Calculates the maximum weight supported my an air mattress
+	/// </summary>
+	/// <param name="massMattress">The mass of the air mattress.</param>
+	/// <param name="length">The length.</param>
+	/// <param name="width">The width.</param>
+	/// <param name="height">The height.</param>
+	/// <param name="fluidDensity">The fluids density.</param>
+	/// <returns>max weight before sinking in fluid</returns>
+	static ld maxWeightSupportedByFloatingAirMattress(const ld massMattress, const ld length, const ld width, const ld height, const ld fluidDensity)
+	{
+		return _Ga_ * (fluidDensity * (length * width * height) - massMattress);
+	}
+
+	/// <summary>
+	/// calculates the capacity of lungs.
+	/// </summary>
+	/// <param name="mass">The mass.</param>
+	/// <param name="percentFloatLungEmpty">The percent floating when lung empty.</param>
+	/// <param name="percentFloatLungFull">The percent floating when lung full.</param>
+	/// <param name="densityFluid">The density of the fluid.</param>
+	/// <returns>capacity in m^3, multiply answer by 1000 to have in liters cubed</returns>
+	static ld lungCapacity(const ld mass, const ld percentFloatLungEmpty, const ld percentFloatLungFull, const ld densityFluid)
+	{
+		return (mass / densityFluid)* ((1.0 / (1.0 -(percentFloatLungFull / 100.0)) - (1.0 / (1.0 - (percentFloatLungEmpty / 100.0)))));
+	}
+
+	/// <summary>
+	/// calculates the capillary tube height.
+	/// </summary>
+	/// <param name="surfaceTension">The surface tension.</param>
+	/// <param name="contactAngle">The contact angle.</param>
+	/// <param name="density">The density.</param>
+	/// <param name="radius">The radius.</param>
+	/// <returns>height the fluid will rise in a capillary tube</returns>
+	static ld capillaryTubeHeight(const ld surfaceTension, const ld contactAngle, const ld density, const ld radius)
+	{
+		return (2.0 * surfaceTension * cos(contactAngle)) / (density * _Ga_ * radius);
+	}
+
+	/// <summary>
+	///  calculates the capillaries tube radius.
+	/// </summary>
+	/// <param name="surfaceTension">The surface tension.</param>
+	/// <param name="contactAngle">The contact angle.</param>
+	/// <param name="density">The density.</param>
+	/// <param name="height">The height.</param>
+	/// <returns>the radius of a capillary tube</returns>
+	static ld capillaryTubeRadius(const ld surfaceTension, const ld contactAngle, const ld density, const ld height)
+	{
+		return (2.0 * surfaceTension * cos(contactAngle)) / (density * _Ga_ * height);
+	}
+
+	/// <summary>
+	/// calculates the surfaces tension using a sliding wire device.
+	/// </summary>
+	/// <param name="force">The force.</param>
+	/// <param name="lengthOfWire">The length of wire.</param>
+	/// <returns>gamma(surface tension)</returns>
+	static ld surfaceTension_usingSlidingWireDevice(const ld force, const ld lengthOfWire)
+	{
+		return force / (2.0 * lengthOfWire);
+	}
+
+	/// <summary>
+	/// Effective surface tension of a ballon.
+	/// </summary>
+	/// <param name="density">The density.</param>
+	/// <param name="height">The height.</param>
+	/// <param name="radius">The radius.</param>
+	/// <returns>surface tension</returns>
+	static ld effectiveSurfaceTensionBalloon(const ld density, const ld height, const ld radius)
+	{
+		return (density * _Ga_ * height * radius) / 4.0;
+	}
+
+	/// <summary>
+	/// Hieghts the of capillary action by ratio of contact angles.
+	/// </summary>
+	/// <param name="height1">The height1.</param>
+	/// <param name="contactAngle1">The contact angle1.</param>
+	/// <param name="contactAngle2">The contact angle2.</param>
+	/// <returns></returns>
+	static ld heightOfCapillaryActionByRatioOfContactAngles(const ld height1, const ld contactAngle1, const ld contactAngle2)
+	{
+		return height1 * (cos(contactAngle2*RADIAN) / cos(contactAngle1*RADIAN));
+	}
+
+	/// <summary>
+	/// calculates the contact angle theta.
+	/// </summary>
+	/// <param name="density">The density.</param>
+	/// <param name="height">The height.</param>
+	/// <param name="radius">The radius.</param>
+	/// <param name="surfaceTension">The surface tension.</param>
+	/// <returns>contact angle</returns>
+	static ld contactAngleTheta(const ld density, const ld height, const ld radius, const ld surfaceTension)
+	{
+		return acos((density * _Ga_ * height * radius) / (2.0 * surfaceTension))*DEGREE;
+	}
+
+	/// <summary>
+	/// calculates the ratio of heights of capillary action.
+	/// </summary>
+	/// <param name="st1">The surface tension 1.</param>
+	/// <param name="ca1">The contact angle 1.</param>
+	/// <param name="density1">The density 1.</param>
+	/// <param name="st2">The surface tension 2.</param>
+	/// <param name="ca2">The contact angle 2.</param>
+	/// <param name="density2">The density 2.</param>
+	/// <returns>ration of heights</returns>
+	static ld ratioOfHeights_capillaryAction(const ld st1, const ld ca1, const ld density1, const ld st2, const ld ca2, const ld density2)
+	{
+		return (st1 * cos(ca1*RADIAN) * density2) / (st2 * cos(ca2*RADIAN) * density1);
+	}
 
 
 	/**

@@ -57,7 +57,7 @@ public:
 		return *this;
 	}
 
-	static void show_objectCount() { std::cout << "\nthermodynamic object count: " << _objectCount << std::endl; }
+	static void show_objectCount() { std::cout << "\n ________ object count: " << _objectCount << std::endl; }
 	static int get_objectCount() { return _objectCount; }
 
 
