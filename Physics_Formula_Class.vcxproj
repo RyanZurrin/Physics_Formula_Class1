@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DynamicsAndForces.h" />
+    <ClInclude Include="FluidDynamics.h" />
     <ClInclude Include="FluidStatics.h" />
     <ClInclude Include="Heat.h" />
     <ClInclude Include="PeriodicElements.h" />

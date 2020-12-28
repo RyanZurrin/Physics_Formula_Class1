@@ -26,10 +26,8 @@
 #include "Thermodynamics.h"
 #include "DynamicsAndForces.h"
 #include "FluidStatics.h"
+#include "FluidDynamics.h"
 #include "PeriodicElements.h"
-
-//#include "reactphysics3d.h"
-//using namespace rp3d;
 
 
 class PhysicsWorld;
@@ -37,10 +35,10 @@ class PhysicsWorld;
 //global constants, methods and structures
 //
 //
-//using namespace rp3d;
+
 typedef long double ld;
 typedef PhysicsWorld PW;
-//using namespace std;
+
 
 //Gravitational Constant 6.67408(31) * 10^(-11) * N
 const ld _GC_ = 6.674 * pow(10.0, -11.0);
@@ -376,7 +374,7 @@ static struct Densities
 	const ld ice_0deg_S = .917; // 917 kg/m^3
 	const ld boneSoft_S = 1.7; // 1700 kg/m^3
 	const ld boneHard_S = 2.0; // 2000 kg/m^3
-	const ld water_L = 1.0; // 2700 kg/m^3
+	const ld water_L = 1.0; // 1000 kg/m^3
 	const ld blood_L = 1.05; // 1050 kg/m^3
 	const ld seaWater_L = 1.025; // 1025 kg/m^3
 	const ld mercury_L = 13.6; // 13600 kg/m^3
@@ -400,6 +398,7 @@ static void setVal(const ld v)
 {
 	_val_ = v;
 }
+
 class PhysicsWorld
 {
 
@@ -464,6 +463,7 @@ public:
 	Thermodynamics* thermodynamic;
 	DynamicsAndForces* dynamics_and_forces;
 	FluidStatics* fluid_statics;
+	FluidDynamics* fluid_dynamics;
 	PeriodicElements* periodic_elements;
 
 
@@ -493,6 +493,7 @@ public:
 		thermodynamic(o.thermodynamic),
 		dynamics_and_forces(o.dynamics_and_forces),
 		fluid_statics(o.fluid_statics),
+		fluid_dynamics(o.fluid_dynamics),
 		periodic_elements(o.periodic_elements),
 		_ptr_(o._ptr_){} // move constructor
 

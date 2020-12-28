@@ -1,8 +1,9 @@
-// Drag class for extending the physics class 
+// Drag class for extending the physics class
 // author: Ryan Zurrin
 // last Modified: 10/10/2020
 #ifndef DRAG_H
 #define DRAG_H
+#include <algorithm>
 #include <iostream>
 
 #include <string.h>
@@ -21,7 +22,7 @@ static struct DragCoefficients
 	const ld dodgeRamPickup = .43; // returns .43
 	const ld sphere = .45; // returns.45
 	const ld hummerH2SUV = .64; // returns .64
-	const ld skyDiver_feetFirst = .70; // returns .70 
+	const ld skyDiver_feetFirst = .70; // returns .70
 	const ld bicycle = .90; // returns .90
 	const ld skyDiver_horizontal = 1.0; // returns  1.0
 	const ld circularFlatPlate = 1.12; // returns 1.12
@@ -39,18 +40,18 @@ static struct DragCoefficients
 
 }drag_coefficients;
 
-class Drag 
+class Drag
 {
-	
-private:	
+
+private:
 	static void countIncrease() { drag_objectCount += 1; }
 	static void countDecrease() { drag_objectCount -= 1; }
 	ld _dragForce_;
 	ld _dragCoefficient_;
-	
+
 public:
 	static void countShow() { std::cout << "drag count: " << drag_objectCount << std::endl; }
-	Drag* _ptrDrag;	
+	Drag* _ptrDrag;
 
 	/**
 	 * @brief displays the data stored in the dragForce variable
@@ -69,7 +70,7 @@ public:
 	 * @brief sets the dragCoefficient variable;
 	 */
 	void set_dragCoefficient(const ld C) { _dragCoefficient_ = C; }
-	
+
 
 	//suppresses the default constructor
 	Drag()
@@ -82,10 +83,10 @@ public:
 	}
 	Drag(string obj)
 	{
-		
+
 		_ptrDrag = nullptr;
 		_dragForce_ = 0.0;
-		
+
 		_dragCoefficient_ = setCoefficient(obj);
 		countIncrease();
 	}
@@ -125,10 +126,11 @@ private:
 	ld static setCoefficient(string &test)
 	{
 		ld val = 0;
-		if (test == "airfoil" || test == "airFoil" || test == "AirFoil") { return val = .05; }
-		if (test == "toyotaCamry" || test == "toyotacamry" || test == "ToyotaCamry" || test == "toyotaC") { return val = .28; }
-		if (test == "fordFocus" || test == "FordFocus" || test == "fordfocus" || test == "fordF") { return val = .32; }
-		if (test == "hodnaCivic") { return val = .36; }
+		transform(test.begin(), test.end(), test.begin(), ::tolower);
+		if (test == "airfoil") { return val = .05; }
+		if (test == "toyotacamry" || test == "toyota camry") { return val = .28; }
+		if (test == "fordfocus" || test == "Ford focus") { return val = .32; }
+		if (test == "hodnacivic") { return val = .36; }
 		if (test == "ferrariTestarossa") { return val = .37; }
 		if (test == "dodgeRamPickup") { return val = .43; }
 		if (test == "sphere") { return val = .45; }
@@ -151,7 +153,7 @@ private:
 
 		return val;
 	}
-	
+
 public:
 	/**
 	 * @brief Returns the value in the dragForce variable
@@ -168,10 +170,10 @@ public:
 	/**
 	 * @brief Returns the terminal velocity from drag force equation.
 	 * fx = sqrt((2 * (mass * acceleration))/(density * dragCoeff * areaFace))
-	 * @param mass of the object 
-	 * @param dragCoeff is the drag coefficient 
+	 * @param mass of the object
+	 * @param dragCoeff is the drag coefficient
 	 * @param areaFace is the area the drag is working against
-	 * @param density 
+	 * @param density
 	 * @param acceleration
 	 * @returns the terminal velocity.
 	 */
@@ -195,13 +197,13 @@ public:
 	 */
 	ld static drag_force(const ld dragCoeff, const ld areaFace, const ld density, const ld velocity)
 	{ return .5 * (dragCoeff * density * areaFace * pow(velocity, 2)); }
-	
+
 	 /**
 	  * @brief Returns the frictional force – also called drag force – exerted on spherical objects with very
 	  * small Reynolds numbers in a viscous fluid. fx = 6 * PI * radius * viscosity * velocity
 	  * @param radius
 	  * @param viscosity
-	  * @param velocity	
+	  * @param velocity
 	  * @returns force of sphere moving through a viscous matter
 	  */
 	 ld static stokes_law(const ld radius, const ld viscosity, const ld velocity)
@@ -220,7 +222,7 @@ public:
 	 ld static viscosity(const ld density, const ld diameter, const ld distance, const ld time)
 	{
 		 const ld radius = diameter / 2;
-		 return (2 * density * time * (radius * radius) * _G_) / (9 * distance);		
+		 return (2 * density * time * (radius * radius) * _G_) / (9 * distance);
 	}
 
 
