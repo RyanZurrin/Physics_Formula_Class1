@@ -44,6 +44,67 @@ static struct FlowRateConversions
 
 }flow_rate_converter;
 
+static struct ViscosityCoefficients
+{
+	const ld air_0C = 0.0171; //mPa*s
+	const ld air_20C = 0.0181; //mPa*s
+	const ld air_40C = 0.0190; //mPa*s
+	const ld air_100C = 0.00974; //mPa*s
+	const ld ammonia_20C = 0.00974; // mPa*s
+	const ld carbonDioxide_20C = 0.0147; //mPa*s
+	const ld helium_20C = 0.0196; // mPa*s
+	const ld hydrogen_0C = .0090; // mPa*s
+	const ld mercury_20C = 0.0450; // mPa*s
+	const ld oxygen_20C = .0203; // mPa*s
+	const ld steam_100C = .0130; // mPa*s
+	const ld water_0C = 1.792; // mPa*s
+	const ld water_20C = 1.002; // mPa*s
+	const ld water_37C = 0.6947; // mPa*s
+	const ld water_40C = 0.653; // mPa*s
+	const ld water_100C = 0.282; // mPa*s
+	const ld wholeBlood_20C = 3.015; // mPa*s
+	const ld wholeBlood_37C = 2.084; // mPa*s
+	const ld bloodPlasma_20C = 1.810; // mPa*s
+	const ld bloodPlasma_37C = 1.257; // mPa*s
+	const ld ethylAlcohol_20C = 1.20; // mPa*s
+	const ld methanol_20C = 0.584; // mPa*s
+	const ld oil_heavyMachine_20C = 660.0; // mPa*s
+	const ld oil_motorSAE10_30C = 200.0; // mPa*s
+	const ld oil_olive_20C = 138.0; // mPa*s
+	const ld glycerin_20C = 1500; // mPa*s
+	ld honey_20C = 2000; // mPa*s
+	/// <summary>
+/// Sets the honey_20C viscosity which can be between 2000 and 10000.
+/// </summary>
+/// <param name="n">The argument.</param>
+	void setHoney(ld n)
+	{
+		if(n >=2000 && n <= 10000)
+		{
+			honey_20C = n;
+		}
+		else
+			honey_20C = 2000;
+
+	}
+	ld mapleSyrup_20C = 2000; //mPa*s
+	/// <summary>
+	/// Sets the maple syrup between 2000 and 3000.
+	/// </summary>
+	/// <param name="n">The n.</param>
+	void setMapleSyrup(ld n)
+	{
+		if (n >= 2000 && n <= 3000)
+		{
+			mapleSyrup_20C = n;
+		}
+		else
+			mapleSyrup_20C = 2000;
+	}
+	const ld milk_20C = 3.0; // //mPa*s
+	const ld oil_corn_20C = 65.0; //mPa*s
+}n;
+
 class FluidDynamics
 {
 private:
@@ -178,6 +239,7 @@ public:
 	{
 		return flowRate * time;
 	}
+
 	/// <summary>
 	/// calculates the time
 	/// </summary>
@@ -188,6 +250,7 @@ public:
 	{
 		return volume / flowRate;
 	}
+
 	/// <summary>
 	/// finds the velocity using the equation of continuity solved for
 	/// velocity2.
@@ -260,7 +323,7 @@ public:
 	}
 
 	/// <summary>
-	/// calculates the total nubmer of capillaries.
+	/// calculates the total number of capillaries.
 	/// </summary>
 	/// <param name="area">The area.</param>
 	/// <param name="diameter">The diameter.</param>
@@ -311,11 +374,328 @@ public:
 	/// <param name="flowRate">The flow rate.</param>
 	/// <param name="velocity">The velocity.</param>
 	/// <returns>diameter</returns>
-	static ld diameterInsideNozzle(const ld flowRate, const ld velocity)
+	static ld diameterStream(const ld flowRate, const ld velocity)
 	{
 		return 2.0 * sqrt((flowRate) / (_PI * velocity));
 	}
 
+	/// <summary>
+	/// uses Bernoulli's equation to calculate the amount of work.
+	/// </summary>
+	/// <param name="mass">The mass.</param>
+	/// <param name="velocityFinal">The velocity final.</param>
+	/// <param name="velocityInitial">The velocity initial.</param>
+	/// <returns>work new</returns>
+	static ld workNet_BernoulliEquation(const ld mass, const ld velocityFinal, const ld velocityInitial = 0.0)
+	{
+		return (.5 * mass * (velocityFinal * velocityFinal)) - (.5 * mass * (velocityInitial * velocityInitial));
+	}
+
+	/// <summary>
+	/// calculates the final Velocity using the  Bernoulli equation.
+	/// </summary>
+	/// <param name="velocityInitial">The velocity initial.</param>
+	/// <param name="changeInHeight">Height of the change in.</param>
+	/// <returns>final velocity</returns>
+	static ld velocityFinal_bernoulliEquation(const ld velocityInitial, const ld changeInHeight)
+	{
+		return sqrt(pow(velocityInitial, 2.0) + (2.0 * _Ga_ * changeInHeight));
+	}
+
+	/// <summary>
+	/// calculates the final pressure.
+	/// </summary>
+	/// <param name="pressureInitial">The initial pressure.</param>
+	/// <param name="density">The density.</param>
+	/// <param name="velocityInitial">The initial velocity</param>
+	/// <param name="velocityFinal">The final velocity final.</param>
+	/// <returns></returns>
+	static ld pressureFinal_bernoulliEquationConstantAltitude(const ld pressureInitial, const ld density, const ld velocityInitial, const ld velocityFinal)
+	{
+		return pressureInitial + .5 * density * ((velocityInitial * velocityInitial) - (velocityFinal * velocityFinal));
+	}
+
+	/// <summary>
+	/// Calculates the maximums height water from a hose can reach.
+	/// </summary>
+	/// <param name="velocity">The velocity.</param>
+	/// <returns>height</returns>
+	static ld maxHeightWaterFromHose(const ld velocity)
+	{
+		return (velocity * velocity) / (2.0 * _Ga_);
+	}
+
+	/// <summary>
+	/// Calculates the maximum height above a nozzle the water can rise?
+	/// (The actual height will be significantly smaller due to air resistance.)
+	/// </summary>
+	/// <param name="volumeROF">The volume rate of flow.</param>
+	/// <param name="nozzleDiameter">The nozzle diameter.</param>
+	/// <returns>max height</returns>
+	static ld maxHeightAboveNozzleLiquidRise(const ld volumeROF, const ld nozzleDiameter)
+	{
+		return (8.0 * pow(volumeROF, 2.0)) / (pow(_PI, 2.0) * GA * pow(nozzleDiameter, 4.0));
+	}
+
+	/// <summary>
+	/// Calculates approximately the force due to the Bernoulli effect on a roof
+	/// having a specified area. F = 1/2 * p * v^2 * A
+	/// </summary>
+	/// <param name="density">The density of the air.</param>
+	/// <param name="velocity">The velocity of the wind.</param>
+	/// <param name="area">The area of the roof.</param>
+	/// <returns>Force on roof</returns>
+	static ld force_bernoulliEquationConstantAltitude(const ld density, const ld velocity, const ld area)
+	{
+		return .5 * density * (velocity * velocity) * area;
+	}
+
+	/// <summary>
+	/// Calculate the approximate force on a area of sail, given the
+	/// horizontal velocityHigh of the wind is faster and parallel to its front surface
+	/// while a velocitySlow wind runs along its back surface.
+	/// </summary>
+	/// <param name="density">The density.</param>
+	/// <param name="velocityHigh">The velocity high.</param>
+	/// <param name="velocityLow">The velocity low.</param>
+	/// <param name="area">The area.</param>
+	/// <returns>force of wind</returns>
+	static ld force_bernoulliEquationConstantAltitude(const ld density, const ld velocityHigh, const ld velocityLow, const ld area)
+	{
+		return .5 * density * ((velocityHigh * velocityHigh) - (velocityLow * velocityLow)) * area;
+	}
+
+	/// <summary>
+	/// calculates the pressure drop due to the Bernoulli effect as water goes into a
+	/// smaller diameter nozzle from a larger diameter hose while carrying a
+	/// specified volumeFlowRate.
+	/// </summary>
+	/// <param name="density">The density.</param>
+	/// <param name="volumeRateOfFlow">The volume rate of flow.</param>
+	/// <param name="diameterLarge">The larger diameter.</param>
+	/// <param name="diameterSmall">The smaller diameter.</param>
+	/// <returns>drop in pressure</returns>
+	static ld pressureDrop_bernoulliEquationConstantAlt(const ld density, const ld volumeRateOfFlow, const ld diameterLarge, const ld diameterSmall)
+	{
+		return (8.0 * density * (volumeRateOfFlow * volumeRateOfFlow) / (_PI * _PI)) * (1.0 / pow(diameterSmall, 4.0) - 1.0 / pow(diameterLarge, 4));
+	}
+
+	/// <summary>
+	/// Fluids the speed pitot tube.
+	/// </summary>
+	/// <param name="meterFluidDensity">The meter fluid density.</param>
+	/// <param name="heightOfFluid">The height of fluid.</param>
+	/// <param name="airDensity">The air density.</param>
+	/// <returns></returns>
+	static ld fluidSpeed_pitotTube(const ld meterFluidDensity, const ld heightOfFluid, const ld airDensity)
+	{
+		return pow((2.0 * meterFluidDensity * _Ga_ * heightOfFluid) / airDensity, .5);
+	}
+
+	/// <summary>
+	/// calculates the powers by multiplying Bernoulli's equation by the flow rate
+	/// </summary>
+	/// <param name="density">The density.</param>
+	/// <param name="changeInHeight">change in Height.</param>
+	/// <param name="flowRate">The flow rate.</param>
+	/// <returns>Power in Watts</returns>
+	static ld power_bernoulliEquation(const ld density, const ld changeInHeight, const ld flowRate)
+	{
+		return density * _Ga_ * changeInHeight * flowRate;
+	}
+
+	/// <summary>
+	/// The left ventricle of a resting adult's heart pumps blood at a fluidFlowRate of,
+	/// increasing its pressureToFluid by mm Hg, its speedChangeOfFluid in m/s, and its heightChangeOfFluid.
+	/// (All numbers are averaged over the entire heartbeat.)
+	/// Calculate the total power output of the left ventricle. Note that most of the power is used to increase blood pressure.
+	/// </summary>
+	/// <param name="pressureToFluid">The pressure to fluid.</param>
+	/// <param name="fluidDensity">The fluid density.</param>
+	/// <param name="speedChangeOfFluid">The speed change of fluid.</param>
+	/// <param name="heightChangeOfFluid">The height change of fluid.</param>
+	/// <param name="fluidFlowRate">The fluid flow rate.</param>
+	/// <returns>power</returns>
+	static ld power_bernoulliEquation_ventricle(const ld pressureToFluid, const ld fluidDensity, const ld speedChangeOfFluid, const ld heightChangeOfFluid, const ld fluidFlowRate)
+	{
+		return (pressureToFluid + (.5 * (fluidDensity * pow(speedChangeOfFluid, 2))) + (fluidDensity *_Ga_ * heightChangeOfFluid)) * fluidFlowRate;
+	}
+
+	/// <summary>
+	/// A frequently quoted rule of thumb in aircraft design is that wings should
+	/// produce about 1000 N of lift per square meter of wing. (The fact that a
+	/// wing has a top and bottom surface does not double its area.)
+	/// At takeoff, an aircraft travels at 60.0 m/s, so that the air speed relative
+	/// to the bottom of the wing is 60.0 m/s. Given the sea level density of air to be
+	/// 1.29 kg/m3, how fast must it move over the upper surface to create the ideal lift?
+	/// </summary>
+	/// <param name="density">The density.</param>
+	/// <param name="forceLiftPerSquareMeterOfWing">The force lift per square meter of wing.</param>
+	/// <param name="speedUnderWing">The speed under wing.</param>
+	/// <returns>wind speed over wing</returns>
+	static ld speedTopOfWing_bernoulliEquation(const ld density, const ld forceLiftPerSquareMeterOfWing, const ld speedUnderWing)
+	{
+		return sqrt(((2.0 * forceLiftPerSquareMeterOfWing) / (density)) + (speedUnderWing * speedUnderWing));
+	}
+
+	/// <summary>
+	/// calculates the pressure at a certain point along a sump pump.
+	/// </summary>
+	/// <param name="outputPressure">The pressure at pump level.</param>
+	/// <param name="density">The density.</param>
+	/// <param name="HeightOfPoint">The height of point.</param>
+	/// <returns>pressure</returns>
+	static ld sumpPumpPressureAtPoint(const ld outputPressure, const ld density, const ld HeightOfPoint)
+	{
+		return outputPressure + ((density * _Ga_) * (-HeightOfPoint));
+	}
+
+	/// <summary>
+	/// A pump hose goes over the foundation wall, it is a certain height from the pump and widens from diameter1 to diameter2.
+	/// It can pump water from a basement at a volumeFlowRate and starts at the pump with a outputPressure. this method will
+	/// calculate the pressure at the widened spot of the hose.
+	/// widened part of the hose?
+	/// </summary>
+	/// <param name="outputPressure">The output pressure where hose leaves pump.</param>
+	/// <param name="density">The density of water on average is 1000kg/m^3.</param>
+	/// <param name="volumeFlowRate">The volume flow rate.</param>
+	/// <param name="diameter1">The diameter of the hose at start.</param>
+	/// <param name="diameter2">The diameter the hose changes to.</param>
+	/// <param name="height">The height.</param>
+	/// <returns>pressure in hose</returns>
+	static ld sumpPumpPressureChangeInPipeDiameter(const ld outputPressure, const ld density, const ld volumeFlowRate, const ld diameter1, const ld diameter2, const ld height)
+	{
+		return (outputPressure + ((8.0 * density * (volumeFlowRate * volumeFlowRate)) / (_PI * _PI)) * ((1.0 / pow(diameter1, 4) - (1.0 / pow(diameter2, 4))))) + (density * _Ga_ * -height);
+	}
+
+	/// <summary>
+	///  Calculates the retarding force due to the viscosity of the air layer between a cart and
+	///  a level air track given the following information
+	///  — air temperature,
+	///  — the carts velocity,
+	///  — its surface area,
+	///  — the thickness of the air layer
+	/// </summary>
+	/// <param name="viscosity">The viscosity.</param>
+	/// <param name="velocity">The velocity.</param>
+	/// <param name="crossSectionalArea">The cross sectional area.</param>
+	/// <param name="layerThickness">The layer thickness.</param>
+	/// <returns>retarding force</returns>
+	static ld retardingForce_airLayer(const ld viscosity, const ld velocity, const ld crossSectionalArea, const ld layerThickness)
+	{
+		return viscosity * (velocity * crossSectionalArea) / (layerThickness);
+	}
+
+	/// <summary>
+	/// finds the coefficient of viscosity of a fluid.
+	/// </summary>
+	/// <param name="force">The force.</param>
+	/// <param name="layerLength">Length of the layer.</param>
+	/// <param name="velocity">The velocity.</param>
+	/// <param name="crossSectionalArea">The cross sectional area.</param>
+	/// <returns>viscosity coefficient</returns>
+	static ld viscosityCoefficient(const ld force, const ld layerLength, const ld velocity, const ld crossSectionalArea)
+	{
+		return (force * layerLength) / (velocity * crossSectionalArea);
+	}
+
+	/// <summary>
+	/// calculates the flow rate between two pressures
+	/// </summary>
+	/// <param name="pressure1">The pressure1.</param>
+	/// <param name="pressure2">The pressure2.</param>
+	/// <param name="resistance">The resistance.</param>
+	/// <returns>flow rate</returns>
+	static ld pressureDifferentialFlowRate(const ld pressure1, const ld pressure2, const ld resistance)
+	{
+		return (pressure2 - pressure1) / resistance;
+	}
+
+	/// <summary>
+	/// calculates the resistances using Poiseuille's law.
+	/// </summary>
+	/// <param name="viscosityCoef">The viscosity coef.</param>
+	/// <param name="lengthOfTube">The length of tube.</param>
+	/// <param name="radiusOfTube">The radius of tube.</param>
+	/// <returns></returns>
+	static ld resistance_poiseuilleLawFor(const ld viscosityCoef, const ld lengthOfTube, const ld radiusOfTube)
+	{
+		return (8.0 * viscosityCoef * lengthOfTube) / (_PI * pow(radiusOfTube, 4.0));
+	}
+
+	/// <summary>
+	/// calculates the flow rate using Poiseuille's law for laminar flow
+	/// </summary>
+	/// <param name="pressure1">pressure 1.</param>
+	/// <param name="pressure2">pressure 2.</param>
+	/// <param name="radiusOfTube">The radius of tube.</param>
+	/// <param name="viscosity">The viscosity of the fluid in tube.</param>
+	/// <param name="lengthOfTube">The length of tube.</param>
+	/// <returns></returns>
+	static ld laminarFlow_poiseuilleLawFor(const ld pressure1, const ld pressure2, const ld radiusOfTube, const ld viscosity, const ld lengthOfTube)
+	{
+		return ((pressure2 - pressure1) * _PI * pow(radiusOfTube, 4.0)) / (8.0 * viscosity * lengthOfTube);
+	}
+
+	/// <summary>
+	/// calculates the pressures to produce a specified flow rate assuming laminar flow.
+	/// </summary>
+	/// <param name="supplyFlowRate">The supply flow rate.</param>
+	/// <param name="lengthTube">The length tube.</param>
+	/// <param name="radiusTube">The radius tube.</param>
+	/// <param name="viscosity">The viscosity.</param>
+	/// <param name="gaugePressurePoint1">The gauge pressure point 1.</param>
+	/// <returns>pressure point 2</returns>
+	static ld pressureToProduceFlowRate_laminarFLow(const ld supplyFlowRate, const ld lengthTube, const ld radiusTube, const ld viscosity, const ld gaugePressurePoint1)
+	{
+		return ((8.0 * viscosity * lengthTube) / (_PI * pow(radiusTube, 4.0))) * supplyFlowRate + gaugePressurePoint1;
+	}
+
+	/// <summary>
+	/// calculates the Reynolds Number(NR) for the flow in a tube.\n
+	/// if NR <= 2000 than flow is laminar.\n
+	/// if NR > 2000 && NR <= 3000 than flow is unstable.\n
+	/// if NR > 3000 flow is turbulent.
+	/// </summary>
+	/// <param name="fluidDensity">The fluid density.</param>
+	/// <param name="fluidSpeed">The fluid speed.</param>
+	/// <param name="viscosity">The viscosity.</param>
+	/// <param name="tubeRadius">The tube radius.</param>
+	/// <returns>Reynolds Number, flow in a tube</returns>
+	static ld reynoldsNumber_flowInTube(const ld fluidDensity, const ld fluidSpeed, const ld viscosity, const ld tubeRadius)
+	{
+		return (2.0 * fluidDensity * fluidSpeed * tubeRadius) / viscosity;
+	}
+
+	/// <summary>
+	/// calculates the Reynolds Number(NR) for a object in fluid
+	/// if NR <= 1 than flow around object can be laminar.\n
+	/// if NR > 1 && NR < 10 than flow is in transition to turbulent flow.\n
+	/// if NR > 10 && NR <= 10^6 than either laminar or turbulent or may oscillate between the two.\n
+	/// if NR > 10^6 than flow is entirely turbulent.
+	/// </summary>
+	/// <param name="fluidDensity">The fluid density.</param>
+	/// <param name="viscosity">The viscosity of fluid.</param>
+	/// <param name="objectSpeed">The objects speed.</param>
+	/// <param name="objectLength">Length of the object; a spheres diameter for example.</param>
+	/// <returns>Reynolds Number, object in fluid</returns>
+	static ld reynoldsNumber_objectInFluid(const ld fluidDensity, const ld viscosity, const ld objectSpeed, const ld objectLength)
+	{
+		return (fluidDensity * objectSpeed * objectLength) / viscosity;
+	}
+
+	/// <summary>
+	/// calculates the viscous drag of a small sphere
+	/// </summary>
+	/// <param name="radius">The radius.</param>
+	/// <param name="viscosity">The viscosity.</param>
+	/// <param name="velocity">The velocity.</param>
+	/// <returns></returns>
+	static ld viscous_drag_sphereSM(const ld radius, const ld viscosity, const ld velocity)
+	{
+		return 6.0 * _PI * radius * viscosity * velocity;
+	}
+	
 
 	~FluidDynamics()
 	{

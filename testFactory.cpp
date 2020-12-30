@@ -17,7 +17,7 @@ int main()
 	PhysicsWorld test;
 	setVal(v.sphere(pow(10, -5)));
 	show_val("vSphere");
-	setVal(test.fluid_dynamics->capillaryFlowTotal_diameter(flow_rate_converter.litersPerSecond_to_cubicMetersPerSecond(80.0),9.0*pow(10, -2)));
+	setVal(test.fluid_dynamics->retardingForce_airLayer(n.air_20C * pow(10, -3), .400, 2.5 * pow(10, -2), 6.0 * pow(10, -5)));
 	show_val();
 
 }
