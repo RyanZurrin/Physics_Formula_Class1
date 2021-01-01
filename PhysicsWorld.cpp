@@ -26,11 +26,13 @@ PhysicsWorld::PhysicsWorld()
 	thermodynamic = new Thermodynamics;
 	dynamics_and_forces = new DynamicsAndForces;
 	fluid_statics = new FluidStatics;
-	periodic_elements = new PeriodicElements;
 	fluid_dynamics = new FluidDynamics;
-	//physics_common = new PhysicsCommon;
-	//world = physics_common->createPhysicsWorld();
-
+	waves = new Waves;
+	hearing = new Hearing;
+	electric_charge = new ElectricCharge;
+	electric_potential = new ElectricPotential;
+	electric_current = new ElectricCurrent;
+	periodic_elements = new PeriodicElements;
 	countIncrease();
 	//countShow();
 }
@@ -58,6 +60,11 @@ PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	dynamics_and_forces = p.dynamics_and_forces;
 	fluid_statics = p.fluid_statics;
 	fluid_dynamics = p.fluid_dynamics;
+	waves = p.waves;
+	hearing = p.hearing;
+	electric_charge = p.electric_charge;
+	electric_potential = p.electric_potential;
+	electric_current = p.electric_current;
 	periodic_elements = p.periodic_elements;
 	//PhysicsWorld_common = p.PhysicsWorld_common;
 	countIncrease();
@@ -89,6 +96,11 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		dynamics_and_forces = r.dynamics_and_forces;
 		fluid_statics = r.fluid_statics;
 		fluid_dynamics = r.fluid_dynamics;
+		waves = r.waves;
+		hearing = r.hearing;
+		electric_charge = r.electric_charge;
+		electric_potential = r.electric_potential;
+		electric_current = r.electric_current;
 		periodic_elements = r.periodic_elements;
 		countIncrease();
 		//countShow();
@@ -115,9 +127,13 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	dynamics_and_forces = new DynamicsAndForces;
 	fluid_statics = new FluidStatics;
 	fluid_dynamics = new FluidDynamics;
+	waves = new Waves;
+	hearing = new Hearing;
+	electric_charge = new ElectricCharge;
+	electric_potential = new ElectricPotential;
+	electric_current = new ElectricCurrent;
 	periodic_elements = new PeriodicElements;
 
-	//vector_values = { 0.0,0.0,0.0,0.0 };
 	this->vector3d->set_coordinates(t1, t2, t3);
 
 	countIncrease();
@@ -142,6 +158,11 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	dynamics_and_forces = new DynamicsAndForces;
 	fluid_statics = new FluidStatics;
 	fluid_dynamics = new FluidDynamics;
+	waves = new Waves;
+	hearing = new Hearing;
+	electric_charge = new ElectricCharge;
+	electric_potential = new ElectricPotential;
+	electric_current = new ElectricCurrent;
 	periodic_elements = new PeriodicElements;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
@@ -200,7 +221,7 @@ ld PhysicsWorld::velocity_vertical_component(ld y0, ld yf)const
  * purpose:	calculates the final vertical component
  * returns: ld, final vertical velocity
  */
-std::vector<ld> PhysicsWorld::final_projectile_velocity_vector(ld velocityY, ld velocityX)
+std::vector<ld> PhysicsWorld::final_projectile_velocity_vector(ld velocityY, ld velocityX) const
 {
 	this->vector_values[0] = sqrt(velocityY * velocityY + velocityX * velocityX);
 	this->vector_values[1] = atan(velocityY / velocityX)*DEGREE;
@@ -223,7 +244,7 @@ ld PhysicsWorld::velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle) co
 /**
  * method: horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration)
  * arguments: distance, height, angle, acceleration = default is -9.8
- * purpose:	finds x componant velocity
+ * purpose:	finds x component velocity
  * returns: ld, velocity of X component
  */
 ld PhysicsWorld::horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration)const
@@ -243,7 +264,7 @@ ld PhysicsWorld::vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angl
  * purpose:	uses quadratic formula to return two angles in a vector, the larger angle is the best angle to use
  * returns: vector data
  */
-std::vector<ld> PhysicsWorld::basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)
+std::vector<ld> PhysicsWorld::basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)const
 {
 	const ld hoopHeight = 3.05; //meters
 	ld a = (((-GA) * (hoopDistance * hoopDistance)) / (2 * (launchVelocity * launchVelocity)));
@@ -276,7 +297,13 @@ PhysicsWorld::~PhysicsWorld()
 	delete dynamics_and_forces;
 	delete fluid_statics;
 	delete fluid_dynamics;
+	delete waves;
+	delete hearing;
+	delete electric_charge;
+	delete electric_potential;
+	delete electric_current;
 	delete periodic_elements;
+
 	countDecrease();
 	//countShow();
 }

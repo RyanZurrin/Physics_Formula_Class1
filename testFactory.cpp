@@ -17,8 +17,12 @@ int main()
 	PhysicsWorld test;
 	setVal(v.sphere(pow(10, -5)));
 	show_val("vSphere");
-	setVal(test.fluid_dynamics->retardingForce_airLayer(n.air_20C * pow(10, -3), .400, 2.5 * pow(10, -2), 6.0 * pow(10, -5)));
+	setVal(test.fluid_dynamics->diameterPipeForSpecifiedValues(680.0, 3.0*pow(10, -2),1.00*pow(10, -3),3000));
 	show_val();
+
+	resistivity.setCARBON(18.6);
+	cout << "carbon: " << resistivity.CARBON;
+
 
 }
 

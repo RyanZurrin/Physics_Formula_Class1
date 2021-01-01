@@ -8,26 +8,31 @@
 #ifndef PHYSICSWORLD_H
 #define PHYSICSWORLD_H
 
-#include <iostream>
 #include <cmath>
+#include <iostream>
 #include <vector>
-#include "Friction.h"
 #include "Drag.h"
+#include "DynamicsAndForces.h"
 #include "Elasticity.h"
+#include "ElectricCharge.h"
+#include "ElectricCurrent.h"
+#include "ElectricPotential.h"
+#include "Energy.h"
+#include "FluidDynamics.h"
+#include "FluidStatics.h"
+#include "Friction.h"
+#include "Hearing.h"
+#include "Heat.h"
+#include "Momentum.h"
+#include "PeriodicElements.h"
+#include "RotationalMotion.h"
+#include "Statics.h"
+#include "Temperature.h"
+#include "Thermodynamics.h"
+#include "Torque.h"
 #include "UniformCircularMotion.h"
 #include "Vector3D.h"
-#include "Energy.h"
-#include "Momentum.h"
-#include "Statics.h"
-#include "RotationalMotion.h"
-#include "Torque.h"
-#include "Temperature.h"
-#include "Heat.h"
-#include "Thermodynamics.h"
-#include "DynamicsAndForces.h"
-#include "FluidStatics.h"
-#include "FluidDynamics.h"
-#include "PeriodicElements.h"
+#include "Waves.h"
 
 
 class PhysicsWorld;
@@ -101,6 +106,10 @@ static ld _val_;// = 0.0;
 static void show_val() { cout << "_val_: " << _val_ << endl; }
 static void show_val(const ld val) { cout << "val: " << val << endl; }
 static void show_val(const string label) { cout << label+": " << _val_ << endl; }
+static void setVal(const ld v)
+{
+	_val_ = v;
+}
 
 /**
  * @brief structure for conversion methods
@@ -394,10 +403,7 @@ static struct Densities
 	const ld steam_G = 0.60 * pow(10, -3); // 0.60 kg/m^3
 }p;
 
-static void setVal(const ld v)
-{
-	_val_ = v;
-}
+
 
 class PhysicsWorld
 {
@@ -464,6 +470,11 @@ public:
 	DynamicsAndForces* dynamics_and_forces;
 	FluidStatics* fluid_statics;
 	FluidDynamics* fluid_dynamics;
+	Waves* waves;
+	Hearing* hearing;
+	ElectricCharge* electric_charge;
+	ElectricPotential* electric_potential;
+	ElectricCurrent* electric_current;
 	PeriodicElements* periodic_elements;
 
 
@@ -494,6 +505,11 @@ public:
 		dynamics_and_forces(o.dynamics_and_forces),
 		fluid_statics(o.fluid_statics),
 		fluid_dynamics(o.fluid_dynamics),
+		waves(o.waves),
+		hearing(o.hearing),
+		electric_charge(o.electric_charge),
+		electric_potential(o.electric_potential),
+		electric_current(o.electric_current),
 		periodic_elements(o.periodic_elements),
 		_ptr_(o._ptr_){} // move constructor
 
@@ -750,7 +766,7 @@ public:
 	 * purpose: calculate the time of a merging object when velocity and displacement is know
 	 * returns: ld, total time
 	 */
-	std::vector<ld> time_using_quadratic(ld a1, ld b_velocity, ld c_displacement)
+	std::vector<ld> time_using_quadratic(ld a1, ld b_velocity, ld c_displacement)const
 	{
 		vector_values[0] = (-b_velocity + sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement)) / (2 * a1);
 		vector_values[1] = (-b_velocity - sqrt((b_velocity * b_velocity) - 4 * a1 * c_displacement)) / (2 * a1);
@@ -765,7 +781,7 @@ public:
 	 *			is: time, position, velocity, acceleration. use the print_vector_values() to see contents.
 	 * returns: ld, vector of the time, position, velocity, acceleration.
 	 */
-	std::vector<ld> pos_vel_falling_object_upDown(ld v, ld a, ld t, ld p = 0.0)
+	std::vector<ld> pos_vel_falling_object_upDown(ld v, ld a, ld t, ld p = 0.0)const
 	{
 		this->vector_values[0] = t;
 		//solution for Position:
@@ -810,7 +826,7 @@ public:
 	 *  take to reach the same level from which it was launched, forms a parabolic curve
 	 * (2* launchVelocity*sin(angleTheta))/(-GA);
 	 * @param launchVelocity is the initial velocity in m/s
-	 * @param angleTheta the angle of te launch
+	 * @param angleTheta the angle of the launch
 	 * @returns ld, time units
 	 */
 	ld static time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)
@@ -829,7 +845,7 @@ public:
 
 	// sqrt(velocityY * velocityY + velocityX * velocityX);
 	// atan(velocityY / velocityX) * DEGREE;
-	std::vector<ld> final_projectile_velocity_vector(ld velocityY, ld velocityX);
+	std::vector<ld> final_projectile_velocity_vector(ld velocityY, ld velocityX)const;
 
 	// sqrt(pow(horizontal_velocity_using_distance_angle_height(toGoal,height_at_goal, angle), 2) +
 	// pow(vertical_velocity_by_Xvelocity_with_angle(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), angle), 2))
@@ -843,7 +859,7 @@ public:
 
 	//  atan(-((b)+sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
 	//  atan(-((b)-sqrt((b * b) - 4 * a * c)) / (2 * a)) * DEGREE;
-	std::vector<ld> basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance);
+	std::vector<ld> basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)const;
 
 
 
@@ -922,4 +938,3 @@ public:
 	~PhysicsWorld();
 };
 #endif // !PHYSICSWORLD_H
-
