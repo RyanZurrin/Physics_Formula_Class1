@@ -29,7 +29,7 @@ Vector3D::Vector3D(_ld x1,_ld y1,_ld z1) //initializing object with values.
   _ptr3d =  nullptr;
  // _ptr2d = nullptr;
   set_magnitude();
-  set_allAngles();  
+  set_allAngles();
   object_counter++;
 	//cout<< object_counter << ": " <<"in the x,y,z constructor" << endl;;
 }
@@ -107,8 +107,8 @@ void Vector3D::showAllData()
     cout<< "z: " << z << endl;
     cout<< "mag: " << magnitude << endl;
     cout << "angles aX: "<< xAngle << ", aY: "<<yAngle<<", aZ: "<<zAngle
-         << endl;		
-	show_mode();	  
+         << endl;
+	show_mode();
 }
 void Vector3D::showPolarCord()const
 {
@@ -119,7 +119,7 @@ void Vector3D::set_allAngles()
     xAngle = return_xAngle();
     yAngle = return_yAngle();
     zAngle = return_zAngle();
-    //angle = 
+    //angle =
 }
 
 void Vector3D::set_magnitude()
@@ -128,7 +128,7 @@ void Vector3D::set_magnitude()
 }
 
 Vector3D Vector3D::check_division(_ld d)
-{   
+{
     return *this;
 }
 
@@ -203,17 +203,17 @@ Vector3D &Vector3D::operator*=(_ld value)
 Vector3D Vector3D::operator/(_ld d)
 {
     return check_division(d);
-   
+
 }
 Vector3D Vector3D::operator/(int d)
 {
     return check_division(d);
-   
+
 }
 
 Vector3D &Vector3D::operator/=(_ld value)
 {
-  
+
     x/=value;
     y/=value;
     z/=value;
@@ -229,24 +229,24 @@ Vector3D::operator=(const Vector3D& vec)
     y = vec.y;
     z = vec.z;
     set_allAngles();
-	
+
     return *this;
 }
 
 ostream& operator<<(ostream& os, const Vector3D & v)
-{	
+{
   if(v.mode == 'R' || v.mode == 'r'){
-  	v.showRectCord(); 
+  	v.showRectCord();
   }
   else{
   	v.showPolarCord();
-  }  
+  }
   return os;
-} 
+}
 
 
 //Dot product
-_ld Vector3D::dot_product(const Vector3D &vec)
+_ld Vector3D::dot_product(const Vector3D &vec) const
 {
     return x * vec.x + vec.y * y + vec.z * z;
 }
@@ -267,7 +267,7 @@ _ld Vector3D::square()
     return x*x+y*y+z*z;
 }
 
-auto Vector3D::normalization() -> Vector3D
+Vector3D Vector3D::normalization()
 {
     assert(find_magnitude()!=0);
     *this/=find_magnitude();
@@ -284,7 +284,7 @@ _ld Vector3D::distance(const Vector3D &vec)
     y2 = vec.y;
     z1 = this->z;
     z2 = vec.z;
-    return sqrt((pow(x2 - x1, 2) + pow(y2 - y1, 2) + pow(z2 - z1, 2))); 
+    return sqrt((pow(x2 - x1, 2) + pow(y2 - y1, 2) + pow(z2 - z1, 2)));
 }
 
 _ld Vector3D::returnX()const
@@ -317,7 +317,7 @@ void Vector3D::display()
 }
 
 Vector3D::~Vector3D()
-{	
+{
 	--object_counter;
     delete _ptr3d;
     //delete this;

@@ -1,9 +1,9 @@
-#pragma once
 /**
  * @class TemplateClass
  * @details driver class for solving complex physics problems
  * @author Ryan Zurrin
- * @date   12/17/2020
+ * @dateBuilt  12/31/2020
+ * @lastEdit 12/31/2020
  */
 
 #ifndef TEMPLATECLASS_H
