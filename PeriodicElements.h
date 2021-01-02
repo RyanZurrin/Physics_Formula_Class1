@@ -20,6 +20,8 @@ static struct UnifiedAtomicMass
 
 static struct Elements
 {
+	Elements() { cout << "testing Element" << endl; };
+
 	const struct NEUTRON
 	{
 		const ld atomic_weight = 1.008665;
@@ -837,7 +839,7 @@ static struct Elements
 		const ld heat_fusion = 0; // kJ/mol
 	} XE;
 
-} elements;
+}elements;
 
 
 static int periodicElement_objectCount = 0;
