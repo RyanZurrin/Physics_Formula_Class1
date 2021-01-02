@@ -18,14 +18,14 @@ class Energy
 {
 private:
 public:
-	
+
 	// Energy pointer
 	Energy* _energyPtr;
 
 	static void countIncrease() { energy_objectCount += 1; }
 	static void countDecrease() { energy_objectCount -= 1; }
 	static void countShow() { std::cout << "energy object count: " << energy_objectCount << std::endl; }
-	
+
 	/**
 	 * @brief  a structure containing the energy in joules of some common phenomena
 	 */
@@ -51,7 +51,7 @@ public:
 		const ld tennis_ball_100kmh = 22;
 		const ld mosquito_point5ms = 1.3 * pow(10, -6);
 		const ld single_electron_in_tv_tube_beam = 4.0 * pow(10, -15);
-		const ld energy_to_break_dna_strand = pow(10, -19);		
+		const ld energy_to_break_dna_strand = pow(10, -19);
 	}joules;
 	/**
 	 * @brief a structure containing the efficiency percent of common human
@@ -95,23 +95,23 @@ public:
 		const ld typical_incandescent_light_buld_total_useful_and_heat_transfer = 60;
 		const ld heart_person_at_rest_total_useful_and_heat_transfer = 8;
 		const ld electric_clock = 3;
-		const ld pocket_calculator = pow(10, -3);	
-		
+		const ld pocket_calculator = pow(10, -3);
+
 	}watts;
-	
-	//constructor	
+
+	//constructor
 	Energy()
-	{		
+	{
 		_energyPtr =  nullptr;
 		countIncrease();
 	}
-	
+
 	/**
 	 * @brief Returns the conversion from joules to kilo calories
 	 * @param joules J
 	 * @returns kilocalories kc
 	 */
-	ld static conversion_joules_to_kcal(const ld joules)
+	static ld conversion_joules_to_kcal(const ld joules)
 	{
 		const int num = 4184;
 		return joules / num;
@@ -124,7 +124,7 @@ public:
 	 * @param theta is the angle between the force vector and the displacement vector
 	 * @returns the work done on a system
 	 */
-	ld static work(const ld force, const ld displacement_magnitude, const ld theta = 0)
+	static ld work(const ld force, const ld displacement_magnitude, const ld theta = 0)
 	{
 		return force * displacement_magnitude * cos(theta * RADIAN);
 	}
@@ -134,9 +134,9 @@ public:
 	 * @param vf is the final velocity
 	 * @param h is the height of the y component
 	 * @param g is the acceleration which is defaulted to 9.8 for gravity
-	 * @returns the total work 
+	 * @returns the total work
 	 */
-	ld static work2(const ld mass, const ld vf, const ld h, const ld g = 9.8)
+	static ld work2(const ld mass, const ld vf, const ld h, const ld g = 9.8)
 	{
 		return (.5 * mass * (vf * vf) + (mass * g * h));
 	}
@@ -147,7 +147,7 @@ public:
 	 * @param height in m
 	 * @returns total work
 	 */
-	ld static work3(const ld mass, const ld height)
+	static ld work3(const ld mass, const ld height)
 	{
 		return mass * _G_ * height;
 	}
@@ -162,17 +162,15 @@ public:
 	 * @param time in s the elevator travels up
 	 * @returns power output for elevator motor
 	 */
-	ld static power_output_of_useful_energy_by_elevator_motor(const ld elevatorWeight, const ld balanceWeight, const ld liftHeight, const ld velocityFinal, const ld time)
+	static ld power_output_of_useful_energy_by_elevator_motor(const ld elevatorWeight, const ld balanceWeight, const ld liftHeight, const ld velocityFinal, const ld time)
 	{
 		const ld calculatedMass = balanceWeight - elevatorWeight;
-		const ld v2 = pow(velocityFinal, 2);		
+		const ld v2 = pow(velocityFinal, 2);
 		const ld m1 = _G_ * balanceWeight * liftHeight;
 		const ld m2 = _G_ * calculatedMass * -liftHeight;
 		const ld m3 = m1 + m2;
 		const ld m = (.5 * balanceWeight) * v2;
-		
-		cout << "calmass: " << calculatedMass << endl;
-		
+
 		return (m + m3)/time ;
 	}
 	/**
@@ -184,7 +182,7 @@ public:
 	 * @param theta2 is defaulted to 180 degrees if you set your coordinate system perpendicular to the motion
 	 * @returns the work done by friction
 	 */
-	ld static work_friction_down_slope(const ld coefficient, const ld mass, const ld theta1, const ld distance, const ld theta2 = 180)
+	static ld work_friction_down_slope(const ld coefficient, const ld mass, const ld theta1, const ld distance, const ld theta2 = 180)
 	{
 		return coefficient * mass * _G_ * cos(theta1 * RADIAN) * distance * cos(theta2);
 	}
@@ -195,7 +193,7 @@ public:
 	 * @param velocity of object in m/s
 	 * @returns KE (kinetic energy)
 	 */
-	ld static kinetic_energy_translational(const ld mass, const ld velocity)
+	static ld kinetic_energy_translational(const ld mass, const ld velocity)
 	{
 		return .5 * mass * (velocity * velocity);
 	}
@@ -204,9 +202,9 @@ public:
 	 * fx = sqrt((2 * netWork) / (mass))
 	 * @param netWork is the total energy in newtons
 	 * @param mass in kg
-	 * @returns the velocity 
+	 * @returns the velocity
 	 */
-	ld static velocity_from_work_energy_theorem(const ld netWork, const ld mass)
+	static ld velocity_from_work_energy_theorem(const ld netWork, const ld mass)
 	{
 		return sqrt((2 * netWork) / (mass));
 	}
@@ -217,7 +215,7 @@ public:
 	 * @param vi velocity initial
 	 * @returns the final velocity
 	 */
-	ld static velocityFinal_fromHeight(const ld h, const ld vi = 0.0)
+	static ld velocityFinal_fromHeight(const ld h, const ld vi = 0.0)
 	{
 		return sqrt((2 *_G_* abs(h) + (vi * vi)));
 	}
@@ -229,11 +227,11 @@ public:
 	 * @param vf velocity initial
 	 * @returns the final velocity
 	 */
-	ld static velocityInitial_fromHeight(const ld h, const ld vf = 0.0)
+	static ld velocityInitial_fromHeight(const ld h, const ld vf = 0.0)
 	{
 		return sqrt((vf*vf)-2*_G_*abs(h));
 	}
-	
+
 	/**
 	 * @brief Returns the speed calculated from something falling from a specified height
 	 * @param height is the height of the object
@@ -241,7 +239,7 @@ public:
 	 * Default is 0 assumed to be starting from rest
 	 * @returns final speed
 	 */
-	ld static speed_from_height(const ld height, const ld initialVelocity = 0)
+	static ld speed_from_height(const ld height, const ld initialVelocity = 0)
 	{
 		return sqrt(2 * _G_ * height ) + initialVelocity;
 	}
@@ -251,7 +249,7 @@ public:
 	 * @param frictionForce is the force the friction is causing on the system
 	 * @returns the distance
 	 */
-	ld static distance(const ld netWork, const ld frictionForce)
+	static ld distance(const ld netWork, const ld frictionForce)
 	{
 		return abs(netWork / frictionForce);
 	}
@@ -261,7 +259,7 @@ public:
 	 * @param mass is in kg
 	 * @param height is the displacement in the y value
 	 */
-	ld static potential_energy_gravity_PEg(const ld mass, const ld height)
+	static ld potential_energy_gravity_PEg(const ld mass, const ld height)
 	{
 		return mass * _G_ * height;
 	}
@@ -270,7 +268,7 @@ public:
 	 * @param forceConstant us unitless
 	 * @param deformation is the amount of change in the system
 	 */
-	ld static potential_energy_conservative_PEc(const ld forceConstant, const ld deformation)
+	static ld potential_energy_conservative_PEc(const ld forceConstant, const ld deformation)
 	{
 		return .5 * (forceConstant * (deformation * deformation));
 	}
@@ -281,7 +279,7 @@ public:
 	 * @param compressionDistance is the distance of deformation on impact
 	 * @returns the net force acting on the system
 	 */
-	ld static force_to_stop(const ld mass, const ld height, const ld compressionDistance)
+	static ld force_to_stop(const ld mass, const ld height, const ld compressionDistance)
 	{
 		return ((mass * _G_) * height)/ (compressionDistance);
 	}
@@ -294,7 +292,7 @@ public:
 	 * @param x is the deformation of the spring used or object of PE
 	 * @returns the speed m/s
 	 */
-	ld static conservation_equation_for_velocityFinal_bottom(const ld k, const ld m, const ld x)
+	static ld conservation_equation_for_velocityFinal_bottom(const ld k, const ld m, const ld x)
 	{
 		return sqrt(k / m) * x;
 	}
@@ -306,9 +304,9 @@ public:
 	 * @param x is the deformation of the spring
 	 * @param y is the change in the y component value
 	 * @returns the final speed
-	 * 
+	 *
 	 */
-	ld static conservation_equation_for_velocityFinal_top(const ld k, const ld m, const ld x, const ld y)
+	static ld conservation_equation_for_velocityFinal_top(const ld k, const ld m, const ld x, const ld y)
 	{
 		return sqrt((k / m) * (x * x) - (2 * _G_ * y));
 	}
@@ -320,7 +318,7 @@ public:
 	 * @param ff is the frictional force
 	 * @returns the distance traveled while sliding on level surface
 	 */
-	ld static distance_traveled_sliding_level(const ld m, const ld vi, const ld ff)
+	static ld distance_traveled_sliding_level(const ld m, const ld vi, const ld ff)
 	{
 		return (m * (vi * vi) / (2 * ff));
 	}
@@ -333,7 +331,7 @@ public:
 	 * @param theta is the angle of the slope
 	 * @returns the distance traveled while sliding on incline
 	 */
-	ld static distance_traveled_sliding_slope(const ld m, const ld vi, const ld ff, const ld theta)
+	static ld distance_traveled_sliding_slope(const ld m, const ld vi, const ld ff, const ld theta)
 	{
 		return (.5 * (m * (vi * vi)) / (ff + (m * _G_) * sin(theta * RADIAN)));
 	}
@@ -344,14 +342,14 @@ public:
 	 * @param totalEnergyIn is the total amount of energy being provided to a system for work
 	 * @returns the efficiency
 	 */
-	ld static efficiency(const ld workEnergyOut, const ld totalEnergyIn)
+	static ld efficiency(const ld workEnergyOut, const ld totalEnergyIn)
 	{
 		return workEnergyOut / totalEnergyIn;
 	}
 	/**
-	 * @brief Returns the power 
+	 * @brief Returns the power
 	 */
-	ld static power(const ld work, const ld time)
+	static ld power(const ld work, const ld time)
 	{
 		return work / time;
 	}
@@ -362,7 +360,7 @@ public:
 	 * @param distanceTop in meters is the height from the ground to hight of jump
 	 * @returns watts used to make the jump
 	 */
-	ld static power_to_jump(const ld mass, const ld distanceBottom, const ld distanceTop)
+	static ld power_to_jump(const ld mass, const ld distanceBottom, const ld distanceTop)
 	{
 		return mass * _Ga_ * distanceTop * sqrt((_Ga_ * ((distanceTop / distanceBottom) - 1) / (2 * distanceBottom)));
 	}
@@ -370,9 +368,9 @@ public:
 	 * @brief calculates the time to do work based off of power output
 	 * @param work is in joules. w = Fd = mgh
 	 * @param power is in watts
-	 * @returns the time to perform work 
+	 * @returns the time to perform work
 	 */
-	ld static time_to_do_work(const ld work, const ld power)
+	static ld time_to_do_work(const ld work, const ld power)
 	{
 		return work / power;
 	}
@@ -385,11 +383,11 @@ public:
 	 * @param time in s
 	 * @returns power in watts
 	 */
-	ld static power_to_reach_velocity_from_rest_given_mass(const ld mass, const ld velocity, const ld time)
+	static ld power_to_reach_velocity_from_rest_given_mass(const ld mass, const ld velocity, const ld time)
 	{
 		return (mass * (velocity * velocity) / (2 * _Ga_ * time));
 	}
-	
+
 	/**
 	 * @brief calculates the force needed to bring a car to rest given its mass, its speed and the distance
 	 * it took to stop. This can be used to calculate the force from crashes and similar scenarios
@@ -398,7 +396,7 @@ public:
 	 * @param distance in m
 	 * @returns the force exerted to make stop
 	 */
-	ld static force_needed_to_bring_car_to_rest(const ld mass, const ld velocity, const ld distance)
+	static ld force_needed_to_bring_car_to_rest(const ld mass, const ld velocity, const ld distance)
 	{
 		return (.5 * mass * (velocity * velocity)) / (distance);
 	}
@@ -408,20 +406,20 @@ public:
 	 * @param distance is the total distance that caused the energy loss
 	 * @returns the weight of a system
 	 */
-	ld static weight_from_joule_loss_over_distance(const ld jouleLoss, const ld distance)
+	static ld weight_from_joule_loss_over_distance(const ld jouleLoss, const ld distance)
 	{
 		return jouleLoss / distance;
 	}
 	/**
 	 * @brief Returns the calculation of the amount of compression on a spring with a given K constant
 	 * and knowing the mass and velocity of the object that collides with it.
-	 * x = sqrt((mass * (velocity * velocity)) / k) 
+	 * x = sqrt((mass * (velocity * velocity)) / k)
 	 * @param mass in kg
 	 * @param velocity in m/s
 	 * @param k is the spring constant
 	 * @returns distance of compression in meters
 	 */
-	ld static compression_distance_on_spring(const ld mass, const ld velocity, const ld k)
+	static ld compression_distance_on_spring(const ld mass, const ld velocity, const ld k)
 	{
 		return sqrt((mass * (velocity * velocity)) / k);
 	}
@@ -432,7 +430,7 @@ public:
 	 * @param totalCompression in m
 	 * @returns the spring constant k
 	 */
-	ld static spring_constant(const ld mass, const ld velocity, const ld totalCompression)
+	static ld spring_constant(const ld mass, const ld velocity, const ld totalCompression)
 	{
 		return mass * (velocity * velocity) / (totalCompression * totalCompression);
 	}
@@ -443,7 +441,7 @@ public:
 	 * @param x is the distance of compression
 	 * @returns the initial speed needed to compress spring
 	 */
-	ld static initial_speed_to_compress_spring(const ld mass, const ld k, const ld x)
+	static ld initial_speed_to_compress_spring(const ld mass, const ld k, const ld x)
 	{
 		return sqrt((k * (x * x) / mass));
 	}
@@ -453,7 +451,7 @@ public:
 	 * @param velocityEnd is the velocity at the height in question
 	 * @returns height in meters
 	 */
-	ld static height_from_velocity(const ld velocityStart, const ld velocityEnd)
+	static ld height_from_velocity(const ld velocityStart, const ld velocityEnd)
 	{
 		return ((velocityStart * velocityStart) - (velocityEnd * velocityEnd)) / (2 * _G_);
 	}
@@ -464,7 +462,7 @@ public:
 	 * @param initialDistance is the where it fell from if not using zero as a start
 	 * @returns the kinetic energy
 	 */
-	ld static kinetic_energy_falling_mass(const ld mass, const ld finalDistance, const ld initialDistance = 0)
+	static ld kinetic_energy_falling_mass(const ld mass, const ld finalDistance, const ld initialDistance = 0)
 	{
 		return -mass * _Ga_ * (finalDistance + initialDistance);
 	}
@@ -474,7 +472,7 @@ public:
 	 * @param cost per kw/h
 	 * @returns cost per hour
 	 */
-	ld static cost_to_run_per_hour(const ld powerUsage, const ld cost)
+	static ld cost_to_run_per_hour(const ld powerUsage, const ld cost)
 	{
 		return abs((powerUsage * cost) / 1000);
 	}
@@ -484,7 +482,7 @@ public:
 	 * @param cost per kw/h
 	 * @returns cost per sec
 	 */
-	ld static cost_to_run_per_sec(const ld powerUsage, const ld cost)
+	static ld cost_to_run_per_sec(const ld powerUsage, const ld cost)
 	{
 		return abs((powerUsage * cost) / 1000) * 12/3600 * 100;
 	}
@@ -494,7 +492,7 @@ public:
 	 * @param acceleration in m/s^2
 	 * @param friction frictional force
 	 */
-	ld static tension_elevator_cable(const ld mass, const ld acceleration, const ld friction)
+	static ld tension_elevator_cable(const ld mass, const ld acceleration, const ld friction)
 	{
 		return mass * (acceleration + _Ga_) + friction;
 	}
@@ -505,7 +503,7 @@ public:
 	 * @param distance in m
 	 * @returns final velocity
 	 */
-	ld static final_velocity(const ld acceleration, const ld distance)
+	static ld final_velocity(const ld acceleration, const ld distance)
 	{
 		return sqrt(2 * acceleration * distance);
 	}
@@ -516,18 +514,18 @@ public:
 	 * @param distanceBottom in m
 	 * @returns force in N(newtons)
 	 */
-	ld static force_needed_to_jump_a_distance(const ld mass, const ld distanceTop, const ld distanceBottom)
+	static ld force_needed_to_jump_a_distance(const ld mass, const ld distanceTop, const ld distanceBottom)
 	{
 		return (mass * _Ga_ * distanceTop) / distanceBottom;
 	}
-	
-	
+
+
 	~Energy()
 	{
 		delete _energyPtr;
 		countDecrease();
 	}
-	
+
 };
 #endif
 

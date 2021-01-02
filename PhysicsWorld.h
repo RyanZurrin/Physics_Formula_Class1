@@ -118,28 +118,28 @@ static struct Conversions
 {
 	struct SpecificHeatConverter
 	{
-		ld static joulesKgC_to_kcalKgC(const ld j = _val_)
+		static ld joulesKgC_to_kcalKgC(const ld j = _val_)
 		{
 			return j * .000238845896627;
 		}
-		ld static _kcalKgC_to_joulesKgC_IT(const ld kcal = _val_)
+		static ld _kcalKgC_to_joulesKgC_IT(const ld kcal = _val_)
 		{
 			return kcal * 4186.8;
 		}
 	}heat;
 
 
-	ld static atomicWeight_to_kilograms(const ld u = _val_)
+	static ld atomicWeight_to_kilograms(const ld u = _val_)
 	{
 		return u * 1.6605402 * pow(10, -27);
 	}
 
-	ld static kiloJoules_to_calories(const ld kJ)
+	static ld kiloJoules_to_calories(const ld kJ)
 	{
 		return (kJ * 1000.0) / 4186.0;
 	}
 
-	ld static revolutionsFromRadians(const ld radTotal)
+	static ld revolutionsFromRadians(const ld radTotal)
 	{
 		//cout << "revolutions: " << radTotal / (2.0 * _PI_) << endl;
 		return radTotal / (2.0 * _PI_);
@@ -150,7 +150,7 @@ static struct Conversions
 	 * @param revMin revolutions per minute
 	 * @returns revolutions in radians per second
 	 */
-	ld static revolutions_min_to_radians_second(const ld revMin)
+	static ld revolutions_min_to_radians_second(const ld revMin)
 	{
 		return (revMin * 2.0 * _PI_) / 60;
 	}
@@ -160,7 +160,7 @@ static struct Conversions
 	 * @param radSec is the rotation speed in radians per second
 	 * @returns the revolutions per minute
 	 */
-	ld static radians_second_to_revolutions_minute(const ld radSec)
+	static ld radians_second_to_revolutions_minute(const ld radSec)
 	{
 		return (radSec * 60.0) / (2.0 * _PI_);
 	}
@@ -170,7 +170,7 @@ static struct Conversions
 	 *  @param unit can be whatever you are dividing by gravity acceleration
 	 *  @returns the gravity ratio
 	 */
-	ld static gravity_ratio(const ld unit)
+	static ld gravity_ratio(const ld unit)
 	{
 		return unit / _G_;
 	}
@@ -181,7 +181,7 @@ static struct Conversions
 	 * @param mps is meters per second
 	 * @returns kilometers per hour
 	 */
-	ld static mps_to_kmh(const ld mps = _val_)
+	static ld mps_to_kmh(const ld mps = _val_)
 	{
 		return mps * 3.6;
 	}
@@ -190,7 +190,7 @@ static struct Conversions
 	 * @param kmh is kilometers per hour
 	 * @returns meters per second
 	 */
-	ld static kmh_to_mps(const ld kmh = _val_)
+	static ld kmh_to_mps(const ld kmh = _val_)
 	{
 		return kmh / 3.6;
 	}
@@ -199,7 +199,7 @@ static struct Conversions
 	 * @param mph is miles per hour
 	 * @returns meters per second
 	 */
-	ld static mph_to_mps(const ld mph = _val_)
+	static ld mph_to_mps(const ld mph = _val_)
 	{
 		return mph / 2.237;
 	}
@@ -208,7 +208,7 @@ static struct Conversions
 	 * @param mps is meters per second
 	 * @returns miles per hour
 	 */
-	ld static mps_to_mph(const ld mps = _val_)
+	static ld mps_to_mph(const ld mps = _val_)
 	{
 		return mps * 2.237;
 	}
@@ -217,15 +217,15 @@ static struct Conversions
 	 * @param ms to be converted to seconds
 	 * @returns seconds from milliseconds
 	 */
-	ld static millisecond_to_seconds(const ld ms = _val_)
+	static ld millisecond_to_seconds(const ld ms = _val_)
 	{
 		return ms / 1000;
 	}
-	ld static minutes_to_seconds(const ld min = _val_)
+	static ld minutes_to_seconds(const ld min = _val_)
 	{
 		return min * 60;
 	}
-	ld static hours_to_seconds(const ld hours = _val_)
+	static ld hours_to_seconds(const ld hours = _val_)
 	{
 		return hours * 3600;
 	}
@@ -234,7 +234,7 @@ static struct Conversions
 	 * @param days can be expressed as a decimal, four and a half days would be 4.5
 	 * @returns total seconds converted from days
 	 */
-	ld static days_to_seconds(const ld days = _val_)
+	static ld days_to_seconds(const ld days = _val_)
 	{
 		return days * 86400;
 	}
@@ -243,7 +243,7 @@ static struct Conversions
 	 * @param seconds to be converted
 	 * @returns days
 	 */
-	ld static seconds_to_days(const ld seconds = _val_)
+	static ld seconds_to_days(const ld seconds = _val_)
 	{
 		return seconds / 86400;
 	}
@@ -252,7 +252,7 @@ static struct Conversions
 	 * @param miles to be converted
 	 * @returns meters from miles
 	 */
-	ld static miles_to_meters(const ld miles = _val_)
+	static ld miles_to_meters(const ld miles = _val_)
 	{
 		return miles * 1609;
 	}
@@ -261,7 +261,7 @@ static struct Conversions
 	 * @param feet to be converted
 	 * @returns meters
 	 */
-	ld static feet_to_meters(const ld feet = _val_)
+	static ld feet_to_meters(const ld feet = _val_)
 	{
 		return feet / 3.281;
 	}
@@ -270,7 +270,7 @@ static struct Conversions
 	 * @param inches to be converted
 	 * @returns meters
 	 */
-	ld static inches_to_meters(const ld inches = _val_)
+	static ld inches_to_meters(const ld inches = _val_)
 	{
 		return inches / 39.37;
 	}
@@ -279,7 +279,7 @@ static struct Conversions
 	 * @param meters is the total meters
 	 * @returns inches
 	 */
-	ld static meters_to_inches(const ld meters = _val_)
+	static ld meters_to_inches(const ld meters = _val_)
 	{
 		return meters * 39.37;
 	}
@@ -288,71 +288,71 @@ static struct Conversions
 	 * @param cm centimeters
 	 * @returns meters
 	 */
-	ld static centimeters_to_meters(const ld cm = _val_)
+	static ld centimeters_to_meters(const ld cm = _val_)
 	{
 		return cm / 100;
 	}
-	ld static meters_to_centimeters(const ld m = _val_)
+	static ld meters_to_centimeters(const ld m = _val_)
 	{
 		return m * 100;
 	}
-	ld static kilometers_to_meters(const ld km = _val_)
+	static ld kilometers_to_meters(const ld km = _val_)
 	{
 		return km * 1000;
 	}
-	ld static millimeters_to_meters(const ld mm = _val_)
+	static ld millimeters_to_meters(const ld mm = _val_)
 	{
 		return mm / 1000;
 	}
-	ld static micrometers_to_meters(const ld Mm = _val_)
+	static ld micrometers_to_meters(const ld Mm = _val_)
 	{
 		return Mm / pow(1, -6);
 	}
-	ld static nanometers_to_meters(const ld nm = _val_)
+	static ld nanometers_to_meters(const ld nm = _val_)
 	{
 		return nm / pow(1, -9);
 	}
-	ld static pound_to_kilogram(const ld lbs = _val_)
+	static ld pound_to_kilogram(const ld lbs = _val_)
 	{
 		return lbs / 2.205;
 	}
-	ld static milligram_to_kilogram(const ld mg = _val_)
+	static ld milligram_to_kilogram(const ld mg = _val_)
 	{
 		return mg / pow(1, -6);
 	}
-	ld static gram_to_kilogram(const ld g = _val_)
+	static ld gram_to_kilogram(const ld g = _val_)
 	{
 		return g / 1000;
 	}
-	ld static ounce_to_kilogram(const ld ounce = _val_)
+	static ld ounce_to_kilogram(const ld ounce = _val_)
 	{
 		return ounce / 35.274;
 	}
-	ld static watts_to_kilowatts(const ld watt = _val_)
+	static ld watts_to_kilowatts(const ld watt = _val_)
 	{
 		return watt / 1000;
 	}
-	ld static kWh_to_joules(const ld kWh = _val_)
+	static ld kWh_to_joules(const ld kWh = _val_)
 	{
 		return kWh * (3.6*pow(10, 6));
 	}
-	ld static joules_to_kWh(const ld j = _val_)
+	static ld joules_to_kWh(const ld j = _val_)
 	{
 		return j / (3.6 * pow(10, 6));
 	}
-	ld static newtonMeters_to_ftPounds(const ld Nm = _val_)
+	static ld newtonMeters_to_ftPounds(const ld Nm = _val_)
 	{
 		return Nm / .73756;
 	}
-	ld static radians_to_revolutions(const ld rad = _val_)
+	static ld radians_to_revolutions(const ld rad = _val_)
 	{
 		return rad / (2 * _PI_);
 	}
-	ld static revolutions_to_radians(const ld rev = _val_)
+	static ld revolutions_to_radians(const ld rev = _val_)
 	{
 		return rev * 2 * _PI_;
 	}
-	ld static atm_to_pascals(const ld atm = _val_)
+	static ld atm_to_pascals(const ld atm = _val_)
 	{
 		return atm * 101325.0;
 	}
@@ -526,7 +526,7 @@ public:
 	 * @param endPos ending position
 	 * @returns displacement.
 	 */
-	ld static displacement(const ld startPos,const ld endPos)
+	static ld displacement(const ld startPos,const ld endPos)
 	{ return endPos - startPos; }
 
 	/**
@@ -535,7 +535,7 @@ public:
 	 * @param time in seconds
 	 * @returns displacement.
 	 */
-	ld static displacement_VxT(const ld velocity, const ld time)
+	static ld displacement_VxT(const ld velocity, const ld time)
 	{ return velocity * time; }
 
 	/**
@@ -544,7 +544,7 @@ public:
 	 * purpose: find the displacement of an accelerating object
 	 * returns:	ld, displacement
 	 */
-	ld static displacement_accelerating_object(const ld acceleration, const ld time)
+	static ld displacement_accelerating_object(const ld acceleration, const ld time)
 	{ return ((acceleration) * (time * time)) / 2; }
 
 	/**
@@ -554,7 +554,7 @@ public:
 	 * 			position and an initial velocity along with acceleration and a time
 	 * returns:	ld, displacement
 	 */
-	ld static displacement_accelerating_object_PV(const ld velocity,
+	static ld displacement_accelerating_object_PV(const ld velocity,
 												  const ld acceleration,
 												  const ld time,
 												  const ld pos = 0)
@@ -567,7 +567,7 @@ public:
 	 * @param acceleration in m/s^2
 	 * @param time in s
 	 */
-	ld static displacement_using_kinematic(const ld velocity,
+	static ld displacement_using_kinematic(const ld velocity,
 										   const ld acceleration,
 										   const ld time)
 	{
@@ -580,7 +580,7 @@ public:
 	 * purpose: calculate displacement for the distance to stop from moving object
 	 * returns: ld, final displacement
 	 */
-	ld static distance_VdA(const ld pos, const ld velocityStart, const ld velocityFinal, const ld acceleration)
+	static ld distance_VdA(const ld pos, const ld velocityStart, const ld velocityFinal, const ld acceleration)
 	{ return abs(((velocityFinal * velocityFinal) - (velocityStart * velocityStart)) / (2 * acceleration)) + pos; }
 
 	/**
@@ -589,7 +589,7 @@ public:
 	 * purpose:	find the displacement when start and end velocity is know
 	 * returns: ld, displacement
 	 */
-	ld static velocity_vStart_plus_vEndD2(const ld velocityStart, const ld velocityEnd)
+	static ld velocity_vStart_plus_vEndD2(const ld velocityStart, const ld velocityEnd)
 	{ return (velocityStart + velocityEnd) / 2;	}
 
 	/**
@@ -599,7 +599,7 @@ public:
 	 *@param time is amount of time taken
 	 *@returns the final velocity
 	 */
-	ld static velocity_final_from_kinematic_time(const ld initialVelocity, const ld acceleration, const ld time)
+	static ld velocity_final_from_kinematic_time(const ld initialVelocity, const ld acceleration, const ld time)
 	{	return initialVelocity + acceleration * time; }
 
 	/**
@@ -609,7 +609,7 @@ public:
 	 *@param displacement m
 	 *@returns the final velocity
 	 */
-	ld static velocity_final_kinematic_no_time(const ld initialVelocity, const ld acceleration , const ld displacement)
+	static ld velocity_final_kinematic_no_time(const ld initialVelocity, const ld acceleration , const ld displacement)
 	{ return sqrt(initialVelocity * initialVelocity + (2 * (acceleration * displacement))); }
 
 	/**
@@ -618,7 +618,7 @@ public:
 	 * purpose: to calculate the average velocity using displacement divided by time
 	 * returns: ld, average velocity
 	 */
-	ld static velocity_avg_DdT(const ld displacement, const ld time)
+	static ld velocity_avg_DdT(const ld displacement, const ld time)
 	{ return  displacement / time; }
 
 	/**
@@ -627,7 +627,7 @@ public:
 	 * purpose: find the velocity of a falling object thrown downwards
 	 * returns: ld, velocity
 	 */
-	ld static velocity_kinematic_constant_a(const ld xY0, const ld xYf, const ld velocity, const ld acceleration)
+	static ld velocity_kinematic_constant_a(const ld xY0, const ld xYf, const ld velocity, const ld acceleration)
 	{ return sqrt((velocity * velocity) + (2 * (acceleration * (xYf - xY0)))); }
 
 	/**
@@ -636,7 +636,7 @@ public:
 	 * @param t time
 	 * @returns the final velocity
 	 */
-	ld static velocityFinal_kinematic(const ld vi, const ld t)
+	static ld velocityFinal_kinematic(const ld vi, const ld t)
 	{
 		return vi * t;
 	}
@@ -647,7 +647,7 @@ public:
 	 * purpose:	to find the average acceleration by dividing the avg velocity by the time
 	 * returns: ld, average acceleration
 	 */
-	ld static acceleration_avg(const ld vChange, const ld tChange)
+	static ld acceleration_avg(const ld vChange, const ld tChange)
 	{ return vChange / tChange; }
 
 	/**
@@ -656,7 +656,7 @@ public:
 	 * purpose: this method can be used to calculate the acceleration of falling objects
 	 * returns: ld, acceleration of object
 	 */
-	ld static acceleration_dispDtimeSqrd(const ld displacement, const ld time)
+	static ld acceleration_dispDtimeSqrd(const ld displacement, const ld time)
 	{ return (2 * (displacement)) / (time * time); }
 
 	/**
@@ -665,7 +665,7 @@ public:
 	 * purpose: finds the acceleration using the starting and ending velocity and total displacement as known values
 	 * returns: ld, acceleration of object
 	 */
-	ld static acceleration_vStart_vEndDdisplacement(const ld velocityStart, const ld velocityEnd, const ld displacement)
+	static ld acceleration_vStart_vEndDdisplacement(const ld velocityStart, const ld velocityEnd, const ld displacement)
 	{ return (velocityEnd * velocityEnd - velocityStart * velocityStart) / (2 * displacement); }
 
 	/**
@@ -674,7 +674,7 @@ public:
 	 * purpose: to calculate the average velocity using displacement divided by time
 	 * returns: ld, average velocity
 	 */
-	ld static speed_avg_DdT(const ld total_distance, const ld time)
+	static ld speed_avg_DdT(const ld total_distance, const ld time)
 	{ return abs(total_distance / time); }
 
 	/**
@@ -683,7 +683,7 @@ public:
 	 * purpose: calculate time with know acceleration and final velocity end point
 	 * returns: ld, time
 	 */
-	ld static time_by_avgVdA(const ld acceleration, const ld velocityStart, const ld velocityEnd)
+	static ld time_by_avgVdA(const ld acceleration, const ld velocityStart, const ld velocityEnd)
 	{ return (velocityEnd - velocityStart) / acceleration; }
 
 	/**
@@ -692,7 +692,7 @@ public:
 	 * purpose: find the velocity of a falling object thrown downwards
 	 * returns: ld, velocity
 	 */
-	ld static time_by_DisTdV(const ld distance, const ld velocity)
+	static ld time_by_DisTdV(const ld distance, const ld velocity)
 	{ return distance / velocity; }
 
 	/**
@@ -701,7 +701,7 @@ public:
 	 * purpose: find how long it takes an object with a known acceleration to travel a know distance
 	 * returns: ld, time to accelerate a distance
 	 */
-	ld static time_by_finalPos_acceleration(const ld displacement, const ld acceleration)
+	static ld time_by_finalPos_acceleration(const ld displacement, const ld acceleration)
 	{ return sqrt((2 * displacement) / acceleration); }
 
 	/**
@@ -710,7 +710,7 @@ public:
 	 * purpose: find the amount of time between two periods
 	 * returns: ld, difference in two times
 	 */
-	ld static time_difference(const ld startTime, const ld endTime)
+	static ld time_difference(const ld startTime, const ld endTime)
 	{ return endTime - startTime; }
 
 	/**
@@ -719,7 +719,7 @@ public:
 	 * purpose: find the amount of time between two periods
 	 * returns: ld, difference in two times
 	 */
-	ld static time_kinematic_rearranged(const ld velocity, const ld displacement, const ld acceleration)
+	static ld time_kinematic_rearranged(const ld velocity, const ld displacement, const ld acceleration)
 	{ return (-(velocity)-sqrt((velocity * velocity) - 2 * (acceleration) * (displacement))) / (acceleration); }
 
 	/**
@@ -729,7 +729,7 @@ public:
 	 *  to find the slope of a line between two points
 	 * returns: ld, slope of line between two points
 	 */
-	ld static slope_formula(const ld y1, const ld y0, const ld x1, const ld x0)
+	static ld slope_formula(const ld y1, const ld y0, const ld x1, const ld x0)
 	{ return (y1 - y0) / (x1 - x0);	}
 
 	/**
@@ -740,7 +740,7 @@ public:
 	 * purpose: find the speed of a spinning object, such as fan blade
 	 * returns: average speed of spinning object
 	 */
-	ld static rotation_speed_2PIxRdT(const ld radius, const ld rotations, const ld time)
+	static ld rotation_speed_2PIxRdT(const ld radius, const ld rotations, const ld time)
 	{ return (2.0 * _PI_ * radius) / (time / rotations); }
 
 	/**
@@ -749,7 +749,7 @@ public:
 	 * purpose: find average velocity of a spinning object
 	 * returns: ld, average velocity
 	 */
-	ld static rotation_avgVelocity_2PIxRdT_in_1_rotation(const ld radius, const ld time)
+	static ld rotation_avgVelocity_2PIxRdT_in_1_rotation(const ld radius, const ld time)
 	{ return (2.0 * _PI_ * radius) / time; }
 
 	/**
@@ -757,7 +757,7 @@ public:
 	 * @param value the value to find the multiples of gravity of
 	 * returns: g's
 	 */
-	ld static conversion_multiple_of_gravity(const ld value)
+	static ld conversion_multiple_of_gravity(const ld value)
 	{ return value / GA; }
 
 	/**
@@ -808,13 +808,13 @@ public:
 	* purpose:	calculates projectile range
 	* returns: ld, range of a projectile
 	*/
-	ld static range_projectile_level_ground(const ld velocity, const ld angleTheta)
+	static ld range_projectile_level_ground(const ld velocity, const ld angleTheta)
 	{ return  ((velocity * velocity) * sin(2 * angleTheta * RADIAN) / (GA));	}
 
 	/**
 	 * @brief calculates the angle theta of a projectile
 	 */
-	ld static projectile_theta(const ld distance, const ld velocity)
+	static ld projectile_theta(const ld distance, const ld velocity)
 	{
 		return (asinh(distance * _Ga_) / (velocity * velocity)) / 2;
 	}
@@ -829,7 +829,7 @@ public:
 	 * @param angleTheta the angle of the launch
 	 * @returns ld, time units
 	 */
-	ld static time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)
+	static ld time_for_projectile_to_reach_level(ld launchVelocity, ld angleTheta)
 	{
 		return (2 * launchVelocity * sin(angleTheta)) / (GA);
 	}
