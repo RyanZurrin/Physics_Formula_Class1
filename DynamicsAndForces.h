@@ -8,6 +8,7 @@
 #ifndef DYNAMICSANDFORCES_H
 #define DYNAMICSANDFORCES_H
 #include <iostream>
+#include <vector>
 const ld GA = 9.8;
 
 static int dynamicsAndForces_objectCount = 0;

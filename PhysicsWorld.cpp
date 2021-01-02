@@ -1,7 +1,7 @@
 #include "PhysicsWorld.h"
 
 //ld PhysicsWorld::_val_ = 0.0;
-vector<ld> PhysicsWorld::vector_values = { 0.0,0.0,0.0,0.0 };
+
 int PhysicsWorld::physics_objectCount = 0;
 
 /**
@@ -10,6 +10,7 @@ int PhysicsWorld::physics_objectCount = 0;
 PhysicsWorld::PhysicsWorld()
 {
 	_ptr_ = nullptr;
+	kinematics = new Kinematics;
 	drag = new Drag;
 	elasticity = new Elasticity;
 	friction = new Friction;
@@ -42,7 +43,8 @@ PhysicsWorld::PhysicsWorld()
 PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 {
 	_ptr_ = p._ptr_;
-	vector_values = p.vector_values;
+	//vector_values = p.vector_values;
+	kinematics = p.kinematics;
 	drag = p.drag;
 	elasticity = p.elasticity;
 	friction = p.friction;
@@ -78,7 +80,8 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 	if(this != &r)
 	{
 		_ptr_ = r._ptr_;
-		vector_values = r.vector_values;
+		//vector_values = r.vector_values;
+		kinematics = r.kinematics;
 		drag = r.drag;
 		elasticity = r.elasticity;
 		friction = r.friction;
@@ -107,9 +110,11 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 	}
 	return *this;
 }
+
 PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 {
 	_ptr_ = nullptr;
+	kinematics = new Kinematics;
 	drag = new Drag;
 	elasticity = new Elasticity;
 	friction = new Friction;
@@ -142,6 +147,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 {
 	drag = new Drag;
+	kinematics = new Kinematics;
 	elasticity = new Elasticity;
 	friction = new Friction;
 	uniformCircularMotion = new UniformCircularMotion;
@@ -168,117 +174,9 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	this->vector2d->set_coordinates(t1, t2);
 }
 
-/**
- * @brief prints out the values stored in the objects vector
- */
-void PhysicsWorld::show_vector_values()
-{
-	for (auto it : vector_values)
-	{
-		std::cout << it << ", ";
-	}
-	std::cout << std::endl;
-}
-
-
-/// <summary>
-/// calculates the air time from an initial velocity of 0
-/// </summary>
-/// <param name="displacement">The total displacement.</param>
-/// <returns>time is seconds in air</returns>
-ld PhysicsWorld::air_time_initial_velocity0_y0(ld displacement)const
-{
-	return sqrt((-2*(displacement))/GA);
-}
-
-
-/// <summary>
-/// calculates the initial velocity of the horizontal component
-/// </summary>
-/// <param name="y0">The initial starting height.</param>
-/// <param name="displacement">The displacement.</param>
-/// <returns></returns>
-ld PhysicsWorld::velocity_initial_horizontal_component(ld y0, ld displacement) const
-{
-	return sqrt((-GA/(-2 * y0)))* displacement;
-}
-
-/**
- * method: velocity_final_vertical_component(ld y0, ld yf = 0) const
- * arguments: y0 = starting height, yf = final vertical component default = 0
- * purpose:	calculates the final vertical component
- * returns: ld, final vertical velocity
- */
-ld PhysicsWorld::velocity_vertical_component(ld y0, ld yf)const
-{
-	return -sqrt(2 * (-GA) * (yf - y0));
-}
-
-
-/**
- * method: velocity_final_vertical_component(ld y0, ld yf = 0) const
- * arguments: y0 = starting height, yf = final vertical component default = 0
- * purpose:	calculates the final vertical component
- * returns: ld, final vertical velocity
- */
-std::vector<ld> PhysicsWorld::final_projectile_velocity_vector(ld velocityY, ld velocityX) const
-{
-	this->vector_values[0] = sqrt(velocityY * velocityY + velocityX * velocityX);
-	this->vector_values[1] = atan(velocityY / velocityX)*DEGREE;
-	this->show_vector_values();
-	return vector_values;
-}
-
-/**NOT WORKING RIGHT
- * method: velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle) const
- * arguments: distance to goal, height ball is at goal, and initial angle of kick
- * purpose:	calculates the final velocity of both component vectors
- * returns: ld, magnitude of final velocity vector
- */
-ld PhysicsWorld::velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle) const
-{
-	return sqrt(pow(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), 2) +
-		pow(vertical_velocity_by_Xvelocity_with_angle(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), angle), 2));
-}
-
-/**
- * method: horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration)
- * arguments: distance, height, angle, acceleration = default is -9.8
- * purpose:	finds x component velocity
- * returns: ld, velocity of X component
- */
-ld PhysicsWorld::horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration)const
-{
-	return targetDistance * sqrt(-acceleration/((2 * (targetDistance * tan(angle*RADIAN) - targetHeight))));
-}
-
-ld PhysicsWorld::vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angle) const
-{
-	return xVelocity * tan(angle*RADIAN);
-}
-
-
-/**
- * method: basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)
- * arguments: launch velocity, height or ball release, distance from hoop
- * purpose:	uses quadratic formula to return two angles in a vector, the larger angle is the best angle to use
- * returns: vector data
- */
-std::vector<ld> PhysicsWorld::basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)const
-{
-	const ld hoopHeight = 3.05; //meters
-	ld a = (((-GA) * (hoopDistance * hoopDistance)) / (2 * (launchVelocity * launchVelocity)));
-	ld b = -hoopDistance;
-	ld c = ((hoopHeight - releaseHeight) + a);
-	vector_values[0] = atan(-((b)+sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
-	vector_values[1] = atan(-((b)-sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
-	this->show_vector_values();
-
-	return vector_values;
-}
-
 PhysicsWorld::~PhysicsWorld()
 {
+	delete kinematics;
 	delete elasticity;
 	delete friction;
 	delete vector2d;
@@ -307,4 +205,3 @@ PhysicsWorld::~PhysicsWorld()
 	countDecrease();
 	//countShow();
 }
-
