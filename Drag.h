@@ -123,7 +123,7 @@ public:
 		return *this;
 	}
 private:
-	ld static setCoefficient(string &test)
+	static ld setCoefficient(string &test)
 	{
 		ld val = 0;
 		transform(test.begin(), test.end(), test.begin(), ::tolower);
@@ -177,7 +177,7 @@ public:
 	 * @param acceleration
 	 * @returns the terminal velocity.
 	 */
-	ld static terminal_velocity(const ld mass,
+	static ld terminal_velocity(const ld mass,
 								const ld dragCoeff,
 								const ld areaFace,
 								const ld density,
@@ -195,7 +195,7 @@ public:
 	 * @param velocity is the speed with a direction
 	 * @returns: drag force
 	 */
-	ld static drag_force(const ld dragCoeff, const ld areaFace, const ld density, const ld velocity)
+	static ld drag_force(const ld dragCoeff, const ld areaFace, const ld density, const ld velocity)
 	{ return .5 * (dragCoeff * density * areaFace * pow(velocity, 2)); }
 
 	 /**
@@ -206,7 +206,7 @@ public:
 	  * @param velocity
 	  * @returns force of sphere moving through a viscous matter
 	  */
-	 ld static stokes_law(const ld radius, const ld viscosity, const ld velocity)
+	 static ld stokes_law(const ld radius, const ld viscosity, const ld velocity)
 	 { return 6.0 * _PI_ * radius * viscosity * velocity; }
 
 	/**
@@ -219,7 +219,7 @@ public:
 	 * @param time it takes in seconds for the objects to reach bottom
 	 * @returns the viscosity of a fluid
 	 */
-	 ld static viscosity(const ld density, const ld diameter, const ld distance, const ld time)
+	 static ld viscosity(const ld density, const ld diameter, const ld distance, const ld time)
 	{
 		 const ld radius = diameter / 2;
 		 return (2 * density * time * (radius * radius) * _G_) / (9 * distance);

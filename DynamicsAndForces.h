@@ -66,7 +66,7 @@ public:
 	 * purpose:	calculates the forces total including frictions
 	 * returns: ld net force
 	 */
-	ld static netForce(const ld totalForces, const ld totalFriction)
+	static ld netForce(const ld totalForces, const ld totalFriction)
 	{
 		return totalForces - totalFriction;
 	}
@@ -77,7 +77,7 @@ public:
 	 * purpose:	applies the force of gravity on a mass to give the weight
 	 * returns: ld weight
 	 */
-	ld static weight(const ld mass)
+	static ld weight(const ld mass)
 	{
 		return mass * GA;
 	}
@@ -88,7 +88,7 @@ public:
 	 * purpose:	uses Newtons second law of motion to calculate the force of a something
 	 * returns: ld, force
 	 */
-	ld static newtons_second_law_for_force(const ld mass, const ld acceleration)
+	static ld newtons_second_law_for_force(const ld mass, const ld acceleration)
 	{
 		return mass * acceleration;
 	}
@@ -99,7 +99,7 @@ public:
 	 * purpose:	calculates the acceleration due to a force
 	 * returns: ld, acceleration
 	 */
-	ld static newtons_second_law_for_acceleration(const ld netForce, const ld mass)
+	static ld newtons_second_law_for_acceleration(const ld netForce, const ld mass)
 	{
 		return netForce / mass;
 	}
@@ -110,7 +110,7 @@ public:
 	 * purpose:calculates the mass of an object from the force and acceleration
 	 * returns: ld, mass
 	 */
-	ld static newtons_second_law_for_mass(ld netForce, ld acceleration)
+	static ld newtons_second_law_for_mass(ld netForce, ld acceleration)
 	{
 		return netForce / acceleration;
 	}
@@ -121,7 +121,7 @@ public:
 	 * purpose:calculates the drag or resistance
 	 * returns: ld, drag
 	 */
-	ld static drag_force(const ld appliedForce, const ld mass, const ld acceleration)
+	static ld drag_force(const ld appliedForce, const ld mass, const ld acceleration)
 	{
 		return appliedForce - (mass * acceleration);
 	}
@@ -132,7 +132,7 @@ public:
 	 * purpose: calculates the normal force, weight
 	 * returns: ld, normal force
 	 */
-	ld static normalForce(const ld mass, const ld acceleration = GA)
+	static ld normalForce(const ld mass, const ld acceleration = GA)
 	{
 		return mass * acceleration;
 	}
@@ -143,7 +143,7 @@ public:
 	 * purpose: calculates the normal force on an angle
 	 * returns: ld, normal force
 	 */
-	ld static normalForce_angleDOWN(const ld mass, const ld angleTheta)
+	static ld normalForce_angleDOWN(const ld mass, const ld angleTheta)
 	{
 		return mass * GA * cos(angleTheta * RADIAN);
 	}
@@ -153,7 +153,7 @@ public:
 	 * purpose: calculates the normal force on an angle
 	 * returns: ld, normal force
 	 */
-	ld static normalForce_angleUP(const ld mass, const ld angleTheta)
+	static ld normalForce_angleUP(const ld mass, const ld angleTheta)
 	{
 		return mass * GA * sin(angleTheta * RADIAN);
 	}
@@ -164,7 +164,7 @@ public:
 	 * @param kC kineticCoefficient
 	 * @returns ld, normal force
 	 */
-	ld static acceleration_slope_simpleFriction(const ld angleTheta, const ld kC)
+	static ld acceleration_slope_simpleFriction(const ld angleTheta, const ld kC)
 	{
 		return GA * (sin(angleTheta * RADIAN) - (kC * cos(angleTheta * RADIAN)));
 	}
@@ -175,11 +175,11 @@ public:
 	 * @param bottom is the bottom part of the ratio
 	 * @returns the ratio between two numbers
 	 */
-	ld static ratio(const ld top, const ld bottom)
+	static ld ratio(const ld top, const ld bottom)
 	{
 		return top / bottom;
 	}
-	
+
 	/**
 	 * @brief calculates the tension on a horizontal rope as it gets hung from
 	 * @param mass in kg of object causing tension
@@ -204,7 +204,7 @@ public:
 	/**
 	 * @brief calculates the tension on a horizontal rope as it gets hung from
 	 * @param mass in kg of object causing tension
-	 * @param fCoeff kinetic frictional coefficient 
+	 * @param fCoeff kinetic frictional coefficient
 	 * @param a acceleration m/s
 	 * @returns tension in Newtons
 	 */
@@ -218,8 +218,8 @@ public:
 
 	/**
 	 * @brief calculates the tension on a horizontal rope as it gets hung from
-	 * @param mass1 in kg of object1 
-	 * @param mass2 in kg of object2 
+	 * @param mass1 in kg of object1
+	 * @param mass2 in kg of object2
 	 * @returns tension in Newtons
 	 */
 	static ld tensionOnMultipleStrandsIdealPully(const ld mass1, const ld mass2)
@@ -227,18 +227,18 @@ public:
 		return ((2.0*GA)*(mass1*mass2))/(mass1 + mass2);
 	}
 
-	
+
 	/**
 	 * @brief calculates the tension on a horizontal rope as it gets hung from
 	 * @param mass in kg of object1
 	 * @param theta1 angle side 1 in degrees
-	 * @param theta2 angle side 2 in degrees 
+	 * @param theta2 angle side 2 in degrees
 	 * @returns tension in Newtons
 	 */
 	static vector<ld> tensionOnMultipleStrandsHangingObject(const ld mass, const ld theta1, const ld theta2)
 	{
-		vector<ld> result = { 0.0, 0.0, 0.0 }; 
-		result[0] = cos(theta1 * RADIAN) * (mass * GA); 
+		vector<ld> result = { 0.0, 0.0, 0.0 };
+		result[0] = cos(theta1 * RADIAN) * (mass * GA);
 		result[1] = cos(theta2 * RADIAN) * (mass * GA);
 		result[2] = result[0] + result[1];
 		return result;
@@ -255,14 +255,14 @@ public:
 	}
 
 
-	
-	
+
+
 
 	~DynamicsAndForces()
 	{
 		delete _dynamicForcePtr;
 	}
-	
+
 };
 #endif
 

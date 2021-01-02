@@ -14,13 +14,13 @@ static int elasticity_objectCount = 0;
 class Elasticity
 {
 private:
-	
+
 	static void countIncrease() { elasticity_objectCount += 1; }
 	static void countDecrease() { elasticity_objectCount -= 1; }
-	
+
 public:
 	static void countShow() { std::cout << "elasticity count: " << elasticity_objectCount << std::endl; }
-	
+
 
 
 	Elasticity* _ptrElastic;
@@ -81,13 +81,13 @@ public:
 		///<young's modulus, Shear modulus, Bulk modulus>
 		vector<ld> water = { 0 * pow(10, 9),	0 * pow(10, 9),	2.2 * pow(10, 9) };
 		///<young's modulus, Shear modulus, Bulk modulus>
-		
+
 	}moduli;
-	
+
 	// default constructor
 	Elasticity()
 	{
-		_ptrElastic =  nullptr;	
+		_ptrElastic =  nullptr;
 		countIncrease();
 		//countShow();
 	}
@@ -95,31 +95,31 @@ public:
 	// copy constructor
 	Elasticity(const Elasticity& e)
 	{
-		_ptrElastic = e._ptrElastic;	
+		_ptrElastic = e._ptrElastic;
 		countIncrease();
 		//countShow();
 	}
 
-	// copy assignment operator 
+	// copy assignment operator
 	Elasticity& operator=(const Elasticity& r)
 	{
 		if (this != &r)
 		{
-			_ptrElastic = r._ptrElastic;	
+			_ptrElastic = r._ptrElastic;
 			countIncrease();
 			//countShow();
 		}
 		return  *this;
 	}
 
-	
+
 	/**
 	 * method: cross_sectional(const ld radius)
 	 * arguments: radius
 	 * purpose:	calculates the cross sectional, which is used in many elasticity problems
-	 * returns: ld, cross sectional 
+	 * returns: ld, cross sectional
 	 */
-	ld static cross_sectional_area(const ld radius)
+	static ld cross_sectional_area(const ld radius)
 	{ return _PI_ * (radius * radius); }
 
 	 /**
@@ -127,19 +127,19 @@ public:
 	 * @param appliedForce the force in newtons
 	 * @param modulus <young's modulus, Shear modulus, Bulk modulus> values can be accessed by .moduli.
 	 * @param crossSectionalArea
-	 * @param original	 * 
+	 * @param original	 *
 	 * @returns the deformation
 	 */
-	ld static deformations(const ld appliedForce, const ld modulus, const ld diameter, const ld original)
+	static ld deformations(const ld appliedForce, const ld modulus, const ld diameter, const ld original)
 	{ return (1 / modulus) * (appliedForce / (_PI_ * (diameter * diameter)) * original); }
 
 	/**
 	* method: stress_usingY(const ld YoungsModulus, const ld strain)
-	* arguments: 1)YoungsModulus 2)strain 
+	* arguments: 1)YoungsModulus 2)strain
 	* purpose:	calculates the stress which is defined as the ratio of force to area
 	* returns: ld, stress
 	*/
-	ld static stress_usingY(const ld youngsModulus, const ld strain)
+	static ld stress_usingY(const ld youngsModulus, const ld strain)
 	{ return youngsModulus * strain; }
 
 	/**
@@ -148,26 +148,28 @@ public:
 	* purpose:	calculates the stress which is defined as the ratio of force to area
 	* returns: ld, stress
 	*/
-	ld static stress_usingF(const ld force, const ld area)
+	static ld stress_usingF(const ld force, const ld area)
 	{ return force / area;	}
 
 	/**
 	* method: strain(const ld change_in_length, const ld total_length)
-	* arguments: 1)change_in_length 2)total_length 
+	* arguments: 1)change_in_length 2)total_length
 	* purpose:	calculates the strain which is defined as the ratio of the change in length to length
 	* returns: ld, strain
 	*/
-	ld static strain(const ld change_in_length, const ld total_length)
+	static ld strain(const ld change_in_length, const ld total_length)
 	{ return change_in_length / total_length; }
 
-	/**
-	* method: hookes_law(const ld k, const ld deformation)
-	* arguments: 1)k = proportionailty constant 2)deformation = change in length 
-	* purpose:	calculates the Tensile strength using hooks law
-	* returns: ld, force that is safe before breaking
-	*/
-	ld static hookes_law(const ld k, const ld deformation)
-	{ return k * deformation; }
+
+	/// <summary>
+	///  Uses Hookes law to find the force applied
+	/// </summary>
+	/// <param name="k">The force constant.</param>
+	/// <param name="x">The deformation from starting point.</param>
+	/// <returns>force applied</returns>
+	static ld hookes_law(const ld k, const ld x)
+	{ return k * x; }
+
 
 	/**
 	* method: deforming_force(const ld modulus, const ld crossSectionalArea, const ld originalLength, const ld amountDeformed)
@@ -175,7 +177,7 @@ public:
 	* purpose:	calculates the force required to bend or deform a something depending on the material
 	* returns: ld, deforming force
 	*/
-	ld static deforming_force(const ld modulus, const ld crossSectionalArea, const ld originalLength, const ld amountDeformed)
+	static ld deforming_force(const ld modulus, const ld crossSectionalArea, const ld originalLength, const ld amountDeformed)
 	{ return ((modulus) * (crossSectionalArea) / (originalLength)) * amountDeformed; }
 
 	/**
@@ -186,11 +188,11 @@ public:
 	 * @param sheerModuli for the material being measured
 	 * @returns displacement of a material to side due to sheering force
 	 */
-	ld static displacement_side_sheer_force(const ld length, const ld diameter, const ld forceN, const ld sheerModuli)
+	static ld displacement_side_sheer_force(const ld length, const ld diameter, const ld forceN, const ld sheerModuli)
 	{
 		return (1 / sheerModuli) * (4 / (_PI_ * (diameter * diameter))) * forceN * length;
 	}
-	
+
 	/**
 	 * @brief Returns the amount of compression an object undergoes, such as weight on a steel beam
 	 * @param length is the length of the object
@@ -199,7 +201,7 @@ public:
 	 * @param force is the amount of force being applied
 	 * @returns the compression amount in meters
 	 */
-	ld static compression(const ld length, const ld crossSectionalArea, const ld youngsModulus, const ld force)
+	static ld compression(const ld length, const ld crossSectionalArea, const ld youngsModulus, const ld force)
 	{
 		return (force * length) / (youngsModulus * crossSectionalArea);
 	}
@@ -208,13 +210,13 @@ public:
 	 * @brief Returns the maximum force something will take before it fails
 	 * @param compressiveStrength is dependant on the material used
 	 * @param crosssSectionalArea is the area of a cross section of the object
-	 * @returns the max force before failure will occur 
+	 * @returns the max force before failure will occur
 	 */
-	ld static max_support_force(const ld compressiveStrength, const ld crossSectionalArea)
+	static ld max_support_force(const ld compressiveStrength, const ld crossSectionalArea)
 	{
 		return compressiveStrength * crossSectionalArea;
 	}
-	
+
 	~Elasticity()
 	{
 		delete _ptrElastic;
