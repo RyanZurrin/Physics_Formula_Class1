@@ -15,40 +15,46 @@ const double _RADIAN_ = _PI / 180;
 static int friction_objectCount = 0;
 
 // static friction coefficients
-static struct Static
+static struct FrictionCoefficient
 {
-	const ld static_rubber_concrete_dry = 1.0;//returns 1.0
-	const ld static_rubbedr_concrete_wet = .7; //returns 0.7
-	const ld static_wood_wood = .5;  //returns 0.5
-	const ld static_waxedWood_wetSnow = .14;  //returns 0.14
-	const ld static_metal_wood = .5;  //returns 0.5
-	const ld static_steel_steel_dry = .6;  //returns 0.6
-	const ld static_steel_steel_oiled = .05;  //returns 0.05
-	const ld static_teflon_steel = .04;  //returns 0.04
-	const ld static_bone_lubricated_synovial_fluid = .016;  //returns 0.016
-	const ld static_shoes_wood = .9;  //returns 0.9
-	const ld static_shoes_ice = .1;  //returns 0.1
-	const ld static_ice_ice = .1;  //returns 0.1
-	const ld static_steel_ice = 0.4; // returns 0.4
-}static_friction_coefficient;
+	struct StaticCoefficient
+	{
+		const ld static_rubber_concrete_dry = 1.0;//returns 1.0
+		const ld static_rubber_concrete_wet = .7; //returns 0.7
+		const ld static_wood_wood = .5;  //returns 0.5
+		const ld static_waxedWood_wetSnow = .14;  //returns 0.14
+		const ld static_metal_wood = .5;  //returns 0.5
+		const ld static_steel_steel_dry = .6;  //returns 0.6
+		const ld static_steel_steel_oiled = .05;  //returns 0.05
+		const ld static_teflon_steel = .04;  //returns 0.04
+		const ld static_bone_lubricated_synovial_fluid = .016;  //returns 0.016
+		const ld static_shoes_wood = .9;  //returns 0.9
+		const ld static_shoes_ice = .1;  //returns 0.1
+		const ld static_ice_ice = .1;  //returns 0.1
+		const ld static_steel_ice = 0.4; // returns 0.4
+	}static_friction_coefficient;
 
-// Kinetic friction coefficients
-static struct Kinetic
-{
-	const ld kinetic_rubber_concrete_dry = .7;  //returns 0.7
-	const ld kinetic_rubber_concrete_wet = .5;  //returns 0.5
-	const ld kinetic_wood_wood = .3; //return 0.3
-	const ld kinetic_waxedWood_wetSnow = .1;//return 0.1
-	const ld kinetic_metal_wood = .3; //returns 0.3
-	const ld kinetic_steel_steel_dry = .3;  //returns 0.3
-	const ld kinetic_steel_steel_oiled = .03;  //return 0.03
-	const ld kinetic_teflon_steel = .4;  //return 0.4
-	const ld kinetic_bone_lubricated_synovial_fluid = .015; //returns 0.015
-	const ld kinetic_shoes_wood = .5;  //returns 0.5
-	const ld kinetic_shoes_ice = .5;  //return 0.5
-	const ld kinetic_ice_ice = .03;  //return 0.03
-	const ld kinetic_steel_ice = .04;  // return .04
-}kinetic_friction_coefficient;
+	// Kinetic friction coefficients
+	struct KineticCoefficient
+	{
+		const ld kinetic_rubber_concrete_dry = .7;  //returns 0.7
+		const ld kinetic_rubber_concrete_wet = .5;  //returns 0.5
+		const ld kinetic_wood_wood = .3; //return 0.3
+		const ld kinetic_waxedWood_wetSnow = .1;//return 0.1
+		const ld kinetic_metal_wood = .3; //returns 0.3
+		const ld kinetic_steel_steel_dry = .3;  //returns 0.3
+		const ld kinetic_steel_steel_oiled = .03;  //return 0.03
+		const ld kinetic_teflon_steel = .4;  //return 0.4
+		const ld kinetic_bone_lubricated_synovial_fluid = .015; //returns 0.015
+		const ld kinetic_shoes_wood = .5;  //returns 0.5
+		const ld kinetic_shoes_ice = .5;  //return 0.5
+		const ld kinetic_ice_ice = .03;  //return 0.03
+		const ld kinetic_steel_ice = .04;  // return .04
+	}kinetic_friction_coefficient;
+
+}friction;
+
+
 
 class Friction
 {

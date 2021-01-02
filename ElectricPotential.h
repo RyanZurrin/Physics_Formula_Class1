@@ -70,7 +70,9 @@ public:
 		return *this;
 	}
 
-	static void show_objectCount() { std::cout << "\n electrical potential object count: " << electricalPotential_objectCount << std::endl; }
+	static void show_objectCount() { std::cout
+		<< "\n electrical potential object count: "
+		<< electricalPotential_objectCount << std::endl; }
 	static int get_objectCount() { return electricalPotential_objectCount; }
 
 
