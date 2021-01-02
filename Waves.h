@@ -15,6 +15,7 @@
 static int waves_objectCount = 0;
 
 
+
 class Waves :
 	public Elasticity
 {
