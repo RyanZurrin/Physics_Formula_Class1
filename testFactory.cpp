@@ -15,15 +15,8 @@
 int main()
 {
 	PhysicsWorld test;
-	setVal(v.sphere(pow(10, -5)));
-	show_val("vSphere");
-	setVal(test.fluid_dynamics->diameterPipeForSpecifiedValues(680.0, 3.0*pow(10, -2),1.00*pow(10, -3),3000));
-	show_val();
-
-	resistivity.setCARBON(18.6);
-	cout << "carbon: " << resistivity.CARBON;
-	_val_ = test.kinematics->displacement(2.6, 78.4);
-	show_val("test");
+	ld f = friction.kinetic_friction_coefficient.kinetic_metal_wood;
+	setVal(test.friction->friction_force(2.0, friction.kinetic_friction_coefficient.kinetic_rubber_concrete_wet));
 
 }
 
