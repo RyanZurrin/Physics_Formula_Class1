@@ -27,6 +27,7 @@
     <ClInclude Include="FluidStatics.h" />
     <ClInclude Include="Hearing.h" />
     <ClInclude Include="Heat.h" />
+    <ClInclude Include="Kinematics.h" />
     <ClInclude Include="PeriodicElements.h" />
     <ClInclude Include="Temperature.h" />
     <ClInclude Include="TemplateClass.h" />

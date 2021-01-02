@@ -22,7 +22,8 @@ int main()
 
 	resistivity.setCARBON(18.6);
 	cout << "carbon: " << resistivity.CARBON;
-
+	_val_ = test.kinematics->displacement(2.6, 78.4);
+	show_val("test");
 
 }
 

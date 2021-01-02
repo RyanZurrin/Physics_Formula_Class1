@@ -4,12 +4,13 @@
  * @details driver class for solving complex physics problems
  * @author Ryan Zurrin
  * @date   12/17/2020
- */
+ ____________________________________________________________________________*/
 
 #ifndef WAVES_H
 #define WAVES_H
 #include <iostream>
 #include "Elasticity.h"
+#include "Energy.h"
 
 
 static int waves_objectCount = 0;
@@ -17,7 +18,7 @@ static int waves_objectCount = 0;
 
 
 class Waves :
-	public Elasticity
+	public Elasticity, public Energy
 {
 private:
 	static void countIncrease() { waves_objectCount += 1; }
@@ -60,7 +61,8 @@ public:
 		return *this;
 	}
 
-	static void show_objectCount() { std::cout << "\n waves object count: " << waves_objectCount << std::endl; }
+	static void show_objectCount() { std::cout << "\n waves object count: "
+		<< waves_objectCount << std::endl; }
 	static int get_objectCount() { return waves_objectCount; }
 
 
@@ -74,6 +76,9 @@ public:
 	{
 		return .5 * (k * pow(x, 2));
 	}
+
+
+
 
 
 	~Waves()
