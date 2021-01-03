@@ -15,7 +15,42 @@
 
 static int waves_objectCount = 0;
 
-
+/// <summary>
+/// Quadratics equation.
+/// </summary>
+/// <param name="a">a.</param>
+/// <param name="b">b.</param>
+/// <param name="c">c.</param>
+/// <returns>vector with the two results from calculation</returns>
+static vector<ld> quadraticEquation(const ld a, const ld b, const ld c)
+{
+	vector<ld> result = { 0.0, 0.0 };
+	result[0] = (-b - sqrt((b * b) - 4.0 * a * c)) / (2.0 * a);
+	result[1] = (-b + sqrt((b * b) - 4.0 * a * c)) / (2.0 * a);
+	return result;
+}
+/// <summary>
+/// Quadratic equation only plus.
+/// </summary>
+/// <param name="a">a.</param>
+/// <param name="b">b.</param>
+/// <param name="c">c.</param>
+/// <returns>answer to the plus calculation of quadratic</returns>
+static ld quadraticEquation_Plus(const ld a, const ld b, const ld c)
+{
+	return (-b + sqrt((b * b) - 4.0 * a * c)) / (2.0 * a);
+}
+/// <summary>
+/// Quadratic equation only minus.
+/// </summary>
+/// <param name="a">a.</param>
+/// <param name="b">b.</param>
+/// <param name="c">c.</param>
+/// <returns>answer to minus calculation of quadratic</returns>
+static ld quadraticEquation_minus(const ld a, const ld b, const ld c)
+{
+	return (-b - sqrt((b * b) - 4.0 * a * c)) / (2.0 * a);
+}
 
 class Waves :
 	public Elasticity, public Energy
@@ -69,7 +104,8 @@ public:
 
 
 	/// <summary>
-	/// calculates the energy stored in a deformed system that obey's Hook's law.
+	/// calculates the energy stored in a deformed system that obey's
+	/// Hook's law.\n PE_elastic = .5 * (k * pow(x, 2))
 	/// </summary>
 	/// <param name="k">The force constant.</param>
 	/// <param name="x">The displacement from equilibrium.</param>
@@ -80,7 +116,7 @@ public:
 	}
 
 	/// <summary>
-	/// Calculates the applied force.
+	/// Calculates the applied force.\n F_app =  k * x
 	/// </summary>
 	/// <param name="k">The force constant.</param>
 	/// <param name="x">The total displacement from the equilibrium.</param>
@@ -91,7 +127,7 @@ public:
 	}
 
 	/// <summary>
-	/// calculates the restoring force.
+	/// calculates the restoring force.\n F_res = -k * x
 	/// </summary>
 	/// <param name="k">The force constant.</param>
 	/// <param name="x">The total displacement from equilibrium.</param>
@@ -102,14 +138,115 @@ public:
 	}
 
 	/// <summary>
-	/// Calculates the force constant (k).
+	/// finds the length of a spring when at equilibrium
+	/// \n L = abs (((m * GA) + (k * l)) / k);
 	/// </summary>
-	/// <param name="F">The force being applied in newtons.</param>
+	/// <param name="k">The spring constant.</param>
+	/// <param name="m">The mass.</param>
+	/// <param name="l">The length.</param>
+	/// <returns>length of spring at equilibrium</returns>
+	static ld equilibriumLength(const ld k, const ld m, const ld l)
+	{
+		return abs (((m * GA) + (k * l)) / k);
+	}
+
+	/// <summary>
+	/// Calculates the spring force constant (k).
+	/// </summary>
+	/// <param name="F">The force being applied in newtons.\n
+	/// if you use F = ma, where a = 9.8m/s^2 due to gravity then be sure
+	/// to get total before or run full F=ma function as argument.</param>
 	/// <param name="x">The displacement from equilibrium position.</param>
 	/// <returns>force constant, k</returns>
-	static ld forceConstant(const ld F, const ld x)
+	static ld springConstant(const ld F, const ld x)
 	{
 		return -(F / x);
+	}
+
+	/// <summary>
+	/// Calculates the spring force constant (k) using the relationship of
+	/// KE = PE, 1/2mv^2 = 1/2kx^2, multiply both sides by 2/x^2 to end up with
+	/// spring constant k = mv^2/x^2
+	/// </summary>
+	/// <param name="m">The mass.</param>
+	/// <param name="v">The velocity.</param>
+	/// <param name="x">The total compression distance.</param>
+	/// <returns>spring constant (k)</returns>
+	static ld springConstant(const ld m, const ld v, const ld x)
+	{
+		return (m * (v * v)) / (x * x);
+	}
+
+	/// <summary>
+	/// calculates the spring constant from two masses and two lengths
+	/// </summary>
+	/// <param name="m1">The mass of weight 1.</param>
+	/// <param name="l1">The length weight 1 distorts spring.</param>
+	/// <param name="m2">The mass of weight 2.</param>
+	/// <param name="l2">The length weight 2 distorts the spring.</param>
+	/// <returns>spring constant (k)</returns>
+	static ld springConstant(const ld m1, const ld l1, const ld m2, const ld l2)
+	{
+		return (GA * (m2 - m1)) / (l1 - l2);
+	}
+
+	/// <summary>
+	/// Calculates the spring constant of object moving in simple
+	/// harmonic motion.\n k = (4.0 * (_PI * _PI) * m) / (T * T)
+	/// </summary>
+	/// <param name="m">The mass in kg.</param>
+	/// <param name="T">The period T.</param>
+	/// <returns>spring constant (k)</returns>
+	static ld springConstant_harmonicMotion(const ld m, const ld T)
+	{
+		return (4.0 * (_PI * _PI) * m) / (T * T);
+	}
+
+	/// <summary>
+	/// calculates the spring constant using mass.
+	/// </summary>
+	/// <param name="m">The mass.</param>
+	/// <param name="x">The distance spring compressed.</param>
+	/// <returns>spring constant (k)</returns>
+	static ld springConstant_mass(const ld m, const ld x)
+	{
+		return (-m * GA) / x;
+	}
+
+	/// <summary>
+	/// calculates the spring constant for each spring in a system of springs
+	/// </summary>
+	/// <param name="k">The spring constant total.</param>
+	/// <param name="numSprings">The total springs.</param>
+	/// <returns>spring constant each spring</returns>
+	static ld springConstantEach(const ld k, const ld numSprings)
+	{
+		return k / numSprings;
+	}
+
+	/// <summary>
+	/// calculates teh mass of an object hanging vertically from a spring with
+	/// a know spring constant.
+	/// </summary>
+	/// <param name="k">The spring constant.</param>
+	/// <param name="x">The displacement from equilibrium.</param>
+	/// <param name="acl">The acceleration, default is GA(9.8m/s^2).</param>
+	/// <returns>mass in kg</returns>
+	static ld hangingMass(const ld k, const ld x, const ld acl = GA)
+	{
+		return (-k * x) / acl;
+	}
+
+	/// <summary>
+	/// calculates the distance the marks are apart at a given mass interval.
+	/// </summary>
+	/// <param name="k">The spring constant.</param>
+	/// <param name="m">The mass.</param>
+	/// <param name="g">The acceleration from gravity, default GA(9.8).</param>
+	/// <returns>distance m</returns>
+	static ld distanceMarksApart(const ld k, const ld m, const ld g = GA)
+	{
+		return (m * g) / k;
 	}
 
 	/// <summary>
@@ -156,11 +293,11 @@ public:
 	}
 
 	/// <summary>
-	/// Periods the simple harmonic oscillator.
+	/// Calculates the period of a object moving in simple harmonic motion.
 	/// </summary>
-	/// <param name="m">The m.</param>
-	/// <param name="k">The k.</param>
-	/// <returns></returns>
+	/// <param name="m">The mass.</param>
+	/// <param name="k">The spring constant.</param>
+	/// <returns>period T</returns>
 	static ld period_simpleHarmonicOscillator(const ld m, const ld k)
 	{
 		return (2.0 * _PI) * sqrt(m / k);
@@ -192,6 +329,18 @@ public:
 	}
 
 	/// <summary>
+	/// calculates the velocity max.
+	/// </summary>
+	/// <param name="A">the amplitude</param>
+	/// <param name="k">The spring constant.</param>
+	/// <param name="m">The mass.</param>
+	/// <returns></returns>
+	static ld vMax(const ld A, const ld k, const ld m)
+	{
+		return sqrt((k / m)) * A;
+	}
+
+	/// <summary>
 	/// Calculates the acceleration as a function of time.
 	/// </summary>
 	/// <param name="k">The force constant.</param>
@@ -205,6 +354,192 @@ public:
 	{
 		return -((k * X) / m) * cos(((2.0 * _PI * t) / T) * RADIAN);
 	}
+
+	/// <summary>
+	/// Calculates the speed of a engine.
+	/// </summary>
+	/// <param name="se__r">sound every ___ revolutions of engine.</param>
+	/// <param name="freqHz">The freq hz, or pops per second sound.</param>
+	/// <param name="revPerK">The revolutions per kilometer.</param>
+	/// <param name="cylinders">how many cylinders are making sounds per
+	/// every se__r.</param>
+	/// <returns>speed of car in km/s</returns>
+	static ld speedOfEngine(const ld se__r, const ld freqHz, const ld revPerK, const ld cylinders)
+	{
+		return (1.0 / revPerK)
+		* (freqHz / 1.0)
+		* (se__r / 1.0)
+		* (1.0 / cylinders);
+	}
+
+	/// <summary>
+	/// calculates the mass to add to a spring to change from one period T1
+	/// to period T2.\n m2 = m1 * (pow(T2 / T1, 2.0) - 1.0)
+	/// </summary>
+	/// <param name="m1">The initial mass.</param>
+	/// <param name="T1">The initial period T.</param>
+	/// <param name="T2">The new period we are calculating the mass for</param>
+	/// <returns>The add mass to the spring</returns>
+	static ld massToAddToSpringToChangePeriod(const ld m1, const ld T1, const ld T2)
+	{
+		return m1 * (pow(T2 / T1, 2.0) - 1.0);
+	}
+
+	/// <summary>
+	/// Calculates by how much leeway there would be in the selection of
+	/// the masses added to a spring oscillating if you did not wish the new
+	/// period to be greater than Tu in s or less than Tl in s.
+	/// \n massLeeway = (m1 / (T1 * T1)) * ((Tu * Tu) - (Tl * Tl))
+	/// </summary>
+	/// <param name="m1">The mass initially.</param>
+	/// <param name="T1">The period T initially.</param>
+	/// <param name="Tu">The period T upper limit.</param>
+	/// <param name="Tl">The period T lower limit.</param>
+	/// <returns>the leeway in mass to keep within limits</returns>
+	static ld differenceBetweenUpperLowerMasses(const ld m1, const ld T1, const ld Tu, const ld Tl)
+	{
+		return (m1 / (T1 * T1)) * ((Tu * Tu) - (Tl * Tl));
+	}
+
+	/// <summary>
+	/// calculates the amplitudes of oscillations.\n A =(m * g) / k
+	/// </summary>
+	/// <param name="m">The mass.</param>
+	/// <param name="k">The spring constant.</param>
+	/// <param name="g">acceleration from gravity, default is GA(9.8).</param>
+	/// <returns>amplitude (A)</returns>
+	static ld amplitudeOfOscillation(const ld m, const ld k, const ld g = GA)
+	{
+		return (m * g) / k;
+	}
+
+	/// <summary>
+	/// A diver on a diving board is undergoing simple harmonic motion.
+	/// Her mass is m1 kg and the period of her motion is T1 s.
+	/// The next diver is a male whose period of simple harmonic oscillation
+	/// is T2 s. What is his mass if the mass of the board is negligible?
+	/// \n m2 = pow((T2 / T1), 2.0) * m1
+	/// </summary>
+	/// <param name="m1">The female diver mass.</param>
+	/// <param name="T1">The period of her harmonic motion.</param>
+	/// <param name="T2">The period of his harmonic motion.</param>
+	/// <returns>the male divers mass</returns>
+	static ld massDiver2(const ld m1, const ld T1, const ld T2)
+	{
+		return pow((T2 / T1), 2.0) * m1;
+	}
+
+	/// <summary>
+	/// Suppose a diving board with no one on it bounces up and down in a
+	/// simple harmonic motion with a frequency of f1. The board has an
+	/// effective mass of m1 kg. What is the frequency of the simple harmonic
+	/// motion of a m2-kg diver on the board?
+	/// \n f2 = f1 * sqrt(m1 / (m1 + m2))
+	/// </summary>
+	/// <param name="f1">The frequency initially.</param>
+	/// <param name="m1">The mass of board.</param>
+	/// <param name="m2">The mass of diver.</param>
+	/// <returns>frequency of simple harmonic motion</returns>
+	static ld frequency2_harmonicMotion(const ld f1, const ld m1, const ld m2)
+	{
+		return f1 * sqrt(m1 / (m1 + m2));
+	}
+
+	/// <summary>
+	/// A  skydiver of mass m1 is hanging from a parachute bounces up and down
+	/// with a period of T1 s. What is the new period T2 of oscillation when a
+	/// second skydiver, whose mass is m2, hangs from the legs of the first.
+	/// \n T2 = T1 * sqrt((m1 + m2) / m1)
+	/// </summary>
+	/// <param name="m1">The mass of first skydiver.</param>
+	/// <param name="T1">The period T with one skydiver.</param>
+	/// <param name="m2">The mass of the second skydiver.</param>
+	/// <returns>the period T with both skydivers</returns>
+	static ld period_T2(const ld m1, const ld T1, const ld m2)
+	{
+		return T1 * sqrt((m1 + m2) / m1);
+	}
+
+	/// <summary>
+	/// calculates the period T of a simple pendulum.
+	/// \n T = 2.0 * _PI * sqrt((L / GA))
+	/// </summary>
+	/// <param name="L">The length of the pendulum.</param>
+	/// <returns>the period T</returns>
+	static ld period_simplePendulum(const ld L)
+	{
+		return 2.0 * _PI * sqrt((L / GA));
+	}
+
+	/// <summary>
+	/// Calculates the length of a simple pendulum.
+	/// \n L = ((T * T) * GA) / (4.0 * (_PI * _PI))
+	/// </summary>
+	/// <param name="T">The period T.</param>
+	/// <returns>length of the pendulum</returns>
+	static ld length_simplePendulum(const ld T)
+	{
+		return ((T * T) * GA) / (4.0 * (_PI * _PI));
+	}
+
+	/// <summary>
+	/// Calculates the Frequency of a simple pendulum.
+	/// \n f =(1.0 / (2.0 * _PI)) * sqrt(GA / L)
+	/// </summary>
+	/// <param name="L">The length of pendulum.</param>
+	/// <returns>frequency (Hz)</returns>
+	static ld frequency_simplePendulum(const ld L)
+	{
+		return (1.0 / (2.0 * _PI)) * sqrt(GA / L);
+	}
+
+	/// <summary>
+	///  A pendulum that has a period of T1s and that is located where
+	///  the acceleration due to gravity is g1 m/s2 is moved to a location
+	///  where it the acceleration due to gravity is g2 m/s2. What is its
+	///  new period?
+	/// </summary>
+	/// <param name="T1">The initial period T.</param>
+	/// <param name="g1">The gravity at location one.</param>
+	/// <param name="g2">The gravity at location two.</param>
+	/// <returns>period T of pendulum at second location</returns>
+	static ld period_T2_pendulum_gravityChange(const ld T1, const ld g1, const ld g2)
+	{
+		return T1 * sqrt(g1 / g2);
+	}
+
+	/// <summary>
+	/// A pendulum with a period of T1 s in one location with acceleration due
+	/// to gravity g1 and is moved to a new location where the period is now
+	/// T2. What is the acceleration due to gravity at its new location?
+	/// </summary>
+	/// <param name="T1">The initial period T.</param>
+	/// <param name="g1">The gravity at initial location.</param>
+	/// <param name="T2">The period T of the new location.</param>
+	/// <returns>the acceleration due to gravity</returns>
+	static ld gravity_pendulum(const ld T1, const ld g1, const ld T2)
+	{
+		return g1 * pow(T1 / T2, 2);
+	}
+
+	/// <summary>
+	/// Ropes the stretch.
+	/// </summary>
+	/// <param name="k">The k.</param>
+	/// <param name="m">The m.</param>
+	/// <param name="distFall">The dist fall.</param>
+	/// <returns></returns>
+	static ld ropeStretch(const ld k, const ld m, const ld distFall)
+	{
+		ld a = .5 * k;
+		cout << "a: " << a << endl;
+		ld b = -m * GA;
+		cout << "b: " << b << endl;
+		ld c = distFall * b;
+		cout << "c: " << c << endl;
+		return quadraticEquation_Plus(a, b, c);
+	}
+
 
 
 

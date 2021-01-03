@@ -15,8 +15,8 @@
 int main()
 {
 	PhysicsWorld test;
-	ld f = friction.kinetic_friction_coefficient.kinetic_metal_wood;
-	setVal(test.friction->friction_force(2.0, friction.kinetic_friction_coefficient.kinetic_rubber_concrete_wet));
+	setVal(test.waves->ropeStretch(1.4*pow(10, 4),90.0, 2.0));
+	show_val("stretched");
 
 }
 
