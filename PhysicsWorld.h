@@ -54,7 +54,7 @@ const ld _c_ = 2.99792458 * pow(10.0, 8.0);
 /**
  * @brief area of sphere with radius r
  */
-inline ld sphereArea(const ld r)
+static ld sphereArea(const ld r)
 {
 	return 4.0 * _PI_ * (r * r);
 }
@@ -62,7 +62,7 @@ inline ld sphereArea(const ld r)
 /**
  * @brief volume of sphere with radius r
  */
-inline ld sphereVolume(const ld r)
+static ld sphereVolume(const ld r)
 {
 	return (4.0 / 3.0) * (_PI_ * (r * r * r));
 }
@@ -70,7 +70,7 @@ inline ld sphereVolume(const ld r)
 /**
  * @circumference of a circle with radius r or diameter d
  */
-inline ld circleCircumference(const ld rd, const char mode = 'r')
+static ld circleCircumference(const ld rd, const char mode = 'r')
 {
 	if(mode == 'r')
 	{
@@ -84,7 +84,7 @@ inline ld circleCircumference(const ld rd, const char mode = 'r')
  * @param mode in radius default, for diameter add 'd' as a second argument
  * @returns the total area of a circle
  */
-inline ld circleArea(const ld rd, const char mode = 'r')
+static ld circleArea(const ld rd, const char mode = 'r')
 {
 	if (mode == 'r')
 	{
@@ -98,10 +98,12 @@ inline ld circleArea(const ld rd, const char mode = 'r')
  * @param xf is the ending value
  * @return the difference between xf and xi
  */
-inline ld delta(const ld xi, const ld xf)
+static ld delta(const ld xi, const ld xf)
 {
 	return xf - xi;
 }
+
+
 
 
 /**
@@ -190,6 +192,25 @@ static struct Conversions
 	static ld kmh_to_mps(const ld kmh = _val_)
 	{
 		return kmh / 3.6;
+	}
+
+	/// <summary>
+	/// KMSs to KMH.
+	/// </summary>
+	/// <param name="kms">kilometers per second.</param>
+	/// <returns>kilometers per hour</returns>
+	static ld kms_to_kmh(const ld kms = _val_)
+	{
+		return kms * 3600.0;
+	}
+	/// <summary>
+	/// KMHs to KMS.
+	/// </summary>
+	/// <param name="kmh">kilometers per hour.</param>
+	/// <returns>kilometers per second</returns>
+	static ld kmh_to_kms(const ld kmh = _val_)
+	{
+		return kmh / 3600.0;
 	}
 	/**
 	 * @brief Returns the conversion from miles per hour to meters per second
