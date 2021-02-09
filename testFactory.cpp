@@ -14,13 +14,43 @@
 
 int main()
 {
-	PhysicsWorld test;
-	setVal(test.waves->ropeStretch(1.4*pow(10, 4),90.0, 2.0));
-	show_val("stretched");
+	PhysicsWorld spring;
+	//setVal(spring.hearing->dopplerEffect_stationarySource_towardsSource(933, 345, converter.kmh_to_mps(105)));
+	//show_val("frequency towards", "Hz");
+
+	//setVal(spring.hearing->dopplerEffect_stationarySource_awayFromSource(933, 345, converter.kmh_to_mps(105)));
+	//show_val("frequency away", "Hz");
+	//spring.hearing->overtoneGenerator_closedTube_f(54.4, 3);
+	setVal( spring.electric_charge->netElectronCount(1.0000*SU.tera,-5.00*SU.nano));
+	show_val("electrons");
+
+
+	//setVal(spring.hearing->fundamentalFrequency_openTube(spring.hearing->speedOfSound(16),2.250));
+	//show_val();
+	//spring.hearing->overtoneGenerator_openTube_L(spring.hearing->speedOfSound(16),2.250,5);
+
+	//setVal(spring.hearing->fundamentalFrequency_closedTube(2.250, spring.hearing->speedOfSound(18)));
+	//show_val();
+	//spring.hearing->overtoneGenerator_closedTube_L(spring.hearing->speedOfSound(18), 2.250, 5);
+
+	//setVal(spring.hearing->fundamentalFrequency_openTube(spring.hearing->speedOfSound(18),2.250));
+	//show_val();
+	//spring.hearing->overtoneGenerator_openTube_L(spring.hearing->speedOfSound(16.0),2.350,300);
+
+
+	//setVal(spring.hearing->fundamentalFrequency_closedTube(2.350, spring.hearing->speedOfSound(16.0)));
+	//show_val("fund freq", "Hz");
+	//spring.hearing->overtoneGenerator_closedTube_L(spring.hearing->speedOfSound(16.0), 2.350, 300);
+	//printVectorValues(spring.hearing->dopplerEffect_2movingSources_towards(15, 24.7, 3943, 3800, 330));
+
+	/*
+	spring.hearing->overtoneGenerator_closedTube_f(32.2, 5);
+	spring.hearing->overtoneGenerator_openTube(344.0, .672, 4);
+	spring.hearing->overtoneGenerator_openTube_f(90.0, 4);
+	*/
+	return 0;
 
 }
-
-
 
 /*_______________________________________________________________________________
 	Testing functions

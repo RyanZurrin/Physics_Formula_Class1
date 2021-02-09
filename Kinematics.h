@@ -14,15 +14,6 @@
 
 static int kinematics_objectCount = 0;
 
-static ld _val_;// = 0.0;
-static void show_val() { cout << "_val_: " << _val_ << endl; }
-static void show_val(const ld val) { cout << "val: " << val << endl; }
-static void show_val(const string label) { cout << "\n"+label+": " << _val_
-	<< endl; }
-static void setVal(const ld v)
-{
-	_val_ = v;
-}
 
 /// <summary>
 /// The vector values is for storing answers when there requires multiple
@@ -38,11 +29,7 @@ static void setVector(vector<ld> v)
 	vector_values = v;
 }
 
-/// <summary>
-/// Returns the value.
-/// </summary>
-/// <returns></returns>
-static ld return_val() { return _val_; }
+
 /// <summary>
 /// Returns the vector.
 /// </summary>
@@ -55,21 +42,6 @@ static vector<ld> return_vector(vector<ld>& v) { return v; }
 static void showVector()
 {
 	for (auto it : vector_values)
-	{
-		std::cout << it << ", ";
-	}
-	std::cout << std::endl;
-}
-
-
-/// <summary>
-/// Shows the vector values.
-/// </summary>
-/// <param name="size_t">The size t.</param>
-template <typename T, size_t size>
-static void show_vector_values(T (&size_t) [size])
-{
-	for (auto it : size_t)
 	{
 		std::cout << it << ", ";
 	}
@@ -392,6 +364,7 @@ public:
 	 */
 	std::vector<ld> pos_vel_falling_object_upDown(ld v, ld a, ld t, ld p = 0.0)const
 	{
+		ld temp;
 		vector_values[0] = t;
 		//solution for Position:
 		Kinematics obj;
@@ -399,8 +372,8 @@ public:
 		vector_values[1] = obj.displacement_accelerating_object_PV(v, a, t, p);
 		//Solution for Velocity:
 
-		_val_ = obj.velocity_final_from_kinematic_time(v, a, t);
-		vector_values[2] = _val_;
+		temp = obj.velocity_final_from_kinematic_time(v, a, t);
+		vector_values[2] = temp;
 
 		vector_values[3] = a;
 		//this->show_vector_values();
