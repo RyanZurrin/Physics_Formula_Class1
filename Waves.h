@@ -110,18 +110,18 @@ public:
 	/// <param name="k">The force constant.</param>
 	/// <param name="x">The displacement from equilibrium.</param>
 	/// <returns>PE, stored potential energy</returns>
-	static ld elasticPotentialEnergy(const ld k, const ld x)
+	static ld potentialEnergy_Elastic(const ld k, const ld x)
 	{
 		return .5 * (k * pow(x, 2));
 	}
 
 	/// <summary>
-	/// Calculates the applied force.\n F_app =  k * x
+	/// Calculates the applied force on a system obeying hooks law.\n F_app =  k * x
 	/// </summary>
 	/// <param name="k">The force constant.</param>
 	/// <param name="x">The total displacement from the equilibrium.</param>
 	/// <returns>Force, applied</returns>
-	static ld appliedForce(const ld k, const ld x)
+	static ld forceCompressSpring_hooksLaw(const ld k, const ld x)
 	{
 		return k * x;
 	}
@@ -132,7 +132,7 @@ public:
 	/// <param name="k">The force constant.</param>
 	/// <param name="x">The total displacement from equilibrium.</param>
 	/// <returns>Force, restoring</returns>
-	static ld restoringForce(const ld k, const ld x)
+	static ld forceRestoreSpring_hooksLaw(const ld k, const ld x)
 	{
 		return -k * x;
 	}
@@ -158,7 +158,7 @@ public:
 	/// to get total before or run full F=ma function as argument.</param>
 	/// <param name="x">The displacement from equilibrium position.</param>
 	/// <returns>force constant, k</returns>
-	static ld springConstant(const ld F, const ld x)
+	static ld springConstant_hooksLaw(const ld F, const ld x)
 	{
 		return -(F / x);
 	}
@@ -172,7 +172,7 @@ public:
 	/// <param name="v">The velocity.</param>
 	/// <param name="x">The total compression distance.</param>
 	/// <returns>spring constant (k)</returns>
-	static ld springConstant(const ld m, const ld v, const ld x)
+	static ld springConstant_velocity(const ld m, const ld v, const ld x)
 	{
 		return (m * (v * v)) / (x * x);
 	}
@@ -185,9 +185,9 @@ public:
 	/// <param name="m2">The mass of weight 2.</param>
 	/// <param name="l2">The length weight 2 distorts the spring.</param>
 	/// <returns>spring constant (k)</returns>
-	static ld springConstant(const ld m1, const ld l1, const ld m2, const ld l2)
+	static ld springConstant_2masses(const ld m1, const ld l1, const ld m2, const ld l2)
 	{
-		return (GA * (m2 - m1)) / (l1 - l2);
+		return (_Ga_ * (m2 - m1)) / (l1 - l2);
 	}
 
 	/// <summary>
@@ -208,9 +208,9 @@ public:
 	/// <param name="m">The mass.</param>
 	/// <param name="x">The distance spring compressed.</param>
 	/// <returns>spring constant (k)</returns>
-	static ld springConstant_mass(const ld m, const ld x)
+	static ld springConstant_HangingMass(const ld m, const ld x)
 	{
-		return (-m * GA) / x;
+		return (-m * GA) / -x;
 	}
 
 	/// <summary>
@@ -219,7 +219,7 @@ public:
 	/// <param name="k">The spring constant total.</param>
 	/// <param name="numSprings">The total springs.</param>
 	/// <returns>spring constant each spring</returns>
-	static ld springConstantEach(const ld k, const ld numSprings)
+	static ld springConstant_forEachSpring(const ld k, const ld numSprings)
 	{
 		return k / numSprings;
 	}
@@ -232,9 +232,20 @@ public:
 	/// <param name="x">The displacement from equilibrium.</param>
 	/// <param name="acl">The acceleration, default is GA(9.8m/s^2).</param>
 	/// <returns>mass in kg</returns>
-	static ld hangingMass(const ld k, const ld x, const ld acl = GA)
+	static ld mass(const ld k, const ld x, const ld acl = GA)
 	{
 		return (-k * x) / acl;
+	}
+
+	/// <summary>
+	/// Calculates the Mass the of a pendulum.
+	/// </summary>
+	/// <param name="T">The period T.</param>
+	/// <param name="k">The spring force constant.</param>
+	/// <returns>mass of the pendulum</returns>
+	static ld massOfPendulum(const ld T, const ld k)
+	{
+		return ((T * T) * k) / (4.0 * (_PI * _PI));
 	}
 
 	/// <summary>
@@ -244,9 +255,9 @@ public:
 	/// <param name="m">The mass.</param>
 	/// <param name="g">The acceleration from gravity, default GA(9.8).</param>
 	/// <returns>distance m</returns>
-	static ld distanceMarksApart(const ld k, const ld m, const ld g = GA)
+	static ld depressionDistanceMarksApart(const ld k, const ld m, const ld g = GA)
 	{
-		return (m * g) / k;
+		return (-m * g) / k;
 	}
 
 	/// <summary>
@@ -316,6 +327,33 @@ public:
 	}
 
 	/// <summary>
+	/// When the block passes through the equilibrium position, all of the
+	/// spring's potential is now kinetic energy of the block. This may be
+	/// written as
+	/// kxi^2/2 = mv^2/2
+	/// </summary>
+	/// <param name="k">The spring constant.</param>
+	/// <param name="m">The mass.</param>
+	/// <param name="x">The distance of compression or stretch from equilibrium.</param>
+	/// <returns>velocity of a oscillator wave</returns>
+	static ld speedThroughEquilibrium_oscillatingMass(const ld k, const ld m, const ld x)
+	{
+		return (pow(k/m,.5) * x);
+	}
+
+	/// <summary>
+	/// Calculates the velocities of a oscillator.
+	/// </summary>
+	/// <param name="vMax">The vMax.</param>
+	/// <param name="x">The x.</param>
+	/// <param name="X">The .</param>
+	/// <returns>velocity of a oscillator wave</returns>
+	static ld velocity_oscillator(const ld vMax, const ld x, const ld X)
+	{
+		return vMax * sqrt(1.0 - ((x * x) / (X * X)));
+	}
+
+	/// <summary>
 	/// Calculates the velocity as a function of time.
 	/// </summary>
 	/// <param name="vMax">The v maximum is a function of Amplitude and
@@ -328,6 +366,16 @@ public:
 		return -vMax * sin(((2.0 * _PI * t) / T) * RADIAN);
 	}
 
+	static ld velocity_T(const ld waveLength, const ld T)
+	{
+		return waveLength / T;
+	}
+
+	static ld velocity_f(const ld waveLength, const ld f)
+	{
+		return waveLength * f;
+	}
+
 	/// <summary>
 	/// calculates the velocity max.
 	/// </summary>
@@ -338,6 +386,41 @@ public:
 	static ld vMax(const ld A, const ld k, const ld m)
 	{
 		return sqrt((k / m)) * A;
+	}
+
+	/// <summary>
+	/// calculates the velocity max using amplitude and period.
+	/// </summary>
+	/// <param name="A">a.</param>
+	/// <param name="T">The t.</param>
+	/// <returns></returns>
+	static ld vMax(const ld A, const ld T)
+	{
+		return (2.0 * _PI * A) / T;
+	}
+
+	/// <summary>
+	/// Calculates the velocities of a vibrating string.
+	/// </summary>
+	/// <param name="F">The force.</param>
+	/// <param name="m">The mass.</param>
+	/// <param name="L">The length.</param>
+	/// <returns>speed of vibrating string</returns>
+	static ld velocityString(const ld F, const ld m, const ld L)
+	{
+		return sqrt(F / (m / L));
+	}
+
+	/// <summary>
+	/// calculates the velocities of a pendulum.
+	/// </summary>
+	/// <param name="wMax">The  maximum.</param>
+	/// <param name="L">The l.</param>
+	/// <param name="thetaMax">The theta maximum.</param>
+	/// <returns></returns>
+	static ld velocity_pendulum(const ld wMax, const ld L, const ld thetaMax)
+	{
+		return sqrt((_Ga_) / (L)) * thetaMax;
 	}
 
 	/// <summary>
@@ -461,7 +544,7 @@ public:
 	}
 
 	/// <summary>
-	/// calculates the period T of a simple pendulum.
+	/// calculates the period T of a simple pendulum. for angles < 15 degrees
 	/// \n T = 2.0 * _PI * sqrt((L / GA))
 	/// </summary>
 	/// <param name="L">The length of the pendulum.</param>
@@ -473,13 +556,14 @@ public:
 
 	/// <summary>
 	/// Calculates the length of a simple pendulum.
-	/// \n L = ((T * T) * GA) / (4.0 * (_PI * _PI))
+	/// \n L = ((T * T) * g) / (4.0 * (_PI * _PI))
 	/// </summary>
 	/// <param name="T">The period T.</param>
+	/// <param name="g">the acceleration due to gravity</param>
 	/// <returns>length of the pendulum</returns>
-	static ld length_simplePendulum(const ld T)
+	static ld length_simplePendulum(const ld T, const ld g = GA)
 	{
-		return ((T * T) * GA) / (4.0 * (_PI * _PI));
+		return ((T * T) * g) / (4.0 * (_PI * _PI));
 	}
 
 	/// <summary>
@@ -490,7 +574,18 @@ public:
 	/// <returns>frequency (Hz)</returns>
 	static ld frequency_simplePendulum(const ld L)
 	{
-		return (1.0 / (2.0 * _PI)) * sqrt(GA / L);
+		return (1.0 / (2.0 * _PI)) * sqrt(_Ga_ / L);
+	}
+
+	/// <summary>
+	/// calculates the periods T of system obeying hooks law.
+	/// </summary>
+	/// <param name="m">The mass.</param>
+	/// <param name="k">The spring force constant.</param>
+	/// <returns>the period T</returns>
+	static ld period_T(const ld m, const ld k)
+	{
+		return 2.0 * _PI * sqrt(m / k);
 	}
 
 	/// <summary>
@@ -537,10 +632,55 @@ public:
 		cout << "b: " << b << endl;
 		ld c = distFall * b;
 		cout << "c: " << c << endl;
+
 		return quadraticEquation_Plus(a, b, c);
 	}
 
+	/// <summary>
+	/// calculates the intensity.
+	/// </summary>
+	/// <param name="P">The power(work/time).</param>
+	/// <param name="A">amplitude.</param>
+	/// <returns></returns>
+	static ld intensity(const ld P, const ld A)
+	{
+		return P / A;
+	}
 
+	/// <summary>
+	/// calculates the wavelength.
+	/// </summary>
+	/// <param name="v">The velocity.</param>
+	/// <param name="T">The period T.</param>
+	/// <returns>wavelength</returns>
+	static ld wavelength_T(const ld v, const ld T)
+	{
+		return v * T;
+	}
+
+	/// <summary>
+	/// calculates the wavelength
+	/// </summary>
+	/// <param name="v">The wave velocity.</param>
+	/// <param name="f">The frequency.</param>
+	/// <returns>wavelength</returns>
+	static ld wavelength_f(const ld v, const ld f)
+	{
+		return v/f;
+	}
+
+	/// <summary>
+	/// calculates the total energy caused by a wave of intensity I, over an
+	/// area of A, for a time of t
+	/// </summary>
+	/// <param name="I">The Intensity.</param>
+	/// <param name="A">the area the wave is acting on.</param>
+	/// <param name="t">The time of measurement.</param>
+	/// <returns>Energy of wave in joules</returns>
+	static ld energyWave(const ld I, const ld A, const ld t)
+	{
+		return I * A * t;
+	}
 
 
 	~Waves()

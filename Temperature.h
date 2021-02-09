@@ -56,7 +56,7 @@ static struct ThermalExpansionCoefficients
  * @brief Global Constant _K_ is the Boltzmann constant
  * .0000000000000000000000138 J/K
  */
-const ld _K_ = 1.38 * pow(10, -23);
+const ld BOLTZMANN_K = 1.38 * pow(10, -23);
 
 const ld GAMMA_MONO_ATOMIC = 1.66;
 
@@ -73,7 +73,7 @@ const ld AVOGADRO = 6.02 * pow(10, 23);//6.02*10^23
  */
 const struct UniversalGasConstant
 {
-	const ld joules = 8.31; //8.31 J/mol * K 
+	const ld joules = 8.31; //8.31 J/mol * K
 	const ld cal = 1.99; // 1.99 cal/mol * k
 	const ld L_atm = .0821; // .0821 L * atm/mol * K
 }R;
@@ -84,7 +84,7 @@ static int temperature_objectCount = 0;
 class Temperature
 {
 private:
-	
+
 	static void countIncrease() { temperature_objectCount += 1; }
 	static void countDecrease() { temperature_objectCount -= 1; }
 public:
@@ -139,10 +139,10 @@ public:
 		T._celsius = t.T._celsius;
 		T._kelvin = t.T._kelvin;
 	}
-	
+
 	static void show_temperature_objectCount() { std::cout << "\ntemperature object count: " << temperature_objectCount << std::endl; }
 	static int get_temperature_objectCount() { return temperature_objectCount; }
-	
+
 	struct Temp
 	{
 		ld _celsius;
@@ -161,7 +161,7 @@ public:
 			showCelsius();
 			showKelvin();
 		}
-		
+
 		/**
 		 * @brief method to set the fahrenheit instance variable. will update other
 		 * instance variables to reflect.
@@ -196,8 +196,8 @@ public:
 			_fahrenheit = tempConverter.kelvin_to_fahrenheit(_kelvin);
 		}
 	}T;
-	
-	
+
+
 	/**
 	 * @brief char variable when set will change the default of the constructor arguments being
 	 * passed in
@@ -227,7 +227,7 @@ public:
 			}
 			while (mode != 'c' && mode != 'f' && mode != 'k');
 		}
-		
+
 	}
 	/**
 	 * @brief method to set the fahrenheit instance variable. will update other
@@ -237,7 +237,7 @@ public:
 	void set_fahrenheit(const ld f)
 	{
 		T._fahrenheit = f;
-		T._celsius =  tempConverter.fahrenheit_to_celsius(T._fahrenheit);		
+		T._celsius =  tempConverter.fahrenheit_to_celsius(T._fahrenheit);
 		T._kelvin = tempConverter.fahrenheit_to_kelvin(T._fahrenheit);
 	}
 	/**
@@ -260,7 +260,7 @@ public:
 	{
 		T._kelvin = k;
 		T._celsius = tempConverter.kelvin_to_celsius(T._kelvin);
-		T._fahrenheit = tempConverter.kelvin_to_fahrenheit(T._kelvin);		
+		T._fahrenheit = tempConverter.kelvin_to_fahrenheit(T._kelvin);
 	}
 	ld getFahrenheit()const { return T._fahrenheit; }
 	ld getCelsius()const { return T._celsius; }
@@ -274,8 +274,8 @@ public:
 		showCelsius();
 		showKelvin();
 	}
-		
-	
+
+
 
 	/**
 	 * @brief converts from molecules to moles
@@ -293,7 +293,7 @@ public:
 	 * @param a is the coefficient of 'linear expansion'
 	 * @param L is the length and the change of the thermal expansion is proportional to its length
 	 * @param tempChange is the change in temperature
-	 * @returns the total expansion in meters 
+	 * @returns the total expansion in meters
 	 */
 	static ld thermalExpansionLinear1D(const ld a, const ld L, const ld tempChange)
 	{
@@ -305,7 +305,7 @@ public:
 	 * @param a is the coefficient of 'linear expansion'
 	 * @param areaChange is the change in the area
 	 * @param tempChange is the change in temperature
-	 * @returns the total thermal expansion of in area 
+	 * @returns the total thermal expansion of in area
 	 */
 	static ld thermalExpansionArea2D(const ld a, const ld areaChange, const ld tempChange)
 	{
@@ -328,7 +328,7 @@ public:
 	 * @brief calculates the final temperature needed for an object to reach a certain expansion as
 	 * described by the reworked linear thermal equation Tf = ((lRf -lRi)/(a * lRi)) + Ti.
 	 * @param a is the coefficient of 'linear expansion'
-	 * @param lRi is the initial length or radius of object at an initial temp 
+	 * @param lRi is the initial length or radius of object at an initial temp
 	 * @param lRf is the final length or radius caused from thermal expansion
 	 * @param Ti is the initial temperature
 	 * @returns final temperature needed for a object to expand a certain amount
@@ -370,24 +370,24 @@ public:
 	 * @param V is the volume it occupies
 	 * @param N is the number of atoms and molecules in the gas
 	 * @param T is the absolute Temperature
-	 * @returns the absolute pressure 
+	 * @returns the absolute pressure
 	 */
 	static ld absolutePressure_idealGasLaw(const ld V, const ld N, const ld T)
 	{
-		return (N * _K_ * T) / V;
+		return (N * BOLTZMANN_K * T) / V;
 	}
 	/**
 	 * @brief ideal gas law PV = NkT where reworked to solve for N
 	 * which is the number of atoms and molecules in the gas N = (PV)/(kT)
 	 * k = boltzmann constant
 	 * @param P is the absolute pressure of a gas
-	 * @param V is the volume it occupies 
+	 * @param V is the volume it occupies
 	 * @param T is the absolute Temperature in kelvins
 	 * @returns the absolute pressure
 	 */
 	static ld numberMolecules_idealGasLaw(const ld P, const ld V, const ld T)
 	{
-		return (P * V)/(_K_ * T);
+		return (P * V)/(BOLTZMANN_K * T);
 	}
 
 	/**
@@ -412,7 +412,7 @@ public:
 	 */
 	static ld translationalKineticEnergy_molecules(const ld T)
 	{
-		return (3.0 / 2.0)* _K_* T;
+		return (3.0 / 2.0)* BOLTZMANN_K* T;
 	}
 
 	/**
@@ -422,7 +422,7 @@ public:
 	 */
 	static ld speedAverage_rms(const ld m, const ld T)
 	{
-		return sqrt((3.0 * _K_ * T) / m);
+		return sqrt((3.0 * BOLTZMANN_K * T) / m);
 	}
 
 	/**
@@ -433,7 +433,7 @@ public:
 	 */
 	static ld temperatureOfMoleculeAtVelocity(const ld m, const ld v)
 	{
-		return (m * (v * v)) / (3.0 * _K_);
+		return (m * (v * v)) / (3.0 * BOLTZMANN_K);
 	}
 
 	/**
@@ -443,7 +443,7 @@ public:
 	{
 		return (p * m) / (_R * T);
 	}
-	
+
 	/**
 	 * @calculates the humidity or dew point
 	 * @param vD is the calculated vapor density
@@ -462,7 +462,7 @@ public:
 	{
 		return finishTemp - startTemp;
 	}
-	
+
 	~Temperature()
 	{
 		delete _tempPtr;

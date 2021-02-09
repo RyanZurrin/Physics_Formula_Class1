@@ -44,6 +44,67 @@ class PhysicsWorld;
 typedef long double ld;
 typedef PhysicsWorld PW;
 
+static ld _val_;// = 0.0;
+static void show_val() { cout << "_val_: " << _val_ << endl; }
+static void show_val(const ld val) { cout << "val: " << val << endl; }
+static void show_val(const string label, const string units = "")
+{ cout << "\n"+label+": " << _val_ << " "+units <<endl; }
+static void setVal(const ld v)
+{
+	_val_ = v;
+}
+/// <summary>
+/// Returns the value.
+/// </summary>
+/// <returns></returns>
+static ld return_val() { return _val_; }
+
+/// <summary>
+/// Prints the vector values of passed in vector.
+/// </summary>
+/// <param name="v">The v.</param>
+static void printVectorValues(vector<ld>& v)
+{
+	const int size = v.size();
+	cout << "vector: ";
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << v[i] << ", ";
+	}
+	std::cout << std::endl;
+}
+static void printVectorValues(vector<ld> v)
+{
+	const int size = v.size();
+	cout << "vector: ";
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << v[i] << ", ";
+	}
+	std::cout << std::endl;
+}
+
+template <typename T, size_t size>
+void static printArray(const T(&array)[size])
+{
+	for (size_t i = 0; i < size; i++)
+		cout << array[i] << " ";
+
+	cout << endl;
+}
+/// <summary>
+/// Prints the arr.
+/// </summary>
+/// <param name="arr">The array.</param>
+/// <param name="n">= sizeof( arr ) / sizeof( *arr )</param>
+void static printArr(const ld arr[], const int n)
+{
+	cout << "array values: ";
+	for (int i = 0; i < n; i++)
+	{
+		cout << arr[i] << ' ';
+	}
+}
 
 //Gravitational Constant 6.67408(31) * 10^(-11) * N
 const ld _GC_ = 6.674 * pow(10.0, -11.0);

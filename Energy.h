@@ -268,7 +268,7 @@ public:
 	 * @param forceConstant us unitless
 	 * @param deformation is the amount of change in the system
 	 */
-	static ld potential_energy_conservative_PEc(const ld forceConstant, const ld deformation)
+	static ld potential_energy_conservative_PE(const ld forceConstant, const ld deformation)
 	{
 		return .5 * (forceConstant * (deformation * deformation));
 	}
@@ -419,7 +419,7 @@ public:
 	 * @param k is the spring constant
 	 * @returns distance of compression in meters
 	 */
-	static ld compression_distance_on_spring(const ld mass, const ld velocity, const ld k)
+	static ld compressionDistanceCollisionWithSpring(const ld mass, const ld velocity, const ld k)
 	{
 		return sqrt((mass * (velocity * velocity)) / k);
 	}
