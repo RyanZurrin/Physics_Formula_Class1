@@ -94,7 +94,7 @@ public:
 	{
 		return Q - W;
 	}
-	
+
 	/**
 	 * @brief first law of thermodynamics  delta_U = Q - W
 	 * @param Q_in is the sum of all heat transfer into a system
@@ -149,11 +149,11 @@ public:
 	 * @param Patm atmospheric pressures in atmospheres(atm)s, default value of 1.0 atm(leave blank if no change needed)
 	 * @returns a vector with the Work done by object [0],
 	 * heat energy transferred during process[1], increase of internal energy of system[2]
-	 * 
+	 *
 	 */
 	static vector<ld> systemOfAnswers_workDone_heatTransfer_internalChange(const ld mass, const ld Ti, const ld Tf, const ld c, const ld density, const ld coefLinExp, const ld Patm = 1.0)
 	{
-		
+
 		const ld v0 = mass / density;
 		const ld changeV = 3.0 * coefLinExp * v0 * (Tf - Ti);
 		const ld W = Patm * ATM_TO_PASCAL_MULTIPLIER * changeV; // a
@@ -162,7 +162,7 @@ public:
 		vector<ld> results = { W, Q, U };
 		return results;
 	}
-	
+
 	/**
 	 * @brief calculates the food energy used in doing kJ worth of work at a certain eff%
 	 * @param W total work in kJ
@@ -253,7 +253,7 @@ public:
 				return (((var * 4.184) * 1000.0 * (eff / 100.0)) / watts) / 86400.0;
 			}
 		}
-		
+
 			if (timeSetting == 's')
 			{
 				return (var * 1000.0 * (eff / 100.0)) / watts;
@@ -272,12 +272,12 @@ public:
 			}
 			return (var * 1000.0 * (eff / 100.0)) / watts;
 		}
-	
+
 	/**
 	 * @brief calculates the carnot efficiency of a process
 	 * @param Tc absolute temp of cold reservoirs
 	 * @param Th absolute temp of hot reservoirs
-	 * @returns Carnot Efficiency 
+	 * @returns Carnot Efficiency
 	 */
 	static ld carnotEfficiency(const ld Tc, const ld Th)
 	{
@@ -290,7 +290,7 @@ public:
 	 * @param t1 time in hours
 	 * @param W work input in Joules
 	 * @param t2 time in seconds
-	 * @returns the EEF of a product such as a AC or Refrigerator 
+	 * @returns the EEF of a product such as a AC or Refrigerator
 	 */
 	static ld energyEfficiencyRating(const ld Qc,const ld t1,  const ld W, const ld t2)
 	{
@@ -359,7 +359,7 @@ public:
 	 * @param hotResTempCelsius
 	 * @returns the temp in celsius of the Hot Reservoir
 	 */
-	static ld carnotEngineColdReservoir(const ld eff, const ld hotResTempCelsius) 
+	static ld carnotEngineColdReservoir(const ld eff, const ld hotResTempCelsius)
 	{
 		return tempConverter.kelvin_to_celsius((1.0 - (eff / 100.0))*tempConverter.celsius_to_kelvin(hotResTempCelsius));
 	}
@@ -371,7 +371,7 @@ public:
 	 */
 	static ld changeInVolumeConstantPressure(const ld kPa, const ld Qin, const ld Qchange)
 	{
-		return (Qin - Qchange) / kPa; 
+		return (Qin - Qchange) / kPa;
 	}
 
 	/**
@@ -379,20 +379,20 @@ public:
 	 */
 	static ld monoatomicInternalEnergyChange(const ld Vi, const ld Vf, const ld pressureConstant)
 	{
-		return (pressureConstant * (Vf - Vi)) / (GAMMA_MONO_ATOMIC - 1);
+		return (pressureConstant * (Vf - Vi)) / (ATOMIC_MASS_UNIT - 1);
 	}
 	/**
 	 * @brief calculates the work done during an isobaric process
 	 * @param gP gauge pressure supplied
 	 * @param A cross sectional area of piston head A = pi*radius^2
 	 * @param d is the distance it travels
-	 * @returns work in J 
+	 * @returns work in J
 	 */
 	static ld work_isobaricProcessOnPiston(const ld gP, const ld A, const ld d)
 	{
 		return gP * A * d;
 	}
-	
+
 	/**
 	 * @brief destructor
 	 */

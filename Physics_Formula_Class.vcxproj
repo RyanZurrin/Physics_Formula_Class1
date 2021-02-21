@@ -53,6 +53,9 @@
     <ClCompile Include="Vector2d.cpp" />
     <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="oldProblems.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

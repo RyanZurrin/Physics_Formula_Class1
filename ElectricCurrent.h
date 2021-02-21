@@ -9,6 +9,8 @@
 
 #ifndef ELECTRICCURRENT_H
 #define ELECTRICCURRENT_H
+#include "ElectricPotential.h"
+
 #include <iostream>
 
 static struct Resistivities
@@ -147,11 +149,30 @@ public:
 	static int get_objectCount() { return electricCurrent_objectCount; }
 
 
+	/// <summary>
+	/// calculates the electric current (I) defined as the rate at which charge
+	/// (Q) flows through a given time (t).
+	/// </summary>
+	/// <param name="Q">The change in current.</param>
+	/// <param name="t">The time over which current passes through.</param>
+	/// <returns>the electric current SI unit of ampere (A)</returns>
+	static ld electricCurrent(const ld Q, const ld t);
+
+
+
+
+
 	~ElectricCurrent()
 	{
 		delete _electricCurrentPtr;
 	}
 
 };
+
+inline ld ElectricCurrent::electricCurrent(const ld Q, const ld t)
+{
+	return Q / t;
+}
+
 #endif
 

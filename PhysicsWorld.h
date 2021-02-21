@@ -49,9 +49,10 @@ static void show_val() { cout << "_val_: " << _val_ << endl; }
 static void show_val(const ld val) { cout << "val: " << val << endl; }
 static void show_val(const string label, const string units = "")
 { cout << "\n"+label+": " << _val_ << " "+units <<endl; }
-static void setVal(const ld v)
+static int setVal(const ld v)
 {
 	_val_ = v;
+	return v;
 }
 /// <summary>
 /// Returns the value.
@@ -65,7 +66,7 @@ static ld return_val() { return _val_; }
 /// <param name="v">The v.</param>
 static void printVectorValues(vector<ld>& v)
 {
-	const int size = v.size();
+	const auto size = v.size();
 	cout << "vector: ";
 	for (int i = 0; i < size; i++)
 	{
@@ -75,7 +76,7 @@ static void printVectorValues(vector<ld>& v)
 }
 static void printVectorValues(vector<ld> v)
 {
-	const int size = v.size();
+	const auto size = v.size();
 	cout << "vector: ";
 	for (int i = 0; i < size; i++)
 	{
@@ -499,7 +500,7 @@ public:
 	/**
 	 * @brief Template method to print out an array that is passed to it
 	 * @param array of values
- 	 */
+	 */
 	template <typename T, size_t size>
 	void static print_array(const T(&array)[size])
 	{
