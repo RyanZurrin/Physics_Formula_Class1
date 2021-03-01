@@ -56,9 +56,9 @@ static struct ThermalExpansionCoefficients
  * @brief Global Constant _K_ is the Boltzmann constant
  * .0000000000000000000000138 J/K
  */
-const ld BOLTZMANN_K = 1.38 * pow(10, -23);
+const ld BOLTZMANN_K = 1.38 * pow(10, -23);//1.38e-23
 
-const ld GAMMA_MONO_ATOMIC = 1.66;
+const ld ATOMIC_MASS_UNIT = 1.66*pow(10, -27); //1.6605e-27 (u)
 
 /**
  * @brief Global Constant _Na_ is  Avogadro's number and is used to express

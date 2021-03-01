@@ -47,7 +47,7 @@ static struct SoundSpeeds
 
 
 class Hearing :
-    public Waves
+	public Waves
 {
 private:
 	static void countIncrease() { hearing_objectCount += 1; }
