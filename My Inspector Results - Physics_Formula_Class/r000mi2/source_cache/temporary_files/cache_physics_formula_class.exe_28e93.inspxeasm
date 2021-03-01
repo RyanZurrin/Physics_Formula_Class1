@@ -1,0 +1,10 @@
+167568	_mainCRTStartup:
+167568	push ebp
+167569	mov ebp, esp
+167571	call 0x28af0
+167576	pop ebp
+167577	ret 
+167584	push ebp
+167585	mov ebp, esp
+167587	sub esp, 0x1c
+167590	mov eax, dword ptr [ebp+0x8]

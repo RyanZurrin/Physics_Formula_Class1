@@ -1,0 +1,22 @@
+
+=== Start: [2020/10/27 02:35:09] === 
+Analysis started...
+Result file: D:\c++_physics_functions\Physics_Formula_Class\My Inspector Results - Physics_Formula_Class\r003mi1\r003mi1.inspxe 
+Analysis started for d:\c++_physics_functions\physics_formula_class\debug\physics_formula_class.exe (pid = 15452) 
+Loaded module: d:\c++_physics_functions\physics_formula_class\debug\physics_formula_class.exe, address range [0xe70000-0xeacfff] 
+Loaded module: c:\windows\syswow64\kernelbase.dll, address range [0x760a0000-0x762b2fff], minimal analysis 
+Loaded module: c:\windows\syswow64\kernel32.dll, address range [0x76b10000-0x76bfffff], minimal analysis 
+Loaded module: c:\windows\syswow64\ntdll.dll, address range [0x77130000-0x772d2fff], minimal analysis 
+Loaded module: d:\program files (x86)\intelswtools\inspector 2020\bin32\dnclrprofinfo.dll, address range [0x79ed0000-0x79ef4fff] 
+Loaded module: c:\windows\syswow64\msvcp140d.dll, address range [0x79c90000-0x79d47fff] 
+Loaded module: c:\windows\syswow64\vcruntime140d.dll, address range [0x78de0000-0x78dfcfff] 
+Loaded module: c:\windows\syswow64\ucrtbased.dll, address range [0x79d50000-0x79ec5fff] 
+Loaded module: c:\windows\syswow64\kernel.appcore.dll, address range [0x74a50000-0x74a5efff] 
+Loaded module: c:\windows\syswow64\msvcrt.dll, address range [0x75bb0000-0x75c6efff], minimal analysis 
+Loaded module: c:\windows\syswow64\rpcrt4.dll, address range [0x76fb0000-0x77069fff], minimal analysis 
+Process d:\c++_physics_functions\physics_formula_class\debug\physics_formula_class.exe exited with code 0. Leak analysis starting. Please wait... 
+Completed analysis for d:\c++_physics_functions\physics_formula_class\debug\physics_formula_class.exe 
+Application exit code: 0 
+Result file: D:\c++_physics_functions\Physics_Formula_Class\My Inspector Results - Physics_Formula_Class\r003mi1\r003mi1.inspxe 
+Analysis terminated
+=== End: [2020/10/27 02:35:16] === 

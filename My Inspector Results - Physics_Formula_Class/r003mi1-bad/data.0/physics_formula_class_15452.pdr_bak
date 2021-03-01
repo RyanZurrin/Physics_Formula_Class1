@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<diags major="2" minor="0">
+
+<diag id="1">
+	<type description="ThreadStart">233</type>
+	<message>
+		<thread>
+			<thrname></thrname>
+			<threadid>26052</threadid>
+			<stackstamp>1319243176</stackstamp>
+			<stacktrace>
+			<loc>
+				<mod>d:\c++_physics_functions\physics_formula_class\debug\physics_formula_class.exe</mod>
+				<rva>0x11adc</rva>
+			</loc>
+			</stacktrace>
+		</thread>
+	</message>
+</diag>
+
+<diag id="2">
+	<type description="ThreadEnd">231</type>
+	<message>
+		<thread>
+			<thrname></thrname>
+			<threadid>26052</threadid>
+			<stackstamp>6896836153</stackstamp>
+		</thread>
+	</message>
+</diag>
+</diags>

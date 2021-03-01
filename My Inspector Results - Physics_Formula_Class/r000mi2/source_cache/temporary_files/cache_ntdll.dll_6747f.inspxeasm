@@ -1,0 +1,12 @@
+423017	mov edi, edi
+423019	push ebp
+423020	mov ebp, esp
+423022	push ecx
+423023	push ecx
+423024	lea eax, ptr [ebp-0x8]
+423027	push eax
+423028	call 0x674c0 <RtlInitializeExceptionChain>
+423033	mov edx, dword ptr [ebp+0xc]
+423036	mov ecx, dword ptr [ebp+0x8]
+423039	call 0x67485
+423044	int3 

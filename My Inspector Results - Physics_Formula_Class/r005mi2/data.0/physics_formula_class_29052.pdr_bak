@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<diags major="2" minor="0">
+
+<diag id="1">
+	<type description="ThreadStart">233</type>
+	<message>
+		<thread>
+			<thrname></thrname>
+			<threadid>27728</threadid>
+			<stackstamp>1958647896</stackstamp>
+			<stacktrace>
+			<loc>
+				<mod>c:\windows\syswow64\ntdll.dll</mod>
+				<rva>0x714a6</rva>
+			</loc>
+			</stacktrace>
+		</thread>
+	</message>
+</diag>
+
+<diag id="2">
+	<type description="ThreadStart">233</type>
+	<message>
+		<thread>
+			<thrname></thrname>
+			<threadid>26404</threadid>
+			<stackstamp>4133417095</stackstamp>
+			<stacktrace>
+			<loc>
+				<mod>c:\windows\syswow64\ntdll.dll</mod>
+				<rva>0x50d50</rva>
+			</loc>
+			</stacktrace>
+		</thread>
+	</message>
+</diag>
+
+<diag id="3">
+	<type description="ThreadStart">233</type>
+	<message>
+		<thread>
+			<thrname></thrname>
+			<threadid>22116</threadid>
+			<stackstamp>4581333038</stackstamp>
+			<stacktrace>
+			<loc>
+				<mod>c:\windows\syswow64\ntdll.dll</mod>
+				<rva>0x50d50</rva>
+			</loc>
+			</stacktrace>
+		</thread>
+	</message>
+</diag>
+
+<diag id="4">
+	<type description="ThreadStart">233</type>
+	<message>
+		<thread>
+			<thrname></thrname>
+			<threadid>29100</threadid>
+			<stackstamp>5302959742</stackstamp>
+			<stacktrace>
+			<loc>
+				<mod>c:\windows\syswow64\ntdll.dll</mod>
+				<rva>0x50d50</rva>
+			</loc>
+			</stacktrace>
+		</thread>
+	</message>
+</diag>
+
+<diag id="5">
+	<type description="ThreadEnd">231</type>
+	<message>
+		<thread>
+			<thrname></thrname>
+			<threadid>26404</threadid>
+			<stackstamp>16831225802</stackstamp>
+		</thread>
+	</message>
+</diag>
+
+<diag id="6">
+	<type description="ThreadEnd">231</type>
+	<message>
+		<thread>
+			<thrname></thrname>
+			<threadid>22116</threadid>
+			<stackstamp>16834119182</stackstamp>
+		</thread>
+	</message>
+</diag>
+
+<diag id="7">
+	<type description="ThreadEnd">231</type>
+	<message>
+		<thread>
+			<thrname></thrname>
+			<threadid>29100</threadid>
+			<stackstamp>16837419356</stackstamp>
+		</thread>
+	</message>
+</diag>
+
+<diag id="8">
+	<type description="ThreadEnd">231</type>
+	<message>
+		<thread>
+			<thrname></thrname>
+			<threadid>27728</threadid>
+			<stackstamp>18152938021</stackstamp>
+		</thread>
+	</message>
+</diag>
+</diags>

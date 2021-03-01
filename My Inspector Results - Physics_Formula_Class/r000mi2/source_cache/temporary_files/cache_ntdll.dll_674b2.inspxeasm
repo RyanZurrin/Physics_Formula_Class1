@@ -1,0 +1,15 @@
+423045	push 0x30
+423047	push 0x4b38c2c8
+423052	call 0x86504
+423057	mov edi, ecx
+423059	and dword ptr [ebp-0x4], 0x0
+423063	mov esi, dword ptr [0x4b3a5a7c]
+423069	push edx
+423070	test esi, esi
+423072	jz 0xa4c88
+423078	mov ecx, esi
+423080	call dword ptr [0x4b3a91e0]
+423086	mov edx, edi
+423088	xor ecx, ecx
+423090	call esi
+423092	jmp 0xa4d3e

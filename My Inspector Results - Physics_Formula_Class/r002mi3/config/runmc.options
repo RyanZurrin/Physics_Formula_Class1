@@ -1,0 +1,18 @@
+-r
+D:\c++_physics_functions\Physics_Formula_Class\My Inspector Results - Physics_Formula_Class\r002mi3
+--access-checks
+--analyze-stack
+--leak-maximum=100000
+--leak-check-on-exit
+--leak-check-on-demand
+--check-resource-leaks
+--leak-check-report-reachable
+--freelist-vol=1000000
+--guard-zone-size=32
+--stack-depth=16
+--no-close-console
+--mrte-mode=auto
+--heartbeat=1
+--enable-memory-growth
+--
+D:\c++_physics_functions\Physics_Formula_Class\Debug\Physics_Formula_Class.exe

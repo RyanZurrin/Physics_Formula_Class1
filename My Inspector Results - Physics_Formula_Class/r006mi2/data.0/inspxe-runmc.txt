@@ -1,0 +1,31 @@
+
+=== Start: [2020/11/16 14:53:18] === 
+Analysis started...
+Result file: D:\c++_physics_functions\Physics_Formula_Class\My Inspector Results - Physics_Formula_Class\r006mi2\r006mi2.inspxe 
+Analysis started for d:\c++_physics_functions\physics_formula_class\debug\physics_formula_class.exe (pid = 26192) 
+Loaded module: d:\c++_physics_functions\physics_formula_class\debug\physics_formula_class.exe, address range [0xc70000-0xcaefff] 
+Loaded module: c:\windows\syswow64\kernel32.dll, address range [0x753f0000-0x754dffff] 
+Loaded module: c:\windows\syswow64\kernelbase.dll, address range [0x76590000-0x767a2fff] 
+Loaded module: c:\windows\syswow64\ntdll.dll, address range [0x76fd0000-0x77172fff] 
+Loaded module: c:\windows\syswow64\vcruntime140d.dll, address range [0x793f0000-0x7940cfff] 
+Loaded module: c:\windows\syswow64\msvcp140d.dll, address range [0x79410000-0x794c7fff] 
+Loaded module: c:\windows\syswow64\ucrtbased.dll, address range [0x794d0000-0x79645fff] 
+Loaded module: c:\windows\syswow64\kernel.appcore.dll, address range [0x748f0000-0x748fefff] 
+Loaded module: c:\windows\syswow64\msvcrt.dll, address range [0x75f70000-0x7602efff] 
+Loaded module: c:\windows\syswow64\rpcrt4.dll, address range [0x75950000-0x75a09fff] 
+Process d:\c++_physics_functions\physics_formula_class\debug\physics_formula_class.exe exited with code 0. Leak analysis starting. Please wait... 
+Unloaded module: D:\c++_physics_functions\Physics_Formula_Class\Debug\Physics_Formula_Class.exe 
+Unloaded module: C:\Windows\SysWOW64\kernel32.dll 
+Unloaded module: C:\Windows\SysWOW64\KernelBase.dll 
+Unloaded module: C:\Windows\SysWOW64\ntdll.dll 
+Unloaded module: C:\Windows\SysWOW64\vcruntime140d.dll 
+Unloaded module: C:\Windows\SysWOW64\msvcp140d.dll 
+Unloaded module: C:\Windows\SysWOW64\ucrtbased.dll 
+Unloaded module: C:\Windows\SysWOW64\kernel.appcore.dll 
+Unloaded module: C:\Windows\SysWOW64\msvcrt.dll 
+Unloaded module: C:\Windows\SysWOW64\rpcrt4.dll 
+Completed analysis for d:\c++_physics_functions\physics_formula_class\debug\physics_formula_class.exe 
+Application exit code: 0 
+Result file: D:\c++_physics_functions\Physics_Formula_Class\My Inspector Results - Physics_Formula_Class\r006mi2\r006mi2.inspxe 
+Analysis completed
+=== End: [2020/11/16 14:53:29] === 
