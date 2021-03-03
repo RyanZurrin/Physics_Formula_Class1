@@ -13,8 +13,8 @@ int main()
 	show_val("vMax");
 	ld maxCharge = setVal(electric.electric_potential->maxChargeCanBeStoredCapacitor(1.29 * SU.milla,vm));
 	show_val("max charge");
-	setVal(electric.electric_potential->volumeOfDielectricMaterial(areaPlate, 4.89*SU.micro));
-	show_val("volume");
+	setVal(electric.electric_current->lengthOfResistor(.145*SU.milla/2, .142, 5.6*pow(10,-8)));
+	show_val("length");
 
 
 	return 0;
