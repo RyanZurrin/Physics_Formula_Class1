@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 /**
  * @class ElectricCurrent
  * @details driver class for solving complex physics problems
@@ -265,6 +265,14 @@ public:
 	static ld current_ohms(const ld V, const ld R);
 
 	/// <summary>
+	/// Calculates the current from rearranging the power equations
+	/// </summary>
+	/// <param name="P">The power in watts.</param>
+	/// <param name="R">The resistance.</param>
+	/// <returns>the current in amperes(I)</returns>
+	static ld current_fromPowerEq(const ld P, const ld R);
+
+	/// <summary>
 	/// calculates the resistances of an ohmic conducting material
 	/// </summary>
 	/// <param name="V">The volts.</param>
@@ -312,6 +320,15 @@ public:
 	static ld lengthOfResistor(const ld A, const ld R, const ld p);
 
 	/// <summary>
+	/// Calculates the Lengths of filament.
+	/// </summary>
+	/// <param name="d">The diameter.</param>
+	/// <param name="R">The resistance.</param>
+	/// <param name="p">The resistivity.</param>
+	/// <returns></returns>
+	static ld lengthOfFilament(const ld d, const ld R, const ld p);
+
+	/// <summary>
 	/// Calculates the resistivity of a resistor.
 	/// </summary>
 	/// <param name="R">The resistance.</param>
@@ -319,6 +336,16 @@ public:
 	/// <param name="l">The length.</param>
 	/// <returns></returns>
 	static ld resistivityOfResistor(const ld R, const ld A, const ld l);
+
+	/// <summary>
+	///Of what material is a wire made, if it is a length of (l)m long with a
+	///(d)m diameter and has a resistance of R ohms at 20.0∘C
+	/// </summary>
+	/// <param name="l">The l.</param>
+	/// <param name="d">The d.</param>
+	/// <param name="R">The r.</param>
+	/// <returns>Ohm m</returns>
+	static ld resistivity(const ld l, const ld d, const ld R);
 
 	/// <summary>
 	/// Calculates the voltages drop across a resistor.
@@ -387,12 +414,40 @@ public:
 	static ld electricalPowerAndEnergy_V2R(const ld V, const ld R);
 
 	/// <summary>
+	/// Some makes of older cars have 6.00-V electrical systems. (a) What is
+	/// the hot resistance of a 30.0-W headlight in such a car?
+	/// </summary>
+	/// <param name="P">The power.</param>
+	/// <param name="V">The volts.</param>
+	/// <returns>resistance</returns>
+	static ld resistanceFromPowerAndVolts(const ld P, const ld V);
+
+	/// <summary>
+	/// Calculates the resistance from power and current.
+	/// </summary>
+	/// <param name="P">The power.</param>
+	/// <param name="I">The current.</param>
+	/// <returns>Ohms</returns>
+	static ld resistanceFromPowerAndCurrent(const ld P, const ld I);
+
+	/// <summary>
 	/// calculates the electrical power from current and resistance
 	/// </summary>
 	/// <param name="I">The current.</param>
 	/// <param name="R">The resistance.</param>
 	/// <returns>energy from electrical (W)</returns>
 	static ld electricalPowerAndEnergy_I2R(const ld I, const ld R);
+
+	/// <summary>
+	/// A charge of (Q) C of charge passes through a pocket calculator’s solar
+	/// cells in t seconds. What is the power output, given the calculator’s
+	/// voltage output is a voltage of V.
+	/// </summary>
+	/// <param name="Q">The charge.</param>
+	/// <param name="t">The time.</param>
+	/// <param name="V">The voltage.</param>
+	/// <returns>the watts</returns>
+	static ld powerOutputOverTime(const ld Q, const ld t, const ld V);
 
 	/// <summary>
 	/// Calculates the total electrons  that pass through a charge.
@@ -410,6 +465,164 @@ public:
 	/// <param name="freeProtons">The number of free protons.</param>
 	/// <returns>nuclei/second</returns>
 	static ld nucleiPerSecond(const ld I, const ld freeProtons);
+
+	/// <summary>
+	/// Calculates the ratio of the resistivity of wire1 to that of wire2, if they have
+	/// the same resistance per unit length (as they might in household wiring)
+	/// </summary>
+	/// <param name="p1">The the bigger resistivity.</param>
+	/// <param name="p2">The smaller resistivity.</param>
+	/// <returns>the ratio meaning the size of the smaller resistivity value will
+	/// to by this value bigger</returns>
+	static ld ratioOfDiametersInWires(const ld p1, const ld p2);
+
+	/// <summary>
+	/// Calculates the current flows through a diameter of (d) rod with a
+	/// resistivity of (p) that is a length of (l)m long, when (V) voltage is
+	/// applied to it? (Such a rod may be used to make nuclear- particle
+	/// detectors, for example.)
+	/// </summary>
+	/// <param name="V">The applied voltage.</param>
+	/// <param name="p">The resistivity.</param>
+	/// <param name="d">The diameter.</param>
+	/// <param name="l">The length.</param>
+	/// <returns>the Amperes</returns>
+	static ld currentFlowThroughOfMaterial(const ld V, const ld p, const ld d, const ld l);
+
+	/// <summary>
+	/// A resistor made of Nichrome wire is used in an application where its
+	/// resistance cannot change more than 1.00% from its value at 20.0∘C .
+	/// Over what temperature range can it be used?
+	/// </summary>
+	/// <param name="tempCoEffOfResistivity">The temperature coefficient of resistivity.</param>
+	/// <param name="maxChangePercent">The maximum change percent.</param>
+	/// <returns>temperature</returns>
+	static ld maximumTempchange(const ld tempCoEffOfResistivity, const ld maxChangePercent);
+
+	/// <summary>
+	/// With a 1200-W toaster, how much electrical energy is needed to make a
+	/// slice of toast (cooking time = 1 minute)? At 9.0 cents/kW⋅h, how much does this cost?.
+	/// </summary>
+	/// <param name="P">The power inWatts.</param>
+	/// <param name="t">The time in seconds.</param>
+	/// <param name="ratePerKwh">The rate per KWH.</param>
+	/// <returns>total cost to use electricity</returns>
+	static ld costOfElectricityUsed_kWh(const ld P, const ld t, const ld ratePerKwh);
+
+	/// <summary>
+	/// An old light bulb draws only 50.0 W, rather than its original 60.0 W,
+	/// due to evaporative thinning of its filament. By what factor is its
+	/// diameter reduced, assuming uniform thinning along its length? Neglect
+	/// any effects caused by temperature differences.
+	/// </summary>
+	/// <param name="Pi">The starting wattage.</param>
+	/// <param name="Pf">The final wattage.</param>
+	/// <returns>factor which diameter decreases</returns>
+	static ld factorDiameterReduced(const ld Pi, const ld Pf);
+
+	/// <summary>
+	/// Calculates the total time.
+	/// </summary>
+	/// <param name="Q">The charge.</param>
+	/// <param name="P">The power.</param>
+	/// <returns>time</returns>
+	static ld timeTotal(const ld Q, const ld P);
+
+	/// <summary>
+	/// Times the total.
+	/// </summary>
+	/// <param name="Q">The charge .</param>
+	/// <param name="I">The current.</param>
+	/// <param name="V">The volts.</param>
+	/// <returns>time</returns>
+	static ld timeTotal(const ld Q, const ld I, const ld V);
+
+	/// <summary>
+	/// How much time is needed for a surgical cauterizer to raise the
+	/// temperature of m1 g of tissue from 37.0∘C to 100∘C and then boil
+	/// away 0.500 g of water, if it puts out 2.00 mA at 15.0 kV? Ignore heat
+	/// transfer to the surroundings.
+	/// </summary>
+	/// <param name="m1">The mass of tissue.</param>
+	/// <param name="c">The specific heat of water(sub new substance value).</param>
+	/// <param name="Ti">The initial temperature.</param>
+	/// <param name="Tf">The temperature to raise to.</param>
+	/// <param name="m2">The mass of water to boil.</param>
+	/// <param name="Lv">The latent heat of vaporization .</param>
+	/// <param name="I">The current.</param>
+	/// <param name="V">The volts.</param>
+	/// <returns>time in seconds</returns>
+	static ld timeToRaiseTemperature(const ld m1, const ld c, const ld Ti, const ld Tf, const ld m2, const ld Lv, const ld I, const ld V);
+
+	/// <summary>
+	/// What is the cost of heating a hot tub containing 1500 kg of water from
+	/// 10.0∘C to 40.0∘C , assuming 75.0% efficiency to account for heat
+	/// transfer to the surroundings? The cost of electricity is 9 cents/kW ⋅h .
+	/// </summary>
+	/// <param name="m">The mass of the water.</param>
+	/// <param name="c">The specific heat.</param>
+	/// <param name="Ti">The initial temp.</param>
+	/// <param name="Tf">The final temp.</param>
+	/// <param name="eff">The eff.</param>
+	/// <param name="rate">The rate.</param>
+	/// <returns>cost in cents</returns>
+	static ld costToHeatHotTub(const ld m, const ld c, const ld Ti, const ld Tf, const ld eff, const ld rate);
+
+	/// <summary>
+	/// RMSs the current.
+	/// </summary>
+	/// <param name="Io">The peek current.</param>
+	/// <returns>rms current</returns>
+	static ld rmsCurrent(const ld Io);
+
+	/// <summary>
+	/// Peeks the current.
+	/// </summary>
+	/// <param name="Irms">The rms current.</param>
+	/// <returns></returns>
+	static ld peekCurrent(const ld Irms);
+
+	/// <summary>
+	/// RMSs the voltage.
+	/// </summary>
+	/// <param name="Vo">The peek voltage.</param>
+	/// <returns>voltage</returns>
+	static ld rmsVoltage(const ld Vo);
+
+	/// <summary>
+	/// Peeks the voltage.
+	/// </summary>
+	/// <param name="Vrms">The VRMS.</param>
+	/// <returns>peek volage</returns>
+	static ld peekVoltage(const ld Vrms);
+
+	/// <summary>
+	/// What is the peak power consumption of a Vrms AC microwave oven
+	/// that draws Irms A?
+	/// </summary>
+	/// <param name="Vrms">The VRMS.</param>
+	/// <param name="Irms">The irms.</param>
+	/// <returns></returns>
+	static ld peekPower(const ld Vrms, const ld Irms);
+
+	/// <summary>
+	/// Voltages the ac.
+	/// </summary>
+	/// <param name="Vo">The peek voltage.</param>
+	/// <param name="f">The frequency in hertz.</param>
+	/// <param name="t">The time we are looking to find the voltage at.</param>
+	/// <returns>voltage</returns>
+	static ld voltageAC(const ld Vo, const ld f, const ld t);
+
+	/// <summary>
+	/// Currents the ac.
+	/// </summary>
+	/// <param name="Io">The is the peek current (Io = Vo/R).</param>
+	/// <param name="f">The frequency in hertz.</param>
+	/// <param name="t">The time we are looking to find the current at.</param>
+	/// <returns>amperes</returns>
+	static ld currentAC(const ld Io, const ld f, const ld t);
+
 
 
 
@@ -450,6 +663,11 @@ inline ld ElectricCurrent::current_ohms(const ld V, const ld R)
 	return V / R;//Amperes(I)
 }
 
+inline ld ElectricCurrent::current_fromPowerEq(const ld P, const ld R)
+{
+	return sqrt(P/R);//Amperes(I)
+}
+
 inline ld ElectricCurrent::resistance_ohmic(const ld V, const ld I)
 {
 	return V / I;//Ohms
@@ -476,9 +694,19 @@ inline ld ElectricCurrent::lengthOfResistor(const ld A, const ld R, const ld p)
 	return (A * R) / p;//m
 }
 
+inline ld ElectricCurrent::lengthOfFilament(const ld d, const ld R, const ld p)
+{
+	return (_PI*(d*d)*R)/(4.0*p);//meters
+}
+
 inline ld ElectricCurrent::resistivityOfResistor(const ld R, const ld A, const ld l)
 {
 	return (A * R) / l;//Ohms/m
+}
+
+inline ld ElectricCurrent::resistivity(const ld l, const ld d, const ld R)
+{
+	return (_PI*(d*d)*R)/(4.0*l);//Ohms meters
 }
 
 inline ld ElectricCurrent::voltageDropAcrossResistor(const ld I, const ld R)
@@ -509,17 +737,32 @@ inline ld ElectricCurrent::resistanceChangeFromTemperature(const ld R0, const ld
 
 inline ld ElectricCurrent::electricalPowerAndEnergy_IV(const ld I, const ld V)
 {
-	return I * V;
+	return I * V;//Watts
 }
 
 inline ld ElectricCurrent::electricalPowerAndEnergy_V2R(const ld V, const ld R)
 {
-	return (V * V) / R;
+	return (V * V) / R;//Watts
+}
+
+inline ld ElectricCurrent::resistanceFromPowerAndVolts(const ld P, const ld V)
+{
+	return (V*V)/P;//Ohms
+}
+
+inline ld ElectricCurrent::resistanceFromPowerAndCurrent(const ld P, const ld I)
+{
+	return P/(I*I);//Ohms
 }
 
 inline ld ElectricCurrent::electricalPowerAndEnergy_I2R(const ld I, const ld R)
 {
-	return (I * I) * R;
+	return (I * I) * R;//Watts
+}
+
+inline ld ElectricCurrent::powerOutputOverTime(const ld Q, const ld t, const ld V)
+{
+	return (Q/t)*V;//watts
 }
 
 inline ld ElectricCurrent::electronsThatPassThroughACharge(const ld Q)
@@ -530,6 +773,88 @@ inline ld ElectricCurrent::electronsThatPassThroughACharge(const ld Q)
 inline ld ElectricCurrent::nucleiPerSecond(const ld I, const ld freeProtons)
 {
 	return I / (freeProtons * _PROTON_CHARGE_);
+}
+
+inline ld ElectricCurrent::ratioOfDiametersInWires(const ld p1, const ld p2)
+{
+	return sqrt(p1/p2);
+}
+
+inline ld ElectricCurrent::currentFlowThroughOfMaterial(const ld V, const ld p, const ld d, const ld l)
+{
+	return (V*_PI*(d*d))/(4.0*p*l);//Amperes(I)
+}
+
+inline ld ElectricCurrent::maximumTempchange(const ld tempCoEffOfResistivity, const ld maxChangePercent)
+{
+	return (maxChangePercent/100)/tempCoEffOfResistivity;
+}
+
+inline ld ElectricCurrent::costOfElectricityUsed_kWh(const ld P, const ld t, const ld ratePerKwh)
+{
+	const ld joules = P * t;
+
+	return (joules * ratePerKwh)/(1000.0*3600);
+}
+
+inline ld ElectricCurrent::factorDiameterReduced(const ld Pi, const ld Pf)
+{
+	return sqrt(Pf / Pi);
+}
+
+inline ld ElectricCurrent::timeTotal(const ld Q, const ld P)
+{
+	return Q / P;//seconds
+}
+
+inline ld ElectricCurrent::timeTotal(const ld Q, const ld I, const ld V)
+{
+	return Q/(I*V);
+}
+
+inline ld ElectricCurrent::timeToRaiseTemperature(const ld m1, const ld c, const ld Ti, const ld Tf, const ld m2, const ld Lv, const ld I, const ld V)
+{
+	return (m1*c*(Tf-Ti)+ m2*Lv)/(I*V);//time(s)
+}
+
+inline ld ElectricCurrent::costToHeatHotTub(const ld m, const ld c, const ld Ti, const ld Tf, const ld eff, const ld rate)
+{
+	return ((m*c*(Tf-Ti))/eff)*(rate/(1000.0*3600));
+}
+
+inline ld ElectricCurrent::rmsCurrent(const ld Io)
+{
+	return Io/sqrt(2);
+}
+
+inline ld ElectricCurrent::peekCurrent(const ld Irms)
+{
+	return sqrt(2) * Irms;
+}
+
+inline ld ElectricCurrent::rmsVoltage(const ld Vo)
+{
+	return Vo / sqrt(2);
+}
+
+inline ld ElectricCurrent::peekVoltage(const ld Vrms)
+{
+	return sqrt(2)*Vrms;
+}
+
+inline ld ElectricCurrent::peekPower(const ld Vrms, const ld Irms)
+{
+	return 2.0*(Vrms*Irms);
+}
+
+inline ld ElectricCurrent::voltageAC(const ld Vo, const ld f, const ld t)
+{
+	return Vo * sin(2*_PI)*f*t;// volts
+}
+
+inline ld ElectricCurrent::currentAC(const ld Io, const ld f, const ld t)
+{
+	return Io * sin(2 * _PI) * f * t;//amperes
 }
 
 #endif
