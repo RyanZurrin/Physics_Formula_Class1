@@ -10,6 +10,7 @@
 
 #include <cmath>
 #include <iostream>
+#include "Circuits.h"
 #include "Drag.h"
 #include "DynamicsAndForces.h"
 #include "Elasticity.h"
@@ -536,6 +537,7 @@ public:
 	ElectricPotential* electric_potential;
 	ElectricCurrent* electric_current;
 	PeriodicElements* periodic_elements;
+	Circuits* circuits;
 
 
 	//PhysicsCommon * physics_common;
@@ -572,6 +574,7 @@ public:
 		electric_potential(o.electric_potential),
 		electric_current(o.electric_current),
 		periodic_elements(o.periodic_elements),
+		circuits(o.circuits),
 		_ptr_(o._ptr_){} // move constructor
 
 	/**========================================================================

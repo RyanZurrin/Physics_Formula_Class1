@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Circuits.h" />
     <ClInclude Include="DynamicsAndForces.h" />
     <ClInclude Include="ElectricCharge.h" />
     <ClInclude Include="ElectricCurrent.h" />
