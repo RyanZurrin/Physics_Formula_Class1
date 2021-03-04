@@ -34,6 +34,7 @@ PhysicsWorld::PhysicsWorld()
 	electric_potential = new ElectricPotential;
 	electric_current = new ElectricCurrent;
 	periodic_elements = new PeriodicElements;
+	circuits = new Circuits;
 	countIncrease();
 	//countShow();
 }
@@ -68,6 +69,7 @@ PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	electric_potential = p.electric_potential;
 	electric_current = p.electric_current;
 	periodic_elements = p.periodic_elements;
+	circuits = p.circuits;
 	//PhysicsWorld_common = p.PhysicsWorld_common;
 	countIncrease();
 	//countShow();
@@ -105,6 +107,7 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		electric_potential = r.electric_potential;
 		electric_current = r.electric_current;
 		periodic_elements = r.periodic_elements;
+		circuits = r.circuits;
 		countIncrease();
 		//countShow();
 	}
@@ -138,6 +141,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	electric_potential = new ElectricPotential;
 	electric_current = new ElectricCurrent;
 	periodic_elements = new PeriodicElements;
+	circuits = new Circuits;
 
 	this->vector3d->set_coordinates(t1, t2, t3);
 
@@ -170,6 +174,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	electric_potential = new ElectricPotential;
 	electric_current = new ElectricCurrent;
 	periodic_elements = new PeriodicElements;
+	circuits = new Circuits;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -201,6 +206,7 @@ PhysicsWorld::~PhysicsWorld()
 	delete electric_potential;
 	delete electric_current;
 	delete periodic_elements;
+	delete circuits;
 
 	countDecrease();
 	//countShow();
