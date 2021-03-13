@@ -14,6 +14,8 @@
 
 #include <iostream>
 
+//#include "Circuits.h"
+
 static struct Resistivities
 {
 	const ld SILVER = 1.59 * pow(10, -8); //1.59e-8 conductor, OHm*m
@@ -164,6 +166,7 @@ class ElectricCurrent
 {
 
 public:
+	friend class Circuits;
 	ElectricCurrent* _electricCurrentPtr;
 	static void countIncrease() { electricCurrent_objectCount += 1; }
 	static void countDecrease() { electricCurrent_objectCount -= 1; }
@@ -207,6 +210,20 @@ public:
 	static void show_objectCount() { std::cout << "\n electric current object count: " << electricCurrent_objectCount << std::endl; }
 	static int get_objectCount() { return electricCurrent_objectCount; }
 
+
+	/// <summary>
+	/// calculates the area using the radius.
+	/// </summary>
+	/// <param name="r">The radius.</param>
+	/// <returns>area(m^2)</returns>
+	static ld area_r(const ld r);
+
+	/// <summary>
+	/// Calculates the area from the diameter
+	/// </summary>
+	/// <param name="d">The diameter.</param>
+	/// <returns>area(m^2)</returns>
+	static ld area_d(const ld d);
 
 	/// <summary>
 	/// calculates the electric current (I) defined as the rate at which charge
@@ -273,6 +290,14 @@ public:
 	static ld current_fromPowerEq(const ld P, const ld R);
 
 	/// <summary>
+	/// Calculates the currents from power and volts.
+	/// </summary>
+	/// <param name="P">The power in watts.</param>
+	/// <param name="V">The volts.</param>
+	/// <returns></returns>
+	static ld current_fromPowerAndVolts(const ld P, const ld V);
+
+	/// <summary>
 	/// calculates the resistances of an ohmic conducting material
 	/// </summary>
 	/// <param name="V">The volts.</param>
@@ -319,6 +344,7 @@ public:
 	/// <returns>the length of resistor (m)</returns>
 	static ld lengthOfResistor(const ld A, const ld R, const ld p);
 
+
 	/// <summary>
 	/// Calculates the Lengths of filament.
 	/// </summary>
@@ -327,6 +353,19 @@ public:
 	/// <param name="p">The resistivity.</param>
 	/// <returns></returns>
 	static ld lengthOfFilament(const ld d, const ld R, const ld p);
+
+	/// <summary>
+	/// As part of a class project you are given m g of copper and asked
+	/// to fabricate a wire with uniform cross-section. You use up 95% of the
+	/// copper and make a wire with a resistance of 0.800 Ω. The resistivity
+	/// of copper is 1.72 10-8 Ω · m and its density is 8.92 103 kg/m3
+	/// </summary>
+	/// <param name="m">The mass.</param>
+	/// <param name="R">The resistance.</param>
+	/// <param name="p">The resistivity.</param>
+	/// <param name="pd">The density.</param>
+	/// <returns>length of wire</returns>
+	static ld lengthOfWireMade(const ld m, const ld R, const ld p, const ld pd);
 
 	/// <summary>
 	/// Calculates the resistivity of a resistor.
@@ -633,6 +672,16 @@ public:
 
 };
 
+inline ld ElectricCurrent::area_r(const ld r)
+{
+	return _PI * (r*r);//m^2
+}
+
+inline ld ElectricCurrent::area_d(const ld d)
+{
+	return _PI*((d*d)/4);//m^2
+}
+
 inline ld ElectricCurrent::electricCurrent(const ld Q, const ld t)
 {
 	return Q / t;//Amperes(I)
@@ -668,6 +717,11 @@ inline ld ElectricCurrent::current_fromPowerEq(const ld P, const ld R)
 	return sqrt(P/R);//Amperes(I)
 }
 
+inline ld ElectricCurrent::current_fromPowerAndVolts(const ld P, const ld V)
+{
+	return P/V;//Amperes
+}
+
 inline ld ElectricCurrent::resistance_ohmic(const ld V, const ld I)
 {
 	return V / I;//Ohms
@@ -697,6 +751,11 @@ inline ld ElectricCurrent::lengthOfResistor(const ld A, const ld R, const ld p)
 inline ld ElectricCurrent::lengthOfFilament(const ld d, const ld R, const ld p)
 {
 	return (_PI*(d*d)*R)/(4.0*p);//meters
+}
+
+inline ld ElectricCurrent::lengthOfWireMade(const ld m, const ld R, const ld p, const ld pd)
+{
+	return sqrt((m*R)/(pd*p));//m
 }
 
 inline ld ElectricCurrent::resistivityOfResistor(const ld R, const ld A, const ld l)

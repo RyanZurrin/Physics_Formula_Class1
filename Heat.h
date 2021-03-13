@@ -25,7 +25,7 @@ static struct HeatEnergyUnitConversion
 	static ld calorie_to_kCal(const ld C) { return C / 1000.0; } // returns kCal from calories
 	static ld kiloCalorie_to_joule(const ld kCal) { return kCal * 4186.0; } //returns Joules
 	static ld joule_to_kCal(const ld joule) { return joule / 4186.0; } // returns kCal
-	
+
 }heConverter;
 
 /**
@@ -35,9 +35,9 @@ static struct HeatEnergyUnitConversion
  * c.aluminum[1] holds the value of .215 kCal/kg*C` respectfully.
  * @variable c stands for specific heat
  */
-static struct SpecificHeatCapacity 
+static struct SpecificHeatCapacity
 {
-	
+
 	const vector<ld> aluminum_S = { 900.0, .215 };//< 900J/kg*C`, .215kCal/kg*C` >
 	const vector<ld> asbestos_S = { 800.0, .19 };//< 800J/kg*C`, .19kCal/kg*C` >
 	const vector<ld> concrete_granite_average_S = { 840.0, .20 };//< 840J/kg*C`, .20kCal/kg*C` >
@@ -68,7 +68,7 @@ static struct SpecificHeatCapacity
 	const vector<ld> oxygen_dry_G = { 913.0, .218 };//< 913.0J/kg*C`, .218kCal/kg*dC` >
 	const vector<ld> steam_100C_G = { 1520.0, .363 };//< 1520.0J/kg*C`, .363kCal/kg*dC` >
 	const vector<ld> steam_dry_100C_G = { 2020.0, .482 };//< 2020.0J/kg*C`, .482kCal/kg*dC` >
-	
+
 }c;
 
 /**
@@ -146,7 +146,7 @@ static struct ThermalConductivity
 	const ld glass_wool = .042;
 	const ld downFeathers = .025;
 	const ld air = .023;
-	const ld styrofoam = .010;	
+	const ld styrofoam = .010;
 }k;
 
 
@@ -286,13 +286,13 @@ static struct InfraredEmissivityValues
 	const ld Wood: panelling, light finish;
 	const ld Wood: spruce, polished, dry 	0.86;
 	*/
-	
-	
+
+
 }emissivity;
 
 #include "Temperature.h"
 class Heat :
-    public Temperature
+	public Temperature
 {
 private:
 	static void countIncrease() { heat_objectCount += 1; }
@@ -300,21 +300,21 @@ private:
 public:
 	//null pointer to class if ever needed
 	Heat* _heatPtr;
-	
+
 	/**
 	 * @brief no argument constructor
 	 */
 	Heat()
 	{
 		_heatPtr = nullptr;
-	}	
+	}
 
 	/**
 	 * @brief display method for outputting the count of Heat objects
 	 */
 	static void show_heat_objectCount() { std::cout << "\nheat object count: " << heat_objectCount << std::endl; }
 	/**
-	 * @brief getter method returns the value of heat objects 
+	 * @brief getter method returns the value of heat objects
 	 */
 	static int get_heat_objectCount() { return heat_objectCount; }
 
@@ -331,7 +331,7 @@ public:
 	}
 
 	/**
-	 * @brief calculates the temp from heat transferred 
+	 * @brief calculates the temp from heat transferred
 	 */
 	static ld temperatureFromHeatTransferred(const ld Q, const ld mass, const ld c)
 	{
@@ -352,13 +352,13 @@ public:
 	static ld finalTemp_ThermalEquilibrium2objects(const ld m1, const ld c1, const ld t1, const ld m2, const ld c2, const ld t2)
 	{
 		return ((m1 * c1 * t1) + (m2 * c2 * t2)) / ((m1 * c1) + (m2 * c2));
-	}	
+	}
 
 	/**
 	 * @brief calculates the phase change from melting/freezing
 	 * @param mass is the mass in kg
 	 * @param Lf is the latent heat coefficient for fusion
-	 * @returns the energy to cause phase change 
+	 * @returns the energy to cause phase change
 	 */
 	static ld phaseChangeEnergy_Lf(const ld mass, const ld Lf)
 	{
@@ -385,7 +385,7 @@ public:
 	 * @returns the final temperature
 	 */
 	static ld finalTempFromPhaseChange(const ld heatTransferTotal, const ld phaseChangeTotal, const ld totalMass, const ld c)
-	{	
+	{
 		return (heatTransferTotal - phaseChangeTotal) / (totalMass * c);
 	}
 
@@ -401,7 +401,7 @@ public:
 	{
 		return ((k * A * deltaTemp) / d);
 	}
-	
+
 	/**
 	 * @brief calculates the total mass as a result of heat transfer though conduction
 	 * @param htcQ is the result from the heatTransferConduction_Q method using those know variables
@@ -449,7 +449,7 @@ public:
 
 	/**
 	 * @brief Uses the Stefan-Boltzmann law of radiation equation
-	 * @param e 
+	 * @param e
 	 */
 	static ld netRateOfHeatTransferByRadiation(const ld e, const ld A, const ld T1, const ld T2)
 	{
@@ -460,10 +460,10 @@ public:
 	 * @brief calculates the initial temperature of falling water using conservation of mechanical energy
 	 * @param h is the height of the fall of water or substance
 	 * @param Tf is the final temp after the drop occurs
-	 * @param _c is the specific heat of something(default is waters value of 
+	 * @param _c is the specific heat of something(default is waters value of
 	 */
 	static ld initialTempFromFallingWater(const ld h, const ld Tf, const ld _c = c.water_L[0])
-	{		
+	{
 		return  Tf - (_Ga_ * h) / _c;
 	}
 
@@ -501,7 +501,7 @@ public:
 	/**
 	 * @brief calculates the amount of a fluid added to another fluid in single container(think adding creamer to coffee)
 	 * @param m1cup mass in kg
-	 * @param c1cup specific heat 
+	 * @param c1cup specific heat
 	 * @param T1cup initial temp in c
 	 * @param m2cof mass 2 in kg
 	 * @param c2cof specific heat 2
@@ -521,7 +521,7 @@ public:
 		cout << "heat lost by coffee: " << heatLostByCoffee << endl;
 		const ld heatGainedByCream = c3cr * (Tf - T3cr);
 		cout << "heat gain by cream: " << heatGainedByCream << endl;
-		
+
 		if(mode == 'k')
 		{
 			return  (abs(heatLostByCoffee) - heatGainedByCup) / (heatGainedByCream);
@@ -554,10 +554,10 @@ public:
 	 */
 	static ld finalTemperatureMeltingIceInWater(const ld mI, const ld cI, const ld Ti, const ld mW, const ld cW, const ld Tw, const ld Lfw = Lf.water[2] )
 	{
-		const double q1 = mI * cI * -Ti;	
-		const double q2 = mI * Lfw;	
-		const double q3 = mI;		
-		const double q4 = mW * cW * -Tw;	
+		const double q1 = mI * cI * -Ti;
+		const double q2 = mI * Lfw;
+		const double q3 = mI;
+		const double q4 = mW * cW * -Tw;
 		return (-q4 - (q1+q2))/(q3 + mW);
 	}
 
@@ -602,7 +602,7 @@ public:
 	}
 
 
-	
+
 	/**
 	 *@brief destructor
 	 */
