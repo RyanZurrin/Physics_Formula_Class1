@@ -164,18 +164,25 @@ static int electricCurrent_objectCount = 0;
 
 class ElectricCurrent
 {
-
 public:
 	friend class Circuits;
 	ElectricCurrent* _electricCurrentPtr;
-	static void countIncrease() { electricCurrent_objectCount += 1; }
-	static void countDecrease() { electricCurrent_objectCount -= 1; }
+
 
 	ElectricCurrent()
 	{
 		_electricCurrentPtr = nullptr;
+		_electricCurrentVal = 0.0;
 		countIncrease();
 		//cout << "in electicCurrent count: " << electricCurrent_objectCount << endl;
+	}
+
+	ElectricCurrent(ld val)
+	{
+		_electricCurrentPtr = nullptr;
+		_electricCurrentVal = 0.0;
+		countIncrease();
+
 	}
 
 	/**
@@ -184,6 +191,7 @@ public:
 	ElectricCurrent(const ElectricCurrent& t)
 	{
 		_electricCurrentPtr = t._electricCurrentPtr;
+		_electricCurrentVal = t._electricCurrentVal;
 		countIncrease();
 	}
 	/**
@@ -192,6 +200,7 @@ public:
 	ElectricCurrent(ElectricCurrent&& t) noexcept
 	{
 		_electricCurrentPtr = t._electricCurrentPtr;
+		_electricCurrentVal = t._electricCurrentVal;
 		countIncrease();
 	}
 	/**
@@ -202,6 +211,7 @@ public:
 		if (this != &t)
 		{
 			_electricCurrentPtr = t._electricCurrentPtr;
+			_electricCurrentVal = t._electricCurrentVal;
 			countIncrease();
 		}
 		return *this;
@@ -253,6 +263,7 @@ public:
 	/// <summary>
 	/// Calculates the current (I) using the number of free charges(n) per unit
 	/// volume (Ax) where the charge per n is given by q and t is the unit time.
+	/// I = (q * n * Ax) / t;
 	/// </summary>
 	/// <param name="q">The charge.</param>
 	/// <param name="n">The number of free charges.</param>
@@ -662,13 +673,17 @@ public:
 	/// <returns>amperes</returns>
 	static ld currentAC(const ld Io, const ld f, const ld t);
 
-
-
+	void setElectricCurrentVal(ld val) { _electricCurrentVal = val; }
 
 	~ElectricCurrent()
 	{
 		delete _electricCurrentPtr;
 	}
+
+	private:
+	ld _electricCurrentVal;
+	static void countIncrease() { electricCurrent_objectCount += 1; }
+	static void countDecrease() { electricCurrent_objectCount -= 1; }
 
 };
 

@@ -17,11 +17,8 @@
 static int circuits_objectCount = 0;
 typedef long double ld;
 
-class Circuits
-{
-private:
-	static void countIncrease() { circuits_objectCount += 1; }
-	static void countDecrease() { circuits_objectCount -= 1; }
+class Circuits{
+
 public:
 	Circuits* _circuitPtr;
 
@@ -29,6 +26,13 @@ public:
 	Circuits()
 	{
 		_circuitPtr = nullptr;
+		_circuitVal = 0.0;
+		countIncrease();
+	}
+	Circuits(ld val)
+	{
+		_circuitPtr = nullptr;
+		_circuitVal = val;
 		countIncrease();
 	}
 
@@ -38,6 +42,7 @@ public:
 	Circuits(const Circuits& c)
 	{
 		_circuitPtr = c._circuitPtr;
+		_circuitVal = 0.0;
 		countIncrease();
 	}
 	/**
@@ -46,6 +51,7 @@ public:
 	Circuits(Circuits&& c) noexcept
 	{
 		_circuitPtr = c._circuitPtr;
+		_circuitVal = c._circuitVal;
 		countIncrease();
 	}
 	/**
@@ -56,6 +62,7 @@ public:
 		if (this != &c)
 		{
 			_circuitPtr = c._circuitPtr;
+			_circuitVal = c._circuitVal;
 			countIncrease();
 		}
 		return *this;
@@ -64,6 +71,8 @@ public:
 	static void show_objectCount() { std::cout << "\n circuits object count: "
 										<< circuits_objectCount << std::endl; }
 	static int get_objectCount() { return circuits_objectCount; }
+
+	void setCircuitVal(ld val) { _circuitVal = val; }
 
 
 	/// <summary>
@@ -324,6 +333,11 @@ public:
 	{
 		delete _circuitPtr;
 	}
+
+private:
+	static void countIncrease() { circuits_objectCount += 1; }
+	static void countDecrease() { circuits_objectCount -= 1; }
+	ld _circuitVal;
 
 };
 #endif

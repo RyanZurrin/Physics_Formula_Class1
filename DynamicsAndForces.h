@@ -16,15 +16,14 @@ static int dynamicsAndForces_objectCount = 0;
 
 class DynamicsAndForces
 {
-private:
-	static void countIncrease() { dynamicsAndForces_objectCount += 1; }
-	static void countDecrease() { dynamicsAndForces_objectCount -= 1; }
+
 public:
 	DynamicsAndForces* _dynamicForcePtr;
 
 	DynamicsAndForces()
 	{
 		_dynamicForcePtr = nullptr;
+		_dynamicForceVal = 0.0;
 		countIncrease();
 	}
 
@@ -34,6 +33,7 @@ public:
 	DynamicsAndForces(const DynamicsAndForces& t)
 	{
 		_dynamicForcePtr = t._dynamicForcePtr;
+		_dynamicForceVal = t._dynamicForceVal;
 		countIncrease();
 	}
 	/**
@@ -42,6 +42,7 @@ public:
 	DynamicsAndForces(DynamicsAndForces&& t) noexcept
 	{
 		_dynamicForcePtr = t._dynamicForcePtr;
+		_dynamicForceVal = t._dynamicForceVal;
 		countIncrease();
 	}
 	/**
@@ -52,6 +53,7 @@ public:
 		if (this != &t)
 		{
 			_dynamicForcePtr = t._dynamicForcePtr;
+			_dynamicForceVal = t._dynamicForceVal;
 			countIncrease();
 		}
 		return *this;
@@ -59,7 +61,7 @@ public:
 
 	static void show_dynamicsAndForces_objectCount() { std::cout << "\ndynamics and forces object count: " << dynamicsAndForces_objectCount << std::endl; }
 	static int get_dynamicsAndForces_objectCount() { return dynamicsAndForces_objectCount; }
-
+	void setDynamicForceVal(ld val) { _dynamicForceVal = val; }
 
 	/**
 	 * method: netForce(const ld totalForces, const ld totalFriction)
@@ -263,6 +265,11 @@ public:
 	{
 		delete _dynamicForcePtr;
 	}
+
+private:
+	ld _dynamicForceVal;
+	static void countIncrease() { dynamicsAndForces_objectCount += 1; }
+	static void countDecrease() { dynamicsAndForces_objectCount -= 1; }
 
 };
 #endif

@@ -69,15 +69,20 @@ static struct ScientificNotationUnits
 
 class ElectricCharge
 {
-private:
-	static void countIncrease() { electricCharge_objectCount += 1; }
-	static void countDecrease() { electricCharge_objectCount -= 1; }
+
 public:
 	ElectricCharge* _electricChargePtr;
 
 	ElectricCharge()
 	{
 		_electricChargePtr = nullptr;
+		_electricChargeVal = 0.0;
+		countIncrease();
+	}
+	ElectricCharge(ld val)
+	{
+		_electricChargePtr = nullptr;
+		_electricChargeVal = 0.0;
 		countIncrease();
 	}
 
@@ -87,6 +92,7 @@ public:
 	ElectricCharge(const ElectricCharge& t)
 	{
 		_electricChargePtr = t._electricChargePtr;
+		_electricChargeVal = t._electricChargeVal;
 		countIncrease();
 	}
 	/**
@@ -95,6 +101,7 @@ public:
 	ElectricCharge(ElectricCharge&& t) noexcept
 	{
 		_electricChargePtr = t._electricChargePtr;
+		_electricChargeVal = t._electricChargeVal;
 		countIncrease();
 	}
 	/**
@@ -105,6 +112,7 @@ public:
 		if (this != &t)
 		{
 			_electricChargePtr = t._electricChargePtr;
+			_electricChargeVal = t._electricChargeVal;
 			countIncrease();
 		}
 		return *this;
@@ -423,7 +431,7 @@ public:
 	/// <returns></returns>
 	static vector<ld> electricFieldAtCenterTriangle(const ld qa, const ld qb, const ld qc, const ld l);
 
-
+	void setElectricChargeVal(ld val) { _electricChargeVal = val; }
 
 
 
@@ -431,6 +439,11 @@ public:
 	{
 		delete _electricChargePtr;
 	}
+
+	private:
+	static void countIncrease() { electricCharge_objectCount += 1; }
+	static void countDecrease() { electricCharge_objectCount -= 1; }
+	ld _electricChargeVal;
 
 };
 #endif

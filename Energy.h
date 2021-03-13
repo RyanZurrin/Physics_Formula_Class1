@@ -16,14 +16,13 @@ static int energy_objectCount = 0;
 
 class Energy
 {
-private:
+
 public:
 
 	// Energy pointer
 	Energy* _energyPtr;
 
-	static void countIncrease() { energy_objectCount += 1; }
-	static void countDecrease() { energy_objectCount -= 1; }
+
 	static void countShow() { std::cout << "energy object count: " << energy_objectCount << std::endl; }
 
 	/**
@@ -103,8 +102,17 @@ public:
 	Energy()
 	{
 		_energyPtr =  nullptr;
+		_energyVal = 0.0;
 		countIncrease();
 	}
+
+	Energy(ld val)
+	{
+		_energyPtr =  nullptr;
+		_energyVal = 0.0;
+		countIncrease();
+	}
+
 
 	/**
 	 * @brief Returns the conversion from joules to kilo calories
@@ -519,12 +527,19 @@ public:
 		return (mass * _Ga_ * distanceTop) / distanceBottom;
 	}
 
+	void setEnergyVal(ld val) { _energyVal = val; }
 
 	~Energy()
 	{
 		delete _energyPtr;
 		countDecrease();
 	}
+
+private:
+	static void countIncrease() { energy_objectCount += 1; }
+	static void countDecrease() { energy_objectCount -= 1; }
+	ld _energyVal;
+
 
 };
 #endif
