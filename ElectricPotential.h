@@ -10,7 +10,7 @@
 #ifndef ELECTRICALPOTENTIAL_H
 #define ELECTRICALPOTENTIAL_H
 #include "ElectricCharge.h"
-#include "Temperature.h"
+//#include "Temperature.h"
 #include "Heat.h"
 #include <iostream>
 

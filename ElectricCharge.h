@@ -11,6 +11,8 @@
 #define ELECTRICCHARGE_H
 #include <iostream>
 
+//#include "PhysicsWorld.h"
+
 /// <summary>
 /// Vacuum permittivity, commonly denoted ε0 (pronounced as "epsilon nought"
 /// or "epsilon zero") is the value of the absolute dielectric permittivity
