@@ -20,28 +20,28 @@ static struct TemperatureConversions
 }tempConverter;
 
 /**
-	 * @brief structure of thermal expansion coefficients, each is a vector  of two
+	 * @brief structure of thermal expansion coefficients, each is a std::vector  of two
 	 * and is followed by a capitol letter of either a S for solid a L for liquid or
-	 * a G for gases, only solids have vectors with two values the others are ld's here is an example:
+	 * a G for gases, only solids have std::vectors with two values the others are ld's here is an example:
 	 * aluminum_S[0] = coefficient of linear expansion // holds the value 25*10^-6
 	 * aluminum_S[1] = coefficient of volume expansion //holds the value 75*10^-6
 	 * of ether_L = coefficient of volume expansion // holds the value of 1650*10^-6
 	 */
 static struct ThermalExpansionCoefficients
 {
-	const vector<ld> aluminum_S = { 25 * pow(10, -6), 75 * pow(10, -6) };
-	const vector<ld> brass_S = { 19 * pow(10, -6), 56 * pow(10, -6) };
-	const vector<ld> copper_S = { 17 * pow(10, -6), 51 * pow(10, -6) };
-	const vector<ld> gold_S = { 14 * pow(10, -6), 42 * pow(10, -6) };
-	const vector<ld> iron_or_steel_S = { 12 * pow(10, -6), 35 * pow(10, -6) };
-	const vector<ld> invar_nickel_iron_allow_S = { 0.9 * pow(10, -6), 2.7 * pow(10, -6) };
-	const vector<ld> lead_S = { 29 * pow(10, -6), 87 * pow(10, -6) };
-	const vector<ld> silver_S = { 18 * pow(10, -6), 54 * pow(10, -6) };
-	const vector<ld> glass_ordinary_S = { 9 * pow(10, -6), 27 * pow(10, -6) };
-	const vector<ld> glass_pyrex_S = { 3 * pow(10, -6), 9 * pow(10, -6) };
-	const vector<ld> quartz_S = { 0.4 * pow(10, -6), 1 * pow(10, -6) };
-	const vector<ld> concrete_brick_S = { 12 * pow(10, -6), 36 * pow(10, -6) }; //average
-	const vector<ld> marble_S = { 7 * pow(10, -6), 2.1 * pow(10, -6) }; //average
+	const std::vector<ld> aluminum_S = { 25 * pow(10, -6), 75 * pow(10, -6) };
+	const std::vector<ld> brass_S = { 19 * pow(10, -6), 56 * pow(10, -6) };
+	const std::vector<ld> copper_S = { 17 * pow(10, -6), 51 * pow(10, -6) };
+	const std::vector<ld> gold_S = { 14 * pow(10, -6), 42 * pow(10, -6) };
+	const std::vector<ld> iron_or_steel_S = { 12 * pow(10, -6), 35 * pow(10, -6) };
+	const std::vector<ld> invar_nickel_iron_allow_S = { 0.9 * pow(10, -6), 2.7 * pow(10, -6) };
+	const std::vector<ld> lead_S = { 29 * pow(10, -6), 87 * pow(10, -6) };
+	const std::vector<ld> silver_S = { 18 * pow(10, -6), 54 * pow(10, -6) };
+	const std::vector<ld> glass_ordinary_S = { 9 * pow(10, -6), 27 * pow(10, -6) };
+	const std::vector<ld> glass_pyrex_S = { 3 * pow(10, -6), 9 * pow(10, -6) };
+	const std::vector<ld> quartz_S = { 0.4 * pow(10, -6), 1 * pow(10, -6) };
+	const std::vector<ld> concrete_brick_S = { 12 * pow(10, -6), 36 * pow(10, -6) }; //average
+	const std::vector<ld> marble_S = { 7 * pow(10, -6), 2.1 * pow(10, -6) }; //average
 	const ld ether_L = 1650 * pow(10, -6);
 	const ld ethyl_alcohol = 1100 * pow(10, -6);
 	const ld petrol = 950 * pow(10, -6);

@@ -17,11 +17,12 @@ private:
 
 	static void countIncrease() { elasticity_objectCount += 1; }
 	static void countDecrease() { elasticity_objectCount -= 1; }
+	ld _elasticityVal;
 
 public:
 	static void countShow() { std::cout << "elasticity count: " << elasticity_objectCount << std::endl; }
 
-
+	void setElasticityVal(ld val) { _elasticityVal = val; }
 
 	Elasticity* _ptrElastic;
 
@@ -88,14 +89,23 @@ public:
 	Elasticity()
 	{
 		_ptrElastic =  nullptr;
+		_elasticityVal = 0.0;
 		countIncrease();
 		//countShow();
+	}
+	Elasticity(ld val)
+	{
+		_ptrElastic =  nullptr;
+		_elasticityVal = 0.0;
+		countIncrease();
+
 	}
 
 	// copy constructor
 	Elasticity(const Elasticity& e)
 	{
 		_ptrElastic = e._ptrElastic;
+		_elasticityVal = e._elasticityVal;
 		countIncrease();
 		//countShow();
 	}
@@ -106,6 +116,7 @@ public:
 		if (this != &r)
 		{
 			_ptrElastic = r._ptrElastic;
+			_elasticityVal = r._elasticityVal;
 			countIncrease();
 			//countShow();
 		}

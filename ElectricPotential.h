@@ -64,15 +64,20 @@ static struct DielectricStrength
 
 class ElectricPotential
 {
-private:
-	static void countIncrease() { electricalPotential_objectCount += 1; }
-	static void countDecrease() { electricalPotential_objectCount -= 1; }
 public:
 	ElectricPotential* _electricalPotentialPtr;
 
 	ElectricPotential()
 	{
 		_electricalPotentialPtr = nullptr;
+		_electricPotentialVal = 0.0;
+		countIncrease();
+	}
+
+	ElectricPotential(ld val)
+	{
+		_electricalPotentialPtr = nullptr;
+		_electricPotentialVal = 0.0;
 		countIncrease();
 	}
 
@@ -82,6 +87,7 @@ public:
 	ElectricPotential(const ElectricPotential& t)
 	{
 		_electricalPotentialPtr = t._electricalPotentialPtr;
+		_electricPotentialVal = t._electricPotentialVal;
 		countIncrease();
 	}
 	/**
@@ -90,6 +96,7 @@ public:
 	ElectricPotential(ElectricPotential&& t) noexcept
 	{
 		_electricalPotentialPtr = t._electricalPotentialPtr;
+		_electricPotentialVal = t._electricPotentialVal;
 		countIncrease();
 	}
 	/**
@@ -100,6 +107,7 @@ public:
 		if (this != &t)
 		{
 			_electricalPotentialPtr = t._electricalPotentialPtr;
+			_electricPotentialVal = t._electricPotentialVal;
 			countIncrease();
 		}
 		return *this;
@@ -459,11 +467,20 @@ public:
 	/// <returns>KE (J)</returns>
 	static ld kineticEnergyFinalToMovePositiveCharge(const ld q, const ld Vab);
 
+	void setElectricPotentialVal(ld val)
+	{
+		_electricPotentialVal = val;
+	}
 
 	~ElectricPotential()
 	{
 		delete _electricalPotentialPtr;
 	}
+
+	private:
+	static void countIncrease() { electricalPotential_objectCount += 1; }
+	static void countDecrease() { electricalPotential_objectCount -= 1; }
+	ld _electricPotentialVal;
 
 };
 #endif

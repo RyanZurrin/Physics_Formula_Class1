@@ -96,6 +96,9 @@
     <ClInclude Include="Circuits.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Magnetism.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector2d.cpp">
@@ -108,9 +111,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="testFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ElectricCharge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

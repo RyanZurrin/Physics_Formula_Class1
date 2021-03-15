@@ -58,10 +58,7 @@ static struct FrictionCoefficient
 
 class Friction
 {
-private:
-	ld _frictionCoefficient_;
-	static void countIncrease() { friction_objectCount += 1; }
-	static void countDecrease() { friction_objectCount -= 1; }
+
 public:
 	static void countShow() { std::cout << "friction count: " << friction_objectCount << std::endl; }
 	Friction* _ptrFriction;
@@ -76,14 +73,23 @@ public:
 	{
 		_ptrFriction =  nullptr;
 		_frictionCoefficient_ = 0.0;
+		_frictionVal = 0.0;
 		countIncrease();
 		//countShow();
 	}
+	Friction(ld val)
+	{
+		_ptrFriction =  nullptr;
+		_frictionCoefficient_ = 0.0;
+		_frictionVal = 0.0;
+		countIncrease();
+	}
 
-	Friction(ld fC)
+	Friction(ld fC, char mode)
 	{
 		_ptrFriction = nullptr;
 		_frictionCoefficient_ = fC;
+		_frictionVal = 0.0;
 		countIncrease();
 		//countShow();
 	}
@@ -93,6 +99,7 @@ public:
 	{
 		_ptrFriction = f._ptrFriction;
 		_frictionCoefficient_ = f.return_frictionCoefficient();
+		_frictionVal = f._frictionVal;
 		countIncrease();
 		//countShow();
 	}
@@ -251,6 +258,8 @@ public:
 		return  (a-b)/(mass);
 	}
 
+	void setFrictionVal(ld val) { _frictionVal = val; }
+
 	// destructor
 	~Friction()
 	{
@@ -258,6 +267,12 @@ public:
 		countDecrease();
 		//countShow();
 	}
+
+	private:
+	ld _frictionCoefficient_;
+	ld _frictionVal;
+	static void countIncrease() { friction_objectCount += 1; }
+	static void countDecrease() { friction_objectCount -= 1; }
 
 };
 

@@ -24,6 +24,7 @@
 #include "Hearing.h"
 #include "Heat.h"
 #include "Kinematics.h"
+#include "Magnetism.h"
 #include "Momentum.h"
 #include "PeriodicElements.h"
 #include "RotationalMotion.h"
@@ -538,6 +539,7 @@ public:
 	ElectricCurrent* electric_current;
 	PeriodicElements* periodic_elements;
 	Circuits* circuits;
+	Magnetism* magnetism;
 
 
 	//PhysicsCommon * physics_common;
@@ -575,6 +577,7 @@ public:
 		electric_current(o.electric_current),
 		periodic_elements(o.periodic_elements),
 		circuits(o.circuits),
+		magnetism(o.magnetism),
 		_ptr_(o._ptr_){} // move constructor
 
 	/**========================================================================

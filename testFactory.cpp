@@ -9,14 +9,18 @@ int main()
 
 
 	setVal(electric.circuits->parallelResistance(100, 2500, 4000));
-	show_val("parallel Ohms:");
+	show_val("parallel Ohms");
 
 	setVal(electric.circuits->seriesResistance(100, 2500, 4000));
-	show_val("series Ohms:");
+	show_val("series Ohms");
 
-	setVal(electric.circuits->resistance_fromDCequations(.833333,.632,25*SU.nano));
-	show_val("R Ohms:");
+	setVal(electric.circuits->terminalVoltage(2.34,.130,65.0*SU.milla));
+	show_val("terminal Volts", "V");
 
+	setVal(electric.electric_current->resistanceUsingResistivity(resistivity.COPPER,30,circleArea(AWG.AWG19/2)));
+	show_val("resistance", "OHMS");
+
+	Magnetism magnet;
 
 
 	return 0;

@@ -164,18 +164,25 @@ static int electricCurrent_objectCount = 0;
 
 class ElectricCurrent
 {
-
 public:
 	friend class Circuits;
 	ElectricCurrent* _electricCurrentPtr;
-	static void countIncrease() { electricCurrent_objectCount += 1; }
-	static void countDecrease() { electricCurrent_objectCount -= 1; }
+
 
 	ElectricCurrent()
 	{
 		_electricCurrentPtr = nullptr;
+		_electricCurrentVal = 0.0;
 		countIncrease();
 		//cout << "in electicCurrent count: " << electricCurrent_objectCount << endl;
+	}
+
+	ElectricCurrent(ld val)
+	{
+		_electricCurrentPtr = nullptr;
+		_electricCurrentVal = 0.0;
+		countIncrease();
+
 	}
 
 	/**
@@ -184,6 +191,7 @@ public:
 	ElectricCurrent(const ElectricCurrent& t)
 	{
 		_electricCurrentPtr = t._electricCurrentPtr;
+		_electricCurrentVal = t._electricCurrentVal;
 		countIncrease();
 	}
 	/**
@@ -192,6 +200,7 @@ public:
 	ElectricCurrent(ElectricCurrent&& t) noexcept
 	{
 		_electricCurrentPtr = t._electricCurrentPtr;
+		_electricCurrentVal = t._electricCurrentVal;
 		countIncrease();
 	}
 	/**
@@ -202,6 +211,7 @@ public:
 		if (this != &t)
 		{
 			_electricCurrentPtr = t._electricCurrentPtr;
+			_electricCurrentVal = t._electricCurrentVal;
 			countIncrease();
 		}
 		return *this;
@@ -253,6 +263,7 @@ public:
 	/// <summary>
 	/// Calculates the current (I) using the number of free charges(n) per unit
 	/// volume (Ax) where the charge per n is given by q and t is the unit time.
+	/// I = (q * n * Ax) / t;
 	/// </summary>
 	/// <param name="q">The charge.</param>
 	/// <param name="n">The number of free charges.</param>
@@ -377,12 +388,12 @@ public:
 	static ld resistivityOfResistor(const ld R, const ld A, const ld l);
 
 	/// <summary>
-	///Of what material is a wire made, if it is a length of (l)m long with a
+	/// Of what material is a wire made, if it is a length of (l)m long with a
 	///(d)m diameter and has a resistance of R ohms at 20.0∘C
 	/// </summary>
-	/// <param name="l">The l.</param>
-	/// <param name="d">The d.</param>
-	/// <param name="R">The r.</param>
+	/// <param name="l">The length.</param>
+	/// <param name="d">The diameter.</param>
+	/// <param name="R">The resistance.</param>
 	/// <returns>Ohm m</returns>
 	static ld resistivity(const ld l, const ld d, const ld R);
 
@@ -662,13 +673,17 @@ public:
 	/// <returns>amperes</returns>
 	static ld currentAC(const ld Io, const ld f, const ld t);
 
-
-
+	void setElectricCurrentVal(ld val) { _electricCurrentVal = val; }
 
 	~ElectricCurrent()
 	{
 		delete _electricCurrentPtr;
 	}
+
+	private:
+	ld _electricCurrentVal;
+	static void countIncrease() { electricCurrent_objectCount += 1; }
+	static void countDecrease() { electricCurrent_objectCount -= 1; }
 
 };
 
@@ -729,7 +744,7 @@ inline ld ElectricCurrent::resistance_ohmic(const ld V, const ld I)
 
 inline ld ElectricCurrent::resistanceUsingResistivity(const ld p, const ld l, const ld A)
 {
-	return (p * l) / A;//Ohms
+	return p*(l  / A);//Ohms
 }
 
 

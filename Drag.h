@@ -5,7 +5,6 @@
 #define DRAG_H
 #include <algorithm>
 #include <iostream>
-
 #include <string.h>
 #include "Friction.h"
 #include "Vector2d.h"
@@ -48,6 +47,7 @@ private:
 	static void countDecrease() { drag_objectCount -= 1; }
 	ld _dragForce_;
 	ld _dragCoefficient_;
+	ld _dragVal;
 
 public:
 	static void countShow() { std::cout << "drag count: " << drag_objectCount << std::endl; }
@@ -71,6 +71,8 @@ public:
 	 */
 	void set_dragCoefficient(const ld C) { _dragCoefficient_ = C; }
 
+	void setDragVal(ld val) { _dragVal = val; }
+
 
 	//suppresses the default constructor
 	Drag()
@@ -78,6 +80,7 @@ public:
 		_ptrDrag =  nullptr;
 		_dragForce_ = 0.0;
 		_dragCoefficient_ = 0.0;
+		_dragVal = 0.0;
 		countIncrease();
 		//countShow();
 	}
@@ -86,7 +89,7 @@ public:
 
 		_ptrDrag = nullptr;
 		_dragForce_ = 0.0;
-
+		_dragVal = 0.0;
 		_dragCoefficient_ = setCoefficient(obj);
 		countIncrease();
 	}
@@ -96,6 +99,7 @@ public:
 		_ptrDrag = nullptr;
 		_dragForce_ = 0.0;
 		_dragCoefficient_ = dC;
+		_dragVal = 0.0;
 		countIncrease();
 	}
 
@@ -105,6 +109,7 @@ public:
 		_ptrDrag = r._ptrDrag;
 		_dragForce_ = r._dragForce_;
 		_dragCoefficient_ = r._dragCoefficient_;
+		_dragVal = r._dragVal;
 		countIncrease();
 		//countShow();
 	}
@@ -117,8 +122,9 @@ public:
 			_dragForce_ = r._dragForce_;
 			_ptrDrag = r._ptrDrag;
 			_dragCoefficient_ = r._dragCoefficient_;
+			_dragVal = r._dragVal;
 			countIncrease();
-			countShow();
+			//countShow();
 		}
 		return *this;
 	}
