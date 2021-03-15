@@ -12,7 +12,7 @@
 
 
 static int _objectCount = 0;
-
+typedef long double ld;
 
 class TemplateClass
 {
@@ -21,6 +21,7 @@ private:
 	static void countDecrease() { _objectCount -= 1; }
 public:
 	TemplateClass* _template;
+	ld _var;
 
 	TemplateClass()
 	{

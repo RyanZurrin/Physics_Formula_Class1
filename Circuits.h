@@ -17,7 +17,8 @@
 static int circuits_objectCount = 0;
 typedef long double ld;
 
-class Circuits{
+class Circuits
+{
 
 public:
 	Circuits* _circuitPtr;

@@ -29,6 +29,7 @@
     <ClInclude Include="Hearing.h" />
     <ClInclude Include="Heat.h" />
     <ClInclude Include="Kinematics.h" />
+    <ClInclude Include="Magnetism.h" />
     <ClInclude Include="PeriodicElements.h" />
     <ClInclude Include="Temperature.h" />
     <ClInclude Include="TemplateClass.h" />
@@ -48,7 +49,6 @@
     <ClInclude Include="Waves.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ElectricCharge.cpp" />
     <ClCompile Include="testFactory.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Vector2d.cpp" />

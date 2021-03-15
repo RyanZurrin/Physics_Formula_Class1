@@ -30,7 +30,7 @@ static struct HeatEnergyUnitConversion
 
 /**
  * @brief structure holding the heat values of different substances. this is the c value in the
- * heat transfer equation, that we must use. Each value is a vector holding two different units
+ * heat transfer equation, that we must use. Each value is a std::vector holding two different units
  * of heat; J/kg*C`  or kCal/kg*C`. So c.aluminum[0] would give the value of 900J/kg*C` and
  * c.aluminum[1] holds the value of .215 kCal/kg*C` respectfully.
  * @variable c stands for specific heat
@@ -38,36 +38,36 @@ static struct HeatEnergyUnitConversion
 static struct SpecificHeatCapacity
 {
 
-	const vector<ld> aluminum_S = { 900.0, .215 };//< 900J/kg*C`, .215kCal/kg*C` >
-	const vector<ld> asbestos_S = { 800.0, .19 };//< 800J/kg*C`, .19kCal/kg*C` >
-	const vector<ld> concrete_granite_average_S = { 840.0, .20 };//< 840J/kg*C`, .20kCal/kg*C` >
-	const vector<ld> copper_S = { 387.0, .0924 };//< 387J/kg*C`, .0924kCal/kg*C` >
-	const vector<ld> glass_S = { 840.0, .20 };//< 840.0J/kg*C`, .20kCal/kg*C` >
-	const vector<ld> sand_s = { 840.0, };//< 840.0J/kg*C`, .20kCal/kg*C` >
-	const vector<ld> gold_S = { 129.0, .0308 };//< 129.0J/kg*C`,.0308kCal/kg*C` >
-	const vector<ld> human_body_average_S = { 3500.0, .83 };//< 3500.0J/kg*C`, .83kCal/kg*C` >
-	const vector<ld> ice_average_S = { 2090.0, .50 };//< 2090.0J/kg*C`, .50kCal/kg*C` >
-	const vector<ld> iron_steel_S = { 452, .108 };//< 452J/kg*C`, .108kCal/kg*C` >
-	const vector<ld> lead_S = { 128.0, .0305 };//< 128.0J/kg*C`, .0305kCal/kg*C` >
-	const vector<ld> silver_S = { 235.0, .0562 };//< 235.0J/kg*C`, .0562kCal/kg*C` >
-	const vector<ld> wood_S = { 1700, .40 };//< 1700J/kg*C`, .40kCal/kg*C` >
-	const vector<ld> benzene_L = { 1740.0, .415 };//< 1740.0J/kg*C`, .415kCal/kg*C` >
-	const vector<ld> ethanol_L = { 2450, .586 };//< 2450J/kg*C`, .586kCal/kg*C` >
-	const vector<ld> glycerin_L = { 2410.0, .576 };//< 2410.0J/kg*C`, .576kCal/kg*C` >
-	const vector<ld> mercury_L = { 139, .0333 };//< 139J/kg*C`, .0333kCal/kg*C` >
-	const vector<ld> water_L = { 4186.0, 1.0 };//< 4186.0J/kg*C`, 1.0kCal/kg*C` >
-	const vector<ld> air_G = { 721.0, .172 };//< 721.0J/kg*C`, .172kCal/kg*C` >
-	const vector<ld> air_dry_G = { 1015.0, .242 };//< 1015.0J/kg*C`, .242kCal/kg*C` >
-	const vector<ld> ammonia_G = { 1670.0, .399 };//< 1670.0J/kg*C`, .399kCal/kg*C` >
-	const vector<ld> ammonia_dry_G = { 2190.0, .523 };//< 2190.0J/kg*C`, .523kCal/kg*C` >
-	const vector<ld> carbonDioxide_G = { 638.0, .152 };//< 638.0J/kg*C`, .152kCal/kg*C` >
-	const vector<ld> carbonDioxide_dry_G = { 833.0, .199 };//< 833.0J/kg*C`, .199kCal/kg*C` >
-	const vector<ld> nitrogen_G = { 739.0, .177 };//< 739.0J/kg*C`, .177kCal/kg*C` >
-	const vector<ld> nitrogen_dry_G = { 1040, .248 };//< 1040J/kg*C`,.248kCal/kg*C` >
-	const vector<ld> oxygen_G = { 651.0, .156 };//< 651.0J/kg*C`, .156kCal/kg*dC` >
-	const vector<ld> oxygen_dry_G = { 913.0, .218 };//< 913.0J/kg*C`, .218kCal/kg*dC` >
-	const vector<ld> steam_100C_G = { 1520.0, .363 };//< 1520.0J/kg*C`, .363kCal/kg*dC` >
-	const vector<ld> steam_dry_100C_G = { 2020.0, .482 };//< 2020.0J/kg*C`, .482kCal/kg*dC` >
+	const std::vector<ld> aluminum_S = { 900.0, .215 };//< 900J/kg*C`, .215kCal/kg*C` >
+	const std::vector<ld> asbestos_S = { 800.0, .19 };//< 800J/kg*C`, .19kCal/kg*C` >
+	const std::vector<ld> concrete_granite_average_S = { 840.0, .20 };//< 840J/kg*C`, .20kCal/kg*C` >
+	const std::vector<ld> copper_S = { 387.0, .0924 };//< 387J/kg*C`, .0924kCal/kg*C` >
+	const std::vector<ld> glass_S = { 840.0, .20 };//< 840.0J/kg*C`, .20kCal/kg*C` >
+	const std::vector<ld> sand_s = { 840.0, };//< 840.0J/kg*C`, .20kCal/kg*C` >
+	const std::vector<ld> gold_S = { 129.0, .0308 };//< 129.0J/kg*C`,.0308kCal/kg*C` >
+	const std::vector<ld> human_body_average_S = { 3500.0, .83 };//< 3500.0J/kg*C`, .83kCal/kg*C` >
+	const std::vector<ld> ice_average_S = { 2090.0, .50 };//< 2090.0J/kg*C`, .50kCal/kg*C` >
+	const std::vector<ld> iron_steel_S = { 452, .108 };//< 452J/kg*C`, .108kCal/kg*C` >
+	const std::vector<ld> lead_S = { 128.0, .0305 };//< 128.0J/kg*C`, .0305kCal/kg*C` >
+	const std::vector<ld> silver_S = { 235.0, .0562 };//< 235.0J/kg*C`, .0562kCal/kg*C` >
+	const std::vector<ld> wood_S = { 1700, .40 };//< 1700J/kg*C`, .40kCal/kg*C` >
+	const std::vector<ld> benzene_L = { 1740.0, .415 };//< 1740.0J/kg*C`, .415kCal/kg*C` >
+	const std::vector<ld> ethanol_L = { 2450, .586 };//< 2450J/kg*C`, .586kCal/kg*C` >
+	const std::vector<ld> glycerin_L = { 2410.0, .576 };//< 2410.0J/kg*C`, .576kCal/kg*C` >
+	const std::vector<ld> mercury_L = { 139, .0333 };//< 139J/kg*C`, .0333kCal/kg*C` >
+	const std::vector<ld> water_L = { 4186.0, 1.0 };//< 4186.0J/kg*C`, 1.0kCal/kg*C` >
+	const std::vector<ld> air_G = { 721.0, .172 };//< 721.0J/kg*C`, .172kCal/kg*C` >
+	const std::vector<ld> air_dry_G = { 1015.0, .242 };//< 1015.0J/kg*C`, .242kCal/kg*C` >
+	const std::vector<ld> ammonia_G = { 1670.0, .399 };//< 1670.0J/kg*C`, .399kCal/kg*C` >
+	const std::vector<ld> ammonia_dry_G = { 2190.0, .523 };//< 2190.0J/kg*C`, .523kCal/kg*C` >
+	const std::vector<ld> carbonDioxide_G = { 638.0, .152 };//< 638.0J/kg*C`, .152kCal/kg*C` >
+	const std::vector<ld> carbonDioxide_dry_G = { 833.0, .199 };//< 833.0J/kg*C`, .199kCal/kg*C` >
+	const std::vector<ld> nitrogen_G = { 739.0, .177 };//< 739.0J/kg*C`, .177kCal/kg*C` >
+	const std::vector<ld> nitrogen_dry_G = { 1040, .248 };//< 1040J/kg*C`,.248kCal/kg*C` >
+	const std::vector<ld> oxygen_G = { 651.0, .156 };//< 651.0J/kg*C`, .156kCal/kg*dC` >
+	const std::vector<ld> oxygen_dry_G = { 913.0, .218 };//< 913.0J/kg*C`, .218kCal/kg*dC` >
+	const std::vector<ld> steam_100C_G = { 1520.0, .363 };//< 1520.0J/kg*C`, .363kCal/kg*dC` >
+	const std::vector<ld> steam_dry_100C_G = { 2020.0, .482 };//< 2020.0J/kg*C`, .482kCal/kg*dC` >
 
 }c;
 
@@ -76,23 +76,23 @@ static struct SpecificHeatCapacity
  */
 static struct LatentHeatFusion
 {
-	const vector<ld> helium = { -269.7, 5230.0, 1.25 };// <MeltingPoint(-269.7), j/kg(5230.0), kCal/kg(1.25)>
-	const vector<ld> hydrogen = { -259.3, 58600.0, 14.0 };// <MeltingPoint(-259.3), j/kg(5858600.0), kCal/kg(14.0)>
-	const vector<ld> nitrogen = { -210.0, 25500.0, 6.09 };// <MeltingPoint(-210.0), j/kg(25500.0), kCal/kg(6.09)>
-	const vector<ld> oxygen = { -218.8, 13800.0, 3.3 };// <MeltingPoint(-218.8), j/kg(13800.0), kCal/kg(3.3)>
-	const vector<ld> ethanol = { -114.0, 104000.0, 24.9 };// <MeltingPoint(-114.0), j/kg(104000.0), kCal/kg(24.9)>
-	const vector<ld> ammonia = { -75.0, 0.00, 108.0 };// <MeltingPoint(-75.0), j/kg(0.00), kCal/kg()>
-	const vector<ld> mercury = { -38.9, 11800.0, 2.82 };// <MeltingPoint(-38.9), j/kg(), kCal/kg(108.0)>
-	const vector<ld> water = { 0.0, 334000.0, 79.8 };// <MeltingPoint(0.0), j/kg(334000.0), kCal/kg(79.8)>
-	const vector<ld> sulfur = { 119, 38100.0, 9.10 };// <MeltingPoint(119), j/kg(38100.0), kCal/kg(9.10)>
-	const vector<ld> lead = { 327.0, 24500.0, 5.85 };// <MeltingPoint(327.0), j/kg(24500.0), kCal/kg(5.85)>
-	const vector<ld> antimony = { 631.0, 165000.0, 39.4 };// <MeltingPoint(631.0), j/kg(165000.0), kCal/kg(39.4)>
-	const vector<ld> aluminum = { 660.0, 380000.0, 90.0 };// <MeltingPoint(660.0), j/kg(380000.0), kCal/kg(90.0)>
-	const vector<ld> silver = { 961.0, 88300.0, 21.1 };// <MeltingPoint(961.0), j/kg(88300.0), kCal/kg(21.1)>
-	const vector<ld> gold = { 1063.0, 64500.0, 15.4 };// <MeltingPoint(1063.0), j/kg(64500.0), kCal/kg(15.4)>
-	const vector<ld> copper = { 1083.0, 134000.0, 32.0 };// <MeltingPoint(1083.0), j/kg(134000.0), kCal/kg(32.0)>
-	const vector<ld> uranium = { 1133.0, 84000.0, 20.0 };// <MeltingPoint(1133.0), j/kg(84000.0), kCal/kg(20.0)>
-	const vector<ld> tungsten = { 3410.0, 184000.0, 44.0 };// <MeltingPoint(3410.0), j/kg(184000.0), kCal/kg(44.0)>
+	const std::vector<ld> helium = { -269.7, 5230.0, 1.25 };// <MeltingPoint(-269.7), j/kg(5230.0), kCal/kg(1.25)>
+	const std::vector<ld> hydrogen = { -259.3, 58600.0, 14.0 };// <MeltingPoint(-259.3), j/kg(5858600.0), kCal/kg(14.0)>
+	const std::vector<ld> nitrogen = { -210.0, 25500.0, 6.09 };// <MeltingPoint(-210.0), j/kg(25500.0), kCal/kg(6.09)>
+	const std::vector<ld> oxygen = { -218.8, 13800.0, 3.3 };// <MeltingPoint(-218.8), j/kg(13800.0), kCal/kg(3.3)>
+	const std::vector<ld> ethanol = { -114.0, 104000.0, 24.9 };// <MeltingPoint(-114.0), j/kg(104000.0), kCal/kg(24.9)>
+	const std::vector<ld> ammonia = { -75.0, 0.00, 108.0 };// <MeltingPoint(-75.0), j/kg(0.00), kCal/kg()>
+	const std::vector<ld> mercury = { -38.9, 11800.0, 2.82 };// <MeltingPoint(-38.9), j/kg(), kCal/kg(108.0)>
+	const std::vector<ld> water = { 0.0, 334000.0, 79.8 };// <MeltingPoint(0.0), j/kg(334000.0), kCal/kg(79.8)>
+	const std::vector<ld> sulfur = { 119, 38100.0, 9.10 };// <MeltingPoint(119), j/kg(38100.0), kCal/kg(9.10)>
+	const std::vector<ld> lead = { 327.0, 24500.0, 5.85 };// <MeltingPoint(327.0), j/kg(24500.0), kCal/kg(5.85)>
+	const std::vector<ld> antimony = { 631.0, 165000.0, 39.4 };// <MeltingPoint(631.0), j/kg(165000.0), kCal/kg(39.4)>
+	const std::vector<ld> aluminum = { 660.0, 380000.0, 90.0 };// <MeltingPoint(660.0), j/kg(380000.0), kCal/kg(90.0)>
+	const std::vector<ld> silver = { 961.0, 88300.0, 21.1 };// <MeltingPoint(961.0), j/kg(88300.0), kCal/kg(21.1)>
+	const std::vector<ld> gold = { 1063.0, 64500.0, 15.4 };// <MeltingPoint(1063.0), j/kg(64500.0), kCal/kg(15.4)>
+	const std::vector<ld> copper = { 1083.0, 134000.0, 32.0 };// <MeltingPoint(1083.0), j/kg(134000.0), kCal/kg(32.0)>
+	const std::vector<ld> uranium = { 1133.0, 84000.0, 20.0 };// <MeltingPoint(1133.0), j/kg(84000.0), kCal/kg(20.0)>
+	const std::vector<ld> tungsten = { 3410.0, 184000.0, 44.0 };// <MeltingPoint(3410.0), j/kg(184000.0), kCal/kg(44.0)>
 
 }Lf;
 
@@ -101,23 +101,23 @@ static struct LatentHeatFusion
  */
 static struct LatentHeatVaporization
 {
-	const vector<ld> helium = { -268.9, 20900.0, 4.99 };// <BoilingPoint(-268.9), j/kg(20900.0), kCal/kg(4.99)>
-	const vector<ld> hydrogen = { -252.9, 452000.0, 108.0 };// <BoilingPoint(-252.9), j/kg(452000.0), kCal/kg(108.0)>
-	const vector<ld> nitrogen = { -195.8, 201000.0, 48.0 };// <BoilingPoint(-195.8), j/kg(201000.0), kCal/kg(48.0)>
-	const vector<ld> oxygen = { -183.0, 213000.0, 50.9 };// <BoilingPoint(-183.0), j/kg(213000.0), kCal/kg(50.9)>
-	const vector<ld> ethanol = { 78.3, 854000.0, 204.0 };// <BoilingPoint(78.3), j/kg(854000.0), kCal/kg(204.0)>
-	const vector<ld> ammonia = { -33.4, 1370000.0, 327.0 };// <BoilingPoint(-33.4), j/kg(1370000.0), kCal/kg(327.0)>
-	const vector<ld> mercury = { 357, 272000.0, 65.0 };// <BoilingPoint(357), j/kg(272000.0), kCal/kg(65.0)>
-	const vector<ld> water = { 100.0, 2256000.0, 539.0 };// <BoilingPoint(100.0), j/kg(2256000.0), kCal/kg(539.0)>
-	const vector<ld> sulfur = { 444.6, 326000.0, 77.9 };// <BoilingPoint(444.6), j/kg(326000.0), kCal/kg(77.9)>
-	const vector<ld> lead = { 1750.0, 871000.0, 208.0 };// <BoilingPoint(1750.0), j/kg(871000.0), kCal/kg(208.0)>
-	const vector<ld> antimony = { 1440.0, 561000.0, 134.0 };// <BoilingPoint(1440.0), j/kg(561000.0), kCal/kg(134.0)>
-	const vector<ld> aluminum = { 2450.0, 11400000.0, 2720.0 };// <MeltingPoint(2450.0), j/kg(11400000.0), kCal/kg(2720.0)>
-	const vector<ld> silver = { 2193.0, 2336000.0, 558.0 };// <BoilingPoint(2193.0), j/kg(2336000.0), kCal/kg(558.0)>
-	const vector<ld> gold = { 2660.0, 1578000.0, 377.0 };// <BoilingPoint(2660.0), j/kg(1578000.0), kCal/kg(377.0)>
-	const vector<ld> copper = { 2595.0, 5069000.0, 1211.0 };// <BoilingPoint(2595.0), j/kg(5069000.0), kCal/kg(1211.0)>
-	const vector<ld> uranium = { 3900.0, 1900000.0, 454.0 };// <BoilingPoint(3900.0), j/kg(1900000.0), kCal/kg(454.0)>
-	const vector<ld> tungsten = { 5900.0, 4810000.0, 1150.0 };// <BoilingPoint(5900.0), j/kg(4810000.0), kCal/kg(1150.0)>
+	const std::vector<ld> helium = { -268.9, 20900.0, 4.99 };// <BoilingPoint(-268.9), j/kg(20900.0), kCal/kg(4.99)>
+	const std::vector<ld> hydrogen = { -252.9, 452000.0, 108.0 };// <BoilingPoint(-252.9), j/kg(452000.0), kCal/kg(108.0)>
+	const std::vector<ld> nitrogen = { -195.8, 201000.0, 48.0 };// <BoilingPoint(-195.8), j/kg(201000.0), kCal/kg(48.0)>
+	const std::vector<ld> oxygen = { -183.0, 213000.0, 50.9 };// <BoilingPoint(-183.0), j/kg(213000.0), kCal/kg(50.9)>
+	const std::vector<ld> ethanol = { 78.3, 854000.0, 204.0 };// <BoilingPoint(78.3), j/kg(854000.0), kCal/kg(204.0)>
+	const std::vector<ld> ammonia = { -33.4, 1370000.0, 327.0 };// <BoilingPoint(-33.4), j/kg(1370000.0), kCal/kg(327.0)>
+	const std::vector<ld> mercury = { 357, 272000.0, 65.0 };// <BoilingPoint(357), j/kg(272000.0), kCal/kg(65.0)>
+	const std::vector<ld> water = { 100.0, 2256000.0, 539.0 };// <BoilingPoint(100.0), j/kg(2256000.0), kCal/kg(539.0)>
+	const std::vector<ld> sulfur = { 444.6, 326000.0, 77.9 };// <BoilingPoint(444.6), j/kg(326000.0), kCal/kg(77.9)>
+	const std::vector<ld> lead = { 1750.0, 871000.0, 208.0 };// <BoilingPoint(1750.0), j/kg(871000.0), kCal/kg(208.0)>
+	const std::vector<ld> antimony = { 1440.0, 561000.0, 134.0 };// <BoilingPoint(1440.0), j/kg(561000.0), kCal/kg(134.0)>
+	const std::vector<ld> aluminum = { 2450.0, 11400000.0, 2720.0 };// <MeltingPoint(2450.0), j/kg(11400000.0), kCal/kg(2720.0)>
+	const std::vector<ld> silver = { 2193.0, 2336000.0, 558.0 };// <BoilingPoint(2193.0), j/kg(2336000.0), kCal/kg(558.0)>
+	const std::vector<ld> gold = { 2660.0, 1578000.0, 377.0 };// <BoilingPoint(2660.0), j/kg(1578000.0), kCal/kg(377.0)>
+	const std::vector<ld> copper = { 2595.0, 5069000.0, 1211.0 };// <BoilingPoint(2595.0), j/kg(5069000.0), kCal/kg(1211.0)>
+	const std::vector<ld> uranium = { 3900.0, 1900000.0, 454.0 };// <BoilingPoint(3900.0), j/kg(1900000.0), kCal/kg(454.0)>
+	const std::vector<ld> tungsten = { 5900.0, 4810000.0, 1150.0 };// <BoilingPoint(5900.0), j/kg(4810000.0), kCal/kg(1150.0)>
 }Lv;
 
 /**
@@ -166,7 +166,7 @@ static struct InfraredEmissivityValues
 	const ld asbestos_slate = 0.96;
 	const ld Brass_highlyPolished = 0.03;
 	const ld Brass_oxidized = 0.61;
-	const vector<ld> Brick_common =	{.81, .82, .83, .84, .85, .86};//	{.81, .82, .83, .84, .85, .86};
+	const std::vector<ld> Brick_common =	{.81, .82, .83, .84, .85, .86};//	{.81, .82, .83, .84, .85, .86};
 	const ld Brick_common_red =	0.93;
 	const ld Brick_facing_red = 0.92;
 	const ld Brick_fireClay = 0.75;
@@ -182,7 +182,7 @@ static struct InfraredEmissivityValues
 	const ld Clay_fired = 0.91;
 	const ld Concrete = 0.92;
 	const ld Concrete_dry =	0.95;
-	const vector<ld> Concrete_rough = { 0.92, .93, .94, .95, .96, .97 };//{ .92, .93, .94, .95, .96, .97 }
+	const std::vector<ld> Concrete_rough = { 0.92, .93, .94, .95, .96, .97 };//{ .92, .93, .94, .95, .96, .97 }
 	const ld Copper_polished = 0.05;
 	const ld Copper_oxidized = 0.65;
 	const ld Enamel_lacquer = 0.90;

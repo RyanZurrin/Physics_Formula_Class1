@@ -388,12 +388,12 @@ public:
 	static ld resistivityOfResistor(const ld R, const ld A, const ld l);
 
 	/// <summary>
-	///Of what material is a wire made, if it is a length of (l)m long with a
+	/// Of what material is a wire made, if it is a length of (l)m long with a
 	///(d)m diameter and has a resistance of R ohms at 20.0∘C
 	/// </summary>
-	/// <param name="l">The l.</param>
-	/// <param name="d">The d.</param>
-	/// <param name="R">The r.</param>
+	/// <param name="l">The length.</param>
+	/// <param name="d">The diameter.</param>
+	/// <param name="R">The resistance.</param>
 	/// <returns>Ohm m</returns>
 	static ld resistivity(const ld l, const ld d, const ld R);
 
@@ -744,7 +744,7 @@ inline ld ElectricCurrent::resistance_ohmic(const ld V, const ld I)
 
 inline ld ElectricCurrent::resistanceUsingResistivity(const ld p, const ld l, const ld A)
 {
-	return (p * l) / A;//Ohms
+	return p*(l  / A);//Ohms
 }
 
 

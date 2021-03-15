@@ -35,6 +35,7 @@ PhysicsWorld::PhysicsWorld()
 	electric_current = new ElectricCurrent;
 	periodic_elements = new PeriodicElements;
 	circuits = new Circuits;
+	magnetism = new Magnetism;
 	countIncrease();
 	//countShow();
 }
@@ -70,6 +71,7 @@ PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	electric_current = p.electric_current;
 	periodic_elements = p.periodic_elements;
 	circuits = p.circuits;
+	magnetism = p.magnetism;
 	//PhysicsWorld_common = p.PhysicsWorld_common;
 	countIncrease();
 	//countShow();
@@ -108,6 +110,7 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		electric_current = r.electric_current;
 		periodic_elements = r.periodic_elements;
 		circuits = r.circuits;
+		magnetism = r.magnetism;
 		countIncrease();
 		//countShow();
 	}
@@ -142,6 +145,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	electric_current = new ElectricCurrent;
 	periodic_elements = new PeriodicElements;
 	circuits = new Circuits;
+	magnetism = new Magnetism;
 
 	this->vector3d->set_coordinates(t1, t2, t3);
 
@@ -175,6 +179,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	electric_current = new ElectricCurrent;
 	periodic_elements = new PeriodicElements;
 	circuits = new Circuits;
+	magnetism = new Magnetism;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -207,6 +212,7 @@ PhysicsWorld::~PhysicsWorld()
 	delete electric_current;
 	delete periodic_elements;
 	delete circuits;
+	delete magnetism;
 
 	countDecrease();
 	//countShow();
