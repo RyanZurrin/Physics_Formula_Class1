@@ -14,8 +14,8 @@ int main()
 	setVal(electric.circuits->seriesResistance(100, 2500, 4000));
 	show_val("series Ohms");
 
-	setVal(electric.circuits->terminalVoltage(2.34,.130,65.0*SU.milla));
-	show_val("terminal Volts", "V");
+	setVal(electric.circuits->time_fromDischargeEquation(80.0*SU.micro,250*SU.kilo,.250));
+	show_val("time .250%", "V");
 
 	setVal(electric.electric_current->resistanceUsingResistivity(resistivity.COPPER,30,circleArea(AWG.AWG19/2)));
 	show_val("resistance", "OHMS");
