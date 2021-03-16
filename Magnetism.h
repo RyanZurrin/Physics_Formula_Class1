@@ -7,7 +7,7 @@
 
 static int magnetism_objectCount = 0;
 
-const ld _GAUSS_ = pow(10, -4); //Teslas
+const ld _GAUSS_ = pow(10, -4); //Tesla's
 
 
 class Magnetism :

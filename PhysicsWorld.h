@@ -51,7 +51,7 @@ static void show_val() { cout << "_val_: " << _val_ << endl; }
 static void show_val(const ld val) { cout << "val: " << val << endl; }
 static void show_val(const string label, const string units = "")
 { cout << "\n"+label+": " << _val_ << " "+units <<endl; }
-static int setVal(const ld v)
+static ld setVal(const ld v)
 {
 	_val_ = v;
 	return v;

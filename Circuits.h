@@ -527,7 +527,7 @@ inline ld Circuits::resistance_fromDCequations(const ld t, const ld VoverE, cons
 
 inline ld Circuits::time_fromDischargeEquation(const ld C, const ld R, const ld pOv)
 {
-	return -R*C*log(pOv);//seconds
+	return -R*C*log(pOv/100.0);//seconds
 }
 
 inline ld Circuits::resistance_fromDistanceVelocity(const ld d, const ld C, const ld v)
