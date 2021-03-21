@@ -24,6 +24,7 @@
     <ClInclude Include="ElectricCharge.h" />
     <ClInclude Include="ElectricCurrent.h" />
     <ClInclude Include="ElectricPotential.h" />
+    <ClInclude Include="ElectroMagneticInduction.h" />
     <ClInclude Include="FluidDynamics.h" />
     <ClInclude Include="FluidStatics.h" />
     <ClInclude Include="Hearing.h" />

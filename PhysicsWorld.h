@@ -17,6 +17,7 @@
 #include "ElectricCharge.h"
 #include "ElectricCurrent.h"
 #include "ElectricPotential.h"
+#include "ElectroMagneticInduction.h"
 #include "Energy.h"
 #include "FluidDynamics.h"
 #include "FluidStatics.h"
@@ -540,6 +541,7 @@ public:
 	PeriodicElements* periodic_elements;
 	Circuits* circuits;
 	Magnetism* magnetism;
+	ElectroMagneticInduction* emi;
 
 
 	//PhysicsCommon * physics_common;
@@ -578,6 +580,7 @@ public:
 		periodic_elements(o.periodic_elements),
 		circuits(o.circuits),
 		magnetism(o.magnetism),
+		emi(o.emi),
 		_ptr_(o._ptr_){} // move constructor
 
 	/**========================================================================

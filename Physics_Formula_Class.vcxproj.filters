@@ -99,6 +99,9 @@
     <ClInclude Include="Magnetism.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ElectroMagneticInduction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector2d.cpp">
