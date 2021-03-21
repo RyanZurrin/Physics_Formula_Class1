@@ -1,3 +1,10 @@
+/**
+ * @class Magnetism
+ * @details driver class for solving complex physics problems
+ * @author Ryan Zurrin
+ * @dateBuilt  3/18/2021
+ * @lastEdit 3/21/2021
+ */
 #pragma once
 //#include "ElectricCharge.h"
 #include "ElectricCurrent.h"
@@ -6,9 +13,9 @@
 #define MAGNETISM_H
 
 static int magnetism_objectCount = 0;
-
+const ld _PI__ = acos(-1);
 const ld _GAUSS_ = pow(10, -4); //Tesla's
-const ld _Uo_ = 4.0 * _PI * pow(10, -7);//permeability of free space
+const ld _Uo_ = 4.0 * _PI__ * pow(10, -7);//permeability of free space
 
 
 class Magnetism :
@@ -67,6 +74,7 @@ public:
 		return *this;
 	}
 	void setMagnetismVar(ld var) { _magnetismVar = var; }
+	ld getMagVar() const { return _magnetismVar; }
 	static void show_objectCount() { std::cout << "\n magnetism object count: "
 			<< magnetism_objectCount << std::endl; }
 	static int get_objectCount() { return magnetism_objectCount; }
@@ -85,7 +93,44 @@ public:
 	static ld magneticForce(const ld q, const ld v, const ld B, const ld theta);
 
 	/// <summary>
-	/// calculates the magnetic the field strength.
+	/// Calculates the magnetic force at a maximum angle of sin(90) which is 1.
+	/// </summary>
+	/// <param name="q">The q.</param>
+	/// <param name="B">The b.</param>
+	/// <param name="v">The v.</param>
+	/// <returns>magnetic force (N)</returns>
+	static ld magneticForceMax(const ld q, const ld B, const ld v);
+
+	/// <summary>
+	/// Calculates the charge of a particle moving at right angles to the
+	/// magnetic field of B Tesla's with a speed of v m/s while experiencing a
+	/// magnetic force of F newtons.
+	/// force of F Newtons.
+	/// </summary>
+	/// <param name="F">The force.</param>
+	/// <param name="v">The velocity.</param>
+	/// <param name="B">The magnetic field strength.</param>
+	/// <returns>charge (C)</returns>
+	static ld chargeOfParticle(const ld F, const ld v, const ld B);
+
+	/// <summary>
+	/// A charged particle moving through a magnetic field at an angles theta1 to
+	/// the field with a speed of v1 m/s experiences a magnetic force of
+	/// F1 N. Determine the magnetic force on an identical particle when
+	/// it travels through the same magnetic field with a speed of v2 m/s at
+	/// an angle of theta2 relative to the magnetic field.
+	/// </summary>
+	/// <param name="v1">The velocity of particle 1.</param>
+	/// <param name="v2">The velocity of particle 2.</param>
+	/// <param name="F1">The force on particle 1.</param>
+	/// <param name="theta1">The angle theta of particle 1.</param>
+	/// <param name="theta2">The angle theta of particle 2.</param>
+	/// <returns>force on particle 2</returns>
+	static ld magneticForceOnIdenticalParticle(const ld v1, const ld v2, const ld F1, const ld theta1, const ld theta2);
+
+	/// <summary>
+	/// calculates the magnetic the field strength.\n
+	/// B = F/(q*v*sin(theta*RADIAN))
 	/// </summary>
 	/// <param name="F">The magnetic force (N).</param>
 	/// <param name="q">The charge (C).</param>
@@ -124,12 +169,32 @@ public:
 	static ld magneticFieldStrengthCenterCircularLoop(const ld I, const ld R, const ld N);
 
 	/// <summary>
-	/// Magnetics the field strength inside solenoid.
+	/// Calculates the magnetic field strength inside solenoid.
 	/// </summary>
 	/// <param name="n">The number of loops per unit length n = N/l.</param>
 	/// <param name="I">The current.</param>
 	/// <returns>magnetic field strength inside a solenoid</returns>
 	static ld magneticFieldStrengthInsideSolenoid(const ld n, const ld I);
+
+	/// <summary>
+	/// Frustrated by the small Hall voltage obtained in blood flow measurements,
+	/// a medical physicist decides to increase the applied magnetic field strength
+	/// to get a E(hall voltage) output for blood moving at v m/s in a d m-diameter
+	/// vessel. Calculate the magnetic field strength needed.
+	/// </summary>
+	/// <param name="E">The hall voltage.</param>
+	/// <param name="d">The diameter of vessel.</param>
+	/// <param name="v">The speed.</param>
+	/// <returns>the magnetic field strength</returns>
+	static ld magneticFieldStrengthHallVoltage(const ld E, const ld d, const ld v);
+
+	/// <summary>
+	/// Loops per unit length.
+	/// </summary>
+	/// <param name="N">The number of loops.</param>
+	/// <param name="l">The length.</param>
+	/// <returns></returns>
+	static ld loopsPerUnitLength(const ld N, const ld l);
 
 	/// <summary>
 	/// calculates the centripetal force.
@@ -149,8 +214,44 @@ public:
 	/// <param name="v">The velocity.</param>
 	/// <param name="q">The charge.</param>
 	/// <param name="B">The magnetic field strength.</param>
+	/// <param name="theta">The angle theta, defaulted at 90.</param>
 	/// <returns>radius in meters</returns>
-	static ld radiusCurvatureOfPath(const ld m, const ld v, const ld q, const ld B);
+	static ld radiusCurvatureOfPath(const ld m, const ld v, const ld q, const ld B, const ld theta);
+
+	/// <summary>
+	/// If a single circular loop of wire carries a current of I A and produces
+	/// a magnetic field at its center with a magnitude of B T, determine
+	/// the radius of the loop.
+	/// </summary>
+	/// <param name="I">The current.</param>
+	/// <param name="B">The magnetic field strength.</param>
+	/// <returns>radius of loop (m)</returns>
+	static ld radiusLoopOfCurrentCarryingWire(const ld I, const ld B);
+
+	/// <summary>
+	/// The wire carrying I1 A to the motor of a commuter train feels an
+	/// attractive force per unit length of Fl N/m due to a parallel
+	/// wire carrying I2 A to a headlight. Calculate how far apart the two wires
+	/// are.
+	/// </summary>
+	/// <param name="I1">The current first wire.</param>
+	/// <param name="I2">The current second wire.</param>
+	/// <param name="Fl">The force per unit length.</param>
+	/// <returns>distance between wires (m)</returns>
+	static ld distanceBetween2wires(const ld I1, const ld I2, const ld Fl);
+
+	/// <summary>
+	/// Two power lines run parallel for a distance of l m and are separated
+	/// by a distance of r m. If the current in each of the two lines is I1 A and
+	/// I2 A and if they run in opposite directions, determine the magnitude
+	/// of the force each wire exerts on the other.
+	/// </summary>
+	/// <param name="I1">The current wire 1.</param>
+	/// <param name="I2">The current wire 2.</param>
+	/// <param name="l">The length of wires.</param>
+	/// <param name="r">The distance between the wires.</param>
+	/// <returns>magnitude of force</returns>
+	static ld forceMagnitude2wires(const ld I1, const ld I2, const ld l, const ld r);
 
 	/// <summary>
 	/// Calculates the mass of a charged particle of charge q moving in a
@@ -210,6 +311,26 @@ public:
 	static ld forceOnWire(const ld I, const ld l, const ld B, const ld theta);
 
 	/// <summary>
+	/// Calculates the force per unit length between two parallel wires.
+	/// </summary>
+	/// <param name="I1">The current 1.</param>
+	/// <param name="I2">The current 2.</param>
+	/// <param name="r">The distance of separation.</param>
+	/// <returns>N/m</returns>
+	static ld forcePerUnitLengthBetween2ParallelWires(const ld I1, const ld I2, const ld r);
+
+	/// <summary>
+	/// Two long straight current-carrying wires run parallel to each other.
+	/// The current in one of the wires is I1 A, their separation is r (m)
+	/// and they repel each other with a force per unit length of Fl N/m.
+	/// </summary>
+	/// <param name="I1">The known current.</param>
+	/// <param name="r">The distance between wires.</param>
+	/// <param name="Fl">The force per unit length.</param>
+	/// <returns>unknown current in wire 2 (A)</returns>
+	static ld currentFromWire2ParallelRunning(const ld I1, const ld r, const ld Fl);
+
+	/// <summary>
 	/// Calculates the torque on a current carrying loop of uniform magnetic
 	/// field. Valid for a loop of any shape. The loop carries a current of I,
 	/// and has N turns each of area A, and the perpendicular to the loop makes
@@ -260,6 +381,18 @@ public:
 	static ld currentInLongStraightWire(const ld r, const ld B);
 
 	/// <summary>
+	/// You have designed and constructed a solenoid to produce a magnetic field
+	/// equal in magnitude to B. If your solenoid
+	/// has n turns and is l cm long, determine the current you must use in
+	/// order to obtain a magnetic field of the desired magnitude.
+	/// </summary>
+	/// <param name="B">The desired magnetic field strength.</param>
+	/// <param name="n">The number of turns on the solenoid.</param>
+	/// <param name="l">The length of the solenoid.</param>
+	/// <returns>the current needed (I)</returns>
+	static ld currentSolenoid(const ld B, const ld n, const ld l);
+
+	/// <summary>
 	/// Calculate the angle the velocity of the electron
 	/// makes with the magnetic field if an electron moving at v m/s
 	/// in a B (T) magnetic field experiences a magnetic force of F N.
@@ -270,6 +403,19 @@ public:
 	/// <param name="q">The charge, default is elementary charge of electron.</param>
 	/// <returns>angle theta</returns>
 	static ld angleThetaOfElectronToMagneticField(const ld v, const ld B, const ld F, const ld q);
+
+	/// <summary>
+	/// A velocity selector in a mass spectrometer uses a B(T) magnetic field.
+	/// Calculate what electric field strength is needed to select a
+	/// speed of v m/s.
+	/// </summary>
+	/// <param name="v">The velocity selected on the spectrometer.</param>
+	/// <param name="B">The magnetic field strength.</param>
+	/// <param name="theta">The angle theta, default at sin(90) = 1.</param>
+	/// <returns>electric field strength newton/coulombs (N/C)</returns>
+	static ld electricFieldStrength_vB(const ld v, const ld B, const ld theta);
+
+
 
 
 
@@ -291,6 +437,21 @@ private:
 inline ld Magnetism::magneticForce(const ld q, const ld v, const ld B, const ld theta)
 {
 return q*v*B*sin(theta*RADIAN);//Newtons
+}
+
+inline ld Magnetism::magneticForceMax(const ld q, const ld B, const ld v)
+{
+	return q * v * B;//N
+}
+
+inline ld Magnetism::chargeOfParticle(const ld F, const ld v, const ld B)
+{
+	return F / (v * B);//(C)
+}
+
+inline ld Magnetism::magneticForceOnIdenticalParticle(const ld v1, const ld v2, const ld F1, const ld theta1, const ld theta2)
+{
+	return (F1 * v2 * sin(theta2 * RADIAN)) / (v1 * sin(theta1 * RADIAN));//F2 (N)
 }
 
 inline ld Magnetism::magneticFieldStrength(const ld F, const ld q, const ld v, const ld theta)
@@ -318,14 +479,39 @@ inline ld Magnetism::magneticFieldStrengthInsideSolenoid(const ld n, const ld I)
 	return _Uo_ * n * I;//(T)
 }
 
+inline ld Magnetism::magneticFieldStrengthHallVoltage(const ld E, const ld d, const ld v)
+{
+	return E / (d * v);//T
+}
+
+inline ld Magnetism::loopsPerUnitLength(const ld N, const ld l)
+{
+	return N / l;
+}
+
 inline ld Magnetism::centripetalForce(const ld m, const ld v, const ld r)
 {
 	return (m * (v * v)) / r;
 }
 
-inline ld Magnetism::radiusCurvatureOfPath(const ld m, const ld v, const ld q, const ld B)
+inline ld Magnetism::radiusCurvatureOfPath(const ld m, const ld v, const ld q, const ld B, const ld theta = 90)
 {
-	return (m * v) / (q * B);//meters
+	return (m * v) / (q * B * sin(theta*RADIAN));//meters
+}
+
+inline ld Magnetism::radiusLoopOfCurrentCarryingWire(const ld I, const ld B)
+{
+	return (_Uo_ * I) / (2.0 * B);//m
+}
+
+inline ld Magnetism::distanceBetween2wires(const ld I1, const ld I2, const ld Fl)
+{
+	return (_Uo_ * I1 * I2) / (2.0 * _PI * Fl);//m
+}
+
+inline ld Magnetism::forceMagnitude2wires(const ld I1, const ld I2, const ld l, const ld r)
+{
+	return (_Uo_ * I1 * I2 * l) / (2.0 * _PI * r);//N
 }
 
 inline ld Magnetism::massOfChargedParticle(const ld r, const ld q, const ld B, const ld v)
@@ -353,6 +539,16 @@ inline ld Magnetism::forceOnWire(const ld I, const ld l, const ld B, const ld th
 	return I * l * B * sin(theta * RADIAN);//N
 }
 
+inline ld Magnetism::forcePerUnitLengthBetween2ParallelWires(const ld I1, const ld I2, const ld r)
+{
+	return (_Uo_*I1*I2)/(2.0*_PI*r);
+}
+
+inline ld Magnetism::currentFromWire2ParallelRunning(const ld I1, const ld r, const ld Fl)
+{
+	return ((2.0 * _PI * r) / (_Uo_ * I1)) * Fl;//A
+}
+
 inline ld Magnetism::torqueOnCurrentCarryingLoop_umf(const ld N, const ld I, const ld A, const ld B, const ld theta)
 {
 	return N*I*A*B*sin(theta*RADIAN);//N*m = newton meters
@@ -373,7 +569,17 @@ inline ld Magnetism::currentInLongStraightWire(const ld r, const ld B)
 	return (2.0 * _PI * r * B) / _Uo_;//(A)
 }
 
+inline ld Magnetism::currentSolenoid(const ld B, const ld n, const ld l)
+{
+	return B / (_Uo_ * (n / l));// A
+}
+
 inline ld Magnetism::angleThetaOfElectronToMagneticField(const ld v, const ld B, const ld F, const ld q = _ELECTRON_CHARGE_)
 {
 	return asin(F / (-q * v * B))*DEGREE;//angle theta
+}
+
+inline ld Magnetism::electricFieldStrength_vB(const ld v, const ld B, const ld theta = 90)
+{
+	return v * B * sin(theta*RADIAN);//N/C
 }

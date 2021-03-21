@@ -309,7 +309,7 @@ public:
 		ld * result = new ld[SIZE];
 		for (int i=1; i<totalOvertones+1;i++)
 		{
-			result[i - 1] = (static_cast<ld>((i) * vw) / (2.0 * L));// Initialize all elements to zero.
+			result[i - 1] = (static_cast<ld>(i) * vw) / (2.0 * L);// Initialize all elements to zero.
 		}
 		printArr(result, totalOvertones, "openTube overtones");
 		delete[] result;
@@ -321,7 +321,7 @@ public:
 		ld *result = new ld[SIZE];
 		for (int i=0, j = 3; i<totalOvertones; j++,j++, i++)
 		{
-			result[i] = (static_cast<ld>((j) * vw) / (4.0 * L)); // Initialize all elements to zero.
+			result[i] = (static_cast<ld>(j) * vw) / (4.0 * L); // Initialize all elements to zero.
 		}
 
 		printArr(result, totalOvertones, "closedTube overtones");
@@ -335,7 +335,7 @@ public:
 		ld *result = new ld[SIZE];
 		for (int i=1; i<totalOvertones+1;i++)
 		{
-			result[i - 1] = (static_cast<ld>(i) * funFreq);// Initialize all elements to zero.
+			result[i - 1] = static_cast<ld>(i) * funFreq;// Initialize all elements to zero.
 		}
 		printArr(result, totalOvertones, "openTube overtones");
 		delete[] result;
@@ -353,7 +353,7 @@ public:
 		ld* result = new ld[SIZE];
 		for (int i=1, j = 3; i<totalOvertones+1; j++,j++, i++)
 		{
-			result[i - 1] = funFreq * static_cast<ld>( j); // Initialize all elements to zero.
+			result[i - 1] = funFreq * static_cast<ld>(j); // Initialize all elements to zero.
 		}
 
 		printArr(result, totalOvertones, "closedTube overtones");

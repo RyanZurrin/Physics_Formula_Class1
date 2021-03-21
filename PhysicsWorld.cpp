@@ -36,6 +36,7 @@ PhysicsWorld::PhysicsWorld()
 	periodic_elements = new PeriodicElements;
 	circuits = new Circuits;
 	magnetism = new Magnetism;
+	emi = new ElectroMagneticInduction;
 	countIncrease();
 	//countShow();
 }
@@ -72,6 +73,7 @@ PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	periodic_elements = p.periodic_elements;
 	circuits = p.circuits;
 	magnetism = p.magnetism;
+	emi = p.emi;
 	//PhysicsWorld_common = p.PhysicsWorld_common;
 	countIncrease();
 	//countShow();
@@ -111,6 +113,7 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		periodic_elements = r.periodic_elements;
 		circuits = r.circuits;
 		magnetism = r.magnetism;
+		emi = r.emi;
 		countIncrease();
 		//countShow();
 	}
@@ -146,6 +149,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	periodic_elements = new PeriodicElements;
 	circuits = new Circuits;
 	magnetism = new Magnetism;
+	emi = new ElectroMagneticInduction;
 
 	this->vector3d->set_coordinates(t1, t2, t3);
 
@@ -180,6 +184,7 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	periodic_elements = new PeriodicElements;
 	circuits = new Circuits;
 	magnetism = new Magnetism;
+	emi = new ElectroMagneticInduction;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -213,6 +218,7 @@ PhysicsWorld::~PhysicsWorld()
 	delete periodic_elements;
 	delete circuits;
 	delete magnetism;
+	delete emi;
 
 	countDecrease();
 	//countShow();

@@ -18,12 +18,14 @@ int main()
 	show_val("time .250%", "V");
 	*/
 
-	setVal(electric.magnetism->currentInLongStraightWire(5.0*SU.centi,1.0*pow(10,-4)));
-	show_val("I", "A");
+	setVal(electric.magnetism->currentFromWire2ParallelRunning(4.6,.048, 2.3*pow(10,-4)));
+	show_val("d", "m");
 
-	setVal(electric.magnetism->angleThetaOfElectronToMagneticField(4.0*SU.kilo, 1.25, 1.40*pow(10,-16)));
-	show_val("theta", "degrees");
+	Magnetism lpul;
+	lpul.setMagnetismVar(lpul.loopsPerUnitLength(2000, 2.0));
 
+	setVal(electric.magnetism->magneticForceOnIdenticalParticle(31.7, 5.14, 2.1*pow(10,-4),90,23.2));
+	show_val("F2", "N");
 
 
 

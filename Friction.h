@@ -1,5 +1,5 @@
 #pragma once
-#pragma once
+
 // class for doing physics problems
 // author: Ryan Zurrin
 // last Modified: 10/11/2020
