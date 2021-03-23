@@ -18,14 +18,14 @@ int main()
 	show_val("time .250%", "V");
 	*/
 
-	setVal(electric.magnetism->currentFromWire2ParallelRunning(4.6,.048, 2.3*pow(10,-4)));
-	show_val("d", "m");
+	setVal(electric.magnetism->magneticFieldStrength_straightCurrentCarryingWire(.5, .05));
+	show_val("B", "T");
 
 	Magnetism lpul;
 	lpul.setMagnetismVar(lpul.loopsPerUnitLength(2000, 2.0));
 
-	setVal(electric.magnetism->magneticForceOnIdenticalParticle(31.7, 5.14, 2.1*pow(10,-4),90,23.2));
-	show_val("F2", "N");
+	setVal(electric.emi->transformerEquations_IN(16.0, 0, 25, 200,"Ip"));
+	show_val("Ip", "A");
 
 
 
