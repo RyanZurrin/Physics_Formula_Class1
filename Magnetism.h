@@ -177,6 +177,15 @@ public:
 	static ld magneticFieldStrengthInsideSolenoid(const ld n, const ld I);
 
 	/// <summary>
+	/// Calculates the magnetic field strength inside solenoid.
+	/// </summary>
+	/// <param name="N">The Number of loops.</param>
+	/// <param name="l">The length.</param>
+	/// <param name="I">The current.</param>
+	/// <returns>magnetic field strength (T)</returns>
+	static ld magneticFieldStrengthInsideSolenoid(const ld N, const ld l, const ld I);
+
+	/// <summary>
 	/// Frustrated by the small Hall voltage obtained in blood flow measurements,
 	/// a medical physicist decides to increase the applied magnetic field strength
 	/// to get a E(hall voltage) output for blood moving at v m/s in a d m-diameter
@@ -477,6 +486,11 @@ inline ld Magnetism::magneticFieldStrengthCenterCircularLoop(const ld I, const l
 inline ld Magnetism::magneticFieldStrengthInsideSolenoid(const ld n, const ld I)
 {
 	return _Uo_ * n * I;//(T)
+}
+
+inline ld Magnetism::magneticFieldStrengthInsideSolenoid(const ld N, const ld l, const ld I)
+{
+	return _Uo_*(N/l) * I;//T
 }
 
 inline ld Magnetism::magneticFieldStrengthHallVoltage(const ld E, const ld d, const ld v)
