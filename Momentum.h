@@ -11,10 +11,10 @@ static int momentum_objectCount = 0;
 class Momentum
 {
 private:
-	
+
 	static void countIncrease() { momentum_objectCount += 1; }
 	static void countDecrease() { momentum_objectCount -= 1; }
-public:	
+public:
 	static void show_rotationalMotion_objectCount() { std::cout << "\nrotational motion Count: " << momentum_objectCount << endl; }
 	static int get_rotationalMotion_objectCount() { return momentum_objectCount; }
 	Momentum* _momentumPtr;
@@ -87,7 +87,7 @@ public:
 
 	/**
 	 * @brief calculates the ratio of two numbers
-	 * @param ratioOf is the ratio of something to 
+	 * @param ratioOf is the ratio of something to
 	 * @param to is the something the ratio is of
 	 * @returns the ratio of something to something else
 	 */
@@ -124,7 +124,7 @@ public:
 	/**
 	 * @brief calculates the mass of a still  object that is pushing off another object on a frictionless
 	 * surface, such as two ice skaters pushing off each other
-	 * 
+	 *
 	 */
 	ld static mass2FromMass1(const ld knownMass, const ld velocityForKnowMass, const ld velocityUnkownMass)
 	{
@@ -133,8 +133,8 @@ public:
 
 	/**
 	 * @brief computes the velocity of a system
-	 * @param momentum
-	 * @param mass
+	 * @param momentum the momentum
+	 * @param mass the mass
 	 * @returns velocity
 	 */
 	ld static velocity(const ld momentum, const ld mass)
@@ -161,7 +161,7 @@ public:
 	 * @param mass_a in kg
 	 * @param mass_b in kg is the mass of the unknown velocity
 	 * @param velocity_a in m/s
-	 * @returns the velocity of the second mass 
+	 * @returns the velocity of the second mass
 	 */
 	ld static velocityBFinalMass(const ld mass_a, const ld mass_b, const ld velocity_a)
 	{
@@ -176,7 +176,7 @@ public:
 	 * @param force_b in m/s
 	 * @param time in seconds
 	 * @returns the velocity
-	 * 
+	 *
 	 */
 	ld static velocityBfinalForce(const ld mass_a, const ld velocity_a, const ld force_b, const ld time )
 	{
@@ -197,7 +197,7 @@ public:
 	{
 		return (2 * distance) / (velocity_i + velocity_f);
 	}
-	
+
 	/**
 	 * @brief computes the time for an object to stop given its mass, velocity, and stopping force
 	 * t = (mass * velocity) / stoppingForce
@@ -233,7 +233,7 @@ public:
 	 * @returns the magnitude of the x component of a vector
 	 */
 	ld static velocityVectorX(const ld v, const ld theta, const ld x_vector180 = 0)
-	{		
+	{
 		return v * cos(theta * RADIAN) + x_vector180;
 	}
 
@@ -261,7 +261,7 @@ public:
 	{
 		vector<ld> velocities = { 0.0, 0.0 };
 		velocities[0] = (v1 * (movingMass1 - stillMass)) / (movingMass1 + stillMass);
-		velocities[1] = v1 - abs(velocities[0]);		
+		velocities[1] = v1 - abs(velocities[0]);
 		return velocities;
 	}
 
@@ -285,7 +285,7 @@ public:
 	{
 		vector<ld> velocityResults = {0.0, 0.0}; // <velocity m2, velocity m1>
 		velocityResults[0] = ((2 * m1 * v1) / (m1 + m2));
-		velocityResults[1] = (v1 * (m1 - m2)) / (m1 + m2);		
+		velocityResults[1] = (v1 * (m1 - m2)) / (m1 + m2);
 		return velocityResults;
 	}
 
@@ -297,7 +297,7 @@ public:
 	 * @param m2 is the mass of the second object in kg
 	 * @param theta is the angle of the new direction the masses are going after the collision
 	 * @return the initial velocity of m2
-	 * 
+	 *
 	 */
 	ld static  collisionTotallyInelasticPerpendicular_V2initial(const ld m1, const ld v1, const ld m2, const ld theta)
 	{
@@ -317,7 +317,7 @@ public:
 	{
 		return (m1 * v1) / ((cos(theta * RADIAN) * m1) + (cos(theta * RADIAN) * m2));
 	}
-	
+
 	/**
 	 * @brief calculates the starting velocity of  mass2 in a totally inelastic collision going in the same direction when the momentum start and final of
 	 * mass 1 is known
@@ -331,12 +331,12 @@ public:
 	{
 		const ld m1vs = m1StartingMomentum/mass1;
 		const ld m1vf = m1EndingMomentum / mass1;
-	
+
 
 		return ((mass1 * m1vf) + (mass2 * m1vf) - (mass1 * m1vs)) / (mass2);
-		
+
 	}
-	
+
 	/**
 	 * @brief Returns a vector with the values of recoil velocity, internal kinetic energy of system,
 	 * kinetic energy of system after system, and the total change of energy in system
@@ -346,13 +346,13 @@ public:
 	 * @returns vector<recoilVelocity, internalKineticEnergySystem, afterCollisionKEofSystem, totalChangeInSystem>
 	 */
 	std::vector<ld> static collisionInelastic(const ld movingMass1, const ld stillMass, const ld v1)
-	{		
-		const ld recoilVelocity = (movingMass1) / (movingMass1 + stillMass) * v1;		
-		const ld internalKineticEnergySystem = .5 * (movingMass1) * (v1 * v1);		
-		const ld afterCollisionKEofSystem = .5 * (movingMass1 + stillMass) * (recoilVelocity * recoilVelocity);		
+	{
+		const ld recoilVelocity = (movingMass1) / (movingMass1 + stillMass) * v1;
+		const ld internalKineticEnergySystem = .5 * (movingMass1) * (v1 * v1);
+		const ld afterCollisionKEofSystem = .5 * (movingMass1 + stillMass) * (recoilVelocity * recoilVelocity);
 		const ld totalChangeInSystem = afterCollisionKEofSystem - internalKineticEnergySystem;
 		vector<ld> results = { recoilVelocity, internalKineticEnergySystem, afterCollisionKEofSystem, totalChangeInSystem };
-			
+
 		return results;
 	}
 
@@ -373,7 +373,7 @@ public:
 	 * @param mass in kg
 	 * @param v in m/s is the velocity of the moving object before coming to rest v=0
 	 * @param time in seconds
-	 * @returns Force in newtons of the impact 
+	 * @returns Force in newtons of the impact
 	 */
 	ld static forceImpact(const ld mass, const ld v, const ld time)
 	{
@@ -382,7 +382,7 @@ public:
 
 	/**
 	 * @brief Returns the initial speed of a projectile as it launches from ground level at a particular angle
-	 * and returns to ground level a certain distance away 
+	 * and returns to ground level a certain distance away
 	 * Vi = sqrt((distance * _Ga_) / (2 * cos(angle * RADIAN) * sin(angle * RADIAN)))
 	 * @param distance
 	 * @param angle
@@ -398,7 +398,7 @@ public:
 	 * launch speed  %loss = 1 - exp(-projectileLaunchSpeed / fuelEjectionSpeed)
 	 * @param projectileLaunchSpeed in m/s
 	 * @param fuelEjectionSpeed in m/s
-	 * @returns mass loss % 
+	 * @returns mass loss %
 	 */
 	ld static massLossOfProjectile(const ld projectileLaunchSpeed, const ld fuelEjectionSpeed)
 	{
@@ -430,12 +430,12 @@ public:
 		return ((actingMass * actingVelocity) / sqrt((springConstant * (actingMass + sringAttachedMass))));
 	}
 
-	
-	
+
+
 	~Momentum()
 	{
 		delete _momentumPtr;
 	}
-	
+
 };
 #endif

@@ -24,8 +24,8 @@ int main()
 	Magnetism lpul;
 	lpul.setMagnetismVar(lpul.loopsPerUnitLength(2000, 2.0));
 
-	setVal(electric.emi->transformerEquations_IN(16.0, 0, 25, 200,"Ip"));
-	show_val("Ip", "A");
+	setVal(electric.emi->emf_avgOnCoil(2.0,.022,.250));
+	show_val("emf", "V");
 
 
 

@@ -160,6 +160,17 @@ public:
 	static ld emf_peek(const ld N, const ld r, const ld B, const ld rad, const ld t);
 
 	/// <summary>
+	/// Calculate the peak voltage of a generator that rotates its N-turn,
+	/// d m diameter coil rotating at rpm rpms in a B T field.
+	/// </summary>
+	/// <param name="N">The number of loops in coil.</param>
+	/// <param name="d">The diameter of coil.</param>
+	/// <param name="B">The magnetic filed strength.</param>
+	/// <param name="rpm">The RPMs.</param>
+	/// <returns>peek emf voltage</returns>
+	static ld emf_peekFromDiameterAndRPMs(const ld N, const ld d, const ld B, const ld rpm);
+
+	/// <summary>
 	/// Calculates the EMF induced by magnetic flux over t time having N turns
 	/// is considered Faraday's law of induction: Lenz's Law->(why there is a
 	/// minus sign.
@@ -169,6 +180,19 @@ public:
 	/// <param name="t">The time.</param>
 	/// <returns>emf = volts(V)</returns>
 	static ld emf_inducedByMagneticFlux(const ld N, const ld f, const ld t);
+
+	/// <summary>
+	/// An MRI technician moves his hand from a region of very low magnetic field
+	/// strength into an MRI scanner’s magnetic field of B(T) with his fingers
+	/// pointing in the direction of the field. Calculate the average emf induced in
+	/// his wedding ring, given its diameter is d(m) and assuming it takes time
+	/// t(s) to move it into the field.
+	/// </summary>
+	/// <param name="B">The magnetic filed.</param>
+	/// <param name="d">The diameter.</param>
+	/// <param name="t">The time in seconds.</param>
+	/// <returns>average emf (V)</returns>
+	static ld emf_avgOnCoil(const ld B, const ld d, const ld t);
 
 	/// <summary>
 	/// number of turns in a coil from EMF and time t over the flux;
@@ -301,6 +325,27 @@ public:
 	/// <returns>current or number of loops depending on the mode picked</returns>
 	static ld transformerEquations_IN(const ld Is, const ld Ip, const ld Ns, const ld Np, string mode);
 
+	/// <summary>
+	/// Calculates the frequencies from a know angular velocity of aW.
+	/// </summary>
+	/// <param name="aW">a angular velocity.</param>
+	/// <returns>frequency (Hz</returns>
+	static ld frequency(const ld aW);
+
+	/// <summary>
+	/// Calculates the period from the known frequency of f.
+	/// </summary>
+	/// <param name="f">The frequency.</param>
+	/// <returns></returns>
+	static ld period(const ld f);
+
+	/// <summary>
+	/// Calculates the current in the coil.
+	/// </summary>
+	/// <param name="emf">The EMF.</param>
+	/// <param name="R">The resistance.</param>
+	/// <returns>current (A)</returns>
+	static ld currentInCoil(const ld emf, const ld R);
 
 
 
@@ -370,9 +415,21 @@ inline ld ElectroMagneticInduction::emf_peek(const ld N, const ld r, const ld B,
 	return N * area * B * aW;//V
 }
 
+inline ld ElectroMagneticInduction::emf_peekFromDiameterAndRPMs(const ld N, const ld d, const ld B, const ld rpm)
+{
+	const ld aW = (rpm * 2.0 * _PI) / 60.0;//angular velocity
+	const ld A = (_PI * (d * d)) / 4;//cross sectional
+	return N * A * B * aW;//V
+}
+
 inline ld ElectroMagneticInduction::emf_inducedByMagneticFlux(const ld N, const ld f, const ld t)
 {
 	return -N * (f / t);//V
+}
+
+inline ld ElectroMagneticInduction::emf_avgOnCoil(const ld B, const ld d, const ld t)
+{
+	return (_PI * B * (d * d)) / (4.0 * t);//V
 }
 
 inline ld ElectroMagneticInduction::n_turnsInCoilFromEMFEquation(const ld t, const ld emf, const ld f)
@@ -480,4 +537,19 @@ inline ld ElectroMagneticInduction::transformerEquations_IN(const ld Is, const l
 	}
 	else
 		return -111111111111;//error
+}
+
+inline ld ElectroMagneticInduction::frequency(const ld aW)
+{
+	return aW/(2.0*_PI);//Hz
+}
+
+inline ld ElectroMagneticInduction::period(const ld f)
+{
+	return 1 / f;//s
+}
+
+inline ld ElectroMagneticInduction::currentInCoil(const ld emf, const ld R)
+{
+	return emf/R;//A
 }
