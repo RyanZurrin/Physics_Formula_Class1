@@ -272,6 +272,19 @@ public:
 	static ld magneticFieldFrom_emfEq(const ld V, const ld l, const ld v);
 
 	/// <summary>
+	/// Magnetics the field magnitude.
+	/// </summary>
+	/// <param name="flux">The flux.</param>
+	/// <param name="Ard">The Area, radius or diameter.</param>
+	/// <param name="theta">The theta, is at default value of 0.</param>
+	/// <param name="mode">The mode is used as a switch between what
+	/// information you use for the Ard argument: use 'r' for radius or 'd'
+	/// for diameter and if you are using the already calculated cross sectional
+	/// then leave out..</param>
+	/// <returns>magnetic field (T)</returns>
+	static ld magneticFieldMagnitude(const ld flux, const ld Ard, const ld theta, const ld mode);
+
+	/// <summary>
 	/// Calculates the voltage or number of loops in a transformer. Use a 0 as
 	/// placeholder in the unknowns method argument.
 	/// </summary>
@@ -347,6 +360,72 @@ public:
 	/// <returns>current (A)</returns>
 	static ld currentInCoil(const ld emf, const ld R);
 
+	/// <summary>
+	/// Calculates the emf2 from the mutual inductance of M between two devices
+	/// where the current from device one is I and the time t over which the
+	/// current changes.
+	/// </summary>
+	/// <param name="M">The Mutual inductance.</param>
+	/// <param name="I">The current.</param>
+	/// <param name="t">The time.</param>
+	/// <returns>emf voltage</returns>
+	static ld emf_byMutualInductance(const ld M, const ld I, const ld t);
+
+
+	/// <summary>
+	/// Calculates the mutual inductance.
+	/// </summary>
+	/// <param name="emf">The EMF.</param>
+	/// <param name="I">The current.</param>
+	/// <param name="t">The time.</param>
+	/// <returns>henry(H)</returns>
+	static ld mutualInductance(const ld emf, const ld I, const ld t);
+
+	/// <summary>
+	/// calculates the EMF by self inductance.
+	/// </summary>
+	/// <param name="L">The self inductance of the device.</param>
+	/// <param name="I">The current.</param>
+	/// <param name="t">The time.</param>
+	/// <returns>emf voltage</returns>
+	static ld emf_bySelfInductance(const ld L, const ld I, const ld t);
+
+	/// <summary>
+	/// calculates the self inductance.
+	/// </summary>
+	/// <param name="emf">The EMF.</param>
+	/// <param name="I">The current.</param>
+	/// <param name="t">The time.</param>
+	/// <returns>inductance of inductor(H)</returns>
+	static ld selfInductance(const ld emf, const ld I, const ld t);
+
+	/// <summary>
+	/// calculates the self inductance.
+	/// </summary>
+	/// <param name="N">The number of loops.</param>
+	/// <param name="B">The flux.</param>
+	/// <param name="I">The current.</param>s
+	/// <returns>inductance(H)</returns>
+	static ld selfInductance_N(const ld N, const ld B, const ld I);
+
+	/// <summary>
+	/// Calculates the inductance of a solenoid.
+	/// </summary>
+	/// <param name="N">The number of turns in coil.</param>
+	/// <param name="Ard">the area, radius or diameter.</param>
+	/// <param name="l">The length of solenoid.</param>
+	/// <param name="mode">put a 'r' if use a radius or a 'd' if using the
+	/// diameter in the Ard argument.</param>
+	/// <returns>inductance(H)</returns>
+	static ld inductanceSolenoid(const ld N, const ld A, const ld l, char mode);
+
+	/// <summary>
+	/// Calculates the energy stored in an inductor.
+	/// </summary>
+	/// <param name="L">The inductance.</param>
+	/// <param name="I">The current.</param>
+	/// <returns>energy (J)</returns>
+	static ld energyStoredInInductor(const ld L, const ld I);
 
 
 
@@ -472,6 +551,25 @@ inline ld ElectroMagneticInduction::magneticFieldFrom_emfEq(const ld V, const ld
 	return V / (l * v);//T
 }
 
+inline ld ElectroMagneticInduction::magneticFieldMagnitude(const ld flux, const ld Ard, const ld theta = 0, const ld mode = 'A')
+{
+	ld area;
+	if (mode == 'a' || mode == 'A')
+	{
+		return flux/(Ard*cos(theta*RADIAN));//(T)
+	}
+	else if (mode == 'r' || mode == 'R')
+	{
+		area = _PI * (Ard * Ard);
+		return flux/(area*cos(theta*RADIAN));//(T)
+	}
+	else
+	{
+		area = _PI * ((Ard * Ard) / 4.0);
+		return flux/(area*cos(theta*RADIAN));//(T)
+	}
+}
+
 inline ld ElectroMagneticInduction::transformerEquations_VN(const ld Vs, const ld Vp, const ld Ns, const ld Np, string mode)
 {
 	if (mode == "Vs" || mode == "vs" || mode == "VS" || mode == "vS")
@@ -552,4 +650,53 @@ inline ld ElectroMagneticInduction::period(const ld f)
 inline ld ElectroMagneticInduction::currentInCoil(const ld emf, const ld R)
 {
 	return emf/R;//A
+}
+
+inline ld ElectroMagneticInduction::emf_byMutualInductance(const ld M, const ld I, const ld t)
+{
+	return -M * (I / t);//V
+}
+
+inline ld ElectroMagneticInduction::mutualInductance(const ld emf, const ld I, const ld t)
+{
+	return -emf * (t / I);//henry(H) = (V*s)/A = Ohm*s
+}
+
+inline ld ElectroMagneticInduction::emf_bySelfInductance(const ld L, const ld I, const ld t)
+{
+	return -L * (I / t);//V
+}
+
+inline ld ElectroMagneticInduction::selfInductance(const ld emf, const ld I, const ld t)
+{
+	return -emf * (t / I);//henry(H)= (V*s)/A = Ohm*s
+}
+
+inline ld ElectroMagneticInduction::selfInductance_N(const ld N, const ld B, const ld I)
+{
+	return N * (B / I);//(H)
+}
+
+inline ld ElectroMagneticInduction::inductanceSolenoid(const ld N, const ld Ard, const ld l, char mode = 'a')
+{
+	ld area;
+	if (mode == 'a' || mode == 'A')
+	{
+		return (_Uo_ * (N * N) * Ard) / l;//(H)
+	}
+	else if	(mode == 'r' || mode == 'R')
+	{
+		area = _PI * (Ard * Ard);
+		return (_Uo_ * (N * N) * area) / l;//(H)
+	}
+	else
+	{
+		area = _PI * ((Ard * Ard) / 4.0);
+		return (_Uo_ * (N * N) * area) / l;//(H)
+	}
+}
+
+inline ld ElectroMagneticInduction::energyStoredInInductor(const ld L, const ld I)
+{
+	return (1.0 / 2.0) * L * (I * I);//J
 }
