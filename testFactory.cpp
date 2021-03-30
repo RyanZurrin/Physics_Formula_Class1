@@ -24,8 +24,10 @@ int main()
 	Magnetism lpul;
 	lpul.setMagnetismVar(lpul.loopsPerUnitLength(2000, 2.0));
 
-	setVal(electric.emi->emf_avgOnCoil(2.0,.022,.250));
-	show_val("emf", "V");
+	electric.emi->setElectroMagVar(electric.emi->inductanceSolenoid(200, .040, .10, 'd'));
+
+	setVal(electric.emi->magneticFieldMagnitude(2.70*pow(10, -5),.0850, 58,'r'));
+	show_val("B", "T");
 
 
 
