@@ -29,6 +29,8 @@ int main()
 	setVal(electric.emi->magneticFieldMagnitude(2.70*pow(10, -5),.0850, 58,'r'));
 	show_val("B", "T");
 
+	Vector test(-4, -5);
+	test.showAllData();
 
 
 	return 0;
