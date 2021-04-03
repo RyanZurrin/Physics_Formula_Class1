@@ -7,30 +7,20 @@ int main()
 {
 	PhysicsWorld electric;
 
-	/*
-	setVal(electric.circuits->parallelResistance(100, 2500, 4000));
-	show_val("parallel Ohms");
 
-	setVal(electric.circuits->seriesResistance(100, 2500, 4000));
-	show_val("series Ohms");
 
-	setVal(electric.circuits->time_fromDischargeEquation(80.0*SU.micro,250*SU.kilo,.250));
-	show_val("time .250%", "V");
-	*/
 
-	setVal(electric.magnetism->magneticFieldStrength_straightCurrentCarryingWire(.5, .05));
-	show_val("B", "T");
 
-	Magnetism lpul;
-	lpul.setMagnetismVar(lpul.loopsPerUnitLength(2000, 2.0));
+	setVal(electric.emi->impedance(40.0, 3.0*SU.milla, 5.0*SU.micro,60.0));
+	show_val("Z@60", "ohm");
 
-	electric.emi->setElectroMagVar(electric.emi->inductanceSolenoid(200, .040, .10, 'd'));
+	setVal(electric.emi->impedance(40.0, 3.0*SU.milla, 5.0*SU.micro,10.0*SU.kilo));
+	show_val("Z@10kHz", "ohm");
 
-	setVal(electric.emi->magneticFieldMagnitude(2.70*pow(10, -5),.0850, 58,'r'));
-	show_val("B", "T");
 
-	Vector test(-4, -5);
-	test.showAllData();
+
+	//Vector test(4, (3.0*_PI)/2.0,'p');
+	//test.showAllData();
 
 
 	return 0;
