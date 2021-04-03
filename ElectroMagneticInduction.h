@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @class ElectroMagneticInduction
  * @details driver class for solving complex physics problems
  * @author Ryan Zurrin
@@ -183,7 +183,7 @@ public:
 
 	/// <summary>
 	/// An MRI technician moves his hand from a region of very low magnetic field
-	/// strength into an MRI scanner�s magnetic field of B(T) with his fingers
+	/// strength into an MRI scanner’s magnetic field of B(T) with his fingers
 	/// pointing in the direction of the field. Calculate the average emf induced in
 	/// his wedding ring, given its diameter is d(m) and assuming it takes time
 	/// t(s) to move it into the field.
@@ -382,7 +382,8 @@ public:
 	static ld mutualInductance(const ld emf, const ld I, const ld t);
 
 	/// <summary>
-	/// calculates the EMF by self inductance.
+	/// calculates the EMF by self inductance. also the back emf calculated with
+	/// this methods equation
 	/// </summary>
 	/// <param name="L">The self inductance of the device.</param>
 	/// <param name="I">The current.</param>
@@ -409,6 +410,14 @@ public:
 	static ld selfInductance_N(const ld N, const ld B, const ld I);
 
 	/// <summary>
+	/// Calculates the self the inductance using the time constant and resistance
+	/// </summary>
+	/// <param name="toa">The time constant.</param>
+	/// <param name="R">The resistance.</param>
+	/// <returns>self inductance</returns>
+	static ld selfInductance_timeConstant(const ld toa, const ld R);
+
+	/// <summary>
 	/// Calculates the inductance of a solenoid.
 	/// </summary>
 	/// <param name="N">The number of turns in coil.</param>
@@ -417,7 +426,16 @@ public:
 	/// <param name="mode">put a 'r' if use a radius or a 'd' if using the
 	/// diameter in the Ard argument.</param>
 	/// <returns>inductance(H)</returns>
-	static ld inductanceSolenoid(const ld N, const ld A, const ld l, char mode);
+	static ld inductanceSolenoid_L(const ld N, const ld A, const ld l, char mode);
+
+	/// <summary>
+	/// Calculates the inductance from total energy of E stored in inductor
+	/// having a current of I.
+	/// </summary>
+	/// <param name="E">The energy of inductor.</param>
+	/// <param name="I">The current.</param>
+	/// <returns>the inductance (H)</returns>
+	static ld inductanceFromEnergyStored(const ld E, const ld I);
 
 	/// <summary>
 	/// Calculates the energy stored in an inductor.
@@ -427,8 +445,204 @@ public:
 	/// <returns>energy (J)</returns>
 	static ld energyStoredInInductor(const ld L, const ld I);
 
+	/// <summary>
+	/// Camera flashes charge a capacitor to high voltage by switching the
+	/// current through an inductor on and off rapidly. Calculate what time must
+	/// the a current of I through a inductance of L be switched on or off to
+	/// induce a emf.
+	/// </summary>
+	/// <param name="I">The current.</param>
+	/// <param name="L">The inductance.</param>
+	/// <param name="emf">The EMF.</param>
+	/// <returns>time to switch on off current through an inductor</returns>
+	static ld timeOnOffToinduceCurrent(const ld I, const ld L, const ld emf);
 
+	/// <summary>
+	/// Calculate  the current of a system with duel rails,
+	/// under the following conditions. The resistance between the rails is R,
+	/// the rails and the moving rod are identical in cross section A and have
+	/// the same resistivity ρ . The distance between the rails is l, and the
+	/// rod moves at constant speed v perpendicular to the uniform field B.
+	/// At time zero, the moving rod is next to the resistance R.
+	/// </summary>
+	/// <param name="B">The magnetic field.</param>
+	/// <param name="l">The length.</param>
+	/// <param name="v">The velocity.</param>
+	/// <param name="A">The area.</param>
+	/// <param name="p">The resistivity.</param>
+	/// <param name="R">The radius.</param>
+	/// <param name="t">The time.</param>
+	/// <returns>current</returns>
+	static ld currentSystemOnRails(const ld B, const ld l, const ld v, const ld A, const ld p, const ld R, const ld t);
 
+	/// <summary>
+	/// Calculates the Characteristic time constant. (cTc)
+	/// </summary>
+	/// <param name="L">The inductance.</param>
+	/// <param name="R">The resistance.</param>
+	/// <returns>the time constant</returns>
+	static ld characteristicTimeConstant(const ld L, const ld R);
+
+	/// <summary>
+	/// Inductances the reactance (XL)
+	/// </summary>
+	/// <param name="f">The frequency.</param>
+	/// <param name="L">The inductance.</param>
+	/// <returns>inductive reactance (H)</returns>
+	static ld inductance_reactance_XL(const ld f, const ld L);
+
+	/// <summary>
+	/// calculates the Capacitive reactance (XC).
+	/// </summary>
+	/// <param name="f">The frequency.</param>
+	/// <param name="C">The capacitance.</param>
+	/// <returns>capacitive reactance (ohms)</returns>
+	static ld capacitive_reactance_XC(const ld f, const ld C);
+
+	/// <summary>
+	/// Calculates the capacitance from reactance and frequency
+	/// </summary>
+	/// <param name="f">The frequency in Hz.</param>
+	/// <param name="_xc">The capacitive reactance.</param>
+	/// <returns>farads</returns>
+	static ld capacitanceFromReactance(const ld f, const ld _xc);
+
+	/// <summary>
+	/// Calculates the current in an inductor of an RC circuit at specific moments
+	/// of time t with an initial current of Io and a characteristic time constant of cTc.
+	/// </summary>
+	/// <param name="Io">The initial current in inductor.</param>
+	/// <param name="t">The time in seconds.</param>
+	/// <param name="cTc">The characteristic time constant.</param>
+	/// <returns>current at specified time when switched on (A)</returns>
+	static ld current_RLCircuit_switchON(const ld Io, const ld t, const ld cTc);
+
+	/// <summary>
+	/// Calculates the current of an inductor of an RC circuit switch off.
+	/// </summary>
+	/// <param name="Io">The current initially.</param>
+	/// <param name="t">The time in seconds.</param>
+	/// <param name="cTc">The characteristic time  constant.</param>
+	/// <returns>current at specified time when switched off </returns>
+	static ld current_RICircuit_switchOFF(const ld Io, const ld t, const ld cTc);
+
+	/// <summary>
+	/// Calculates the current through inductor.
+	/// </summary>
+	/// <param name="Vrms">The rms Voltage.</param>
+	/// <param name="_xl">The inductance reactance.</param>
+	/// <returns>current</returns>
+	static ld currentRMS_throughInductor(const ld Vrms, const ld _xl);
+
+	/// <summary>
+	/// Calculates the current through capacitor.
+	/// </summary>
+	/// <param name="Vrms">The Voltage RMS.</param>
+	/// <param name="_xc">The conductive reactance.</param>
+	/// <returns>current</returns>
+	static ld currentRMS_throughCapacitor(const ld Vrms, const ld _xc);
+
+	/// <summary>
+	/// Calculates the peeks the current in an AC circuit using the peek voltage
+	/// of Vo and its impedance of Z.
+	/// </summary>
+	/// <param name="Vo">The peek voltage in circuit.</param>
+	/// <param name="Z">The impedance.</param>
+	/// <returns>The peek current -> Io = peek Amps</returns>
+	static ld peekCurrent_AC(const ld Vo, const ld Z);
+
+	/// <summary>
+	/// Calculates the RMS(root mean square) or average current in an AC circuit
+	/// using the rms Voltage and the circuits impedance of Z.
+	/// </summary>
+	/// <param name="Vrms">The rms Voltage, average voltage.</param>
+	/// <param name="Z">The impedance in circuit.</param>
+	/// <returns>the average or rms current Irms -> (A)</returns>
+	static ld rmsCurrent_AC(const ld Vrms, const ld Z);
+
+	/// <summary>
+	/// Calculates the RMS(root mean square current or average current in a AC
+	/// series circuit.
+	/// </summary>
+	/// <param name="Vrms">The root mean square voltage or Vrms.</param>
+	/// <param name="R">The resistance.</param>
+	/// <param name="_xl">The inductive reactance.</param>
+	/// <param name="_xc">The conductive reactance.</param>
+	/// <returns>Irms or root mean square current, average current(A)</returns>
+	static ld rmsCurrent_AC(const ld Vrms, const ld R, const ld _xl, const ld _xc);
+
+	/// <summary>
+	/// Calculates the RMS(root mean square current or average current in a AC
+	/// series circuit.
+	/// </summary>
+	/// <param name="Vrms">The root mean square voltage or Vrms.</param>
+	/// <param name="R">The resistance.</param>
+	/// <param name="L">The inductance.</param>
+	/// <param name="C">The capacitance.</param>
+	/// <param name="f">The frequency.</param>
+	/// <returns>Irms or root mean square current, average current(A)</returns>
+	static ld rmsCurrent_AC(const ld Vrms, const ld R, const ld L, const ld C, const ld f);
+
+	/// <summary>
+	/// Calculates the Impedance in a RLC series AC circuit. For circuits without
+	/// a resistor take R=0, for those without and inductor take _xl = 0, for
+	/// those without a capacitor take _xc = 0.
+	/// </summary>
+	/// <param name="R">The resistance.</param>
+	/// <param name="_xl">The inductive reactance.</param>
+	/// <param name="_xc">The capacitive reactance.</param>
+	/// <returns>the impedance on an AC circuit (Ohms)</returns>
+	static ld impedance(const ld R, const ld _xl, const ld _xc);
+
+	/// <summary>
+	/// Calculates the impedance in a RLC series AS circuit.
+	/// </summary>
+	/// <param name="R">The resistance.</param>
+	/// <param name="L">The inductance.</param>
+	/// <param name="C">The capacitance.</param>
+	/// <param name="f">The frequency.</param>
+	/// <returns>the impedance on an AC circuit (Ohms)</returns>
+	static ld impedance(const ld R, const ld L, const ld C, const ld f);
+
+	/// <summary>
+	/// Calculates the resonant frequency in an RLC series AC circuit
+	/// </summary>
+	/// <param name="L">The inductance.</param>
+	/// <param name="C">The capacitance.</param>
+	/// <returns>resonant frequency (Hz)</returns>
+	static ld resonantFrequency(const ld L, const ld C);
+
+	/// <summary>
+	/// Calculates the power factor. cos(phi) = R/Z.
+	/// </summary>
+	/// <param name="R">The resistance.</param>
+	/// <param name="Z">The impedance.</param>
+	/// <returns>power factor(unit-less)</returns>
+	static ld powerFactor(const ld R, const ld Z);
+
+	/// <summary>
+	/// Phases the angle.
+	/// </summary>
+	/// <param name="pf">The pf.</param>
+	/// <returns>phase angle</returns>
+	static ld phaseAngle(const ld pf);
+
+	/// <summary>
+	/// Phases the angle.
+	/// </summary>
+	/// <param name="R">The resistance.</param>
+	/// <param name="Z">The impedance.</param>
+	/// <returns>phase angle</returns>
+	static ld phaseAngle(const ld R, const ld Z);
+
+	/// <summary>
+	/// Powers the average RLC.
+	/// </summary>
+	/// <param name="Irms">The average current .</param>
+	/// <param name="Vrms">The average voltage.</param>
+	/// <param name="pf">The power factor.</param>
+	/// <returns>power in an RLC series AC circuit</returns>
+	static ld powerAvgRLC(const ld Irms, const ld Vrms, const ld pf);
 
 
 	~ElectroMagneticInduction()
@@ -677,7 +891,12 @@ inline ld ElectroMagneticInduction::selfInductance_N(const ld N, const ld B, con
 	return N * (B / I);//(H)
 }
 
-inline ld ElectroMagneticInduction::inductanceSolenoid(const ld N, const ld Ard, const ld l, char mode = 'a')
+inline ld ElectroMagneticInduction::selfInductance_timeConstant(const ld toa, const ld R)
+{
+	return toa * R;//H
+}
+
+inline ld ElectroMagneticInduction::inductanceSolenoid_L(const ld N, const ld Ard, const ld l, char mode = 'a')
 {
 	ld area;
 	if (mode == 'a' || mode == 'A')
@@ -696,7 +915,124 @@ inline ld ElectroMagneticInduction::inductanceSolenoid(const ld N, const ld Ard,
 	}
 }
 
+inline ld ElectroMagneticInduction::inductanceFromEnergyStored(const ld E, const ld I)
+{
+	return (2.0 * E) / (I * I);//H = Ohm *s
+}
+
 inline ld ElectroMagneticInduction::energyStoredInInductor(const ld L, const ld I)
 {
 	return (1.0 / 2.0) * L * (I * I);//J
+}
+
+inline ld ElectroMagneticInduction::timeOnOffToinduceCurrent(const ld I, const ld L, const ld emf)
+{
+	return L * (I / emf);//seconds
+}
+
+inline ld ElectroMagneticInduction::currentSystemOnRails(const ld B, const ld l, const ld v, const ld A, const ld p, const ld R, const ld t)
+{
+	return (B * l * v * A) / (p * (2.0 * v * t + l) + R*A);//A
+}
+
+inline ld ElectroMagneticInduction::characteristicTimeConstant(const ld L, const ld R)
+{
+	return L/R;//s
+}
+
+inline ld ElectroMagneticInduction::inductance_reactance_XL(const ld f, const ld L)
+{
+	return 2.0 * _PI * f * L;
+}
+
+inline ld ElectroMagneticInduction::capacitive_reactance_XC(const ld f, const ld C)
+{
+	return 1.0 / (2.0 * _PI * f * C);//ohms
+}
+
+inline ld ElectroMagneticInduction::capacitanceFromReactance(const ld f, const ld _xc)
+{
+	return 1.0 / (2.0 * _PI * f * _xc);//F
+}
+
+inline ld ElectroMagneticInduction::current_RLCircuit_switchON(const ld Io, const ld t, const ld cTc)
+{
+	return Io * (1.0 - exp(-t / cTc));//A
+}
+
+inline ld ElectroMagneticInduction::current_RICircuit_switchOFF(const ld Io, const ld t, const ld cTc)
+{
+	return Io * exp(-t / cTc);//A
+}
+
+inline ld ElectroMagneticInduction::currentRMS_throughInductor(const ld Vrms, const ld _xl)
+{
+	return Vrms / _xl;//A
+}
+
+inline ld ElectroMagneticInduction::currentRMS_throughCapacitor(const ld Vrms, const ld _xc)
+{
+	return Vrms / _xc;//A
+}
+
+inline ld ElectroMagneticInduction::peekCurrent_AC(const ld Vo, const ld Z)
+{
+	return Vo / Z;//A
+}
+
+inline ld ElectroMagneticInduction::rmsCurrent_AC(const ld Vrms, const ld Z)
+{
+	return Vrms / Z;//A
+}
+
+inline ld ElectroMagneticInduction::rmsCurrent_AC(const ld Vrms, const ld R, const ld _xl, const ld _xc)
+{
+	const ld imp = impedance(R, _xl, _xc);
+	return Vrms/imp;
+}
+
+inline ld ElectroMagneticInduction::rmsCurrent_AC(const ld Vrms, const ld R, const ld L, const ld C, const ld f)
+{
+	const ld XL = inductance_reactance_XL(f, L);
+	const ld XC = capacitive_reactance_XC(f, C);
+	const ld Z = sqrt((R * R) + pow((XL - XC), 2));
+	return Vrms / Z;
+}
+
+inline ld ElectroMagneticInduction::impedance(const ld R, const ld _xl, const ld _xc)
+{
+	return sqrt((R * R) + pow((_xl - _xc), 2));//Ohms
+}
+
+inline ld ElectroMagneticInduction::impedance(const ld R, const ld L, const ld C, const ld f)
+{
+	const ld XL = inductance_reactance_XL(f, L);
+	const ld XC = capacitive_reactance_XC(f, C);
+	return sqrt((R * R) + pow((XL - XC), 2));
+}
+
+inline ld ElectroMagneticInduction::resonantFrequency(const ld L, const ld C)
+{
+	return 1.0 / (20 * _PI * sqrt(L * C));//Hz
+}
+
+inline ld ElectroMagneticInduction::powerFactor(const ld R, const ld Z)
+{
+	return R / Z;
+}
+
+inline ld ElectroMagneticInduction::phaseAngle(const ld pf)
+{
+	return acos(pf);
+}
+
+inline ld ElectroMagneticInduction::phaseAngle(const ld R, const ld Z)
+{
+	const ld pf = powerFactor(R, Z);
+	return acos(pf);
+}
+
+inline ld ElectroMagneticInduction::powerAvgRLC(const ld Irms, const ld Vrms, const ld pf)
+{
+	return Irms * Vrms * pf;//Watts
 }
