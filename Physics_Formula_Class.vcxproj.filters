@@ -102,6 +102,12 @@
     <ClInclude Include="ElectroMagneticInduction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ElectromagneticWaves.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometricOptics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector2d.cpp">
