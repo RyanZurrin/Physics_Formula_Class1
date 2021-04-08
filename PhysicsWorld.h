@@ -18,10 +18,12 @@
 #include "ElectricCurrent.h"
 #include "ElectricPotential.h"
 #include "ElectroMagneticInduction.h"
+#include "ElectromagneticWaves.h"
 #include "Energy.h"
 #include "FluidDynamics.h"
 #include "FluidStatics.h"
 #include "Friction.h"
+#include "GeometricOptics.h"
 #include "Hearing.h"
 #include "Heat.h"
 #include "Kinematics.h"
@@ -113,8 +115,6 @@ void static printArr(const ld arr[], const int n)
 //Gravitational Constant 6.67408(31) * 10^(-11) * N
 const ld _GC_ = 6.674 * pow(10.0, -11.0);
 
-// speed of light in a vacuum is 299792458 m/s
-const ld _c_ = 2.99792458 * pow(10.0, 8.0);
 
 /**
  * @brief area of sphere with radius r
@@ -542,6 +542,8 @@ public:
 	Circuits* circuits;
 	Magnetism* magnetism;
 	ElectroMagneticInduction* emi;
+	ElectromagneticWaves* emWaves;
+	GeometricOptics* geometric_optics;
 
 
 	//PhysicsCommon * physics_common;
@@ -581,6 +583,8 @@ public:
 		circuits(o.circuits),
 		magnetism(o.magnetism),
 		emi(o.emi),
+		emWaves(o.emWaves),
+		geometric_optics(o.geometric_optics),
 		_ptr_(o._ptr_){} // move constructor
 
 	/**========================================================================

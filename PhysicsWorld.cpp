@@ -37,6 +37,8 @@ PhysicsWorld::PhysicsWorld()
 	circuits = new Circuits;
 	magnetism = new Magnetism;
 	emi = new ElectroMagneticInduction;
+	emWaves = new ElectromagneticWaves;
+	geometric_optics = new GeometricOptics;
 	countIncrease();
 	//countShow();
 }
@@ -74,6 +76,8 @@ PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	circuits = p.circuits;
 	magnetism = p.magnetism;
 	emi = p.emi;
+	emWaves = p.emWaves;
+	geometric_optics = p.geometric_optics;
 	//PhysicsWorld_common = p.PhysicsWorld_common;
 	countIncrease();
 	//countShow();
@@ -114,6 +118,8 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		circuits = r.circuits;
 		magnetism = r.magnetism;
 		emi = r.emi;
+		emWaves = r.emWaves;
+		geometric_optics = r.geometric_optics;
 		countIncrease();
 		//countShow();
 	}
@@ -150,6 +156,8 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	circuits = new Circuits;
 	magnetism = new Magnetism;
 	emi = new ElectroMagneticInduction;
+	emWaves = new ElectromagneticWaves;
+	geometric_optics = new GeometricOptics;
 
 	this->vector3d->set_coordinates(t1, t2, t3);
 
@@ -185,6 +193,8 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	circuits = new Circuits;
 	magnetism = new Magnetism;
 	emi = new ElectroMagneticInduction;
+	emWaves = new ElectromagneticWaves;
+	geometric_optics = new GeometricOptics;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -219,6 +229,8 @@ PhysicsWorld::~PhysicsWorld()
 	delete circuits;
 	delete magnetism;
 	delete emi;
+	delete emWaves;
+	delete geometric_optics;
 
 	countDecrease();
 	//countShow();

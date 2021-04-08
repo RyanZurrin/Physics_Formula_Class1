@@ -11,13 +11,13 @@ int main()
 
 
 
-	setVal(electric.emi->impedance(40.0, 3.0*SU.milla, 5.0*SU.micro,60.0));
-	show_val("Z@60", "ohm");
+	setVal(electric.emi->transformerEquations_IN(4.0, 0, 8, 489, "ip"));
+	show_val("Ip", "A");
 
-	setVal(electric.emi->impedance(40.0, 3.0*SU.milla, 5.0*SU.micro,10.0*SU.kilo));
-	show_val("Z@10kHz", "ohm");
+	setVal(electric.emWaves->waveLength_dopplerEffect(724.5*SU.kilo, 673.1*SU.nano));
+	show_val("S", "m/s");
 
-
+	std::cout << "c: "<< _c_<<endl;
 
 	//Vector test(4, (3.0*_PI)/2.0,'p');
 	//test.showAllData();
