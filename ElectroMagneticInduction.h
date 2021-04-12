@@ -117,7 +117,7 @@ public:
 	/// <param name="t">The time over which the increase of the
 	/// magnetic field takes place.</param>
 	/// <returns>magnitude of emf (V)</returns>
-	static ld emfMagnitude_FaradayNoMinus(const ld N, const ld r, const ld B1, const ld B2, const ld t);
+	static ld emfMagnitude_FaradayNoMinus(const ld N, const ld r, const ld B1, const ld B2, const ld t, const ld theta);
 
 	/// <summary>
 	/// Calculates the change in flux.
@@ -701,11 +701,11 @@ inline ld ElectroMagneticInduction::emfFaradyFullEquation(const ld N, const ld r
 	return  -N * (flux / t);
 }
 
-inline ld ElectroMagneticInduction::emfMagnitude_FaradayNoMinus(const ld N, const ld r, const ld B1, const ld B2, const ld t)
+inline ld ElectroMagneticInduction::emfMagnitude_FaradayNoMinus(const ld N, const ld r, const ld B1, const ld B2, const ld t, const ld theta)
 {
 	const ld area = _PI * (r * r);
 	const ld deltaB = abs(B2 - B1);
-	const ld deltaFlux = area * deltaB;
+	const ld deltaFlux = area * deltaB * cos(theta*RADIAN);
 
 	return N * (deltaFlux / t);//V
 }
