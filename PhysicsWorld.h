@@ -41,39 +41,50 @@
 
 
 class PhysicsWorld;
+typedef long double ld;
+typedef PhysicsWorld PW;
 //_____________________________________________________________________________
 //global constants, methods and structures
 //
 //
 
-typedef long double ld;
-typedef PhysicsWorld PW;
-
+//Gravitational Constant 6.67408(31) * 10^(-11) * N
+const ld _GC_ = 6.674 * pow(10.0, -11.0);
 static ld _val_;// = 0.0;
-static void show_val() { cout << "_val_: " << _val_ << endl; }
-static void show_val(const ld val) { cout << "val: " << val << endl; }
-static void show_val(const string label, const string units = "")
-{ cout << "\n"+label+": " << _val_ << " "+units <<endl; }
+
+
+
+/// <summary>
+/// Sets the value of the static member _val_
+/// </summary>
+/// <param name="v">The value to set val too.</param>
+/// <returns>returns the value of v</returns>
 static ld setVal(const ld v)
 {
 	_val_ = v;
-	return v;
-}
+	return _val_;
+}//end setVal
 /// <summary>
-/// Returns the value.
+/// Gets the value.
 /// </summary>
 /// <returns></returns>
-static ld return_val() { return _val_; }
-
-
-template<typename K, typename V>
-void print_map(std::map<K,V> const &m)
-{
-	for (auto const& pair: m) {
-		std::cout << "{" << pair.first << ": " << pair.second << "}\n";
-	}
-}
-
+static ld getVal() { return  _val_; }
+/// <summary>
+/// Shows the value.
+/// </summary>
+static void show_val() { cout << "_val_: " << _val_ << endl; }
+/// <summary>
+/// Shows the value.
+/// </summary>
+/// <param name="val">The value.</param>
+static void show_val(const ld val) { cout << "val: " << val << endl; }
+/// <summary>
+/// Shows the value with a label in front and units in back
+/// </summary>
+/// <param name="label">The label.</param>
+/// <param name="units">The units.</param>
+static void show_val(const string label, const string units = "")
+{ cout << "\n"+label+": " << _val_ << " "+units <<endl; }
 
 /// <summary>
 /// Prints the vector values of passed in vector.
@@ -88,7 +99,12 @@ static void printVectorValues(vector<ld>& v)
 		std::cout << v[i] << ", ";
 	}
 	std::cout << std::endl;
-}
+}//end printVectorValues
+
+/// <summary>
+/// Prints the vector values of a vector full of long doubles
+/// </summary>
+/// <param name="v">The vector to print.</param>
 static void printVectorValues(vector<ld> v)
 {
 	const auto size = v.size();
@@ -98,8 +114,31 @@ static void printVectorValues(vector<ld> v)
 		std::cout << v[i] << ", ";
 	}
 	std::cout << std::endl;
-}
+}//end printVectorValues
 
+
+/// <summary>
+/// Prints the vector of any type
+/// </summary>
+/// <param name="t">The vector to print.</param>
+template<typename T>
+void printVector(const T& t) {
+	std::copy(t.cbegin(), t.cend(), std::ostream_iterator<typename T::value_type>(std::cout, ", "));
+}//end printVector
+
+/// <summary>
+/// Prints out a multidimensional vector values of any type.
+/// </summary>
+/// <param name="t">The vector to print.</param>
+template<typename T>
+void printVectorInVector(const T& t) {
+	std::for_each(t.cbegin(), t.cend(), printVector<typename T::value_type>);
+}//end printVectorInVector
+
+/// <summary>
+/// Prints an array of any type
+/// </summary>
+/// <param name="array">The array.</param>
 template <typename T, size_t size>
 void static printArray(const T(&array)[size])
 {
@@ -107,9 +146,74 @@ void static printArray(const T(&array)[size])
 		cout << array[i] << " ";
 
 	cout << endl;
-}
+}//end printArray
+
 /// <summary>
-/// Prints the arr.
+/// Prints a map of any types out in its entirety.
+/// </summary>
+/// <param name="m">The map to print.</param>
+template<typename K, typename V>
+void printMap(std::map<K,V> const &m)
+{
+	for (auto const& pair: m) {
+		std::cout << "{" << pair.first << ": " << pair.second << "}\n";
+	}
+}//end print_map
+
+/// <summary>
+/// Searches any type map by found value. only use if you need the values saved.\n
+/// WARNING*** printMapValues allows you to pass only a map and a search value in
+/// and it instantiates a vector within its scope and then fills it as well as
+/// prints out the values to screen.*****\n
+/// Use this method when you need to find the
+/// values that match and then use them in other calculations within client code.
+/// </summary>
+/// <param name="vec">The vector to store the results in.</param>
+/// <param name="mapOfElemen">The map of elements to search by values.</param>
+/// <param name="value">The value to look for.</param>
+/// <returns>true if a match was found: else false</returns>
+template<typename K, typename V>
+bool searchMapByValue(std::vector<K> & vec, std::map<K, V> mapOfElemen, V value)
+{
+	bool bResult = false;
+	auto it = mapOfElemen.begin();
+	while(it != mapOfElemen.end())
+	{
+		if(it->second == value)
+		{
+			bResult = true;
+			vec.push_back(it->first);
+		}
+		it++;
+	}
+	return bResult;
+}//end searchMapByValue
+
+/// <summary>
+/// Prints the map keys found by search value.
+/// </summary>
+/// <param name="m">The map to search.</param>
+/// <param name="val">The value to search for.</param>
+template<typename K, typename V>
+void printMapByValue(std::map<K,V> m, V val)
+{
+	std::vector<std::string> results;
+	bool tests = searchMapByValue(results, m, val);
+	if(tests)
+	{
+		std::cout<<"Keys with value "<< val<< " are:"<<std::endl;
+		printVector(results);
+
+	}
+	else
+	{
+		std::cout<<"No Key is found with the given value"<<std::endl;
+	}
+
+}//end printMapByValue
+
+/// <summary>
+/// Prints an array of long doubles with a size of n
 /// </summary>
 /// <param name="arr">The array.</param>
 /// <param name="n">= sizeof( arr ) / sizeof( *arr )</param>
@@ -120,31 +224,41 @@ void static printArr(const ld arr[], const int n)
 	{
 		cout << arr[i] << ' ';
 	}
-}
-
-//Gravitational Constant 6.67408(31) * 10^(-11) * N
-const ld _GC_ = 6.674 * pow(10.0, -11.0);
+}//end printArr
 
 
-/**
- * @brief area of sphere with radius r
- */
+
+
+/// <summary>
+/// Calculates the area of a sphere.
+/// </summary>
+/// <param name="r">The radius.</param>
+/// <returns>the area of sphere (m^2)</returns>
 static ld sphereArea(const ld r)
 {
 	return 4.0 * _PI_ * (r * r);
 }
 
-/**
- * @brief volume of sphere with radius r
- */
+
+/// <summary>
+/// Calculates the volume of a sphere.
+/// </summary>
+/// <param name="r">The radius.</param>
+/// <returns>the volume of sphere(m^3)</returns>
 static ld sphereVolume(const ld r)
 {
 	return (4.0 / 3.0) * (_PI_ * (r * r * r));
 }
 
-/**
- * @circumference of a circle with radius r or diameter d
- */
+
+/// <summary>
+/// Calculates teh circumference of a circle.
+/// </summary>
+/// <param name="rd">The radius or diameter, use mode to specify.</param>
+/// <param name="mode">use 'd' to specify if you use diameter and not
+/// radius. Do not add anything here if it is the radius you are using
+/// as it is defaulted to radius</param>
+/// <returns>circumference of circle (m)</returns>
 static ld circleCircumference(const ld rd, const char mode = 'r')
 {
 	if(mode == 'r')
@@ -153,12 +267,15 @@ static ld circleCircumference(const ld rd, const char mode = 'r')
 	}
 	return _PI_ * rd;
 }
-/**
- * @brief global method for finding the area of a circle
- * @param rd is the radius or diameter of the circle
- * @param mode in radius default, for diameter add 'd' as a second argument
- * @returns the total area of a circle
- */
+
+/// <summary>
+/// Calculates the area of a circle.
+/// </summary>
+/// <param name="rd">The radius or diameter, use mode to specify.</param>
+/// <param name="mode">use 'd' to specify if you use diameter and not
+/// radius. Do not add anything here if it is the radius you are using
+/// as it is defaulted to radius</param>
+/// <returns>area of a circle (m^2)</returns>
 static ld circleArea(const ld rd, const char mode = 'r')
 {
 	if (mode == 'r')
@@ -167,23 +284,22 @@ static ld circleArea(const ld rd, const char mode = 'r')
 	}
 	return (_PI_ * (rd * rd)) / 4.0;
 }
-/**
- * @brief global method for finding the change in two values
- * @param xi is the starting value
- * @param xf is the ending value
- * @return the difference between xf and xi
- */
+
+/// <summary>
+/// Calculates the change in any two values xi and xf.
+/// </summary>
+/// <param name="xi">The  initial starting value.</param>
+/// <param name="xf">The final value.</param>
+/// <returns>the change in a value</returns>
 static ld delta(const ld xi, const ld xf)
 {
 	return xf - xi;
 }
 
 
-
-
-/**
- * @brief structure for conversion methods
- */
+/// <summary>
+/// structure filled with conversion methods
+/// </summary>
 static struct Conversions
 {
 	struct SpecificHeatConverter
@@ -453,6 +569,9 @@ static struct Conversions
 
 }converter;
 
+/// <summary>
+/// structure filled with common densities
+/// </summary>
 static struct Densities
 {
 	const ld aluminum_S = 2.7; // 2700 kg/m^3
@@ -499,6 +618,11 @@ static struct Densities
 
 
 
+/// <summary>
+/// the Physics world class that is the driver class of many smaller more
+/// specific classes. This class instantiates all them classes for use in the
+/// testFactory.cpp driver file.
+/// </summary>
 class PhysicsWorld
 {
 

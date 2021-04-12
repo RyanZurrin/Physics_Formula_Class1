@@ -39,6 +39,29 @@ static struct RefractionIndexes
 
 }refraction;
 
+static map<string, ld> refractions {
+	{"AIR", 1.000},
+	{"CARBON_DIOXIDE",1.000},
+	{"HYDROGEN",1.000},
+	{"OXYGEN",1.000},
+	{"BENZENE",1.501},
+	{"CARBON_DISULFIDE",1.628},
+	{"CARBON_TETRACHLORIDE",1.461},
+	{"ETHANOL",1.361},
+	{"GLYCERINE",1.473},
+	{"WATER_FRESH",1.333},
+	{"DIAMOND",2.419},
+	{"FLUORITE",1.434},
+	{"GLASS_CROWN",1.520},
+	{"GLASS_FLINT",1.660},
+	{"ICE",1.309},
+	{"POLYSTYRENE",1.490},
+	{"PLEXIGLAS",1.510},
+	{"QUARTZ_CRYSTALLINE",1.544},
+	{"QUARTZ_FUSED",1.458},
+	{"SODIUM_CHLORIDE",1.544},
+	{"ZIRCON",1.923}
+};
 
 class GeometricOptics :
 	public ElectromagneticWaves
@@ -151,6 +174,16 @@ public:
 	/// <returns>the critical angle</returns>
 	static ld criticalAngle(const ld n1, const ld n2);
 
+	/// <summary>
+	/// Suppose a person stands in front of a mirror their eyes are floorToEyes(m)
+	/// above the floor, and the top of their head is eyesToTopHea m higher.
+	/// Find the height above the floor of the top and bottom of the smallest mirror
+	/// in which he can see both the top of his head and his feet. How is this
+	/// distance related to the man’s height?
+	/// </summary>
+	/// <param name="floorToEyes">The floor to eyes.</param>
+	/// <param name="eyesToTopHead">The eyes to top head.</param>
+	/// <returns></returns>
 	static map<string, ld> heightOfMirror(const ld floorToEyes, const ld eyesToTopHead);
 
 
@@ -169,7 +202,9 @@ private:
 
 inline ld GeometricOptics::indexOfRefraction(const ld v)
 {
-	return _c_ / v;
+	ld scale = 0.001;
+	ld a = _c_ / v;
+	return floor(a/scale+.5)* scale;
 }
 
 inline ld GeometricOptics::speedOfLightFromRefractionIndex(const ld n)
