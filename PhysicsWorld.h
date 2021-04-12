@@ -65,6 +65,16 @@ static ld setVal(const ld v)
 /// <returns></returns>
 static ld return_val() { return _val_; }
 
+
+template<typename K, typename V>
+void print_map(std::map<K,V> const &m)
+{
+	for (auto const& pair: m) {
+		std::cout << "{" << pair.first << ": " << pair.second << "}\n";
+	}
+}
+
+
 /// <summary>
 /// Prints the vector values of passed in vector.
 /// </summary>
