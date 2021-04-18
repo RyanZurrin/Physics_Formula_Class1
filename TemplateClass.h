@@ -16,9 +16,7 @@ typedef long double ld;
 
 class TemplateClass
 {
-private:
-	static void countIncrease() { _objectCount += 1; }
-	static void countDecrease() { _objectCount -= 1; }
+
 public:
 	TemplateClass* _template;
 	ld _var;
@@ -26,6 +24,7 @@ public:
 	TemplateClass()
 	{
 		_template = nullptr;
+		templateVar = 0.0;
 		countIncrease();
 	}
 
@@ -35,6 +34,7 @@ public:
 	TemplateClass(const TemplateClass& t)
 	{
 		_template = t._template;
+		templateVar = t.templateVar;
 		countIncrease();
 	}
 	/**
@@ -43,6 +43,7 @@ public:
 	TemplateClass(TemplateClass&& t) noexcept
 	{
 		_template = t._template;
+		templateVar = t.templateVar;
 		countIncrease();
 	}
 	/**
@@ -53,12 +54,14 @@ public:
 		if (this != &t)
 		{
 			_template = t._template;
+			templateVar = t.templateVar;
 			countIncrease();
 		}
 		return *this;
 	}
 
-	static void show_objectCount() { std::cout << "\n ________ object count: " << _objectCount << std::endl; }
+	static void show_objectCount() { std::cout << "\n ________ object count: "
+							<< _objectCount << std::endl; }
 	static int get_objectCount() { return _objectCount; }
 
 
@@ -66,7 +69,13 @@ public:
 	{
 		delete _template;
 	}
+	void setTemplateVar(ld var) { templateVar = var; }
+	ld getTemplateVar() const { return templateVar; }
 
+private:
+	ld templateVar;
+	static void countIncrease() { _objectCount += 1; }
+	static void countDecrease() { _objectCount -= 1; }
 };
 #endif
 

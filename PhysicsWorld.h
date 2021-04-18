@@ -37,6 +37,8 @@
 #include "Torque.h"
 #include "UniformCircularMotion.h"
 #include "Vector3D.h"
+#include "VisionOpticalInstruments.h"
+#include "WaveOptics.h"
 #include "Waves.h"
 
 
@@ -188,6 +190,22 @@ bool searchMapByValue(std::vector<K> & vec, std::map<K, V> mapOfElemen, V value)
 	}
 	return bResult;
 }//end searchMapByValue
+template<typename K, typename V>
+bool searchMapByValue(std::vector<K> & vec, std::multimap<K, V> mapOfElemen, V value)
+{
+	bool bResult = false;
+	auto it = mapOfElemen.begin();
+	while(it != mapOfElemen.end())
+	{
+		if(it->second == value)
+		{
+			bResult = true;
+			vec.push_back(it->first);
+		}
+		it++;
+	}
+	return bResult;
+}//end searchMapByValue
 
 /// <summary>
 /// Prints the map keys found by search value.
@@ -195,8 +213,33 @@ bool searchMapByValue(std::vector<K> & vec, std::map<K, V> mapOfElemen, V value)
 /// <param name="m">The map to search.</param>
 /// <param name="val">The value to search for.</param>
 template<typename K, typename V>
-void printMapByValue(std::map<K,V> m, V val)
+void printMapByValue(std::map<K,V> m, const V val)
 {
+	std::cout << "looking for value: "<< val<<endl;
+	std::vector<std::string> results;
+	bool tests = searchMapByValue(results, m, val);
+	if(tests)
+	{
+		std::cout<<"Keys with value "<< val<< " are:"<<std::endl;
+		printVector(results);
+
+	}
+	else
+	{
+		std::cout<<"No Key is found with the given value"<<std::endl;
+	}
+
+}//end printMapByValue
+
+/// <summary>
+/// Prints the map keys found by search value.
+/// </summary>
+/// <param name="m">The map to search.</param>
+/// <param name="val">The value to search for.</param>
+template<typename K, typename V>
+void printMapByValue(std::multimap<K,V> m, const V val)
+{
+	std::cout << "looking for value: "<< val<<endl;
 	std::vector<std::string> results;
 	bool tests = searchMapByValue(results, m, val);
 	if(tests)
@@ -252,7 +295,7 @@ static ld sphereVolume(const ld r)
 
 
 /// <summary>
-/// Calculates teh circumference of a circle.
+/// Calculates the circumference of a circle.
 /// </summary>
 /// <param name="rd">The radius or diameter, use mode to specify.</param>
 /// <param name="mode">use 'd' to specify if you use diameter and not
@@ -678,6 +721,8 @@ public:
 	ElectroMagneticInduction* emi;
 	ElectromagneticWaves* emWaves;
 	GeometricOptics* geometric_optics;
+	WaveOptics* wave_optics;
+	VisionOpticalInstruments* vision_optical;
 
 
 	//PhysicsCommon * physics_common;
@@ -719,6 +764,8 @@ public:
 		emi(o.emi),
 		emWaves(o.emWaves),
 		geometric_optics(o.geometric_optics),
+		wave_optics(o.wave_optics),
+		vision_optical(o.vision_optical),
 		_ptr_(o._ptr_){} // move constructor
 
 	/**========================================================================

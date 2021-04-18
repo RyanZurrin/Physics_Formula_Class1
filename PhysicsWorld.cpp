@@ -39,6 +39,8 @@ PhysicsWorld::PhysicsWorld()
 	emi = new ElectroMagneticInduction;
 	emWaves = new ElectromagneticWaves;
 	geometric_optics = new GeometricOptics;
+	wave_optics = new WaveOptics;
+	vision_optical = new VisionOpticalInstruments;
 	countIncrease();
 	//countShow();
 }
@@ -78,9 +80,9 @@ PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	emi = p.emi;
 	emWaves = p.emWaves;
 	geometric_optics = p.geometric_optics;
-	//PhysicsWorld_common = p.PhysicsWorld_common;
+	wave_optics = p.wave_optics;
+	vision_optical = p.vision_optical;
 	countIncrease();
-	//countShow();
 }
 /**
  *copy assignment operator
@@ -120,8 +122,9 @@ PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		emi = r.emi;
 		emWaves = r.emWaves;
 		geometric_optics = r.geometric_optics;
+		wave_optics = r.wave_optics;
+		vision_optical = r.vision_optical;
 		countIncrease();
-		//countShow();
 	}
 	return *this;
 }
@@ -158,6 +161,8 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	emi = new ElectroMagneticInduction;
 	emWaves = new ElectromagneticWaves;
 	geometric_optics = new GeometricOptics;
+	wave_optics = new WaveOptics;
+	vision_optical = new VisionOpticalInstruments;
 
 	this->vector3d->set_coordinates(t1, t2, t3);
 
@@ -195,6 +200,8 @@ PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	emi = new ElectroMagneticInduction;
 	emWaves = new ElectromagneticWaves;
 	geometric_optics = new GeometricOptics;
+	wave_optics = new WaveOptics;
+	vision_optical = new VisionOpticalInstruments;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -231,7 +238,8 @@ PhysicsWorld::~PhysicsWorld()
 	delete emi;
 	delete emWaves;
 	delete geometric_optics;
-
+	delete wave_optics;
+	delete vision_optical;
 	countDecrease();
 	//countShow();
 }
