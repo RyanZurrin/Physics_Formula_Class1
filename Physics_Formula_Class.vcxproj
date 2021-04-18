@@ -49,6 +49,8 @@
     <ClInclude Include="Torque.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="VisionOpticalInstruments.h" />
+    <ClInclude Include="WaveOptics.h" />
     <ClInclude Include="Waves.h" />
   </ItemGroup>
   <ItemGroup>

@@ -108,6 +108,12 @@
     <ClInclude Include="GeometricOptics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WaveOptics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VisionOpticalInstruments.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector2d.cpp">

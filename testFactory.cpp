@@ -11,18 +11,23 @@ int main()
 
 
 
-	//setVal(electric.emi->transformerEquations_IN(4.0, 0, 8, 489, "ip"));
-	//show_val("Ip", "A");
+	setVal(electric.geometric_optics->magnification(1.5, .750));
+	show_val("wL", "m");
 
-	ld v = setVal(electric.geometric_optics->indexOfRefraction(.2290*SU.giga));
-	show_val("v", "m/s");
 
-	const map<string, ld> toPrint = electric.geometric_optics->heightOfMirror(1.65, .13);
+	//ld v = setVal(electric.geometric_optics->indexOfRefractionMedium2(1.00,38.0,  29.0, 3));
+	//show_val("n", "");
+	//ld val2 = 1.5;
+	//const map<string, ld> toPrint = electric.geometric_optics->heightOfMirror(1.59, .13);
 
-	printMap(toPrint);
+	//printMap(toPrint);
+
+	//const map<string, ld> toPrint2 = electric.geometric_optics->angleAndDistanceOfBouncedLaserToSensor(51.5*SU.kilo, 121.0, .004);
+
+	//printMap(toPrint2);
 	//Vector test(4, (3.0*_PI)/2.0,'p');
 	//test.showAllData();
-	printMapByValue(refractions, v);
+	//printMapByValue(refractions, v);
 
 	return 0;
 
