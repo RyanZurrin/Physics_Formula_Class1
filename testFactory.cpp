@@ -9,10 +9,12 @@ int main()
 
 
 
+	ld n2 = setVal(electric.geometric_optics->indexOfRefractionFromCriticalAngle(53.6, 1.00));
+	show_val("n2", "");
 
 
-	setVal(electric.geometric_optics->magnification(1.5, .750));
-	show_val("wL", "m");
+	setVal(electric.wave_optics->distanceBetweenFringes(3.0, 633*SU.nano,.0800*SU.milla ));
+	show_val("angle", "degrees");
 
 
 	//ld v = setVal(electric.geometric_optics->indexOfRefractionMedium2(1.00,38.0,  29.0, 3));

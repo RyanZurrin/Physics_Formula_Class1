@@ -118,7 +118,6 @@ static void printVectorValues(vector<ld> v)
 	std::cout << std::endl;
 }//end printVectorValues
 
-
 /// <summary>
 /// Prints the vector of any type
 /// </summary>

@@ -150,6 +150,45 @@ static std::multimap<std::string, ld> refractions {
 	{"ZIRCON",1.923},
 	{"ZIRCON",1.924}
 };
+template<typename T>
+static void printVec(const T& t) {
+	std::copy(t.cbegin(), t.cend(), std::ostream_iterator<typename T::value_type>(std::cout, ", "));
+}//end printVector
+
+template<typename K, typename V>
+static bool findMedium(std::vector<K> & vec, std::multimap<K, V> mapOfElemen, V value)
+{
+	bool bResult = false;
+	auto it = mapOfElemen.begin();
+	while(it != mapOfElemen.end())
+	{
+		if(it->second == value)
+		{
+			bResult = true;
+			vec.push_back(it->first);
+		}
+		it++;
+	}
+	return bResult;
+}//end searchMapByValue
+template<typename K, typename V>
+static void printMedium(std::multimap<K,V> m, const V val)
+{
+	std::cout << "looking for value: "<< val<<endl;
+	std::vector<std::string> results;
+	bool tests = findMedium(results, m, val);
+	if(tests)
+	{
+		std::cout<<"Keys with value "<< val<< " are:"<<std::endl;
+		printVec(results);
+
+	}
+	else
+	{
+		std::cout<<"No Key is found with the given value"<<std::endl;
+	}
+
+}//end printMapByValue
 
 class GeometricOptics :
 	public ElectromagneticWaves
@@ -309,6 +348,14 @@ public:
 	static ld focalLength(const ld P);
 
 	/// <summary>
+	/// Focals the length.
+	/// </summary>
+	/// <param name="m">The magnification.</param>
+	/// <param name="d_o">The object distance.</param>
+	/// <returns>focal length</returns>
+	static ld focalLength(const ld m, const ld d_o);
+
+	/// <summary>
 	/// Angles the and distance of bounced laser to sensor.
 	/// </summary>
 	/// <param name="disFromLas2Mirror">The dis from las2 mirror.</param>
@@ -346,6 +393,33 @@ public:
 	/// <param name="dObj">The distance of object.</param>
 	/// <returns></returns>
 	static ld magnification(const ld di, const ld dObj);
+
+	/// <summary>
+	///  Calculates the index of refraction of a substance that has a critical
+	///  angle of cA° when submerged in a substance, which has an index of
+	///  refraction of n2?
+	/// </summary>
+	/// <param name="cA">The known critical angle.</param>
+	/// <param name="n2">The index known index of refraction.</param>
+	/// <returns>the unknown index of refraction of substance</returns>
+	static ld indexOfRefractionFromCriticalAngle(const ld cA, const ld n2);
+
+	/// <summary>
+	/// If a converging lens forms a real, inverted image d_i units to the right
+	/// of the lens when the object is placed d_o units to the left of a lens,
+	/// determine the focal length of the lens.
+	/// </summary>
+	/// <param name="d_i">The distance image makes.</param>
+	/// <param name="d_o">The distance object is placed.</param>
+	/// <returns>the focal length</returns>
+	static ld focalLength_ConvergingLens_dido(const ld d_i, const ld d_o);
+
+	/// <summary>
+	/// Calculates the radius of curviture.
+	/// </summary>
+	/// <param name="f">The focal length.</param>
+	/// <returns></returns>
+	static ld radiusOfCurvature(const ld f);
 
 
 
@@ -482,6 +556,11 @@ inline ld GeometricOptics::focalLength(const ld P)
 	return 1.0 / P;
 }
 
+inline ld GeometricOptics::focalLength(const ld m, const ld d_o)
+{
+	return (1 / d_o) - (1 / (m * d_o));
+}
+
 inline std::map<std::string, ld> GeometricOptics::angleAndDistanceOfBouncedLaserToSensor(const ld disFromLas2Mirror, const ld disSouthSensor, const ld angleOffBy)
 {
 	std::map<string, ld> results;
@@ -508,3 +587,19 @@ inline ld GeometricOptics::magnification(const ld di, const ld dObj)
 {
 	return -(di / dObj);
 }
+
+inline ld GeometricOptics::indexOfRefractionFromCriticalAngle(const ld cA, const ld n2)
+{
+	return n2 / sin(cA * RADIAN);
+}
+
+inline ld GeometricOptics::focalLength_ConvergingLens_dido(const ld d_i, const ld d_o)
+{
+	return (d_i * d_o) / (d_i + d_o);
+}
+
+inline ld GeometricOptics::radiusOfCurvature(const ld f)
+{
+	return 2.0 * f;
+}
+
