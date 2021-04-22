@@ -15,7 +15,7 @@ typedef long double ld;
 
 
 //#include "PhysicsWorld.h"
-const ld PI = acos(-1);
+const ld π = acos(-1);
 /// <summary>
 /// Vacuum permittivity, commonly denoted ε0 (pronounced as "epsilon nought"
 /// or "epsilon zero") is the value of the absolute dielectric permittivity
@@ -26,7 +26,7 @@ const ld _E0_ = 8.854187819013 * pow(10.00000, -12.000000); // 8.8542e-12
 /// Coulombs constant 8.988 * pow(10.0, 9)Nm^2)/C^2
 /// </summary>
 const ld _k_ = 8.988 * pow(10.0, 9); //8.988 * pow(10.0, 9)Nm^2)/C^2
-const ld _K_ = 1.0 / (4.0 * PI * _E0_);
+const ld _K_ = 1.0 / (4.0 * π * _E0_);
 /// <summary>
 /// The electron = -1.6 * 10^-19 C
 /// </summary>
@@ -681,7 +681,7 @@ inline std::vector<ld> ElectricCharge::electricFieldAtCenterTriangle(
 	);
 	//cout << "Ey: " << Ey << endl;
 	results[0] = sqrt((Ex * Ex) + (Ey * Ey));
-	results[1] = atan((Ey / Ex)) * 180 / PI;
+	results[1] = atan((Ey / Ex)) * 180 / π;
 
 	return results;
 }
