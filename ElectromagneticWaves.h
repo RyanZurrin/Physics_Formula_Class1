@@ -166,6 +166,24 @@ public:
 	/// <returns></returns>
 	static ld waveLength_dopplerEffect(const ld v, const ld receivedWL);
 
+	/// <summary>
+	/// Calculates the inductance of a LC circuit containing a C-F capacitor
+	/// oscillates at such a frequency that it radiates at a  λ-m wavelength.
+	/// </summary>
+	/// <param name="λ">The λ.</param>
+	/// <param name="C">The c.</param>
+	/// <returns>inductance</returns>
+	static ld inductanceOfCircuitFromWavelength(const ld λ, const ld C);
+
+	/// <summary>
+	/// Calculates the capacitance of a LC circuit containing a L-H inductor
+	/// oscillates at such a frequency that it radiates at a λ-m wavelength.
+	/// </summary>
+	/// <param name="λ">The λ.</param>
+	/// <param name="L">The l.</param>
+	/// <returns>capacitance</returns>
+	static ld capacitanceOfCircuitFromWavelength(const ld λ, const ld L);
+
 	~ElectromagneticWaves()
 	{
 		delete _emWavesPtr;
@@ -237,6 +255,16 @@ inline ld ElectromagneticWaves::powerReceivedByAntenna(const ld d, const ld I)
 inline ld ElectromagneticWaves::waveLength_dopplerEffect(const ld v, const ld recievedWL)
 {
 	return recievedWL / (1.0 - (v / _c_));
+}
+
+inline ld ElectromagneticWaves::inductanceOfCircuitFromWavelength(const ld λ, const ld C)
+{
+	return (λ * λ) / (4.0 * (π * π) * (_c_ * _c_) * C);
+}
+
+inline ld ElectromagneticWaves::capacitanceOfCircuitFromWavelength(const ld λ, const ld L)
+{
+	return (λ * λ) / (4.0 * (π * π) * L * (_c_ * _c_));
 }
 
 inline ld ElectromagneticWaves::intensityAvg_emWave_B(const ld B)

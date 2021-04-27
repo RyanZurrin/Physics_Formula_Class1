@@ -99,6 +99,7 @@ static std::multimap<std::string, ld> refractions {
 	{"DIAMOND",2.42},
 	{"DIAMOND Green 550nm",2.426},
 	{"DIAMOND",2.3},
+	{"DIAMOND",2.36},
 	{"DIAMOND",2.38},
 	{"DIAMOND",2.42},
 	{"DIAMOND Blue 470nm",2.444},
@@ -276,6 +277,16 @@ public:
 	static ld indexOfRefractionMedium2(const ld n1, const ld incidentAng1, const ld angRefraction2, int precision);
 
 	/// <summary>
+	/// calculates the index of refraction medium 1.
+	/// </summary>
+	/// <param name="n2">The index of refraction of material 2.</param>
+	/// <param name="incidentAng1">The incident angle .</param>
+	/// <param name="angRefraction2">The angle of  refraction.</param>
+	/// <param name="precision">The precision.</param>
+	/// <returns>index of refraction for medium 1</returns>
+	static ld indexOfRefractionMedium1(const ld n2, const ld incidentAng1, const ld angRefraction2, int precision);
+
+	/// <summary>
 	/// Calculates the angle of refraction.
 	/// </summary>
 	/// <param name="n1">The index of refraction from the incident ray.</param>
@@ -415,7 +426,7 @@ public:
 	static ld focalLength_ConvergingLens_dido(const ld d_i, const ld d_o);
 
 	/// <summary>
-	/// Calculates the radius of curviture.
+	/// Calculates the radius of curvature.
 	/// </summary>
 	/// <param name="f">The focal length.</param>
 	/// <returns></returns>
@@ -499,6 +510,37 @@ inline ld GeometricOptics::indexOfRefractionMedium2(const ld n1, const ld incide
 	else
 		return n1 * (sin(incidentAng1 * RADIAN) / sin(angRefraction2 * RADIAN));
 
+}
+
+inline ld GeometricOptics::indexOfRefractionMedium1(const ld n2, const ld incidentAng1, const ld angRefraction2, int precision)
+{
+	if (precision == 1)
+	{
+		ld val = n2 * (sin(angRefraction2 * RADIAN) / sin(incidentAng1 * RADIAN));
+		ld scale = .1;
+		ld v = floor(val / scale + .5) * scale;
+		return v;
+	}
+	if (precision == 2)
+	{
+		ld val = n2 * (sin(angRefraction2 * RADIAN) / sin(incidentAng1 * RADIAN));;
+		ld scale = .01;
+		return floor(val/scale+.5)*scale;
+	}
+	if (precision == 3)
+	{
+		ld val = n2 * (sin(angRefraction2 * RADIAN) / sin(incidentAng1 * RADIAN));
+		ld scale = .001;
+		return floor(val/scale+.5)*scale;
+	}
+	if (precision == 4)
+	{
+		ld val = n2 * (sin(angRefraction2 * RADIAN) / sin(incidentAng1 * RADIAN));
+		ld scale = .0001;
+		return floor(val / scale + .5) * scale;
+	}
+	else
+		return n2 * (sin(incidentAng1 * RADIAN) / sin(incidentAng1 * RADIAN));
 }
 
 inline ld GeometricOptics::angleOfRefraction(const ld n1, const ld n2, const ld incidentAng1)
