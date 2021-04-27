@@ -105,8 +105,8 @@ public:
 	bool operator!=(const Vector&)const;
 	bool operator>(const _ld_& n)const { return magnitude > n; }
 	bool operator>=(const _ld_& n)const { return magnitude >= n; }
-	bool operator<(const _ld_& n)const { return n < magnitude; }
-	bool operator<=(const _ld_& n)const { return n <= magnitude; }
+	bool operator<(const _ld_& n)const { return magnitude < n; }
+	bool operator<=(const _ld_& n)const { return magnitude <= n; }
 	bool operator==(const _ld_& n)const { return magnitude == n; }
 	bool operator!=(const _ld_& n)const { return !(magnitude == n); }
 

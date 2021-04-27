@@ -13,6 +13,10 @@
 #include <vector>
 typedef long double ld;
 
+/// <summary>
+/// The meters light travels in one light year
+/// </summary>
+const ld METERS_1LY = 9460730472580800;
 
 //#include "PhysicsWorld.h"
 const ld π = acos(-1);
