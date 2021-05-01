@@ -122,9 +122,6 @@
     <ClCompile Include="Vector3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsWorld.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="testFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
