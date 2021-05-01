@@ -88,6 +88,7 @@ static void show_val(const ld val) { cout << "val: " << val << endl; }
 static void show_val(const string label, const string units = "")
 { cout << "\n"+label+": " << _val_ << " "+units <<endl; }
 
+
 /// <summary>
 /// Prints the vector values of passed in vector.
 /// </summary>
