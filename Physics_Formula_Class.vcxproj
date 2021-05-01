@@ -55,8 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testFactory.cpp" />
-    <ClCompile Include="Vector2d.cpp" />
-    <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="oldProblems.txt" />
