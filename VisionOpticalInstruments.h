@@ -1,10 +1,10 @@
 #pragma once
 #include "WaveOptics.h"
 
-#ifndef VISIONOPTICALINSTRUMENTS_H
-#define VISIONOPTICALINSTRUMENTS_H
+#ifndef VISION_OPTICAL_INSTRUMENTS_H
+#define VISION_OPTICAL_INSTRUMENTS_H
 
-static int visionOpticInstrument_objectCount = 0;
+static auto visionOpticInstrument_objectCount = 0;
 
 class VisionOpticalInstruments :
 	public WaveOptics
@@ -12,7 +12,6 @@ class VisionOpticalInstruments :
 
 public:
 	VisionOpticalInstruments* _visOpticPtr;
-	ld _var;
 
 	VisionOpticalInstruments()
 	{
@@ -53,9 +52,9 @@ public:
 		return *this;
 	}
 
-	static void show_objectCount() { std::cout << "\n visOptInstrmnt object count: "
+	static auto show_objectCount() { std::cout << "\n visOptInstrument object count: "
 							<< visionOpticInstrument_objectCount << std::endl; }
-	static int get_objectCount() { return visionOpticInstrument_objectCount; }
+	static auto get_objectCount() { return visionOpticInstrument_objectCount; }
 
 
 	~VisionOpticalInstruments()

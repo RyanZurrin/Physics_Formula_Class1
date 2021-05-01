@@ -12,7 +12,7 @@ int main()
 	//ld n2 = setVal(e1.geometric_optics->indexOfRefractionFromCriticalAngle(53.6, 1.00));
 	//show_val("n2", "");
 
-	ld z =setVal(e1.wave_optics->frequency_emWave(569*SU.nano));
+	const ld z =setVal(e1.wave_optics->anglePolarizingAxis2ndFilter(35));
 	show_val("diff spread", "m");
 
 
@@ -25,15 +25,15 @@ int main()
 
 	//electric.geometric_optics->indexOfRefractionMedium1(*SU.kilo, 121.0, .004);
 
-	std::cout << "printing destructive map\n";
-	printMap(e1.wave_optics->destructiveInterferenceRange(1.33, 0, 5,520*SU.nano));
+	//std::cout << "printing destructive map\n";
+	//printMap(e1.wave_optics->destructiveInterferenceRange(1.33, 0, 5,579*SU.nano));
 
-	std::cout << "printing constructive map\n";
-	printMap(e1.wave_optics->constructiveInterferenceRange(1.33, 0, 5,520*SU.nano));
+	//std::cout << "printing constructive map\n";
+	//printMap(e1.wave_optics->constructiveInterferenceRange(1.33, 0, 5,579*SU.nano));
 	//Vector test(4, (3.0*_PI)/2.0,'p');
 	//test.showAllData();
 	//const ld n = 1.66;
-	//printMapByValue(refractions, n);
+	//printMapByValue(refractions, z);
 
 	return 0;
 

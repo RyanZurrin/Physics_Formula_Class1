@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "GeometricOptics.h"
 
-#ifndef WAVEOPTICS_H
-#define WAVEOPTICS_H
+#ifndef WAVE_OPTICS_H
+#define WAVE_OPTICS_H
 //α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
 //Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240
 
@@ -14,11 +14,11 @@ class WaveOptics :
 
 public:
 	WaveOptics* _waveOpticPtr;
-	ld _var;
 
 	WaveOptics()
 	{
 		_waveOpticPtr = nullptr;
+		waveOpticsVar = 0.0;
 		countIncrease();
 	}
 
@@ -28,6 +28,7 @@ public:
 	WaveOptics(const WaveOptics& t)
 	{
 		_waveOpticPtr = t._waveOpticPtr;
+		waveOpticsVar = t.waveOpticsVar;
 		countIncrease();
 	}
 	/**
@@ -36,6 +37,7 @@ public:
 	WaveOptics(WaveOptics&& t) noexcept
 	{
 		_waveOpticPtr = t._waveOpticPtr;
+		waveOpticsVar = t.waveOpticsVar;
 		countIncrease();
 	}
 	/**
@@ -46,6 +48,7 @@ public:
 		if (this != &t)
 		{
 			_waveOpticPtr = t._waveOpticPtr;
+			waveOpticsVar = t.waveOpticsVar;
 			countIncrease();
 		}
 		return *this;
@@ -515,6 +518,17 @@ public:
 	static auto angleForIntensityReductionByPolarizingFilter(const ld percentReduction);
 
 	/// <summary>
+	/// The building engineer installs new double paned polarizing sky lights
+	/// to reduce the intensity of sunlight, which is non-polarized,
+	/// calculate what angle the polarizing axis of the second pane of the window
+	/// will make with the polarizing axis of the first pane of the window in order
+	/// to reduce the intensity of the sunlight to percentReduction of the
+	/// original value </summary>
+	/// <param name="percentReduction">The percent reduction.</param>
+	/// <returns>angle of second filter in relation to first</returns>
+	static auto anglePolarizingAxis2ndFilter(const ld percentReduction);
+
+	/// <summary>
 	/// Calculates the angle using Brewster's law. tanΘ = n2/n1
 	/// </summary>
 	/// <param name="n1">The index of refraction for incident.</param>
@@ -607,6 +621,9 @@ public:
 	/// <param name="λ">The λ.</param>
 	/// <returns></returns>
 	static map<int, ld> destructiveInterferenceRange(const ld n, const int mStart, const int mEnd, const ld λ);
+
+
+
 
 private:
 	ld waveOpticsVar;
@@ -847,6 +864,13 @@ inline auto WaveOptics::angleForIntensityReductionByPolarizingFilter(const ld pe
 {
 	const ld I = (1.00 - (percentReduction / 100));
 	return acos(sqrt(I / 1.0)) * DEGREE;
+}
+
+inline auto WaveOptics::anglePolarizingAxis2ndFilter(const ld percentReduction)
+{
+	const auto dec = percentReduction / 100.0;
+	const auto temp = sqrt(2.0 * dec);
+	return acos(temp) * DEGREE;
 }
 
 inline auto WaveOptics::angleByBrewstersLaw(const ld n1, const ld n2)

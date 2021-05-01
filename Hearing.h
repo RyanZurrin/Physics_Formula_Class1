@@ -305,8 +305,8 @@ public:
 	/// <param name="totalOvertones">The total overtones.</param>
 	static void overtoneGenerator_openTube_L(const ld vw, const ld L, const int totalOvertones)
 	{
-		const int SIZE = totalOvertones+1;
-		ld * result = new ld[SIZE];
+		const auto SIZE = totalOvertones+1;
+		auto * result = new ld[SIZE];
 		for (int i=1; i<totalOvertones+1;i++)
 		{
 			result[i - 1] = (static_cast<ld>(i) * vw) / (2.0 * L);// Initialize all elements to zero.
@@ -317,8 +317,8 @@ public:
 
 	static void overtoneGenerator_closedTube_L(const ld vw, const ld L, const int totalOvertones)
 	{
-		const int SIZE = totalOvertones+1;
-		ld *result = new ld[SIZE];
+		const auto SIZE = totalOvertones+1;
+		auto *result = new ld[SIZE];
 		for (int i=0, j = 3; i<totalOvertones; j++,j++, i++)
 		{
 			result[i] = (static_cast<ld>(j) * vw) / (4.0 * L); // Initialize all elements to zero.
@@ -331,8 +331,8 @@ public:
 
 	static void overtoneGenerator_openTube_f(const ld funFreq, const int totalOvertones)
 	{
-		const int SIZE = totalOvertones+1;
-		ld *result = new ld[SIZE];
+		const auto SIZE = totalOvertones+1;
+		auto *result = new ld[SIZE];
 		for (int i=1; i<totalOvertones+1;i++)
 		{
 			result[i - 1] = static_cast<ld>(i) * funFreq;// Initialize all elements to zero.
@@ -349,8 +349,8 @@ public:
 	/// <param name="totalOvertones">The total overtones.</param>
 	static void overtoneGenerator_closedTube_f(const ld funFreq, const int totalOvertones)
 	{
-		const int SIZE = totalOvertones+1;
-		ld* result = new ld[SIZE];
+		const auto SIZE = totalOvertones+1;
+		auto* result = new ld[SIZE];
 		for (int i=1, j = 3; i<totalOvertones+1; j++,j++, i++)
 		{
 			result[i - 1] = funFreq * static_cast<ld>(j); // Initialize all elements to zero.

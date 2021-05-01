@@ -19,7 +19,6 @@ class TemplateClass
 
 public:
 	TemplateClass* _template;
-	ld _var;
 
 	TemplateClass()
 	{
