@@ -63,11 +63,19 @@ static ld _val_;// = 0.0;
 /// </summary>
 /// <param name="v">The value to set val too.</param>
 /// <returns>returns the value of v</returns>
-static ld setVal(const ld v)
+static auto setVal(const ld v)
 {
 	_val_ = v;
 	return _val_;
 }//end setVal
+
+template<typename T>
+static auto setVal(const T v)
+{
+	_val_ = v;
+	return _val_;
+}//end setVal
+
 /// <summary>
 /// Gets the value.
 /// </summary>
