@@ -13,7 +13,7 @@ int main()
 	//show_val("n2", "");
 
 	//const  auto z =
-	setVal(e1.vision_optical->objectDistance_usingPower(51.0));
+	setVal(e1.vision_optical->acceptanceAngle(.35, 1.00));
 	show_val("T", "m");
 
 
