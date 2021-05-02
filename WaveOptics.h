@@ -707,7 +707,7 @@ inline auto WaveOptics::wavelength_nMinSingleSlit(const ld m, const ld D, const 
 
 inline auto WaveOptics::wavelengthOfLight_nOrderMaxGrating(const ld m, const ld Θ, const ld s)
 {
-	const ld d = distanceBetweenGratingSlits(s, 1.0 * SU.centi);
+	const ld d = distanceBetweenGratingSlits(s, 1.0 * SU.CENTI);
 	return (d * sin(Θ*RADIAN)) / m;
 }
 

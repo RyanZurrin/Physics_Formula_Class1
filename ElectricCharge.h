@@ -49,27 +49,53 @@ static int electricCharge_objectCount = 0;
 
 static struct ScientificNotationUnits
 {
-	const ld yotta = pow(10, 24);  //10^24
-	const ld zetta = pow(10, 21);  //10^21
-	const ld exa   = pow(10, 18);  //10^18
-	const ld peta  = pow(10, 15);  //10^15
-	const ld tera  = pow(10, 12);  //10^12
-	const ld giga  = pow(10, 9);   //10^9
-	const ld mega  = pow(10, 6);   //10^6
-	const ld kilo  = pow(10, 3);   //10^3
-	const ld hecto = pow(10, 2);   //10^2
-	const ld deca  = pow(10, 1);   //10^1
-	const ld deci  = pow(10, -1);  //10^-1
-	const ld centi = pow(10, -2);  //10^-2
-	const ld milla = pow(10, -3);  //10^-3
-	const ld micro = pow(10, -6);  //10^-6
-	const ld nano  = pow(10, -9);  //10^-9
-	const ld pico  = pow(10, -12); //10^-12
-	const ld femto = pow(10, -15); //10^-15
-	const ld atto  = pow(10, -18); //10^-18
-	const ld zepto = pow(10, -21); //10^-21
-	const ld yocto = pow(10, -24); //10^-24
-	//const ld operator*(ld ld, const ScientificNotationUnits& su);
+	typedef ScientificNotationUnits snu;
+	ld refVal;
+	const ld YOTTA = pow(10, 24);  //10^24
+	const ld ZETTA = pow(10, 21);  //10^21
+	const ld EXA   = pow(10, 18);  //10^18
+	const ld PETA  = pow(10, 15);  //10^15
+	const ld TERA  = pow(10, 12);  //10^12
+	const ld GIGA  = pow(10, 9);   //10^9
+	const ld MEGA  = pow(10, 6);   //10^6
+	const ld KILO  = pow(10, 3);   //10^3
+	const ld HECTO = pow(10, 2);   //10^2
+	const ld DECA  = pow(10, 1);   //10^1
+	const ld DECI  = pow(10, -1);  //10^-1
+	const ld CENTI = pow(10, -2);  //10^-2
+	const ld MILLA = pow(10, -3);  //10^-3
+	const ld MICRO = pow(10, -6);  //10^-6
+	const ld NANO  = pow(10, -9);  //10^-9
+	const ld PICO  = pow(10, -12); //10^-12
+	const ld FEMTO = pow(10, -15); //10^-15
+	const ld ATTO  = pow(10, -18); //10^-18
+	const ld ZEPTO = pow(10, -21); //10^-21
+	const ld YOCTO = pow(10, -24); //10^-24
+	friend snu operator+(const snu &r, const snu &l)
+	{	return  l.refVal + r.refVal;	}
+	snu operator+(_ld_ rhs)const
+	{	return this->refVal + rhs;	}
+	friend snu operator-(const snu &r, const snu &l)
+	{	return  l.refVal - r.refVal;	}
+	snu operator-(_ld_ rhs)const
+	{	return this->refVal - rhs;	}
+	friend snu operator*(const snu &r, const snu &l)
+	{	return  l.refVal * r.refVal;	}
+	snu operator*(_ld_ rhs)const
+	{	return this->refVal * rhs;	}
+	friend snu operator/(const snu &r, const snu &l)
+	{	return  l.refVal / r.refVal;	}
+	snu operator/(_ld_ rhs)const
+	{	return this->refVal / rhs;	}
+	ScientificNotationUnits()
+	{
+		refVal = 0.0;
+	}
+	ScientificNotationUnits(ld v)
+	{
+		refVal = v;
+	}
+	~ScientificNotationUnits() = default;
 } SU;
 
 

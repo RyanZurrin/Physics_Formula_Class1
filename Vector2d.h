@@ -127,7 +127,7 @@ public:
 	Vector &operator=(Vector&& right)noexcept;
 	Vector(Vector&& temp)noexcept;
 
-	virtual Vector operator*(_ld_)const;
+	Vector operator*(_ld_)const;
 
 	friend Vector operator*(_ld_ s, Vector& v);
 	friend Vector operator*(Vector& v, Vector& s);
