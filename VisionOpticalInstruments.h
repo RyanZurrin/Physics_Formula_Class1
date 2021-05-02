@@ -122,6 +122,173 @@ public:
 	template<typename T>
 	static auto eyePowerReductionLaserSurgery(const T d_o, const T d_i = 2.00 * SU.CENTI);
 
+	/// <summary>
+	/// A young woman with normal distant vision(d_i = default) has a percentCanAccommodate%
+	/// ability to accommodate (that is, increase) the power of her eyes. What is
+	/// the closest object she can see clearly?
+	/// </summary>
+	/// <param name="percentCanAccommodate">The percent can accommodate.</param>
+	/// <param name="d_i">The image distance(default at 2.0*10^-2)</param>
+	/// <returns>closest clear sight</returns>
+	template<typename T>
+	static auto closestObjectDistance_accommodatedPower(const T percentCanAccommodate);
+
+	/// <summary>
+	/// The far point of a myopic administrator is d_o Units. If they have the
+	/// normal percentCanAccom% ability to accommodate, Calculate what the closest
+	/// object they can see clearly.
+	/// </summary>
+	/// <param name="d_o">The far point or object distance.</param>
+	/// <param name="percentCanAccom">The percent can accommodate.</param>
+	/// <param name="d_i">The image distance(default at 2.0*10^-2)</param>
+	/// <returns></returns>
+	template<typename T>
+	static auto closestObjectDistance_accomodateFarPoint(const T d_o, const T percentCanAccom, const T d_i = 2.00 * SU.CENTI);
+
+	/// <summary>
+	/// A very myopic man has a far point of d_o units. Calculate what power of
+	/// contact lens(when on the eye) will correct his distant vision?
+	/// </summary>
+	/// <param name="d_o">The d object distance(far point).</param>
+	/// <returns>lens power</returns>
+	template<typename T>
+	static auto powerOfLensToCorrectMyopicVision(const T d_o);
+
+	/// <summary>
+	/// A very myopic person has a far point of d_o units. Calculate what power eyeglasses,
+	/// positioned posGlasses units from their eyes, will correct their
+	/// distant vision.
+	/// </summary>
+	/// <param name="d_o">The object distance, far point.</param>
+	/// <param name="posGlasses">The position of glasses to eye.</param>
+	/// <returns>lens power of glasses</returns>
+	template<typename T>
+	static auto powerOfLensToCorrectMyopicVision(const T d_o, const T posGlasses);
+
+	/// <summary>
+	/// A myopic person sees that their contact lens prescription is lensPower D.
+	/// Calculate what their far point is.
+	/// </summary>
+	/// <param name="lensPower">The lens power.</param>
+	/// <returns>d_o, far point or object distance</returns>
+	template<typename T>
+	static auto farPoint_fromLensPowerPrescription(const T lensPower);
+
+	/// <summary>
+	/// A myopic person sees that her eyeglasses prescription is lensPower D,
+	/// for eyeglasses positioned posGlasses units from her eyes.
+	/// Calculate her far point?
+	/// </summary>
+	/// <param name="lensPower">The lens power.</param>
+	/// <param name="posGlasses">The position glasses.</param>
+	/// <returns>the far point, d_o</returns>
+	template<typename T>
+	static auto farPoint_fromLensPowerPrescription(const T lensPower, const T posGlasses);
+
+	/// <summary>
+	/// A microscope with an overall magnification of m and has an objective
+	/// that magnifies by m_o. Calculate the magnification of the eyepiece.
+	/// </summary>
+	/// <param name="m">The overall magnification.</param>
+	/// <param name="m_o">The objective magnification.</param>
+	/// <returns>magnification of eyepiece, m_e</returns>
+	template<typename T>
+	static auto magnificationEyepiece(const T m, const T m_o);
+
+	/// <summary>
+	/// A microscope with an objective magnification of m_o has an eyepiece
+	/// that magnifies by m_e. Calculate the overall magnification.
+	/// </summary>
+	/// <param name="m_o">The objective magnification.</param>
+	/// <param name="m_e">The eyepiece magnification.</param>
+	/// <returns>the overall magnification, m</returns>
+	template<typename T>
+	static auto magnificationMicroscope(const T m_o, const T m_e);
+
+	/// <summary>
+	/// Calculates the images distance with a object distance of d_o and a focal
+	/// length of f.
+	/// </summary>
+	/// <param name="f">The focal length.</param>
+	/// <param name="d_o">The object distance.</param>
+	/// <returns>image distance, d_i</returns>
+	template<typename T>
+	static auto imageDistance(const T f, const T d_o);
+
+	/// <summary>
+	/// What magnification is produced by a f units focal length microscope
+	/// objective that is d_o units from the object being viewed?
+	/// </summary>
+	/// <param name="d_o">The object distance.</param>
+	/// <param name="f">The focal length.</param>
+	/// <returns>magnification</returns>
+	template<typename T>
+	static auto magnification_objective(const ld d_o, const ld f);
+
+	/// <summary>
+	/// Calculates the magnification of a microscope having a image distance of
+	/// d_i and a object distance of d_o.
+	/// </summary>
+	/// <param name="d_i">The d image distance.</param>
+	/// <param name="d_o">The d object distance.</param>
+	/// <returns>magnification</returns>
+	template<typename T>
+	static auto magnification_dido(const T d_i, const T d_o);
+
+	/// <summary>
+	/// Calculate the angular magnification of a telescope that has a f_o units
+	/// focal length objective and a f_e units focal length eyepiece.
+	/// </summary>
+	/// <param name="f_o">The objective focal length.</param>
+	/// <param name="f_e">The eyepiece focal length.</param>
+	/// <returns>angular magnification</returns>
+	template<typename T, typename K>
+	static auto angularMagnification(const T f_o, const K f_e);
+
+	/// <summary>
+	/// A large reflecting telescope has an objective mirror with a
+	/// R m radius of curvature. Calculate the angular magnification it
+	/// produces when a f_e units focal length eyepiece is used?
+	/// </summary>
+	/// <param name="R">The radius of curvature.</param>
+	/// <param name="f_e">The eyepiece focal length.</param>
+	/// <returns>angular magnification</returns>
+	template<typename T, typename K>
+	static auto angular_magnification(const T R, const K f_e);
+
+	/// <summary>
+	/// Where does an object need to be placed relative to a microscope for
+	/// its f units focal length objective to produce a magnification of –m
+	/// </summary>
+	/// <param name="f">The focal length.</param>
+	/// <param name="m_o">The object magnification.</param>
+	/// <returns>object distance</returns>
+	template<typename T, typename K>
+	static auto object_Distance(const T f, const K m_o);
+
+	/// <summary>
+	/// Where should the f_e units focal length eyepiece be placed to produce
+	/// a further (m_e)x magnification
+	/// </summary>
+	/// <param name="f_e">The eyepiece focal length.</param>
+	/// <param name="m_e">The magnification xM example:(4X magnification)
+	/// would be a m_e of 4.0.</param>
+	/// <returns>object distance</returns>
+	template<typename T, typename K>
+	static auto object_distance(const T f_e, const K m_e);
+
+	/// <summary>
+	/// Calculate what a 1.40NA 60x oil immersion objective
+	/// lens would have for acceptance angles. n = 1.51 for oil, substitute this
+	/// for whatever you are looking to calculate in place. n is the index of
+	/// refraction for a medium.
+	/// </summary>
+	/// <param name="NA">The numerical aperture value.</param>
+	/// <param name="n">The index of refraction.</param>
+	/// <returns>the acceptance angle, the larger this is the more resolution
+	/// </returns>
+	template<typename T, typename K>
+	static auto acceptanceAngle(const T NA, const K n);
 
 
 
@@ -164,6 +331,111 @@ template<typename T>
 inline auto VisionOpticalInstruments::eyePowerReductionLaserSurgery(const T d_o, const T d_i)
 {
 	return  (1.0 / d_i) - ((1.0 / d_o) + (1.0 / d_i));
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::closestObjectDistance_accommodatedPower(const T percentCanAccommodate)
+{
+	const auto d_i = 2.00 * SU.CENTI;
+	const auto decimal = percentCanAccommodate / 100.0;
+	const auto increased = 1.0 + decimal;
+	const auto pMax = increased * (1.0 / d_i);
+	return 1.0 / (pMax - (1.0 / d_i));
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::closestObjectDistance_accomodateFarPoint(const T d_o, const T percentCanAccom, const T d_i)
+{
+	const auto decimal = percentCanAccom / 100.0;
+	const auto pFar = (1.0 / d_o) + (1.0 / d_i);
+	const auto pClose = (1.0 + decimal) * pFar;
+	return 1.00 / (pClose - (1.0 / d_i));
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::powerOfLensToCorrectMyopicVision(const T d_o)
+{
+	return static_cast<ld>(-1.00) / d_o;
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::powerOfLensToCorrectMyopicVision(const T d_o, const T posGlasses)
+{
+	const auto d_i = d_o - posGlasses;
+	return static_cast<ld>(-1.00) / d_i;
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::farPoint_fromLensPowerPrescription(const T lensPower)
+{
+	return static_cast<ld>(-1.00) / lensPower;
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::farPoint_fromLensPowerPrescription(const T lensPower, const T posGlasses)
+{
+	const auto d_i = 1.00 / lensPower;
+	return -(d_i)+posGlasses;
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::magnificationEyepiece(const T m, const T m_o)
+{
+	return m / m_o;
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::magnificationMicroscope(const T m_o, const T m_e)
+{
+	return m_o * m_e;
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::imageDistance(const T f, const T d_o)
+{
+	return (f * d_o) / (d_o - f);
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::magnification_objective(const ld d_o, const ld f)
+{
+	return -(f / (d_o - f));
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::magnification_dido(const T d_i, const T d_o)
+{
+	return -(d_i / d_o);
+}
+
+template<typename T, typename K>
+inline auto VisionOpticalInstruments::angularMagnification(const T f_o, const K f_e)
+{
+	return -(f_o / f_e);
+}
+
+template<typename T, typename K>
+inline auto VisionOpticalInstruments::angular_magnification(const T R, const K f_e)
+{
+	return -(R / 2.0) * (1.0 / f_e);
+}
+
+template<typename T, typename K>
+inline auto VisionOpticalInstruments::object_Distance(const T f, const K m_o)
+{
+	return f - (f / m_o);
+}
+
+template<typename T, typename K>
+inline auto VisionOpticalInstruments::object_distance(const T f_e, const K m_e)
+{
+	return f_e * (1 - (1.0 / m_e));
+}
+
+template<typename T, typename K>
+inline auto VisionOpticalInstruments::acceptanceAngle(const T NA, const K n)
+{
+	return 2 * asin(NA / n) * DEGREE;
 }
 
 
