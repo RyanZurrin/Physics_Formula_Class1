@@ -12,7 +12,8 @@ int main()
 	//ld n2 = setVal(e1.geometric_optics->indexOfRefractionFromCriticalAngle(53.6, 1.00));
 	//show_val("n2", "");
 
-	const  auto z = setVal(e1.vision_optical->objectDistance_usingPower((ld)53));
+	//const  auto z =
+	setVal(e1.vision_optical->objectDistance_usingPower(51.0));
 	show_val("T", "m");
 
 

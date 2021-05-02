@@ -74,7 +74,7 @@ public:
 	/// <param name="d_i">The image distance(default at 2.0*10^-2).</param>
 	/// <returns>the power of the eye in diopters(D)</returns>
 	template<typename T>
-	static auto powerOfEye(const T d_o, const T d_i = 2.0*SU.centi);
+	static auto powerOfEye(const T d_o, const T d_i = 2.0*SU.CENTI);
 
 	/// <summary>
 	/// The print in many books averages h_o units in height. Calculate How high
@@ -86,7 +86,7 @@ public:
 	/// <param name="d_i">The image distance(default at 2.0*10^-2).</param>
 	/// <returns>image height</returns>
 	template<typename T>
-	static auto imageHeight( const T h_o, const T d_o, const T d_i = 2.0*SU.centi);
+	static auto imageHeight( const T h_o, const T d_o, const T d_i = 2.0*SU.CENTI);
 
 	/// <summary>
 	/// Suppose a certain person’s visual acuity is such that he can see objects
@@ -99,7 +99,7 @@ public:
 	/// <param name="d_i">The image distance(default at 2.0*10^-2).</param>
 	/// <returns>object distance</returns>
 	template<typename T>
-	static auto objectDistance(const T h_o, const T h_i, const T d_i = 2.0 * SU.centi);
+	static auto objectDistance(const T h_o, const T h_i, const T d_i = 2.0 * SU.CENTI);
 
 	/// <summary>
 	/// Calculate the far point of a person whose eyes have a relaxed
@@ -109,9 +109,20 @@ public:
 	/// <param name="d_i">The image distance(default at 2.0*10^-2).</param>
 	/// <returns>object distance</returns>
 	template<typename T>
-	static auto objectDistance_usingPower(const T P_, const T d_i = 2.00 * SU.centi);
+	static auto objectDistance_usingPower(const T P_, const T d_i = 2.00 * SU.CENTI);
 
-	
+	/// <summary>
+	/// A severely myopic patient has a far point of d_o units. Calculate how many
+	/// diopters the power of their eye should be reduced in laser vision
+	/// correction to obtain normal distant vision.
+	/// </summary>
+	/// <param name="d_o">The d object distance.</param>
+	/// <param name="d_i">The image distance(default at 2.0*10^-2).</param>
+	/// <returns>power reduction in eye</returns>
+	template<typename T>
+	static auto eyePowerReductionLaserSurgery(const T d_o, const T d_i = 2.00 * SU.CENTI);
+
+
 
 
 
@@ -147,6 +158,12 @@ template<typename T>
 inline auto VisionOpticalInstruments::objectDistance_usingPower(const T P_, const T d_i)
 {
 	return 1.0 / (P_ - (1.0 / d_i));
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::eyePowerReductionLaserSurgery(const T d_o, const T d_i)
+{
+	return  (1.0 / d_i) - ((1.0 / d_o) + (1.0 / d_i));
 }
 
 
