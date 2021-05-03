@@ -13,7 +13,7 @@ int main()
 	//show_val("n2", "");
 
 	//const  auto z =
-	setVal(e1.vision_optical->acceptanceAngle(.35, 1.00));
+	setVal(e1.vision_optical->angularMagnification(123.0*SU.CENTI, 2.43*SU.CENTI));
 	show_val("T", "m");
 
 

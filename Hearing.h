@@ -319,7 +319,7 @@ public:
 	{
 		const auto SIZE = totalOvertones+1;
 		auto * result = new double[SIZE];
-		for (int i=1; i<totalOvertones+1;i++)
+		for (size_t i=1; i<totalOvertones+1;i++)
 		{
 			result[i - 1] = (static_cast<double>(i) * vw) / (2.0 * L);// Initialize all elements to zero.
 		}
@@ -331,7 +331,7 @@ public:
 	{
 		const auto SIZE = totalOvertones+1;
 		auto *result = new double[SIZE];
-		for (int i=0, j = 3; i<totalOvertones; j++,j++, i++)
+		for (size_t i=0, j = 3; i<totalOvertones; j++,j++, i++)
 		{
 			result[i] = (static_cast<double>(j) * vw) / (4.0 * L); // Initialize all elements to zero.
 		}
@@ -345,7 +345,7 @@ public:
 	{
 		const auto SIZE = totalOvertones+1;
 		auto *result = new double[SIZE];
-		for (int i=1; i<totalOvertones+1;i++)
+		for (size_t i=1; i<totalOvertones+1;i++)
 		{
 			result[i - 1] = static_cast<double>(i) * funFreq;// Initialize all elements to zero.
 		}
