@@ -40,6 +40,7 @@
 #include "VisionOpticalInstruments.h"
 #include "WaveOptics.h"
 #include "Waves.h"
+#include "SpecialRelativity.h"
 
 
 class PhysicsWorld;
@@ -731,6 +732,7 @@ public:
 	GeometricOptics* geometric_optics;
 	WaveOptics* wave_optics;
 	VisionOpticalInstruments* vision_optical;
+	SpecialRelativity* relativity;
 
 
 	//PhysicsCommon * physics_common;
@@ -774,6 +776,7 @@ public:
 		geometric_optics(o.geometric_optics),
 		wave_optics(o.wave_optics),
 		vision_optical(o.vision_optical),
+		relativity(o.relativity),
 		_ptr_(o._ptr_){} // move constructor
 
 	/**========================================================================
@@ -890,6 +893,7 @@ inline PhysicsWorld::PhysicsWorld()
 	geometric_optics = new GeometricOptics;
 	wave_optics = new WaveOptics;
 	vision_optical = new VisionOpticalInstruments;
+	relativity = new SpecialRelativity;
 	countIncrease();
 	//countShow();
 }
@@ -931,6 +935,7 @@ inline PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	geometric_optics = p.geometric_optics;
 	wave_optics = p.wave_optics;
 	vision_optical = p.vision_optical;
+	relativity = p.relativity;
 	countIncrease();
 }
 /**
@@ -973,6 +978,7 @@ inline PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		geometric_optics = r.geometric_optics;
 		wave_optics = r.wave_optics;
 		vision_optical = r.vision_optical;
+		relativity = r.relativity;
 		countIncrease();
 	}
 	return *this;
@@ -1012,6 +1018,7 @@ inline PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	geometric_optics = new GeometricOptics;
 	wave_optics = new WaveOptics;
 	vision_optical = new VisionOpticalInstruments;
+	relativity = new SpecialRelativity;
 
 	this->vector3d->set_coordinates(t1, t2, t3);
 
@@ -1051,6 +1058,7 @@ inline PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	geometric_optics = new GeometricOptics;
 	wave_optics = new WaveOptics;
 	vision_optical = new VisionOpticalInstruments;
+	relativity = new SpecialRelativity;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -1089,6 +1097,7 @@ inline PhysicsWorld::~PhysicsWorld()
 	delete geometric_optics;
 	delete wave_optics;
 	delete vision_optical;
+	delete relativity;
 	countDecrease();
 	//countShow();
 }
