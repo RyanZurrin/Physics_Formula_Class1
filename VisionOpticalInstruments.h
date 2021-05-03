@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "WaveOptics.h"
 
 #ifndef VISION_OPTICAL_INSTRUMENTS_H
@@ -6,6 +6,10 @@
 
 static auto visionOpticInstrument_objectCount = 0;
 
+/// <summary>
+///
+/// </summary>
+/// <seealso cref="WaveOptics" />
 class VisionOpticalInstruments :
 	public WaveOptics
 {
@@ -52,16 +56,36 @@ public:
 		return *this;
 	}
 
-	static auto show_objectCount() { std::cout << "\n visOptInstrument object count: "
+	/// <summary>
+	/// Shows the object count.
+	/// </summary>
+	/// <returns></returns>
+	static auto show_objectCount() {
+		std::cout << "\n visOptInstrument object count: "
 							<< visionOpticInstrument_objectCount << std::endl; }
+	/// <summary>
+	/// Gets the object count.
+	/// </summary>
+	/// <returns></returns>
 	static auto get_objectCount() { return visionOpticInstrument_objectCount; }
 
 
+	/// <summary>
+	/// Finalizes an instance of the <see cref="VisionOpticalInstruments"/> class.
+	/// </summary>
 	~VisionOpticalInstruments()
 	{
 		delete _visOpticPtr;
 	}
+	/// <summary>
+	/// Sets the template variable.
+	/// </summary>
+	/// <param name="var">The variable.</param>
 	void setTemplateVar(ld var) { visOpticInstVar = var; }
+	/// <summary>
+	/// Gets the template variable.
+	/// </summary>
+	/// <returns></returns>
 	ld getTemplateVar() const { return visOpticInstVar; }
 
 	/// <summary>
@@ -89,7 +113,7 @@ public:
 	static auto imageHeight( const T h_o, const T d_o, const T d_i = 2.0*SU.CENTI);
 
 	/// <summary>
-	/// Suppose a certain person�s visual acuity is such that he can see objects
+	/// Suppose a certain person’s visual acuity is such that he can see objects
 	/// clearly that form an image h_i units high on his retina. Calculate the maximum
 	/// distance at which he can read the h_o units high letters on the side of
 	/// an airplane?
@@ -250,15 +274,29 @@ public:
 	/// R m radius of curvature. Calculate the angular magnification it
 	/// produces when a f_e units focal length eyepiece is used?
 	/// </summary>
-	/// <param name="R">The radius of curvature.</param>
+	/// <param name="R_">The radius of curvature.</param>
 	/// <param name="f_e">The eyepiece focal length.</param>
 	/// <returns>angular magnification</returns>
 	template<typename T, typename K>
-	static auto angular_magnification(const T R, const K f_e);
+	static auto angular_magnification(const T R_, const K f_e);
+
+
+	/// <summary>
+	/// When you hold an insect at the near point of your eye it subtends an
+	/// angle of Θ rad. Calculate the angular size (magnitude only)
+	/// of the insect when viewed through a microscope that has an angular
+	/// magnification with a magnitude of m.
+	/// </summary>
+	/// <param name="Θ">The f e.</param>
+	/// <param name="m">The m e.</param>
+	/// <returns></returns>
+	template<typename T, typename K>
+	static auto angularMagnitude_objectThroughMicroscope(const T Θ, const K m);
+
 
 	/// <summary>
 	/// Where does an object need to be placed relative to a microscope for
-	/// its f units focal length objective to produce a magnification of �m
+	/// its f units focal length objective to produce a magnification of –m
 	/// </summary>
 	/// <param name="f">The focal length.</param>
 	/// <param name="m_o">The object magnification.</param>
@@ -289,6 +327,40 @@ public:
 	/// </returns>
 	template<typename T, typename K>
 	static auto acceptanceAngle(const T NA, const K n);
+
+	/// <summary>
+	/// The lens-to-retina distance of a person is d_r units, and the relaxed
+	/// power of her eye is P (D). Calculate the far point?
+	/// </summary>
+	/// <param name="P">The relaxed power.</param>
+	/// <param name="d_r">The lens-to-retina distance.</param>
+	/// <returns>far point</returns>
+	template<typename T>
+	static auto farPoint(const T P, const T d_r);
+
+	/// <summary>
+	/// The lens-to-retina distance of a woman is LensToRetina units, and the relaxed power
+	/// of her eye is P D. What eyeglass power will allow her to see distant
+	/// objects clearly, if her glasses are glassesFromEyes units from her eyes?
+	/// </summary>
+	/// <param name="lensToRetina">The lens to retina.</param>
+	/// <param name="P">The relaxed power.</param>
+	/// <param name="glassesFromEyes">The glasses from eyes.</param>
+	/// <returns>eyeglass power</returns>
+	template<typename T>
+	static auto eyeglassPower(const T lensToRetina, const T P, const T glassesFromEyes);
+
+	/// <summary>
+	/// Your physics TA has a far point of 0.663 m from her eyes and is able to see distant objects in focus when wearing glasses with a refractive power of
+	///−1.55 D. Determine the distance between her glasses and eyes.
+	/// </summary>
+	/// <param name="f_p">The far point.</param>
+	/// <param name="P">The power.</param>
+	/// <returns></returns>
+	template<typename T>
+	static auto distanceBetweenGlassesAndEyes(const T f_p, const T P);
+
+
 
 
 
@@ -415,9 +487,15 @@ inline auto VisionOpticalInstruments::angularMagnification(const T f_o, const K 
 }
 
 template<typename T, typename K>
-inline auto VisionOpticalInstruments::angular_magnification(const T R, const K f_e)
+inline auto VisionOpticalInstruments::angular_magnification(const T R_, const K f_e)
 {
-	return -(R / 2.0) * (1.0 / f_e);
+	return -(R_ / 2.0) * (1.0 / f_e);
+}
+
+template <typename T, typename K>
+inline auto VisionOpticalInstruments::angularMagnitude_objectThroughMicroscope(const T Θ, const K m)
+{
+	return m * Θ;
 }
 
 template<typename T, typename K>
@@ -436,6 +514,25 @@ template<typename T, typename K>
 inline auto VisionOpticalInstruments::acceptanceAngle(const T NA, const K n)
 {
 	return 2 * asin(NA / n) * DEGREE;
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::farPoint(const T P, const T d_r)
+{
+	return 1.0 / (P - (1.0 / d_r));
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::eyeglassPower(const T lensToRetina, const T P, const T glassesFromEyes)
+{
+	const auto fp = farPoint(P, lensToRetina);
+	return -1.0 / (fp - glassesFromEyes);
+}
+
+template<typename T>
+inline auto VisionOpticalInstruments::distanceBetweenGlassesAndEyes(const T f_p, const T P)
+{
+	return f_p + (1.0 / P);
 }
 
 
