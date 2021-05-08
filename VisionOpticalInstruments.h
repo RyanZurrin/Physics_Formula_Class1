@@ -236,8 +236,8 @@ public:
 	/// <param name="f">The focal length.</param>
 	/// <param name="d_o">The object distance.</param>
 	/// <returns>image distance, d_i</returns>
-	template<typename T>
-	static auto imageDistance(const T f, const T d_o);
+	template<typename T, typename K>
+	static auto imageDistance(const T f, const K d_o);
 
 	/// <summary>
 	/// What magnification is produced by a f units focal length microscope
@@ -462,8 +462,8 @@ inline auto VisionOpticalInstruments::magnificationMicroscope(const T m_o, const
 	return m_o * m_e;
 }
 
-template<typename T>
-inline auto VisionOpticalInstruments::imageDistance(const T f, const T d_o)
+template<typename T, typename K>
+inline auto VisionOpticalInstruments::imageDistance(const T f, const K d_o)
 {
 	return (f * d_o) / (d_o - f);
 }

@@ -398,6 +398,17 @@ public:
 	static ld imageDistance_diRaytracing(const ld dObj, const ld f);
 
 	/// <summary>
+	/// An object h_o units high is held d_o units from a person’s cornea, and
+	/// its reflected image is measured to be h_i units high.
+	/// calculate Where the image is.
+	/// </summary>
+	/// <param name="d_o">The object distance.</param>
+	/// <param name="h_i">The image height.</param>
+	/// <param name="h_o">The object height.</param>
+	/// <returns>image distance, or position of image</returns>
+	static auto imageDistance_hihodo(const ld d_o, const ld h_i, const ld h_o);
+
+	/// <summary>
 	/// Calculates the Magnification.
 	/// </summary>
 	/// <param name="di">The distance of image.</param>
@@ -623,6 +634,11 @@ inline ld GeometricOptics::incidentRayToMaterial(const ld n1, const ld n2, const
 inline ld GeometricOptics::imageDistance_diRaytracing(const ld dObj, const ld f)
 {
 	return (f * dObj) / (dObj - f);
+}
+
+inline auto GeometricOptics::imageDistance_hihodo(const ld d_o, const ld h_i, const ld h_o)
+{
+	return -(d_o * h_i) / h_o;
 }
 
 inline ld GeometricOptics::magnification(const ld di, const ld dObj)
