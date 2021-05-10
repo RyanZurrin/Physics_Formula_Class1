@@ -7,7 +7,8 @@
 static int emWaves_objectCount = 0;
 
 // speed of light in a vacuum is 299792458 m/s
-const ld _c_ = 2.99792 * pow(10, 8);
+const ld _c_ = 2.99792 * pow(10, 8);//2.99*10^8
+const ld C_ = 3.000 * pow(10, 8);//3.00*10^8
 
 class ElectromagneticWaves :
 	public ElectroMagneticInduction
@@ -70,14 +71,14 @@ public:
 	/// </summary>
 	/// <param name="E">The e field strength.</param>
 	/// <returns>electromagnetic B field strength</returns>
-	static ld B_fieldStrength_emWave(const ld E);
+	static ld magneticFieldStrength_emWave(const ld E);
 
 	/// <summary>
 	/// magnetic field strength of em wave. E field
 	/// </summary>
 	/// <param name="B">The B field strength of an emWave.</param>
 	/// <returns>electromagnetic E field strength</returns>
-	static ld magneticFieldStrength_emWave(const ld B);
+	static ld electricFieldStrength_emWave(const ld B);
 
 	/// <summary>
 	/// The maximum magnetic field strength of an electromagnetic field is B
@@ -87,7 +88,7 @@ public:
 	/// <param name="B">The B field strength of an emWave.</param>
 	/// <param name="percentOfc">The percent ofc.</param>
 	/// <returns></returns>
-	static ld magneticFieldStrength_emWavew(const ld B, const ld percentOfc);
+	static ld electricFieldStrength_emWave(const ld B, const ld percentOfc);
 
 	/// <summary>
 	/// Calculates the wave length of a em wave having a frequency of f.
@@ -202,17 +203,17 @@ inline ld ElectromagneticWaves::speedOfElectroMagneticWaves()
 	return 1.0 / sqrt (_Uo_ * _E0_);
 }
 
-inline ld ElectromagneticWaves::B_fieldStrength_emWave(const ld E)
+inline ld ElectromagneticWaves::magneticFieldStrength_emWave(const ld E)
 {
 	return E / _c_;
 }
 
-inline ld ElectromagneticWaves::magneticFieldStrength_emWave(const ld B)
+inline ld ElectromagneticWaves::electricFieldStrength_emWave(const ld B)
 {
 	return _c_ * B;
 }
 
-inline ld ElectromagneticWaves::magneticFieldStrength_emWavew(const ld B, const ld percentOfc)
+inline ld ElectromagneticWaves::electricFieldStrength_emWave(const ld B, const ld percentOfc)
 {
 	return percentOfc * _c_ * B;
 }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 /**
  * @class Waves
  * @details driver class for solving complex physics problems
@@ -680,6 +680,18 @@ public:
 	static ld energyWave(const ld I, const ld A, const ld t)
 	{
 		return I * A * t;
+	}
+
+
+	/// <summary>
+	/// Times the between waves.
+	/// </summary>
+	/// <param name="v_w">The v w.</param>
+	/// <param name="λ">The λ.</param>
+	/// <returns></returns>
+	static ld timeBetweenWaves(const ld v_w, const ld λ)
+	{
+		return λ / v_w;
 	}
 
 

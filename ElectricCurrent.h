@@ -673,6 +673,16 @@ public:
 	/// <returns>amperes</returns>
 	static ld currentAC(const ld Io, const ld f, const ld t);
 
+	/// <summary>
+	/// Temporaries the coeff of resistivity.
+	/// </summary>
+	/// <param name="R">The r.</param>
+	/// <param name="R_o">The r o.</param>
+	/// <param name="T_i">The t i.</param>
+	/// <param name="T_f">The t f.</param>
+	/// <returns></returns>
+	static ld tempCoeffOfResistivity(const ld R, const ld R_o, const ld T_i, const ld T_f);
+
 	void setElectricCurrentVal(ld val) { _electricCurrentVal = val; }
 
 	~ElectricCurrent()
@@ -929,6 +939,11 @@ inline ld ElectricCurrent::voltageAC(const ld Vo, const ld f, const ld t)
 inline ld ElectricCurrent::currentAC(const ld Io, const ld f, const ld t)
 {
 	return Io * sin(2 * _PI) * f * t;//amperes
+}
+
+inline ld ElectricCurrent::tempCoeffOfResistivity(const ld R, const ld R_o, const ld T_i, const ld T_f)
+{
+	return ((R / R_o) - 1.0) / (T_f - T_i);
 }
 
 #endif

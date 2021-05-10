@@ -437,11 +437,39 @@ public:
 	static ld focalLength_ConvergingLens_dido(const ld d_i, const ld d_o);
 
 	/// <summary>
+	/// Calculates the focal length from the radius of curvature
+	/// </summary>
+	/// <param name="R">The r.</param>
+	/// <returns></returns>
+	static ld focalLength_R(const ld R);
+
+	/// <summary>
+	/// Objects the distance.
+	/// </summary>
+	/// <param name="f">The f.</param>
+	/// <param name="d_i">The d i.</param>
+	/// <returns></returns>
+	static ld objectDistance(const ld f, const ld d_i);
+
+	/// <summary>
 	/// Calculates the radius of curvature.
 	/// </summary>
 	/// <param name="f">The focal length.</param>
 	/// <returns></returns>
 	static ld radiusOfCurvature(const ld f);
+
+		/// <summary>
+	/// Calculate the intensity of IR radiation in W/m2 from a space heater
+	/// projected by a concave mirror on a person d_i units away. Assume that
+	/// the heating element radiates P Watts and has an area of A units^2, and
+	/// that half of the radiated power is reflected and focused by the mirror
+	/// </summary>
+	/// <param name="d_i">The image distance, how far a person is standing.</param>
+	/// <param name="d_o">The object distance.</param>
+	/// <param name="P">The power.</param>
+	/// <param name="A">the area of mirror.</param>
+	/// <returns> Intensity (W/m^2)</returns>
+	static ld intensityOfIR_radiation(const ld d_i, const ld d_o, const ld P, const ld A);
 
 
 
@@ -656,8 +684,22 @@ inline ld GeometricOptics::focalLength_ConvergingLens_dido(const ld d_i, const l
 	return (d_i * d_o) / (d_i + d_o);
 }
 
+inline ld GeometricOptics::focalLength_R(const ld R)
+{
+	return R / 2.0;
+}
+
+inline ld GeometricOptics::objectDistance(const ld f, const ld d_i)
+{
+	return 1.0 / ((1.0 / f) - (1.0 / d_i));
+}
+
 inline ld GeometricOptics::radiusOfCurvature(const ld f)
 {
 	return 2.0 * f;
 }
 
+inline ld GeometricOptics::intensityOfIR_radiation(const ld d_i, const ld d_o, const ld P, const ld A)
+{
+	return P * pow(d_o, 2) / 2 / (A / 100) / pow(d_i, 2);
+}
