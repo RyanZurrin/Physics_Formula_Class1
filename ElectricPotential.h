@@ -192,12 +192,13 @@ public:
 	static ld voltageBetween2points_Vab(const ld E, const ld d);
 
 	/// <summary>
-	/// Calculates the Electric field strength between two points for a uniform electric field only
+	/// Calculates the Electric field strength between two points/plates for
+	/// a uniform electric field only
 	/// </summary>
 	/// <param name="V">The potential difference or volts.</param>
-	/// <param name="d">The distance between charges.</param>
+	/// <param name="d">The distance between points.</param>
 	/// <returns>magnitude of electric field(N/C)(V/m)</returns>
-	static ld electricFieldMagnitudeBetween2points_E(const ld V, const ld d);
+	static ld electricFieldMagnitude(const ld V, const ld d);
 
 	/// <summary>
 	/// Calculates the electric field. which ius said to be the gradient fo the
@@ -363,6 +364,14 @@ public:
 	static ld capacitorEnergy_Ecap_QC(const ld Q, const ld C);
 
 	/// <summary>
+	/// Potentials the across ecap ce.
+	/// </summary>
+	/// <param name="C">The c.</param>
+	/// <param name="Ecap">The ecap.</param>
+	/// <returns></returns>
+	static ld potentialAcross_Ecap_CE(const ld C, const ld Ecap);
+
+	/// <summary>
 	///  Calculate the area the parallel plates of a capacitor of capacitance C
 
 	///  must have if they are separated by a distance of d.
@@ -467,6 +476,8 @@ public:
 	/// <returns>KE (J)</returns>
 	static ld kineticEnergyFinalToMovePositiveCharge(const ld q, const ld Vab);
 
+
+
 	void setElectricPotentialVal(ld val)
 	{
 		_electricPotentialVal = val;
@@ -531,7 +542,7 @@ inline ld ElectricPotential::voltageBetween2points_Vab(const ld E, const ld d)
 	return E * d;
 }
 
-inline ld ElectricPotential::electricFieldMagnitudeBetween2points_E(const ld V, const ld d)
+inline ld ElectricPotential::electricFieldMagnitude(const ld V, const ld d)
 {
 	return V / d;
 }
@@ -629,6 +640,11 @@ inline ld ElectricPotential::capacitorEnergy_Ecap_QC(const ld Q, const ld C)
 	return (Q*Q)/(2.0*C);
 }
 
+inline ld ElectricPotential::potentialAcross_Ecap_CE(const ld C, const ld Ecap)
+{
+	return sqrt((Ecap * 2.0) / C);
+}
+
 
 inline ld ElectricPotential::capacitorPlateArea(const ld C, const ld d)
 {
@@ -685,3 +701,5 @@ inline ld ElectricPotential::kineticEnergyFinalToMovePositiveCharge(const ld q, 
 {
 	return -q * Vab;
 }
+
+

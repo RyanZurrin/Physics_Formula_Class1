@@ -687,7 +687,7 @@ inline auto WaveOptics::separationBetweenSlits_doubleSlit(const int m, const ld 
 
 inline auto WaveOptics::separationBetweenSlits_destructive(const int m, const ld λ, const ld Θ)
 {
-	return (((m-1) + (1 / 2)) * λ) / sin(Θ*RADIAN);
+	return (((static_cast<ld>(m)-1) + (1 / 2)) * λ) / sin(Θ*RADIAN);
 }
 
 inline auto WaveOptics::wavelengthAt_nMinimum_doubleSlit(const int m, const ld d, const ld Θ)

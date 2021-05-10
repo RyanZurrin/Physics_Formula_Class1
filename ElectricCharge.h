@@ -301,6 +301,16 @@ public:
 	/// <returns>magnitude of the point charge (C)</returns>
 	static ld magnitudePointCharge(ld E, ld r);
 
+	/// <summary>
+	/// Calculates the charge of a point particle having a force of F acting on
+	/// it with a electric field strength of E at its location.
+	/// </summary>
+	/// <param name="F">The force acting on a charge.</param>
+	/// <param name="E">The electric field strength.</param>
+	/// <returns></returns>
+	static ld charge(const ld F, const ld E);
+
+
 
 	/// <summary>
 	/// Separations the between point charges.
@@ -580,6 +590,11 @@ inline ld ElectricCharge::magnitudePointCharge(
 )
 {
 	return ((r * r) * E) / _k_;
+}
+
+inline ld ElectricCharge::charge(const ld F, const ld E)
+{
+	return F / E;
 }
 
 inline ld ElectricCharge::separationBetweenPointCharges(

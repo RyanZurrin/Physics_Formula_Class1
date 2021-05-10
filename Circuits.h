@@ -326,7 +326,14 @@ public:
 	/// <returns>temp in C</returns>
 	static ld temperatureIncreaseOfResistor(const ld C, const ld V, const ld mass, const ld c);
 
-
+	/// <summary>
+	/// EMFs the specified r.
+	/// </summary>
+	/// <param name="r">The r.</param>
+	/// <param name="R_load">The r load.</param>
+	/// <param name="I">The i.</param>
+	/// <returns></returns>
+	static ld emf(const ld r, const ld R_load, const ld I);
 
 
 
@@ -548,4 +555,9 @@ inline ld Circuits::charge_fromPowerVoltsTime(const ld P, const ld V, const ld t
 inline ld Circuits::temperatureIncreaseOfResistor(const ld C, const ld V, const ld mass, const ld c)
 {
 	return (C*(V*V))/(2.0*mass*c);//temperature in C
+}
+
+inline ld Circuits::emf(const ld r, const ld R_load, const ld I)
+{
+	return I * (r + R_load);
 }
