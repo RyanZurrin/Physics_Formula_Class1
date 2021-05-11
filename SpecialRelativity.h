@@ -4,7 +4,7 @@
  * details: driver class for solving complex physics problems
  * author: Ryan Zurrin
  * dateBuilt:  5/3/2021
- * lastEdit: 5/3/2021
+ * lastEdit: 5/9/2021
  */
 //α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
 //Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ
@@ -59,7 +59,7 @@ public:
 		return *this;
 	}
 
-	static void show_objectCount() { std::cout << "\n ________ object count: "
+	static void show_objectCount() { std::cout << "\n special relativity object count: "
 							<< specialRelativity_objectCount << std::endl; }
 	static int get_objectCount() { return specialRelativity_objectCount; }
 
@@ -71,18 +71,18 @@ public:
 	/// <param name="ν">The velocity .</param>
 	/// <returns>Lorentz factor, gamma (γ)</returns>
 	template<typename T>
-	auto lorentzFactor(const T ν);
+	static auto lorentzFactor(const T ν);
 
 	/// <summary>
 	/// Find the value of γ(gamma) for the following situation. An Earth-bound
 	/// observer measures t h to have passed while signals from a high-velocity
 	/// space probe indicate that t_o h have passed on board.
 	/// </summary>
-	/// <param name="t">The t.</param>
-	/// <param name="t_o">The t o.</param>
-	/// <returns></returns>
+	/// <param name="t">The relativistic time(should be greater then proper).</param>
+	/// <param name="t_o">The proper time.</param>
+	/// <returns>value of gamma, Lorentz factor</returns>
 	template<typename T, typename K>
-	auto lorentzValue(const T t, const K t_o);
+	static auto lorentzValue(const T t, const K t_o);
 
 	/// <summary>
 	/// Particles called π-mesons are produced by accelerator beams. If these
@@ -91,10 +91,10 @@ public:
 	/// live as viewed in the laboratory?
 	/// </summary>
 	/// <param name="ν">The speed of particle.</param>
-	/// <param name="t">The time in seconds particle can live.</param>
+	/// <param name="t_o">The time in seconds particle can live.</param>
 	/// <returns>relativistic time alive is seconds, time dilation</returns>
 	template<typename T, typename K>
-	auto relativisticTime(const T ν, const K t);
+	static auto relativisticTimeDilation(const T ν, const K t_o);
 
 	/// <summary>
 	/// Suppose a particle called a kaon is created by cosmic radiation striking
@@ -102,10 +102,10 @@ public:
 	/// at rest relative to an observer. How long does it live as you observe it?
 	/// </summary>
 	/// <param name="ν">The velocity .</param>
-	/// <param name="t">The relatively observed time.</param>
+	/// <param name="t_o">The relatively observed time.</param>
 	/// <returns>time from observers perspective</returns>
 	template<typename T, typename K>
-	auto observersTime(const T νc, const K t);
+	static auto timeDilation(const T νc, const K t_o);
 
 	/// <summary>
 	/// A neutral π-meson is a particle that can be created by accelerator
@@ -117,7 +117,7 @@ public:
 	/// <param name="t_o">The proper time, time at rest.</param>
 	/// <returns>speed relative to the observed time</returns>
 	template<typename T, typename K>
-	auto relativeVelocity(const T t, const K t_o);
+	static auto relativeVelocity(const T t, const K t_o);
 
 	/// <summary>
 	/// If relativistic effects are to be less than percent_γ %, then γ must be less
@@ -126,7 +126,7 @@ public:
 	/// <param name="percent_γ">The percent of Lorentz(γ).</param>
 	/// <returns>speed to achieve desired percent of Lorentz factor</returns>
 	template<typename T>
-	auto relativeVelocity_percentLorentz(const T percent_γ);
+	static auto relativeVelocity_percentLorentz(const T percent_γ);
 
 	/// <summary>
 	/// Calculate at what relative velocity is gamma= γ
@@ -134,7 +134,7 @@ public:
 	/// <param name="γ">The γ.</param>
 	/// <returns></returns>
 	template<typename T>
-	auto relativeVelocity_lorantzAt(const T γ);
+	static auto relativeVelocity_lorantzAt(const T γ);
 
 	/// <summary>
 	/// A neutron lives t_o s when at rest relative to an observer. How fast
@@ -146,7 +146,7 @@ public:
 	/// <returns>speed of particle as measured by while being observed in
 	/// under proper time</returns>
 	template<typename T, typename K>
-	auto observedVelocity(const T t, const K t_o);
+	static auto observedVelocity(const T t, const K t_o);
 
 
 	/// <summary>
@@ -159,7 +159,7 @@ public:
 	/// <param name="vc">The velocity relative to light speed c.</param>
 	/// <returns>observed length, relativistic length</returns>
 	template<typename T, typename K>
-	auto length_earthBoundObserver(const T L_o, const K vc);
+	static auto relativisticLength(const T L_o, const K vc);
 
 	/// <summary>
 	/// How fast would a l_o m-long sports car have to be going past you in
@@ -169,7 +169,7 @@ public:
 	/// <param name="l">The relativistic length.</param>
 	/// <returns>velocity to appear length</returns>
 	template<typename T, typename K>
-	auto speedToAppearSomeLength(const T l_o, const K l);
+	static auto speedToAppearSomeLength(const T l_o, const K l);
 
 	/// <summary>
 	/// Suppose a cosmic ray colliding with a nucleus in the Earth’s upper
@@ -183,7 +183,7 @@ public:
 	/// <returns>distance traveled by particle from stationary observers
 	/// perspective</returns>
 	template<typename T, typename K>
-	auto distanceTraveled_earthBoundObserver(const T t_o, const K vc);
+	static auto distanceTraveled_earthBoundObserver(const T t_o, const K vc);
 
 	/// <summary>
 	/// Suppose a cosmic ray colliding with a nucleus in the Earth’s upper
@@ -198,7 +198,7 @@ public:
 	/// <param name="vc">The vc.</param>
 	/// <returns>distance traveled (m)</returns>
 	template<typename T, typename K>
-	auto distanceTraveled_relativeObserver(const T t_o, const K vc);
+	static auto distanceTraveled_proper(const T t_o, const K vc);
 
 
 	/// <summary>
@@ -209,7 +209,185 @@ public:
 	/// <param name="γ">The γ.</param>
 	/// <returns>contracted length</returns>
 	template<typename T, typename K>
-	auto contractedLength(const T l_o, const K γ);
+	static auto contractedLength(const T l_o, const K γ);
+
+	/// <summary>
+	///  How long does it take the astronaut  to travel
+	///  l_o units at vc units of speed (as measured by the Earth- bound observer)
+	/// </summary>
+	/// <param name="l_o">The proper length.</param>
+	/// <param name="vc">The velocity with respect to speed of light.</param>
+	/// <returns>time to travel some distance</returns>
+	template<typename T, typename K>
+	static auto time(const T l_o, const K vc);
+
+	/// <summary>
+	/// How long does it take a astronaut to travel t units at a speed of vc units
+	/// according to the astronaut, which is proper time
+	/// </summary>
+	/// <param name="t">The relativistic time.</param>
+	/// <param name="vc">The speed.</param>
+	/// <returns>proper time</returns>
+	template<typename T, typename K>
+	static auto properTime(const T t, const K vc);
+
+	/// <summary>
+	/// Verify time is related through time dilation with gamma = γ as given.
+	/// </summary>
+	/// <param name="t_o">The t o.</param>
+	/// <param name="γ">The γ.</param>
+	/// <returns></returns>
+	template<typename T, typename K>
+	static auto timeGamma(const T t_o, const K  γ);
+
+	/// <summary>
+	/// A spaceship is heading directly toward the Earth at a velocity of
+	/// 0.800c(uv) . The astronaut on board claims that he can send a canister
+	/// toward the Earth at 1.20c(v) relative to the Earth. Calculate the
+	/// velocity the canister must have relative to the spaceship.
+	/// </summary>
+	/// <param name="v">The v.</param>
+	/// <param name="uv">The uv.</param>
+	/// <returns>speed relativity relationship</returns>
+	template<typename T, typename K>
+	static auto relative_velocity_away(const T v, const K uv);
+
+	/// <summary>
+	/// Relatives the velocity towards.
+	/// </summary>
+	/// <param name="v">The v.</param>
+	/// <param name="uv">The uv.</param>
+	/// <returns></returns>
+	template<typename T, typename K>
+	static auto relative_velocity_towards(const T v, const K uv);
+
+	/// <summary>
+	/// When a missile is shot from one spaceship towards another, it leaves
+	/// the first at 0.950c(u_) and approaches the other at 0.750c(u). What is the
+	/// relative velocity of the two ships?
+	/// </summary>
+	/// <param name="u">The relative velocity of object to observer .</param>
+	/// <param name="u_">The relative velocity to the other observer.</param>
+	/// <returns>relative velocity between the two observers</returns>
+	template<typename T, typename K>
+	static auto relativeVelocity_between2Objects(const T u, const K u_);
+
+	/// <summary>
+	/// Suppose the speed of light were only 3000 m/s(c_) . A jet fighter moving
+	/// toward a target on the ground at 800 m/s(v) shoots bullets, each having a
+	/// muzzle velocity of 1000 m/s(uv). calculate the bullets’ velocity relative
+	/// to the target.
+	/// </summary>
+	/// <param name="v">The velocity of observer.</param>
+	/// <param name="uv">The velocity of object.</param>
+	/// <param name="c_">The speed of light.</param>
+	/// <returns>velocity relative to target</returns>
+	template<typename T, typename K, typename C>
+	static auto relative_velocity(const T v, const K uv, const C c_);
+
+	/// <summary>
+	/// If a galaxy moving away from the Earth has a speed of 1000 km/s(u) and
+	/// emits 656 nm(λ_s) light characteristic of hydrogen (the most common element
+	/// in the universe). Calculate the wavelength we observe on the Earth
+	/// </summary>
+	/// <param name="u">The speed.</param>
+	/// <param name="λ_s">The wavelength source.</param>
+	/// <returns>observed wavelength</returns>
+	template<typename T, typename K>
+	static auto wavelengthObserved(const T u, const K λ_s);
+
+	/// <summary>
+	/// A space probe speeding towards the nearest star moves at 0.250c(u) and
+	/// sends radio information at a broadcast frequency of 1.00 GHz(f_s).
+	/// Calculate what frequency is received on the Earth.
+	/// </summary>
+	/// <param name="uc">The speed.</param>
+	/// <param name="f_s">The f s.</param>
+	/// <returns></returns>
+	template<typename T, typename K>
+	static auto frequencyObserved(const T uc, const K f_s);
+
+	/// <summary>
+	/// Near the center of our galaxy, hydrogen gas is moving directly away
+	/// from us in its orbit about a black hole. We receive 1900(λ_obs) nm electromagnetic
+	/// radiation and know that it was 1875 nm(λ_s) when emitted by the hydrogen gas.
+	/// What is the speed of the gas
+	/// </summary>
+	/// <param name="λ_s">The λ s.</param>
+	/// <param name="λ_obs">The λ obs.</param>
+	/// <returns></returns>
+	template<typename T, typename K>
+	static auto velocity_fromWaveLengths(const T λ_s, const K λ_obs);
+
+	/// <summary>
+	/// A highway patrol officer uses a device that measures the speed of
+	/// vehicles by bouncing radar off them and measuring the Doppler shift.
+	/// The outgoing radar has a frequency of 100 GHz(f_S) and the returning echo
+	/// has a frequency 15.0 kHz(increase) higher. What is the velocity of the vehicle?
+	/// Note that there are two Doppler shifts in echoes. Be certain not to
+	/// round off until the end of the problem, because the effect is small.
+	/// </summary>
+	/// <param name="f_s">The frequency from the source.</param>
+	/// <param name="increase">The increase in the frequency from it bouncing
+	/// back to the radar gun.</param>
+	/// <returns>velocity of moving object the frequency bounced off of</returns>
+	template<typename T, typename K>
+	static auto velocity_fromFrequencyEcho(const T f_s, const K increase);
+
+	/// <summary>
+	/// All but the closest galaxies are receding from our own Milky Way Galaxy.
+	/// If a galaxy 12.0×109 ly(l_o) away is receding from us at 0.900c(v), if
+	/// the velocity relative to us of the probe moving towards the other galaxy
+	/// is 0.99947c(u), as measured from that galaxy, calculate
+	/// How long it will take the probe to reach the other galaxy as
+	/// measured from the Earth. You may assume that the velocity of the other
+	/// galaxy remains constant.
+	/// <param name="u">The u.</param>
+	/// <param name="v">The v.</param>
+	/// <param name="l_o">The l o.</param>
+	/// <returns>time for probe to reach other galaxy</returns>
+	template<typename T, typename K, typename L>
+	static auto relativisticTime(const T u, const K v, const L l_o);
+
+	/// <summary>
+	/// Find the momentum of a helium nucleus having a mass of 6.68×10−27 kg(m)
+	/// that is moving at 0.200c.(u)
+	/// </summary>
+	/// <param name="m">The mass.</param>
+	/// <param name="u">The velocity.</param>
+	/// <returns>relativistic momentum</returns>
+	template<typename T, typename K>
+	static auto momentum(const T m, const K u);
+
+	/// <summary>
+	/// Find the momentum of a 1.00×109 kg(m) asteroid heading towards the
+	/// Earth at 30.0 km/s(u).
+	/// </summary>
+	/// <param name="m">The m.</param>
+	/// <param name="u">The u.</param>
+	/// <returns></returns>
+	template<typename T, typename K>
+	static auto momentum_slowerObject(const T m, const K u);
+
+	/// <summary>
+	///  Find the ratio of this momentum to the classical momentum.
+	///  (Use the approximation that γ=1+12v2c2 at low velocities.)
+	/// </summary>
+	/// <param name="v">The velocity.</param>
+	/// <returns>gamma, Lorentz factor</returns>
+	template<typename T>
+	static auto momentumRatios_classical2relativistic(const T v);
+
+	/// <summary>
+	/// What is the velocity of an electron that has a momentum of
+	/// 3.04×10−21 kg⋅m/s?(p) Note that you must calculate the velocity to
+	/// at least four digits to see the difference from c.
+	/// </summary>
+	/// <param name="p">The relativistic momentum.</param>
+	/// <param name="m">The mass.</param>
+	/// <returns>velocity</returns>
+	template<typename T, typename M>
+	static auto velocityFrom_momentum(const T p, const M m);
 
 
 
@@ -243,15 +421,15 @@ inline auto SpecialRelativity::lorentzValue(const T t, const K t_o)
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::relativisticTime(const T ν, const K t)
+inline auto SpecialRelativity::relativisticTimeDilation(const T ν, const K t_o)
 {
-	return t / sqrt(1.0 - ((ν * ν)/(C_*C_) ));
+	return t_o / sqrt(1.0 - ((ν * ν)/(C_*C_) ));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::observersTime(const T νc, const K t)
+inline auto SpecialRelativity::timeDilation(const T νc, const K t_o)
 {
-	return t / sqrt(1.0 - (νc * νc));
+	return t_o / sqrt(1.0 - (νc * νc));
 }
 
 template<typename T, typename K>
@@ -280,7 +458,7 @@ inline auto SpecialRelativity::observedVelocity(const T t, const K t_o)
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::length_earthBoundObserver(const T L_o, const K vc)
+inline auto SpecialRelativity::relativisticLength(const T L_o, const K vc)
 {
 	return L_o * sqrt(1.0 - (vc * vc));
 }
@@ -288,7 +466,7 @@ inline auto SpecialRelativity::length_earthBoundObserver(const T L_o, const K vc
 template<typename T, typename K>
 inline auto SpecialRelativity::speedToAppearSomeLength(const T l_o, const K l)
 {
-	return _c_ * sqrt(1.0 - (l / l_o));
+	return _c_ * sqrt(1.0 - ((l*l)/ (l_o* l_o)));
 }
 
 template<typename T, typename K>
@@ -298,7 +476,7 @@ inline auto SpecialRelativity::distanceTraveled_earthBoundObserver(const T t_o, 
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::distanceTraveled_relativeObserver(const T t_o, const K vc)
+inline auto SpecialRelativity::distanceTraveled_proper(const T t_o, const K vc)
 {
 	return vc * _c_ * t_o;
 }
@@ -308,3 +486,100 @@ inline auto SpecialRelativity::contractedLength(const T l_o, const K γ)
 {
 	return l_o / γ;
 }
+
+template<typename T, typename K>
+inline auto SpecialRelativity::time(const T l_o, const K vc)
+{
+	return l_o / (vc*_c_);
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::properTime(const T t, const K vc)
+{
+	return sqrt(1.0 - (vc * vc)) * t;
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::timeGamma(const T t_o, const K γ)
+{
+	return  γ * t_o;
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::relative_velocity_away(const T v, const K uv)
+{
+	return (v - uv) / (1.0 - (v * uv));
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::relative_velocity_towards(const T v, const K uv)
+{
+	return (v + uv) / (1.0 + (v * uv));
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::relativeVelocity_between2Objects(const T u, const K u_)
+{
+	return (u_ - u) / ((u_ * u) - 1);
+}
+
+template<typename T, typename K, typename C>
+inline auto SpecialRelativity::relative_velocity(const T v, const K uv, const C c_)
+{
+	return (v + uv) / (1.0 + ((v * uv)/(c_*c_)));
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::wavelengthObserved(const T u, const K λ_s)
+{
+	return λ_s * sqrt((1.0 + (u / _c_)) / (1.0 - (u / _c_)));
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::frequencyObserved(const T uc, const K f_s)
+{
+	return f_s * sqrt((1.0 - (uc )) / (1.0 + (uc )));
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::velocity_fromWaveLengths(const T λ_s, const K λ_obs)
+{
+	return _c_ * ((((λ_obs * λ_obs) / (λ_s * λ_s)) - 1.0) / (1.0 + (((λ_obs * λ_obs) / (λ_s * λ_s)))));
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::velocity_fromFrequencyEcho(const T f_s, const K increase)
+{
+	return _c_ * (-increase) / (2.0 * f_s + increase);
+}
+
+template<typename T, typename K, typename L>
+inline auto SpecialRelativity::relativisticTime(const T u, const K v, const L l_o)
+{
+	return l_o / (u - v);
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::momentum(const T m, const K u)
+{
+	return (m * u * _c_) / sqrt(1.0 - (u * u));
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::momentum_slowerObject(const T m, const K u)
+{
+	return (m * u) / sqrt(1.0 - ((u * u)/(_c_*_c_)));
+}
+
+template<typename T>
+inline auto SpecialRelativity::momentumRatios_classical2relativistic(const T v)
+{
+	return 1.0 + (1 / 2) * ((v * v) / (_c_ * _c_));
+}
+
+template<typename T, typename M>
+inline auto SpecialRelativity::velocityFrom_momentum(const T p, const M m)
+{
+	return p / sqrt((m * m) + ((p * p) / (_c_ * _c_)));
+}
+
