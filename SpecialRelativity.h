@@ -389,6 +389,14 @@ public:
 	template<typename T, typename M>
 	static auto velocityFrom_momentum(const T p, const M m);
 
+	/// <summary>
+	/// What is the rest energy of an electron, given its mass is 9.11
+	/// *10^-31 kg(m)
+	/// </summary>
+	/// <param name="m">The mass.</param>
+	/// <returns>energy in joules</returns>
+	template<typename T>
+	static auto restEnergy(const T m);
 
 
 
@@ -562,7 +570,7 @@ inline auto SpecialRelativity::relativisticTime(const T u, const K v, const L l_
 template<typename T, typename K>
 inline auto SpecialRelativity::momentum(const T m, const K u)
 {
-	return (m * u * _c_) / sqrt(1.0 - (u * u));
+	return (m * (u * _c_)) / sqrt(1.0 - (u * u));
 }
 
 template<typename T, typename K>
@@ -581,5 +589,11 @@ template<typename T, typename M>
 inline auto SpecialRelativity::velocityFrom_momentum(const T p, const M m)
 {
 	return p / sqrt((m * m) + ((p * p) / (_c_ * _c_)));
+}
+
+template<typename T>
+inline auto SpecialRelativity::restEnergy(const T m)
+{
+	return m * (_c_ * _c_);
 }
 

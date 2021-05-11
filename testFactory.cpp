@@ -7,10 +7,13 @@ int main()
 {
 	PhysicsWorld e1;
 
-	setVal(e1.relativity->velocityFrom_momentum(3.04*pow(10,-21), _ELECTRON_MASS_));
+	const auto x = setVal(e1.relativity->restEnergy(_PROTON_MASS_));
 	show_val("u", "c");
 
+	//setVal(e1.relativity->velocityFrom_momentum(x, 1.00*SU.NANO));
+	//show_val("dust", "m/s");
 
+	std::cout << "kev:"<< converter.joules_to_eV();
 
 	return 0;
 

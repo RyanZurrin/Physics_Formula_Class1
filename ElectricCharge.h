@@ -34,7 +34,7 @@ const ld _K_ = 1.0 / (4.0 * π * _E0_);
 /// <summary>
 /// The electron = -1.6 * 10^-19 C
 /// </summary>
-const ld _ELECTRON_CHARGE_ = -1.6 * pow(10.0, -19); //-1.6e-19
+const ld _ELECTRON_CHARGE_ = -1.602 * pow(10.0, -19); //-1.6e-19
 
 /// <summary>
 /// The proton = 1.6 * 10^-19C
@@ -43,7 +43,7 @@ const ld _PROTON_CHARGE_ = 1.6 * pow(10.0, -19); // 1.6e-19
 const ld _COULOMB_       = 1.0 / (_ELECTRON_CHARGE_);
 
 const ld _ELECTRON_MASS_ = 9.11 * pow(10, -31);  //9.11e-31
-const ld _PROTON_MASS_   = 1.67 * pow(10, -27); //1.673e-27
+const ld _PROTON_MASS_   = 1.673 * pow(10, -27); //1.673e-27
 
 static int electricCharge_objectCount = 0;
 
