@@ -1,13 +1,13 @@
-﻿#include "PhysicsWorld.h"
+﻿#include <functional>
 
-
+#include "PhysicsWorld.h"
 
 
 int main()
 {
 	PhysicsWorld e1;
 
-	const auto x = setVal(e1.relativity->restEnergy(_PROTON_MASS_));
+	const auto x = setVal(e1.relativity->relativisticMomentum(_PROTON_MASS_));
 	show_val("u", "c");
 
 	//setVal(e1.relativity->velocityFrom_momentum(x, 1.00*SU.NANO));

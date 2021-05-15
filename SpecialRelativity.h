@@ -8,6 +8,7 @@
  */
 //α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
 //Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ
+
 #ifndef SPECIAL_RELATIVITY_H
 #define SPECIAL_RELATIVITY_H
 #include <iostream>
@@ -159,7 +160,7 @@ public:
 	/// <param name="vc">The velocity relative to light speed c.</param>
 	/// <returns>observed length, relativistic length</returns>
 	template<typename T, typename K>
-	static auto relativisticLength(const T L_o, const K vc);
+	static auto lengthContraction(const T L_o, const K vc);
 
 	/// <summary>
 	/// How fast would a l_o m-long sports car have to be going past you in
@@ -357,7 +358,7 @@ public:
 	/// <param name="u">The velocity.</param>
 	/// <returns>relativistic momentum</returns>
 	template<typename T, typename K>
-	static auto momentum(const T m, const K u);
+	static auto relativisticMomentum(const T m, const K u);
 
 	/// <summary>
 	/// Find the momentum of a 1.00×109 kg(m) asteroid heading towards the
@@ -466,7 +467,7 @@ inline auto SpecialRelativity::observedVelocity(const T t, const K t_o)
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::relativisticLength(const T L_o, const K vc)
+inline auto SpecialRelativity::lengthContraction(const T L_o, const K vc)
 {
 	return L_o * sqrt(1.0 - (vc * vc));
 }
@@ -568,7 +569,7 @@ inline auto SpecialRelativity::relativisticTime(const T u, const K v, const L l_
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::momentum(const T m, const K u)
+inline auto SpecialRelativity::relativisticMomentum(const T m, const K u)
 {
 	return (m * (u * _c_)) / sqrt(1.0 - (u * u));
 }
