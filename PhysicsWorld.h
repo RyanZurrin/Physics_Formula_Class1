@@ -605,6 +605,10 @@ static struct Conversions
 	{
 		return j / (3.6 * pow(10, 6));
 	}
+	static ld joules_to_eV(const ld j = _val_)
+	{
+		return j / _PROTON_CHARGE_;
+	}
 	static ld newtonMeters_to_ftPounds(const ld Nm = _val_)
 	{
 		return Nm / .73756;
