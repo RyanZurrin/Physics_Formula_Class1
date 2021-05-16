@@ -73,7 +73,7 @@ public:
 										<< circuits_objectCount << std::endl; }
 	static int get_objectCount() { return circuits_objectCount; }
 
-	void setCircuitVal(ld val) { _circuitVal = val; }
+	constexpr void setCircuitVal(ld val) { _circuitVal = val; }
 
 
 	/// <summary>
@@ -90,7 +90,7 @@ public:
 	/// <param name="R9">The resistor 9.</param>
 	/// <param name="R10">The resistor 10.</param>
 	/// <returns>resistance in ohms</returns>
-	static ld seriesResistance(const ld R1, const ld R2, const ld R3, const ld R4,
+	static constexpr ld seriesResistance(const ld R1, const ld R2, const ld R3, const ld R4,
 		const ld R5, const ld R6, const ld R7, const ld R8, const ld R9, const ld R10);
 
 	/// <summary>
@@ -107,7 +107,7 @@ public:
 	/// <param name="R9">The resistor 9.</param>
 	/// <param name="R10">The resistor 10.</param>
 	/// <returns>resistance in ohms</returns>
-	static ld parallelResistance(const ld R1, const ld R2, const ld R3, const ld R4,
+	static constexpr ld parallelResistance(const ld R1, const ld R2, const ld R3, const ld R4,
 		const ld R5, const ld R6, const ld R7, const ld R8, const ld R9, const ld R10);
 
 		/// <summary>
@@ -124,7 +124,7 @@ public:
 	/// <param name="C9">The capacitor 9.</param>
 	/// <param name="C10">The capacitor 10.</param>
 	/// <returns>capacitance (F)</returns>
-	static ld seriesCapacitance(const ld C1, const ld C2, const ld C3, const ld C4,
+	static constexpr ld seriesCapacitance(const ld C1, const ld C2, const ld C3, const ld C4,
 		const ld C5, const ld C6, const ld C7, const ld C8, const ld C9, const ld C10);
 
 	/// <summary>
@@ -141,7 +141,7 @@ public:
 	/// <param name="C9">The capacitor 9.</param>
 	/// <param name="C10">The capacitor 10.</param>
 	/// <returns>capacitance (F)</returns>
-	static ld parallelCapacitance(const ld C1, const ld C2, const ld C3, const ld C4,
+	static constexpr ld parallelCapacitance(const ld C1, const ld C2, const ld C3, const ld C4,
 		const ld C5, const ld C6, const ld C7, const ld C8, const ld C9, const ld C10);
 
 
@@ -152,7 +152,7 @@ public:
 	/// <param name="r">The internal resistance.</param>
 	/// <param name="I">The Charge.</param>
 	/// <returns>Voltage</returns>
-	static ld terminalVoltage(const ld emf, const ld r, const ld I);
+	static constexpr ld terminalVoltage(const ld emf, const ld r, const ld I);
 
 
 	/// <summary>
@@ -162,7 +162,7 @@ public:
 	/// <param name="RLoad">The resistance load of all resistors connected.</param>
 	/// <param name="r">The internal resistance.</param>
 	/// <returns>current I in amperes</returns>
-	static ld current_OhmsLaw(const ld emf, const ld RLoad, const ld r);
+	static constexpr ld current_OhmsLaw(const ld emf, const ld RLoad, const ld r);
 
 	/// <summary>
 	/// Calculates the powers dissipated
@@ -170,7 +170,7 @@ public:
 	/// <param name="I">The current.</param>
 	/// <param name="Rload">The Resistance load.</param>
 	/// <returns>power output in watts (W)S</returns>
-	static ld powerDissipation(const ld I, const ld R);
+	static constexpr ld powerDissipation(const ld I, const ld R);
 
 	/// <summary>
 	/// add the total emfs for a series connection. where emf is the electromagnetic force
@@ -180,7 +180,7 @@ public:
 	/// <param name="emf3">The emf3.</param>
 	/// <param name="emf4">The emf4.</param>
 	/// <returns>net emf</returns>
-	static ld emfsParallelConnection_added(const ld emf1, const ld emf2, const ld emf3, const ld emf4);
+	static constexpr ld emfsParallelConnection_added(const ld emf1, const ld emf2, const ld emf3, const ld emf4);
 
 	/// <summary>
 	/// add the total emfs for a series connection. where emf is the electromagnetic force
@@ -190,7 +190,7 @@ public:
 	/// <param name="emf3">The emf3.</param>
 	/// <param name="emf4">The emf4.</param>
 	/// <returns></returns>
-	static ld emfsSeriesConnection_subtracted(const ld emf1, const ld emf2, const ld emf3, const ld emf4);
+	static constexpr ld emfsSeriesConnection_subtracted(const ld emf1, const ld emf2, const ld emf3, const ld emf4);
 
 	/// <summary>
 	/// calculates the internals resistance.
@@ -199,7 +199,7 @@ public:
 	/// <param name="E">The emf.</param>
 	/// <param name="I">The current.</param>
 	/// <returns>the internal resistance (r)</returns>
-	static ld internalResistance(const ld Vt, const ld E, const ld I);
+	static constexpr ld internalResistance(const ld Vt, const ld E, const ld I);
 
 	/// <summary>
 	/// calculates the RC time constant of a circuit containing a resistor and a
@@ -208,7 +208,7 @@ public:
 	/// <param name="R">The resistance.</param>
 	/// <param name="C">The capacitance.</param>
 	/// <returns>tau(Greek letter)</returns>
-	static ld timeConstant_RC(const ld R, const ld C);
+	static constexpr ld timeConstant_RC(const ld R, const ld C);
 
 	/// <summary>
 	/// calculates the resistances from time constant and capacitance.
@@ -216,7 +216,7 @@ public:
 	/// <param name="tau">The tau(time constant).</param>
 	/// <param name="C">The capacitance.</param>
 	/// <returns>the resistance Ohms</returns>
-	static ld resistance_fromTimeConstant(const ld tau, const ld C);
+	static constexpr ld resistance_fromTimeConstant(const ld tau, const ld C);
 
 	/// <summary>
 	/// calculates the capacitance from time constant and resistance.
@@ -224,7 +224,7 @@ public:
 	/// <param name="tau">The tau.</param>
 	/// <param name="R">The resistance.</param>
 	/// <returns></returns>
-	static ld capacitance_fromTimeConstant(const ld tau, const ld R);
+	static constexpr ld capacitance_fromTimeConstant(const ld tau, const ld R);
 
 	/// <summary>
 	/// Voltages the vs time charging capacitor.
@@ -242,21 +242,21 @@ public:
 	/// <param name="cycles">The cycles.</param>
 	/// <param name="seconds">The seconds.</param>
 	/// <returns>frequency</returns>
-	static ld frequency(const ld cycles, const ld seconds);
+	static constexpr ld frequency(const ld cycles, const ld seconds);
 
 	/// <summary>
 	/// Frequencies the specified period.
 	/// </summary>
 	/// <param name="period">The period.</param>
 	/// <returns></returns>
-	static ld frequency(const ld period);
+	static constexpr ld frequency(const ld period);
 
 	/// <summary>
 	/// calculates the periods from the specified f.
 	/// </summary>
 	/// <param name="f">The f.</param>
 	/// <returns>period</returns>
-	static ld period(const ld f);
+	static constexpr ld period(const ld f);
 
 
 	/// <summary>
@@ -290,7 +290,7 @@ public:
 	/// <param name="C">The capacitance.</param>
 	/// <param name="v">The velocity.</param>
 	/// <returns>resistance in Ohms</returns>
-	static ld resistance_fromDistanceVelocity(const ld d, const ld C, const ld v);
+	static constexpr ld resistance_fromDistanceVelocity(const ld d, const ld C, const ld v);
 
 	/// <summary>
 	/// A flashing lamp in a Christmas earring is based on an RC discharge of a
@@ -301,7 +301,7 @@ public:
 	/// <param name="P">The power.</param>
 	/// <param name="t">The time.</param>
 	/// <returns>energy in joules</returns>
-	static ld energyUsed(const ld P, const ld t);
+	static constexpr ld energyUsed(const ld P, const ld t);
 
 	/// A flashing lamp in a Christmas earring is based on an RC discharge of a
 	/// capacitor through its resistance. The effective duration of the flash
@@ -311,7 +311,7 @@ public:
 	/// <param name="V">The volts.</param>
 	/// <param name="t">The time.</param>
 	/// <returns>coulombs</returns>
-	static ld charge_fromPowerVoltsTime(const ld P, const ld V, const ld t);
+	static constexpr ld charge_fromPowerVoltsTime(const ld P, const ld V, const ld t);
 
 	/// <summary>
 	/// A C F capacitor charged to V is discharged through a resistor.
@@ -324,7 +324,7 @@ public:
 	/// <param name="mass">The mass.</param>
 	/// <param name="c">The specific heat.</param>
 	/// <returns>temp in C</returns>
-	static ld temperatureIncreaseOfResistor(const ld C, const ld V, const ld mass, const ld c);
+	static constexpr ld temperatureIncreaseOfResistor(const ld C, const ld V, const ld mass, const ld c);
 
 	/// <summary>
 	/// EMFs the specified r.
@@ -333,7 +333,7 @@ public:
 	/// <param name="R_load">The r load.</param>
 	/// <param name="I">The i.</param>
 	/// <returns></returns>
-	static ld emf(const ld r, const ld R_load, const ld I);
+	static constexpr ld emf(const ld r, const ld R_load, const ld I);
 
 
 
@@ -350,7 +350,7 @@ private:
 };
 #endif
 
-inline ld Circuits::seriesResistance(const ld R1 = 0, const ld R2 = 0, const ld R3 = 0,
+constexpr ld Circuits::seriesResistance(const ld R1 = 0, const ld R2 = 0, const ld R3 = 0,
 	const ld R4 = 0, const ld R5 = 0, const ld R6 = 0, const ld R7 = 0, const ld R8 = 0,
 	const ld R9 = 0, const ld R10 = 0)
 {
@@ -358,7 +358,7 @@ inline ld Circuits::seriesResistance(const ld R1 = 0, const ld R2 = 0, const ld 
 return R1 + R2 + R3 + R4 + R5 + R6 + R7 + R8 + R9 + R10;//Ohms
 }
 
-inline ld Circuits::parallelResistance(const ld R1 = 0, const ld R2 = 0, const ld R3 = 0,
+constexpr ld Circuits::parallelResistance(const ld R1 = 0, const ld R2 = 0, const ld R3 = 0,
 	const ld R4 = 0, const ld R5 = 0, const ld R6 = 0, const ld R7 = 0, const ld R8 = 0,
 	const ld R9 = 0, const ld R10 = 0)
 {
@@ -406,7 +406,7 @@ inline ld Circuits::parallelResistance(const ld R1 = 0, const ld R2 = 0, const l
 	return 1/total;
 }
 
-inline ld Circuits::seriesCapacitance(const ld C1, const ld C2, const ld C3, const ld C4, const ld C5, const ld C6, const ld C7, const ld C8, const ld C9, const ld C10)
+constexpr ld Circuits::seriesCapacitance(const ld C1, const ld C2, const ld C3, const ld C4, const ld C5, const ld C6, const ld C7, const ld C8, const ld C9, const ld C10)
 {
 	ld total = 0;
 	if (C1>0)
@@ -454,53 +454,53 @@ inline ld Circuits::seriesCapacitance(const ld C1, const ld C2, const ld C3, con
 
 }
 
-inline ld Circuits::parallelCapacitance(const ld C1, const ld C2, const ld C3, const ld C4, const ld C5, const ld C6, const ld C7, const ld C8, const ld C9, const ld C10)
+constexpr ld Circuits::parallelCapacitance(const ld C1, const ld C2, const ld C3, const ld C4, const ld C5, const ld C6, const ld C7, const ld C8, const ld C9, const ld C10)
 {
 	return  C1 + C2 + C3 + C4 + C5 + C6 + C7 + C8 + C9 + C10;//Ohms
 
 }
 
-inline ld Circuits::terminalVoltage(const ld emf, const ld r, const ld I)
+constexpr ld Circuits::terminalVoltage(const ld emf, const ld r, const ld I)
 {
 	return emf - I*r;// V
 }
 
-inline ld Circuits::current_OhmsLaw(const ld emf, const ld RLoad, const ld r)
+constexpr ld Circuits::current_OhmsLaw(const ld emf, const ld RLoad, const ld r)
 {
 	return emf/(RLoad+r);//amperes (I)
 }
 
-inline ld Circuits::powerDissipation(const ld I, const ld Rload)
+constexpr ld Circuits::powerDissipation(const ld I, const ld Rload)
 {
 	return (I*I)*Rload;//Watts
 }
 
-inline ld Circuits::emfsParallelConnection_added(const ld emf1=0, const ld emf2=0, const ld emf3=0, const ld emf4=0)
+constexpr ld Circuits::emfsParallelConnection_added(const ld emf1=0, const ld emf2=0, const ld emf3=0, const ld emf4=0)
 {
 	return emf1 + emf2 + emf3 + emf4;
 }
 
-inline ld Circuits::emfsSeriesConnection_subtracted(const ld emf1=0, const ld emf2=0, const ld emf3=0, const ld emf4=0)
+constexpr ld Circuits::emfsSeriesConnection_subtracted(const ld emf1=0, const ld emf2=0, const ld emf3=0, const ld emf4=0)
 {
 	return emf1 - emf2 - emf3 - emf4;
 }
 
-inline ld Circuits::internalResistance(const ld Vt, const ld E, const ld I)
+constexpr ld Circuits::internalResistance(const ld Vt, const ld E, const ld I)
 {
 	return (Vt - E)/I;//Ohms
 }
 
-inline ld Circuits::timeConstant_RC(const ld R, const ld C)
+constexpr ld Circuits::timeConstant_RC(const ld R, const ld C)
 {
 	return R*C;//seconds
 }
 
-inline ld Circuits::resistance_fromTimeConstant(const ld tau, const ld C)
+constexpr ld Circuits::resistance_fromTimeConstant(const ld tau, const ld C)
 {
 	return tau/C;//Ohms
 }
 
-inline ld Circuits::capacitance_fromTimeConstant(const ld tau, const ld R)
+constexpr ld Circuits::capacitance_fromTimeConstant(const ld tau, const ld R)
 {
 	return tau/R;//Farads
 }
@@ -512,17 +512,17 @@ inline ld Circuits::voltageVsTimeChargingCapacitor(const ld emf, const ld t, con
 	return emf*(1.0 - exp(toRaise));
 }
 
-inline ld Circuits::frequency(const ld cycles, const ld seconds)
+constexpr ld Circuits::frequency(const ld cycles, const ld seconds)
 {
 	return cycles/seconds;
 }
 
-inline ld Circuits::frequency(const ld period)
+constexpr ld Circuits::frequency(const ld period)
 {
 	return 1 / period;
 }
 
-inline ld Circuits::period(const ld f)
+constexpr ld Circuits::period(const ld f)
 {
 	return 1 / f;//period t
 }
@@ -537,27 +537,27 @@ inline ld Circuits::time_fromDischargeEquation(const ld C, const ld R, const ld 
 	return -R*C*log(pOv/100.0);//seconds
 }
 
-inline ld Circuits::resistance_fromDistanceVelocity(const ld d, const ld C, const ld v)
+constexpr ld Circuits::resistance_fromDistanceVelocity(const ld d, const ld C, const ld v)
 {
 	return d / (C * v);//Ohms
 }
 
-inline ld Circuits::energyUsed(const ld P, const ld t)
+constexpr ld Circuits::energyUsed(const ld P, const ld t)
 {
 	return P*t;//joules
 }
 
-inline ld Circuits::charge_fromPowerVoltsTime(const ld P, const ld V, const ld t)
+constexpr ld Circuits::charge_fromPowerVoltsTime(const ld P, const ld V, const ld t)
 {
 	return (P/V)*t;//C
 }
 
-inline ld Circuits::temperatureIncreaseOfResistor(const ld C, const ld V, const ld mass, const ld c)
+constexpr ld Circuits::temperatureIncreaseOfResistor(const ld C, const ld V, const ld mass, const ld c)
 {
 	return (C*(V*V))/(2.0*mass*c);//temperature in C
 }
 
-inline ld Circuits::emf(const ld r, const ld R_load, const ld I)
+constexpr ld Circuits::emf(const ld r, const ld R_load, const ld I)
 {
 	return I * (r + R_load);
 }

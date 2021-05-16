@@ -12,6 +12,60 @@ typedef long double ld;
 //static object counter for Elasticity class
 static int elasticity_objectCount = 0;
 
+static struct Elastic_Moduli  // all units are multiplied by(10^9 N/m^2)
+{
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> aluminum = { 70 * pow(10, 9),	25 * pow(10, 9),	75 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> bone_tension = { 16 * pow(10, 9),	80 * pow(10, 9),	8 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> bone_compression = { 9 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> brass = { 90 * pow(10, 9),	35 * pow(10, 9),	75 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> brick = { 15 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> concrete = { 20 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> glass = { 70 * pow(10, 9),	20 * pow(10, 9),	30 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> granite = { 45 * pow(10, 9),	20 * pow(10, 9),	45 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> hair_human = { 10 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> hardwood = { 25 * pow(10, 9),	10 * pow(10, 9),	0 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> cast_iron = { 100 * pow(10, 9),	40 * pow(10, 9),	90 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> lead = { 16 * pow(10, 9),	5 * pow(10, 9),	50 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> marble = { 60 * pow(10, 9),	20 * pow(10, 9),	70 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> nylon = { 5 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> polystyrene = { 3 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> silk = { 6 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> spider_thread = { 3 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> steel = { 210 * pow(10, 9),	80 * pow(10, 9),	130 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> tendon = { 1 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> acetone = { 0 * pow(10, 9),	0 * pow(10, 9),	0.7 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> ethanol = { 0 * pow(10, 9),	0 * pow(10, 9),	0.9 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> glycerin = { 0 * pow(10, 9),	0 * pow(10, 9),	4.5 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> mercury = { 0 * pow(10, 9),	0 * pow(10, 9),	25 * pow(10, 9) };
+	///<young's modulus, Shear modulus, Bulk modulus>
+	vector<ld> water = { 0 * pow(10, 9),	0 * pow(10, 9),	2.2 * pow(10, 9) };
+
+}moduli;
+
+
 class Elasticity
 {
 public:
@@ -27,58 +81,7 @@ public:
 	 * purpose:	store data on elastic moduli for using in physics calculations
 	 * returns: specified component value
 	 */
-	struct Elastic_Moduli  // all units are multiplied by(10^9 N/m^2)
-	{
-		vector<ld> aluminum = { 70 * pow(10, 9),	25 * pow(10, 9),	75 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> bone_tension = { 16 * pow(10, 9),	80 * pow(10, 9),	8 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> bone_compression = { 9 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> brass = { 90 * pow(10, 9),	35 * pow(10, 9),	75 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> brick = { 15 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> concrete = { 20 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> glass = { 70 * pow(10, 9),	20 * pow(10, 9),	30 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> granite = { 45 * pow(10, 9),	20 * pow(10, 9),	45 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> hair_human = { 10 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> hardwood = { 25 * pow(10, 9),	10 * pow(10, 9),	0 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> cast_iron = { 100 * pow(10, 9),	40 * pow(10, 9),	90 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> lead = { 16 * pow(10, 9),	5 * pow(10, 9),	50 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> marble = { 60 * pow(10, 9),	20 * pow(10, 9),	70 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> nylon = { 5 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> polystyrene = { 3 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> silk = { 6 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> spider_thread = { 3 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> steel = { 210 * pow(10, 9),	80 * pow(10, 9),	130 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> tendon = { 1 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> acetone = { 0 * pow(10, 9),	0 * pow(10, 9),	0.7 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> ethanol = { 0 * pow(10, 9),	0 * pow(10, 9),	0.9 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> glycerin = { 0 * pow(10, 9),	0 * pow(10, 9),	4.5 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> mercury = { 0 * pow(10, 9),	0 * pow(10, 9),	25 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
-		vector<ld> water = { 0 * pow(10, 9),	0 * pow(10, 9),	2.2 * pow(10, 9) };
-		///<young's modulus, Shear modulus, Bulk modulus>
 
-	}moduli;
 
 	// default constructor
 	Elasticity()

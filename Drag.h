@@ -11,9 +11,8 @@
 //drag objects static counter
 static int drag_objectCount = 0;
 
-static struct DragCoefficients
+static constexpr  struct DragCoefficients
 {
-	const ld airfoil = .05; // returns .05
 	const ld toyotaCamry = .28; // returns .28
 	const ld fordFocus = .32; // returns .32
 	const ld hodnaCivic = .36; // returns .36
