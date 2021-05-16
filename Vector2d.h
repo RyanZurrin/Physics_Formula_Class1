@@ -18,7 +18,7 @@ using namespace std;
 const _ld_ _PI_ = acos(-1);
 const _ld_ DEGREE = 180/_PI_;
 const _ld_ RADIAN = _PI_/180;
-const _ld_ _Ga_ = 9.8;
+const _ld_ _Ga_ = 9.81;
 static int object_counter = 0;
 
 class Vector

@@ -28,7 +28,7 @@ public:
 	/**
 	 * @brief  a structure containing the energy in joules of some common phenomena
 	 */
-	struct Joules
+	struct EnergyOfEventsInJoules
 	{
 		const ld big_bang = pow(10, 68);
 		const ld super_nova = pow(10, 44);

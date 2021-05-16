@@ -34,6 +34,7 @@
     <ClInclude Include="Kinematics.h" />
     <ClInclude Include="Magnetism.h" />
     <ClInclude Include="PeriodicElements.h" />
+    <ClInclude Include="QuantumPhysics.h" />
     <ClInclude Include="SpecialRelativity.h" />
     <ClInclude Include="Temperature.h" />
     <ClInclude Include="TemplateClass.h" />

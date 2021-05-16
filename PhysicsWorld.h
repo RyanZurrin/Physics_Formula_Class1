@@ -41,6 +41,7 @@
 #include "WaveOptics.h"
 #include "Waves.h"
 #include "SpecialRelativity.h"
+#include "QuantumPhysics.h"
 
 
 class PhysicsWorld;
@@ -737,6 +738,7 @@ public:
 	WaveOptics* wave_optics;
 	VisionOpticalInstruments* vision_optical;
 	SpecialRelativity* relativity;
+	QuantumPhysics* quantum;
 
 
 	//PhysicsCommon * physics_common;
@@ -781,6 +783,7 @@ public:
 		wave_optics(o.wave_optics),
 		vision_optical(o.vision_optical),
 		relativity(o.relativity),
+		quantum(o.quantum),
 		_ptr_(o._ptr_){} // move constructor
 
 	/**========================================================================
@@ -898,6 +901,7 @@ inline PhysicsWorld::PhysicsWorld()
 	wave_optics = new WaveOptics;
 	vision_optical = new VisionOpticalInstruments;
 	relativity = new SpecialRelativity;
+	quantum = new QuantumPhysics;
 	countIncrease();
 	//countShow();
 }
@@ -940,6 +944,7 @@ inline PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 	wave_optics = p.wave_optics;
 	vision_optical = p.vision_optical;
 	relativity = p.relativity;
+	quantum = p.quantum;
 	countIncrease();
 }
 /**
@@ -983,6 +988,7 @@ inline PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 		wave_optics = r.wave_optics;
 		vision_optical = r.vision_optical;
 		relativity = r.relativity;
+		quantum = r.quantum;
 		countIncrease();
 	}
 	return *this;
@@ -1023,6 +1029,7 @@ inline PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	wave_optics = new WaveOptics;
 	vision_optical = new VisionOpticalInstruments;
 	relativity = new SpecialRelativity;
+	quantum = new QuantumPhysics;
 
 	this->vector3d->set_coordinates(t1, t2, t3);
 
@@ -1063,6 +1070,7 @@ inline PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	wave_optics = new WaveOptics;
 	vision_optical = new VisionOpticalInstruments;
 	relativity = new SpecialRelativity;
+	quantum = new QuantumPhysics;
 	_ptr_ = nullptr;
 	this->vector2d->set_coordinates(t1, t2);
 }
@@ -1102,6 +1110,7 @@ inline PhysicsWorld::~PhysicsWorld()
 	delete wave_optics;
 	delete vision_optical;
 	delete relativity;
+	delete quantum;
 	countDecrease();
 	//countShow();
 }
