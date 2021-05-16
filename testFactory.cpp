@@ -6,7 +6,7 @@
 int main()
 {
 	PhysicsWorld e1;
-
+	lFactor(.250);
 	const auto x = setVal(
 		e1.relativity->
 		relativisticKineticEnergy(
@@ -14,10 +14,6 @@ int main()
 		));
 	show_val("p", "MeV/c");
 
-	//setVal(e1.relativity->velocityFrom_momentum(x, 1.00*SU.NANO));
-	//show_val("dust", "m/s");
-
-	std::cout << "kev:"<< converter.joules_to_eV();
 
 	return 0;
 

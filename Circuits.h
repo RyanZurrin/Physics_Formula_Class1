@@ -11,13 +11,13 @@
 #ifndef CIRCUITS_H
 #define CIRCUITS_H
 #include <iostream>
-//#include "ElectricCurrent.h"
+#include "ElectricCurrent.h"
 
 
 static int circuits_objectCount = 0;
-typedef long double ld;
 
-class Circuits
+class Circuits:
+	public ElectricCurrent
 {
 
 public:

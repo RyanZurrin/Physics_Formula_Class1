@@ -5,21 +5,18 @@
 #ifndef UNIFORMCIRCULARMOTION_H
 #define UNIFORMCIRCULARMOTION_H
 #include <cmath>
-//constant for the degrees in one radian 
-const ld _RAD_ = 360 / (2 * _PI_);
-//Gravitational Constant 6.67408(31) * 10^(-11) * N 
-const ld _Gc_ = 6.674 * pow(10, -11);
+//constant for the degrees in one radian
+constexpr auto _RAD_ = 360.0 / (2.0 * _PI_);
+//Gravitational Constant 6.67408(31) * 10^(-11) * N
+constexpr auto _Gc_ = 6.674e-11;
 
 static int circularMotion_objectCount = 0;
 ld static _masses_[] = { 0.0, 0.0 };
 
 class UniformCircularMotion
 {
-private:
-	static void countIncrease() { circularMotion_objectCount += 1; }
-	static void countDecrease() { circularMotion_objectCount -= 1; }
-	
-	// pointer for the class object to use 
+
+	// pointer for the class object to use
 	UniformCircularMotion* _circlePtr;
 
 	// radius variable of object
@@ -41,7 +38,7 @@ private:
 	ld _centripetalAcceleration_;
 
 	// array to hold the value of two masses
-	
+
 
 public:
 
@@ -56,7 +53,7 @@ public:
 		_linearVelocity = 0.0;
 		_arcLength_ = 0.0;
 		_centripetalAcceleration_ = 0.0;
-		
+
 		countIncrease();
 	}
 	// assignment constructor
@@ -66,7 +63,7 @@ public:
 		_radius_ = radius;
 		_angularVelocityW_ = velocity / radius;
 		_linearVelocity = radius * _angularVelocityW_;
-		_rotationAngle_ = 0.0;		
+		_rotationAngle_ = 0.0;
 		_arcLength_ = 0.0;
 		_centripetalAcceleration_ = (velocity * velocity)/(radius);
 		countIncrease();
@@ -77,6 +74,7 @@ public:
 		_circlePtr = nullptr;
 		_radius_ = radius;
 		_angularVelocityW_ = velocity / radius;
+		_linearVelocity = radius * _angularVelocityW_;
 		_rotationAngle_ = 0.0;
 		_arcLength_ = 0.0;
 		_centripetalAcceleration_ = (velocity * velocity) / (radius);
@@ -87,7 +85,8 @@ public:
 	{
 		_circlePtr = r._circlePtr;
 		_angularVelocityW_ = r._angularVelocityW_;
-		_centripetalAcceleration_ = r._centripetalAcceleration_;		
+		_centripetalAcceleration_ = r._centripetalAcceleration_;
+		_linearVelocity = r._linearVelocity;
 		_arcLength_ = r._arcLength_;
 		_radius_ = r._radius_;
 		_rotationAngle_ = r._rotationAngle_;
@@ -95,18 +94,19 @@ public:
 		//countShow();
 	}
 	//copy assignment operator
-	UniformCircularMotion& operator=(const UniformCircularMotion& r)
+	UniformCircularMotion& operator=(UniformCircularMotion&& r) noexcept
 	{
 		if (this != &r)
 		{
-			_circlePtr = r._circlePtr;			
+			_circlePtr = r._circlePtr;
 			_centripetalAcceleration_ = r._centripetalAcceleration_;
 			_angularVelocityW_ = r._angularVelocityW_;
+			_linearVelocity = r._linearVelocity;
 			_arcLength_ = r._arcLength_;
 			_radius_ = r._radius_;
 			_rotationAngle_ = r._rotationAngle_;
 			countIncrease();
-			
+
 		}
 		return *this;
 	}
@@ -139,7 +139,7 @@ public:
 	void show_linearVelocity()const { cout << "linear velocity: " << _linearVelocity << endl; }
 	void show_arcLength()const { cout << "arcLength: " << _arcLength_ << endl; }
 	void show_centripetalAcceleration()const { cout << "centripetal acceleration: " << _centripetalAcceleration_ << endl; }
-	
+
 	/*===================================================================
 	 * conversion methods
 	 */
@@ -179,7 +179,7 @@ public:
 	{
 		return unit / _G_;
 	}
-	
+
 	/*====================================================================
 	 * static methods
 	 */
@@ -188,7 +188,7 @@ public:
 	 * @brief Returns the arc length when the radius and rotations are known
 	 * @param radius is half the diameter
 	 * @param rotations are the number of rotations counted
-	 * @returns the arc length - linear distance traveled 
+	 * @returns the arc length - linear distance traveled
 	 */
 	ld static arc_length_meters(const ld radius, const ld rotations)
 	{
@@ -206,10 +206,10 @@ public:
 	}
 
 	/**
-	 * @brief Returns the angular velocity(w) given the radius and speed 
+	 * @brief Returns the angular velocity(w) given the radius and speed
 	 * @param v is the velocity or angle change
 	 * @param rt radius or time
-	 * @returns angular velocity 
+	 * @returns angular velocity
 	 */
 	ld static angular_velocity(const ld v, const ld rt)
 	{
@@ -282,7 +282,7 @@ public:
 	{
 		return (v * v) / (r * _G_);
 	}
-	
+
 	/**
 	 * @brief Returns the minimum static coefficient needed to safely take a turn with an specified
 	 * embankment angle at a specified speed with a radius of r.
@@ -326,13 +326,13 @@ public:
 	 * fx = atan((v * v) / (r * _G_))*DEGREE
 	 * @param r is the radius to the center of the curve
 	 * @param v is the velocity or speed in m/s
-	 * @returns the ideal angle in degrees 
+	 * @returns the ideal angle in degrees
 	 */
 	ld static ideal_angle_banked_curve(const ld r, const ld v)
 	{
 		return atan((v * v) / (r * _G_))*DEGREE;
 	}
-	
+
 	/**
 	 * @brief Returns the magnitude of the gravitational acceleration of two objects,
 	 * use 1 as a value as one of the m arguments if you want to calculate the gravitational
@@ -351,7 +351,7 @@ public:
 	/**
 	 * @brief Prints the masses of two objects from knowing the radius and the magnitude of force between them
 	 * as well as the combined weights of the two.
-	 * @param force is the magnitude of the force between the two 
+	 * @param force is the magnitude of the force between the two
 	 * @param r is the distance from the center of one mass to the center of the other mass
 	 * @param totalMass is the total mass of both objects combined
 	 */
@@ -361,10 +361,10 @@ public:
 		_masses_[0] = (totalMass + sqrt((totalMass * totalMass) - 4 * temp)) / (2);
 		_masses_[1] = (totalMass - sqrt((totalMass * totalMass) - 4 * temp)) / (2);
 		show_array(_masses_);
-		
+
 	}
 	/**
-	 * @brief Prints the masses from the mass array 
+	 * @brief Prints the masses from the mass array
 	 * @param obj is reference to a array holding twwo masses
 	 */
 	template <typename T, size_t size>
@@ -389,11 +389,15 @@ public:
 		return 1.0;
 	}
 
-		
+
 	~UniformCircularMotion() {
 		delete _circlePtr;
 		countDecrease();
 	};
-	
+
+private:
+	static void countIncrease() { circularMotion_objectCount += 1; }
+	static void countDecrease() { circularMotion_objectCount -= 1; }
+
 };
 #endif

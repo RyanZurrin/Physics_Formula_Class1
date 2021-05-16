@@ -19,7 +19,7 @@ public:
 		_torquePtr = nullptr;
 	}
 
-	
+
 	/**
 	 * @brief Returns the magnitude of torque
 	 * @param r is the distance from the pivot point to the point where the force
@@ -79,7 +79,7 @@ public:
 	 * @param m5
 	 * @param m6 in kg is the mass from the second to the sixth force acting on the
 	 * same pivot, these are all defaulted to 0 so you only enter the masses you need making sure
-	 * to include any negative forces in the calculation if there are any 
+	 * to include any negative forces in the calculation if there are any
 	 */
 	ld static net_force_by_pivot(const ld m1, const ld m2=0.0, const ld m3=0.0, const ld m4=0.0, const ld m5= 0.0, const ld m6 = 0.0)
 	{
@@ -106,7 +106,7 @@ public:
 		double fu, fd, fd2;
 		if(ceill( mr3) == 0)
 		{
-		
+
 			result[0] = m1 + m2 - mRod;
 			result[1] = ((m1 * r1 * sin(theta1 * RADIAN)) + (m2 * r2 * sin(theta2* RADIAN)) - (mRod * (.5 * lRod) * sin(theta3 * RADIAN))) / (result[0]);
 			fu = (m1/1000 + m2/1000) * _Ga_;
@@ -114,8 +114,8 @@ public:
 			result[2] = fu - fd;
 			return result;
 		}
-		
-		
+
+
 		result[0] = ((m1 * r1 * sin(theta1 * RADIAN)) + (m2 * r2 * sin(theta2 * RADIAN)) - (mRod * (.5 * lRod) * sin(theta3 * RADIAN))) / (mr3);
 		fu = (m1 / 1000 + m2 / 1000) * _Ga_;
 		fd = (mRod / 1000 + mr3 / 1000) * _Ga_;
@@ -160,12 +160,12 @@ public:
 		a = ((Mb * _Ga_ * cg_toPivot) / (rToHandlesTo_cg));
 		b = ((_Ga_ * cg_toPivot) / rToHandlesTo_cg);
 		c = (liftingForce - a) / b;
-		
+
 		return c;
 	}
 
 
-	
+
 	/**
 	 * Returns the machanical advantage of a simple machine
 	 * MA = Fo/Fi = li/lo  ;where Fo = output force, Fi = input force, li = distance from input source to pivot
@@ -180,7 +180,7 @@ public:
 		return li / lo;
 	}
 
-	
+
 	// destructor
 	~Torque()
 	{

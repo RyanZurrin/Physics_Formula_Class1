@@ -644,7 +644,7 @@ inline auto WaveOptics::wavelengthInMedium(const ld λ, const ld n)
 
 inline auto WaveOptics::wavelengthOfMedium(const ld n, const ld f)
 {
-	return _c_ / (n * f);
+	return _C_ / (n * f);
 }
 
 inline auto WaveOptics::wavelength_ratioOf2IndexOfRefractions(const ld nTop, const ld nBottom)

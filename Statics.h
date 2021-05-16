@@ -13,13 +13,13 @@
 class Statics
 {
 public:
-	
+
 	//constructor
 	Statics() = default;
 
 
 
-	
+
 	//destructor
 	~Statics() = default;
 

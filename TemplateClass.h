@@ -6,8 +6,8 @@
  * @lastEdit 3/21/2021
  */
 
-#ifndef TEMPLATECLASS_H
-#define TEMPLATECLASS_H
+#ifndef TEMPLATE_CLASS_H
+#define TEMPLATE_CLASS_H
 #include <iostream>
 
 
@@ -48,7 +48,7 @@ public:
 	/**
 	 * @brief copy assignment operator
 	 */
-	TemplateClass& operator=(const TemplateClass& t)
+	TemplateClass& operator=(TemplateClass&& t) noexcept
 	{
 		if (this != &t)
 		{

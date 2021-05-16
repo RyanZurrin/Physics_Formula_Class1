@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 /**
  * @class ElectricPotential
  * @details driver class for solving complex physics problems
@@ -19,11 +19,11 @@
 
 static int electricalPotential_objectCount = 0;
 
-const ld _eV_ = 1.60 * pow(10, -19);
+constexpr auto _eV_ = 1.60e-19;
 
-const ld _LIGHT_SPEED_ = 2.99792458 * pow(10, 8);
-
-const ld _JOULES2eV_ = 1.0 / _eV_;
+constexpr auto _LIGHT_SPEED_ = 2.99792458e8;
+//multiply joules by this to convert to electron Volts
+constexpr auto _JOULES2eV_ = 1.0 / _eV_;
 
 static struct DielectricConstants
 {
@@ -585,12 +585,12 @@ inline ld ElectricPotential::voltageNeededToObtainEnergy(const ld m, const ld v,
 inline ld ElectricPotential::temperatureAvgKineticEnergyGasMolecule(const ld V, const ld q = _PROTON_CHARGE_)
 {
 
-	return (2* q* V)/(3.0 * BOLTZMANN_K);
+	return (2* q* V)/(3.0 * _BOLTZMANN_K_);
 }
 
 inline ld ElectricPotential::voltageIonsMoveThroughToReachSameTemperature(const ld T, const ld q = _PROTON_CHARGE_)
 {
-	return (3/2)*((BOLTZMANN_K*T)/q);
+	return (3/2)*((_BOLTZMANN_K_*T)/q);
 }
 
 
@@ -611,13 +611,13 @@ inline ld ElectricPotential::capacitanceVolts(const ld Q, const ld C)
 
 inline ld ElectricPotential::capacitanceParallelPlate(const ld A, const ld d)
 {
-	return _E0_*(A/d);
+	return _ε0_*(A/d);
 }
 
 
 inline ld ElectricPotential::capacitanceParallelPlateDielectric(const ld d_k, const ld A, const ld d)
 {
-	return d_k * _E0_ * (A / d);
+	return d_k * _ε0_ * (A / d);
 }
 
 inline ld ElectricPotential::dielectricConstant(const ld E0, const ld E)
@@ -648,12 +648,12 @@ inline ld ElectricPotential::potentialAcross_Ecap_CE(const ld C, const ld Ecap)
 
 inline ld ElectricPotential::capacitorPlateArea(const ld C, const ld d)
 {
-	return C * d / (_E0_);
+	return C * d / (_ε0_);
 }
 
 inline ld ElectricPotential::capacitorPlateAreaDielectric(const ld C, const ld d, const ld k)
 {
-	return (d * C) / (k * _E0_);
+	return (d * C) / (k * _ε0_);
 }
 
 inline ld ElectricPotential::vMaxOnCapacitor(const ld dStrength, const ld d)

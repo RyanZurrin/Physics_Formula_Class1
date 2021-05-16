@@ -7,13 +7,20 @@
  * lastEdit: 5/15/2021
  */
 //α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
-//Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ
+//Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ, γ
 
 #ifndef SPECIAL_RELATIVITY_H
 #define SPECIAL_RELATIVITY_H
 #include <iostream>
 static int specialRelativity_objectCount = 0;
 typedef long double ld;
+
+inline static auto lFactor = []<class T>(const T & v) {
+	const auto γ = 1.0 / sqrt(1.0 - (v * v));
+	std::cout << "gamma: "<< γ;
+	return γ;
+};
+
 
 class SpecialRelativity:
 	public VisionOpticalInstruments
@@ -73,6 +80,7 @@ public:
 	/// <returns>Lorentz factor, gamma (γ)</returns>
 	template<typename T>
 	static auto lorentzFactor(const T ν);
+
 
 	/// <summary>
 	/// Find the value of γ(gamma) for the following situation. An Earth-bound
@@ -486,7 +494,7 @@ public:
 	/// <param name="c_">The speed of light.</param>
 	/// <returns>relativistic kinetic energy</returns>
 	template<typename V, typename M, typename C>
-	static auto relativisticKineticEnergy(const V v, const M m, const C c_ = _c_);
+	static auto relativisticKineticEnergy(const V v, const M m, const C c_ = _C_);
 
 	/// <summary>
 	/// Calculate the kinetic energy in MeV of a π-meson that lives 1.40×10−16 s(t)
@@ -578,9 +586,9 @@ private:
 #endif
 
 template<typename T>
-inline auto SpecialRelativity::lorentzFactor(const T νc)
+inline auto SpecialRelativity::lorentzFactor(const T ν)
 {
-	return 1.0 / sqrt(1.0 - (νc * νc));
+	return 1.0 / sqrt(1.0 - (ν * ν));
 }
 
 template<typename T, typename K>
@@ -604,26 +612,26 @@ inline auto SpecialRelativity::timeDilation(const T νc, const K t_o)
 template<typename T, typename K>
 inline auto SpecialRelativity::relativeVelocity(const T t, const K t_o)
 {
-	return (_c_ / t) * sqrt(pow(t, 2) - pow(t_o, 2));
+	return (_C_ / t) * sqrt(pow(t, 2) - pow(t_o, 2));
 }
 
 template<typename T>
 inline auto SpecialRelativity::relativeVelocity_percentLorentz(const T percent_γ)
 {// γ = gamma = Lorentz
 	const auto γ = 1.00 + percent_γ / 100;
-	return (_c_ / γ) * sqrt((γ * γ) - 1);
+	return (_C_ / γ) * sqrt((γ * γ) - 1);
 }
 
 template<typename T>
 inline auto SpecialRelativity::relativeVelocity_lorantzAt(const T γ)
 {
-	return _c_ * sqrt(1.0 - (1.0 / (γ * γ)));
+	return _C_ * sqrt(1.0 - (1.0 / (γ * γ)));
 }
 
 template<typename T, typename K>
 inline auto SpecialRelativity::observedVelocity(const T t, const K t_o)
 {
-	return _c_ * sqrt((1.0 - (t_o * t_o) / (t * t)));
+	return _C_ * sqrt((1.0 - (t_o * t_o) / (t * t)));
 }
 
 template<typename T, typename K>
@@ -635,19 +643,19 @@ inline auto SpecialRelativity::lengthContraction(const T L_o, const K vc)
 template<typename T, typename K>
 inline auto SpecialRelativity::speedToAppearSomeLength(const T l_o, const K l)
 {
-	return _c_ * sqrt(1.0 - ((l*l)/ (l_o* l_o)));
+	return _C_ * sqrt(1.0 - ((l*l)/ (l_o* l_o)));
 }
 
 template<typename T, typename K>
 inline auto SpecialRelativity::distanceTraveled_earthBoundObserver(const T t_o, const K vc)
 {
-	return sqrt(1.0 - (vc * vc)) * vc * _c_ * t_o;
+	return sqrt(1.0 - (vc * vc)) * vc * _C_ * t_o;
 }
 
 template<typename T, typename K>
 inline auto SpecialRelativity::distanceTraveled_proper(const T t_o, const K vc)
 {
-	return vc * _c_ * t_o;
+	return vc * _C_ * t_o;
 }
 
 template<typename T, typename K>
@@ -659,7 +667,7 @@ inline auto SpecialRelativity::contractedLength(const T l_o, const K γ)
 template<typename T, typename K>
 inline auto SpecialRelativity::time(const T l_o, const K vc)
 {
-	return l_o / (vc*_c_);
+	return l_o / (vc*_C_);
 }
 
 template<typename T, typename K>
@@ -701,7 +709,7 @@ inline auto SpecialRelativity::relative_velocity(const T v, const K uv, const C 
 template<typename T, typename K>
 inline auto SpecialRelativity::wavelengthObserved(const T u, const K λ_s)
 {
-	return λ_s * sqrt((1.0 + (u / _c_)) / (1.0 - (u / _c_)));
+	return λ_s * sqrt((1.0 + (u / _C_)) / (1.0 - (u / _C_)));
 }
 
 template<typename T, typename K>
@@ -713,13 +721,13 @@ inline auto SpecialRelativity::frequencyObserved(const T uc, const K f_s)
 template<typename T, typename K>
 inline auto SpecialRelativity::velocity_fromWaveLengths(const T λ_s, const K λ_obs)
 {
-	return _c_ * ((((λ_obs * λ_obs) / (λ_s * λ_s)) - 1.0) / (1.0 + (((λ_obs * λ_obs) / (λ_s * λ_s)))));
+	return _C_ * ((((λ_obs * λ_obs) / (λ_s * λ_s)) - 1.0) / (1.0 + (((λ_obs * λ_obs) / (λ_s * λ_s)))));
 }
 
 template<typename T, typename K>
 inline auto SpecialRelativity::velocity_fromFrequencyEcho(const T f_s, const K increase)
 {
-	return _c_ * (-increase) / (2.0 * f_s + increase);
+	return _C_ * (-increase) / (2.0 * f_s + increase);
 }
 
 template<typename T, typename K, typename L>
@@ -731,7 +739,7 @@ inline auto SpecialRelativity::relativisticTime(const T u, const K v, const L l_
 template<typename T, typename K>
 inline auto SpecialRelativity::relativisticMomentum(const T m, const K u)
 {
-	return (m * (u * _c_)) / sqrt(1.0 - (u * u));
+	return (m * (u * _C_)) / sqrt(1.0 - (u * u));
 }
 
 template<typename V, typename E>
@@ -744,49 +752,49 @@ inline auto SpecialRelativity::momentum_fromEnergies(const V v, const E E_o)
 template<typename T, typename K>
 inline auto SpecialRelativity::momentum_slowerObject(const T m, const K u)
 {
-	return (m * u) / sqrt(1.0 - ((u * u)/(_c_*_c_)));
+	return (m * u) / sqrt(1.0 - ((u * u)/(_C_*_C_)));
 }
 
 template<typename T>
 inline auto SpecialRelativity::momentumRatios_classical2relativistic(const T v)
 {
-	return 1.0 + (1 / 2) * ((v * v) / (_c_ * _c_));
+	return 1.0 + (1 / 2) * ((v * v) / (_C_ * _C_));
 }
 
 template<typename T, typename M>
 inline auto SpecialRelativity::velocityFrom_momentum(const T p, const M m)
 {
-	return p / sqrt((m * m) + ((p * p) / (_c_ * _c_)));
+	return p / sqrt((m * m) + ((p * p) / (_C_ * _C_)));
 }
 
 template<typename T>
 inline auto SpecialRelativity::newtonsEnergy(const T m)
 {
-	return m * (_c_ * _c_);
+	return m * (_C_ * _C_);
 }
 
 template<typename T>
 inline auto SpecialRelativity::mass_fromRestEnergy(const T E_o)
 {
-	return E_o / (_c_ * _c_);
+	return E_o / (_C_ * _C_);
 }
 
 template<typename T, typename K>
 inline auto SpecialRelativity::difference_inMass_fromRestEnergies(const T E_o1, const K E_o2)
 {
-	return abs((E_o1 - E_o2) / (_c_ * _c_));
+	return abs((E_o1 - E_o2) / (_C_ * _C_));
 }
 
 template<typename T, typename K>
 inline auto SpecialRelativity::objectsMade(const T E_o, const K m)
 {
-	return E_o / (2.0 * m * (_c_ * _c_));
+	return E_o / (2.0 * m * (_C_ * _C_));
 }
 
 template<typename P, typename M>
 inline auto SpecialRelativity::relativisticTotalEnergy(const P p, const M m)
 {
-	return sqrt((pow(p * _c_) + pow(m * (_c_ * _c_), 2)));
+	return sqrt((pow(p * _C_) + pow(m * (_C_ * _C_), 2)));
 }
 
 template<typename T, typename K>
@@ -798,7 +806,7 @@ inline auto SpecialRelativity::ratioOfMassUsedAsEnergy(const T m, const K m_i)
 template<typename T, typename K>
 inline auto SpecialRelativity::kineticEnergy(const T γ, const K m)
 {
-	return (γ - 1.0) * m * (_c_ * _c_);
+	return (γ - 1.0) * m * (_C_ * _C_);
 }
 
 template<typename E, typename V>
@@ -834,13 +842,13 @@ inline auto SpecialRelativity::gamma_fromRestMassEnergies(const T E_i, const E E
 template<typename Q, typename V, typename M>
 inline auto SpecialRelativity::gamma_fromAccelerationThroughVoltage(const Q q, const V volts, const M m)
 {
-	return ((q * volts) / (m * (_c_ * _c_))) + 1.0;
+	return ((q * volts) / (m * (_C_ * _C_))) + 1.0;
 }
 
 template<typename G, typename M, typename Q>
 inline auto SpecialRelativity::effectiveAccelerationPotential(const G γ, const M m, const Q q)
 {
-	return ((γ - 1.0) * m * (_c_ * _c_)) / q;
+	return ((γ - 1.0) * m * (_C_ * _C_)) / q;
 }
 
 template<typename M, typename H>
