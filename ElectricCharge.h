@@ -168,27 +168,27 @@ public:
 	/// <param name="E">The energy.</param>
 	/// <param name="c">The c.</param>
 	/// <returns>energy</returns>
-	static ld massFromEnergy(ld E, ld c);
+	static constexpr ld massFromEnergy(ld E, ld c);
 	/// <summary>
 	/// Masses from energy.
 	/// </summary>
 	/// <param name="M">The electrons mass.</param>
 	/// <returns>energy</returns>
-	static ld massFromEnergy(ld M);
+	static constexpr ld massFromEnergy(ld M);
 
 	/// <summary>
 	/// Totals the electron mass.
 	/// </summary>
 	/// <param name="Ne">The total electrons.</param>
 	/// <returns>mass of electrons in kg</returns>
-	static ld totalElectronMass(ld Ne);
+	static constexpr ld totalElectronMass(ld Ne);
 
 	/// <summary>
 	/// Totals the proton mass.
 	/// </summary>
 	/// <param name="Np">The total protons.</param>
 	/// <returns>mass of protons in kg</returns>
-	static ld totalProtonMass(ld Np);
+	static constexpr ld totalProtonMass(ld Np);
 
 	/// <summary>
 	/// Totals the mass.
@@ -196,7 +196,7 @@ public:
 	/// <param name="Ne">The total electrons.</param>
 	/// <param name="Np">The total protons.</param>
 	/// <returns>the total mass of protons and electrons</returns>
-	static ld totalMass(ld Ne, ld Np);
+	static constexpr ld totalMass(ld Ne, ld Np);
 
 	/// <summary>
 	/// Calculates the magnitude between two electrostatic forces q1 and q2
@@ -205,7 +205,7 @@ public:
 	/// <param name="q2">The q2.</param>
 	/// <param name="r">The r.</param>
 	/// <returns></returns>
-	static ld electrostaticForce(ld q1, ld q2, ld r);
+	static constexpr ld electrostaticForce(ld q1, ld q2, ld r);
 
 	/// <summary>
 	/// Charges the of electrostatic force equal point charges.
@@ -222,7 +222,7 @@ public:
 	/// <param name="Q">The q.</param>
 	/// <param name="r">The r.</param>
 	/// <returns></returns>
-	static ld electricFieldForce(ld Q, ld r);
+	static constexpr ld electricFieldForce(ld Q, ld r);
 
 	/// <summary>
 	/// calculates the force by an electric field and current
@@ -230,7 +230,7 @@ public:
 	/// <param name="q">The current.</param>
 	/// <param name="E">The electric field strength.</param>
 	/// <returns></returns>
-	static ld forceByElectricField(ld q, ld E);
+	static constexpr ld forceByElectricField(ld q, ld E);
 
 	/// <summary>
 	///  Calculates the  electrons needed to form a charge of baseNumber to the
@@ -239,7 +239,7 @@ public:
 	/// <param name="baseNumber">The base number.</param>
 	/// <param name="su">The scientific notation multiple.</param>
 	/// <returns>number of electrons</returns>
-	static ld electrons(ld baseNumber, ld su);
+	static constexpr ld electrons(ld baseNumber, ld su);
 
 	/// <summary>
 	/// Electrons the count.
@@ -255,7 +255,7 @@ public:
 	/// <param name="baseNumber">The base number.</param>
 	/// <param name="su">The su.</param>
 	/// <returns></returns>
-	static ld coulombs(ld baseNumber, ld su);
+	static constexpr ld coulombs(ld baseNumber, ld su);
 
 	/// <summary>
 	/// Hows the many fewer electrons then protons.
@@ -278,13 +278,7 @@ public:
 	/// <param name="F">The f.</param>
 	/// <param name="factorChange">The factor change.</param>
 	/// <returns></returns>
-/// <summary>
-/// Forces the change two point charges.
-/// </summary>
-/// <param name="F">The f.</param>
-/// <param name="factorChange">The factor change.</param>
-/// <returns></returns>
-	static ld forceChangeTwoPointCharges(ld F, ld factorChange);
+	static constexpr ld forceChangeTwoPointCharges(ld F, ld factorChange);
 
 	/// <summary>
 	/// Electrics the field.
@@ -292,7 +286,7 @@ public:
 	/// <param name="F">The force.</param>
 	/// <param name="q">The charge.</param>
 	/// <returns></returns>
-	static ld electricField(ld F, ld q);
+	static constexpr ld electricField(ld F, ld q);
 
 	/// <summary>
 	/// Calculates the magnitude of a point charge that creates a electric field
@@ -301,7 +295,7 @@ public:
 	/// <param name="E">The force of the electric field in N/C.</param>
 	/// <param name="r">The distance it causes this force.</param>
 	/// <returns>magnitude of the point charge (C)</returns>
-	static ld magnitudePointCharge(ld E, ld r);
+	static constexpr ld magnitudePointCharge(ld E, ld r);
 
 	/// <summary>
 	/// Calculates the charge of a point particle having a force of F acting on
@@ -310,7 +304,7 @@ public:
 	/// <param name="F">The force acting on a charge.</param>
 	/// <param name="E">The electric field strength.</param>
 	/// <returns></returns>
-	static ld charge(const ld F, const ld E);
+	static constexpr ld charge(const ld F, const ld E);
 
 
 
@@ -329,7 +323,7 @@ public:
 	/// <param name="totalParticles">The total particles.</param>
 	/// <param name="netCharge">The net charge.</param>
 	/// <returns></returns>
-	static ld howManyElectrons(ld totalParticles, ld netCharge);
+	static constexpr ld howManyElectrons(ld totalParticles, ld netCharge);
 
 	/// <summary>
 	/// Minimums the charge to lift object.
@@ -338,7 +332,7 @@ public:
 	/// <param name="charge">The charge.</param>
 	/// <param name="m">The mass.</param>
 	/// <returns></returns>
-	static ld minimumChargeToLiftObject(ld r, ld charge, ld m);
+	static constexpr ld minimumChargeToLiftObject(ld r, ld charge, ld m);
 
 	/// <summary>
 	/// A wrecking yard inventor wants to pick up cars by charging a ball
@@ -362,7 +356,7 @@ public:
 	/// <param name="f5">The f5.</param>
 	/// <param name="f6">The f6.</param>
 	/// <returns>net charge</returns>
-	static ld superpositionPrinciple
+	static constexpr ld superpositionPrinciple
 	(ld f1, ld f2, ld f3, ld f4, ld f5, ld f6);
 
 	/// <summary>
@@ -391,7 +385,7 @@ public:
 	/// <param name="q1">The charge on particle 1.</param>
 	/// <param name="q2">The charge on particle 2.</param>
 	/// <returns>acceleration in m/s^2</returns>
-	static ld accelerationOfParticles(ld m, ld r, ld q1, ld q2);
+	static constexpr ld accelerationOfParticles(ld m, ld r, ld q1, ld q2);
 
 	/// <summary>
 	/// Calculate the electric field strength near a conducting sphere with a
@@ -400,7 +394,7 @@ public:
 	/// <param name="d">The diameter.</param>
 	/// <param name="q_excess">The excess charge.</param>
 	/// <returns>Electric field strength</returns>
-	static ld electricFieldStrength(ld d, ld q_excess);
+	static constexpr ld electricFieldStrength(ld d, ld q_excess);
 
 	/// <summary>
 	/// A charged insulating ball of mass m hangs on a long string with a length
@@ -411,7 +405,7 @@ public:
 	/// <param name="theta">The angle theta.</param>
 	/// <param name="q">The charge of the mass.</param>
 	/// <returns>the strength of the electric field</returns>
-	static ld elctricFieldStrength(ld m, ld theta, ld q);
+	static ld electricFieldStrength(ld m, ld theta, ld q);
 
 	/// <summary>
 	/// four equal charges q lie on the corners of a square. A fifth charge Q
@@ -498,32 +492,32 @@ private:
 };
 #endif
 
-inline ld ElectricCharge::massFromEnergy(const ld E, const ld c)
+constexpr ld ElectricCharge::massFromEnergy(const ld E, const ld c)
 {
 	return E / (c * c);
 }
 
-inline ld ElectricCharge::massFromEnergy(const ld M)
+constexpr ld ElectricCharge::massFromEnergy(const ld M)
 {
 	return 2.0 * M;
 }
 
-inline ld ElectricCharge::totalElectronMass(const ld Ne)
+constexpr ld ElectricCharge::totalElectronMass(const ld Ne)
 {
 	return Ne * _ELECTRON_MASS_;
 }
 
-inline ld ElectricCharge::totalProtonMass(const ld Np)
+constexpr ld ElectricCharge::totalProtonMass(const ld Np)
 {
 	return Np * _PROTON_MASS_;
 }
 
-inline ld ElectricCharge::totalMass(const ld Ne, const ld Np)
+constexpr ld ElectricCharge::totalMass(const ld Ne, const ld Np)
 {
 	return totalElectronMass(Ne) + totalProtonMass(Np);
 }
 
-inline ld ElectricCharge::electrostaticForce(
+constexpr ld ElectricCharge::electrostaticForce(
 	const ld q1, const ld q2, const ld r
 )
 {
@@ -537,21 +531,21 @@ inline ld ElectricCharge::chargeOfElectrostaticForce_equalPointCharges(
 	return r * (sqrt((mass * _Ga_) / _k_));
 }
 
-inline ld ElectricCharge::electricFieldForce(
+constexpr ld ElectricCharge::electricFieldForce(
 	const ld Q, const ld r
 )
 {
 	return (_k_ * Q) / (r * r);
 }
 
-inline ld ElectricCharge::forceByElectricField(
+constexpr ld ElectricCharge::forceByElectricField(
 	const ld q, const ld E
 )
 {
 	return q * E;
 }
 
-inline ld ElectricCharge::coulombs(
+constexpr ld ElectricCharge::coulombs(
 	const ld baseNumber, const ld su
 )
 {
@@ -573,28 +567,28 @@ inline ld ElectricCharge::fractionProtonsNoElectrons(
 	return temp / protons;
 }
 
-inline ld ElectricCharge::forceChangeTwoPointCharges(
+constexpr ld ElectricCharge::forceChangeTwoPointCharges(
 	const ld F, const ld factorChange
 )
 {
 	return F / (factorChange * factorChange);
 }
 
-inline ld ElectricCharge::electricField(
+constexpr ld ElectricCharge::electricField(
 	const ld F, const ld q
 )
 {
 	return F / q;
 }
 
-inline ld ElectricCharge::magnitudePointCharge(
+constexpr ld ElectricCharge::magnitudePointCharge(
 	const ld E, const ld r
 )
 {
 	return ((r * r) * E) / _k_;
 }
 
-inline ld ElectricCharge::charge(const ld F, const ld E)
+constexpr ld ElectricCharge::charge(const ld F, const ld E)
 {
 	return F / E;
 }
@@ -606,7 +600,7 @@ inline ld ElectricCharge::separationBetweenPointCharges(
 	return sqrt((_k_ * (q1 * q2)) / F);
 }
 
-inline ld ElectricCharge::howManyElectrons(
+constexpr ld ElectricCharge::howManyElectrons(
 	const ld totalParticles, const ld netCharge
 )
 {
@@ -617,7 +611,7 @@ inline ld ElectricCharge::howManyElectrons(
 	return Ne;
 }
 
-inline ld ElectricCharge::minimumChargeToLiftObject(
+constexpr ld ElectricCharge::minimumChargeToLiftObject(
 	const ld r, const ld charge, const ld m
 )
 {
@@ -631,7 +625,7 @@ inline ld ElectricCharge::minimumChargeToLiftCar(
 	return (r + l) * sqrt((m * _Ga_) / _k_);
 }
 
-inline ld ElectricCharge::superpositionPrinciple(
+constexpr ld ElectricCharge::superpositionPrinciple(
 	const ld f1 = 0, const ld f2 = 0, const ld f3 = 0, const ld f4 = 0,
 	const ld f5 = 0, const ld f6 = 0
 )
@@ -653,19 +647,19 @@ inline ld ElectricCharge::angleVerticalAxis(
 	return atan((Fe / (mass * _Ga_))) * DEGREE;
 }
 
-inline ld ElectricCharge::accelerationOfParticles(
+constexpr ld ElectricCharge::accelerationOfParticles(
 	const ld m, const ld r, const ld q1, const ld q2
 )
 {
 	return (_k_ * (q1 * q2)) / (m * (r * r));
 }
 
-inline ld ElectricCharge::electricFieldStrength(const ld d, const ld q_excess)
+constexpr ld ElectricCharge::electricFieldStrength(const ld d, const ld q_excess)
 {
 	return (4.0 * _k_ * q_excess) / (d * d);
 }
 
-inline ld ElectricCharge::elctricFieldStrength(
+inline ld ElectricCharge::electricFieldStrength(
 	const ld m, const ld theta, const ld q
 )
 {
@@ -733,7 +727,7 @@ inline std::vector<ld> ElectricCharge::electricFieldAtCenterTriangle(
 	return results;
 }
 
-inline ld ElectricCharge::electrons(
+constexpr ld ElectricCharge::electrons(
 	const ld baseNumber, const ld su
 )
 {

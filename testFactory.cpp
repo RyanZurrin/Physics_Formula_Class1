@@ -8,12 +8,11 @@ int main()
 	PhysicsWorld e1;
 	lFactor(.250);
 	const auto x = setVal(
-		e1.relativity->
-		relativisticKineticEnergy(
-			2.0, 1.0*SU.KILO,3.9
+		e1.circuits->
+		powerDissipation(
+			2.0,3.9
 		));
 	show_val("p", "MeV/c");
-
 
 	return 0;
 
