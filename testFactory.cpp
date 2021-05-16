@@ -7,8 +7,12 @@ int main()
 {
 	PhysicsWorld e1;
 
-	const auto x = setVal(e1.relativity->relativisticMomentum(_PROTON_MASS_));
-	show_val("u", "c");
+	const auto x = setVal(
+		e1.relativity->
+		relativisticKineticEnergy(
+			2.0, 1.0*SU.KILO,3.9
+		));
+	show_val("p", "MeV/c");
 
 	//setVal(e1.relativity->velocityFrom_momentum(x, 1.00*SU.NANO));
 	//show_val("dust", "m/s");

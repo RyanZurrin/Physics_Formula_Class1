@@ -4,7 +4,7 @@
  * details: driver class for solving complex physics problems
  * author: Ryan Zurrin
  * dateBuilt:  5/3/2021
- * lastEdit: 5/9/2021
+ * lastEdit: 5/15/2021
  */
 //α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
 //Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ
@@ -49,7 +49,7 @@ public:
 	/**
 	 * @brief copy assignment operator
 	 */
-	SpecialRelativity& operator=(const SpecialRelativity& t)
+	SpecialRelativity& operator=(SpecialRelativity&& t) noexcept
 	{
 		if (this != &t)
 		{
@@ -361,6 +361,16 @@ public:
 	static auto relativisticMomentum(const T m, const K u);
 
 	/// <summary>
+	/// One cosmic ray neutron has a velocity of 0.250c relative to the Earth.
+	/// Calculate its momentum.
+	/// </summary>
+	/// <param name="v">The velocity.</param>
+	/// <param name="E_o">The rest energy, can be looked up in tables.</param>
+	/// <returns>momentum</returns>
+	template<typename V, typename E>
+	static auto momentum_fromEnergies(const V v, const E E_o);
+
+	/// <summary>
 	/// Find the momentum of a 1.00×109 kg(m) asteroid heading towards the
 	/// Earth at 30.0 km/s(u).
 	/// </summary>
@@ -397,7 +407,157 @@ public:
 	/// <param name="m">The mass.</param>
 	/// <returns>energy in joules</returns>
 	template<typename T>
-	static auto restEnergy(const T m);
+	static auto newtonsEnergy(const T m);
+
+	/// <summary>
+	/// Calculates the mass from rest energy.
+	/// </summary>
+	/// <param name="E_o">The rest energy o.</param>
+	/// <returns>mass in kg</returns>
+	template<typename T>
+	static auto mass_fromRestEnergy(const T E_o);
+
+	/// <summary>
+	/// If the rest energies of a proton and a neutron (the two constituents
+	/// of nuclei) are 938.3(E_o2) and 939.6(E_o1) MeV respectively, what is the difference
+	/// in their masses in kilograms?
+	/// </summary>
+	/// <param name="E_o1">The rest energy 1.</param>
+	/// <param name="E_o2">The rest energy 2.</param>
+	/// <returns>difference in Mass</returns>
+	template<typename T, typename K>
+	static auto difference_inMass_fromRestEnergies(const T E_o1, const K E_o2);
+
+	/// <summary>
+	/// The Big Bang that began the universe is estimated to have released
+	/// 10^68 J(E_o) of energy. How many stars could half this energy create,
+	/// assuming the average star's mass is 4.00×1030 kg(m).
+	/// </summary>
+	/// <param name="E_o">The rest energy.</param>
+	/// <param name="m">The mass.</param>
+	/// <returns>N objects that can be made(stars) from energy</returns>
+	template<typename T, typename K>
+	static auto objectsMade(const T E_o, const K m);
+
+	/// <summary>
+	/// Relativistics the total energy.
+	/// </summary>
+	/// <param name="p">The p.</param>
+	/// <param name="m">The m.</param>
+	/// <returns></returns>
+	template<typename P, typename M>
+	static auto relativisticTotalEnergy(const P p, const M m);
+
+	/// <summary>
+	/// A supernova explosion of a 2.00×1030 kg star produces 1.00×1044 J of
+	/// energy. What is the ratio Δm/m_i of mass destroyed to the original
+	/// mass of the star?
+	/// </summary>
+	/// <param name="m">The m.</param>
+	/// <param name="m_i">The m i.</param>
+	/// <returns></returns>
+	template<typename T, typename K>
+	static auto ratioOfMassUsedAsEnergy(const T m, const K m_i);
+
+	/// <summary>
+	/// Calculates the kinetics energy.
+	/// </summary>
+	/// <param name="γ">gamma.</param>
+	/// <param name="m">The mass.</param>
+	/// <returns>kinetic energy (J)</returns>
+	template<typename T, typename K>
+	static auto kineticEnergy(const T γ, const K m);
+
+	/// <summary>
+	/// Totals the energy.
+	/// </summary>
+	/// <param name="E_o">The e o.</param>
+	/// <param name="v">The v.</param>
+	/// <returns></returns>
+	template<typename E, typename V>
+	static auto totalEnergy(const E E_o, const V v);
+
+	/// <summary>
+	/// Calculate the relativistic kinetic energy of a 1000-kg(m) car moving at
+	/// 30.0 m/s(v) if the speed of light were only 45.0 m/ s(c_).
+	/// </summary>
+	/// <param name="v">The velocity.</param>
+	/// <param name="m">The mass.</param>
+	/// <param name="c_">The speed of light.</param>
+	/// <returns>relativistic kinetic energy</returns>
+	template<typename V, typename M, typename C>
+	static auto relativisticKineticEnergy(const V v, const M m, const C c_ = _c_);
+
+	/// <summary>
+	/// Calculate the kinetic energy in MeV of a π-meson that lives 1.40×10−16 s(t)
+	/// as measured in the laboratory, and 0.840×10−16 s(t_o) when at rest relative
+	/// to an observer, given that its rest energy is 135 MeV(E_o)
+	/// </summary>
+	/// <param name="t_o">The proper time.</param>
+	/// <param name="t">time dilation.</param>
+	/// <param name="E_o">The rest energy.</param>
+	/// <returns>kinetic energy</returns>
+	template<typename T, typename T1, typename E>
+	static auto kineticEnergy_fromTimesAndRestEnergy(const T t_o, const T1 t, const E E_o);
+
+	/// <summary>
+	/// A muon has a rest mass energy of 105.7 MeV(m_i), and it decays into an
+	/// electron(m_d = .5110MeV) and a mass-less particle. If all the lost
+	/// mass is converted into the electron’s kinetic energy, find γ for the
+	/// electron.
+	/// </summary>
+	/// <param name="m_i">The initial rest mass.</param>
+	/// <param name="m_d">The rest mass of particle after decay.</param>
+	/// <returns></returns>
+	template<typename T, typename M>
+	static auto gamma_fromRestMassesOfDecayingParticle(const T m_i, const M m_d);
+
+	/// <summary>
+	/// A π-meson is a particle that decays into a muon and a mass-less particle.
+	/// The π-meson has a rest mass energy of 139.6 MeV(E_i), and the muon has a
+	/// rest mass energy of 105.7 MeV(E_f). Suppose the π-meson is at rest and all
+	/// of the missing mass goes into the muon’s kinetic energy.Calculate How fast
+	/// the muon moves.
+	/// </summary>
+	/// <param name="E_i">The e i.</param>
+	/// <param name="E_f">The e f.</param>
+	/// <returns>gamma γ</returns>
+	template<typename T, typename E>
+	static auto gamma_fromRestMassEnergies(const T E_i, const E E_f);
+
+	/// <summary>
+	/// What is γ for a proton->(q) having a mass energy of 938.3 MeV->(M) accelerated
+	/// through an effective potential of 1.0 TV(teravolt)->(volts) at Fermilab
+	/// outside Chicago
+	/// </summary>
+	/// <param name="q">The charge of the particle.</param>
+	/// <param name="volts">The volts.</param>
+	/// <param name="m">The mass energy.</param>
+	/// <returns>gamma γ</returns>
+	template<typename Q, typename V, typename M>
+	static auto gamma_fromAccelerationThroughVoltage(const Q q, const V volts, const M m);
+
+	/// <summary>
+	/// Calculate the effective accelerating potential for electrons->(m) at the
+	/// Stanford Linear Accelerator, if gamma=1.00×105->(γ) for them
+	/// </summary>
+	/// <param name="γ">gamma (γ).</param>
+	/// <param name="m">The mass of particle.</param>
+	/// <param name="q">The charge of particle.</param>
+	/// <returns>the effective volts needed to accelerate particle</returns>
+	template<typename G, typename M, typename Q>
+	static auto effectiveAccelerationPotential(const G γ, const M m, const Q q);
+
+	/// <summary>
+	/// Using a calculation of the energy released by the destruction of 1.00 kg->(m)
+	/// of mass. Calculate how many kilograms could be lifted to a 10.0 km->(h)
+	/// height by this amount of energy?
+	/// </summary>
+	/// <param name="m">The m.</param>
+	/// <param name="h">The h.</param>
+	/// <returns></returns>
+	template<typename M, typename H>
+	static auto forDestructionMassHowManyKgCanBeLiftedHeightKm(const M m, const H h);
 
 
 
@@ -574,6 +734,13 @@ inline auto SpecialRelativity::relativisticMomentum(const T m, const K u)
 	return (m * (u * _c_)) / sqrt(1.0 - (u * u));
 }
 
+template<typename V, typename E>
+inline auto SpecialRelativity::momentum_fromEnergies(const V v, const E E_o)
+{
+	const auto E_ = totalEnergy(E_o, v);
+	return sqrt((E_ * E_) - (E_o * E_o) );
+}
+
 template<typename T, typename K>
 inline auto SpecialRelativity::momentum_slowerObject(const T m, const K u)
 {
@@ -593,8 +760,93 @@ inline auto SpecialRelativity::velocityFrom_momentum(const T p, const M m)
 }
 
 template<typename T>
-inline auto SpecialRelativity::restEnergy(const T m)
+inline auto SpecialRelativity::newtonsEnergy(const T m)
 {
 	return m * (_c_ * _c_);
+}
+
+template<typename T>
+inline auto SpecialRelativity::mass_fromRestEnergy(const T E_o)
+{
+	return E_o / (_c_ * _c_);
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::difference_inMass_fromRestEnergies(const T E_o1, const K E_o2)
+{
+	return abs((E_o1 - E_o2) / (_c_ * _c_));
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::objectsMade(const T E_o, const K m)
+{
+	return E_o / (2.0 * m * (_c_ * _c_));
+}
+
+template<typename P, typename M>
+inline auto SpecialRelativity::relativisticTotalEnergy(const P p, const M m)
+{
+	return sqrt((pow(p * _c_) + pow(m * (_c_ * _c_), 2)));
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::ratioOfMassUsedAsEnergy(const T m, const K m_i)
+{
+	return m / m_i;
+}
+
+template<typename T, typename K>
+inline auto SpecialRelativity::kineticEnergy(const T γ, const K m)
+{
+	return (γ - 1.0) * m * (_c_ * _c_);
+}
+
+template<typename E, typename V>
+inline auto SpecialRelativity::totalEnergy(const E E_o, const V v)
+{
+	return E_o / sqrt(1.0 - (v * v));
+}
+
+template<typename V, typename M, typename C>
+inline auto SpecialRelativity::relativisticKineticEnergy(const V v, const M m, const C c_)
+{
+	return (((m * (c_*c_))/ sqrt(1.0 - ((v * v) / (c_ * c_)))) - (m * (c_*c_)));
+}
+
+template<typename T, typename T1, typename E>
+inline auto SpecialRelativity::kineticEnergy_fromTimesAndRestEnergy(const T t_o, const T1 t, const E E_o)
+{
+	return ((t / t_o) - 1.0) * E_o;
+}
+
+template<typename T, typename M>
+inline auto SpecialRelativity::gamma_fromRestMassesOfDecayingParticle(const T m_i, const M m_d)
+{
+	return m_i / m_d;
+}
+
+template<typename T, typename E>
+inline auto SpecialRelativity::gamma_fromRestMassEnergies(const T E_i, const E E_f)
+{
+	return ((E_i - E_f) / E_f) + 1.0;
+}
+
+template<typename Q, typename V, typename M>
+inline auto SpecialRelativity::gamma_fromAccelerationThroughVoltage(const Q q, const V volts, const M m)
+{
+	return ((q * volts) / (m * (_c_ * _c_))) + 1.0;
+}
+
+template<typename G, typename M, typename Q>
+inline auto SpecialRelativity::effectiveAccelerationPotential(const G γ, const M m, const Q q)
+{
+	return ((γ - 1.0) * m * (_c_ * _c_)) / q;
+}
+
+template<typename M, typename H>
+inline auto SpecialRelativity::forDestructionMassHowManyKgCanBeLiftedHeightKm(const M m, const H h)
+{
+	const auto PE = newtonsEnergy(m);
+	return PE / (_Ga_ * h);
 }
 
