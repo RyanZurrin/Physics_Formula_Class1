@@ -23,12 +23,19 @@ static std::vector<ld> vector_values = { 0.0,0.0,0.0,0.0 };
 /// <summary>
 /// Sets the vector.
 /// </summary>
-/// <param name="v">The v.</param>
-static void setVector(vector<ld> v)
+/// <param name="v">The vector to add too.</param>
+/// <param name="val">value to add</param>
+/// <param name="index">position to add to</param>
+template<typename T>
+static auto setVector(vector<T>& v, T val, int index)
 {
-	vector_values = v;
+	if (index < v.size())
+	{
+		v[index] = val;
+		return true;
+	}
+	return false;
 }
-
 
 /// <summary>
 /// Returns the vector.
@@ -50,9 +57,6 @@ static void showVector()
 
 class Kinematics
 {
-private:
-	static void countIncrease() { kinematics_objectCount += 1; }
-	static void countDecrease() { kinematics_objectCount -= 1; }
 public:
 	Kinematics* _kinematicPtr;
 
@@ -414,109 +418,108 @@ public:
 	}
 
 	/// <summary>
-/// calculates the air time from an initial velocity of 0
-/// </summary>
-/// <param name="displacement">The total displacement.</param>
-/// <returns>time is seconds in air</returns>
-static ld air_time_initial_velocity0_y0(ld displacement)
-{
-	return sqrt((-2*(displacement))/GA);
-}
+	/// calculates the air time from an initial velocity of 0
+	/// </summary>
+	/// <param name="displacement">The total displacement.</param>
+	/// <returns>time is seconds in air</returns>
+	static ld air_time_initial_velocity0_y0(ld displacement)
+	{
+		return sqrt((-2*(displacement))/GA);
+	}
 
 
-/// <summary>
-/// calculates the initial velocity of the horizontal component
-/// </summary>
-/// <param name="y0">The initial starting height.</param>
-/// <param name="displacement">The displacement.</param>
-/// <returns></returns>
-static ld velocity_initial_horizontal_component(ld y0, ld displacement)
-{
-	return sqrt((-GA/(-2 * y0)))* displacement;
-}
+	/// <summary>
+	/// calculates the initial velocity of the horizontal component
+	/// </summary>
+	/// <param name="y0">The initial starting height.</param>
+	/// <param name="displacement">The displacement.</param>
+	/// <returns></returns>
+	static ld velocity_initial_horizontal_component(ld y0, ld displacement)
+	{
+		return sqrt((-GA/(-2 * y0)))* displacement;
+	}
 
-/**
- * method: velocity_final_vertical_component(ld y0, ld yf = 0) const
- * arguments: y0 = starting height, yf = final vertical component default = 0
- * purpose:	calculates the final vertical component
- * returns: ld, final vertical velocity
- */
-static ld velocity_vertical_component(ld y0, ld yf)
-{
-	return -sqrt(2 * (-GA) * (yf - y0));
-}
-
-
-/**
- * method: velocity_final_vertical_component(ld y0, ld yf = 0) const
- * arguments: y0 = starting height, yf = final vertical component default = 0
- * purpose:	calculates the final vertical component
- * returns: ld, final vertical velocity
- */
-static vector<ld> final_projectile_velocity_vector(ld velocityY, ld velocityX)
-{
-	vector_values[0] = sqrt(velocityY * velocityY + velocityX * velocityX);
-	vector_values[1] = atan(velocityY / velocityX)*DEGREE;
-	return vector_values;
-}
-
-/**NOT WORKING RIGHT
- * method: velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle) const
- * arguments: distance to goal, height ball is at goal, and initial angle of kick
- * purpose:	calculates the final velocity of both component vectors
- * returns: ld, magnitude of final velocity vector
- */
-static ld velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle)
-{
-	return sqrt(pow(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), 2) +
-		pow(vertical_velocity_by_Xvelocity_with_angle(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), angle), 2));
-}
-
-/**
- * method: horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration)
- * arguments: distance, height, angle, acceleration = default is -9.8
- * purpose:	finds x component velocity
- * returns: ld, velocity of X component
- */
-static ld horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration = GA)
-{
-	return targetDistance * sqrt(-acceleration/((2 * (targetDistance * tan(angle*RADIAN) - targetHeight))));
-}
-
-static ld vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angle)
-{
-	return xVelocity * tan(angle*RADIAN);
-}
+	/**
+	 * method: velocity_final_vertical_component(ld y0, ld yf = 0) const
+	 * arguments: y0 = starting height, yf = final vertical component default = 0
+	 * purpose:	calculates the final vertical component
+	 * returns: ld, final vertical velocity
+	 */
+	static ld velocity_vertical_component(ld y0, ld yf)
+	{
+		return -sqrt(2 * (-GA) * (yf - y0));
+	}
 
 
- /// <summary>
- /// uses quadratic formula to return two angles in a vector, the larger angle
- /// is the best angle to use
- /// </summary>
- /// <param name="launchVelocity">The launch velocity.</param>
- /// <param name="releaseHeight">Height of the ball at its release.</param>
- /// <param name="hoopDistance">The hoop distance from shot.</param>
- /// <returns>angle to shoot</returns>
-static vector<ld> basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)
-{
-	const ld hoopHeight = 3.05; //meters
-	ld a = (((-GA) * (hoopDistance * hoopDistance)) / (2 * (launchVelocity * launchVelocity)));
-	ld b = -hoopDistance;
-	ld c = ((hoopHeight - releaseHeight) + a);
-	vector_values[0] = atan(-((b)+sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
-	vector_values[1] = atan(-((b)-sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
+	/**
+	 * method: velocity_final_vertical_component(ld y0, ld yf = 0) const
+	 * arguments: y0 = starting height, yf = final vertical component default = 0
+	 * purpose:	calculates the final vertical component
+	 * returns: ld, final vertical velocity
+	 */
+	static vector<ld> final_projectile_velocity_vector(ld velocityY, ld velocityX)
+	{
+		vector_values[0] = sqrt(velocityY * velocityY + velocityX * velocityX);
+		vector_values[1] = atan(velocityY / velocityX)*DEGREE;
+		return vector_values;
+	}
 
-	return vector_values;
-}
+	/**NOT WORKING RIGHT
+	 * method: velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle) const
+	 * arguments: distance to goal, height ball is at goal, and initial angle of kick
+	 * purpose:	calculates the final velocity of both component vectors
+	 * returns: ld, magnitude of final velocity vector
+	 */
+	static ld velocity_soccer_kick(ld toGoal, ld height_at_goal, ld angle)
+	{
+		return sqrt(pow(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), 2) +
+			pow(vertical_velocity_by_Xvelocity_with_angle(horizontal_velocity_using_distance_angle_height(toGoal, height_at_goal, angle), angle), 2));
+	}
+
+	/**
+	 * method: horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration)
+	 * arguments: distance, height, angle, acceleration = default is -9.8
+	 * purpose:	finds x component velocity
+	 * returns: ld, velocity of X component
+	 */
+	static ld horizontal_velocity_using_distance_angle_height(ld targetDistance, ld targetHeight, ld angle, ld acceleration = GA)
+	{
+		return targetDistance * sqrt(-acceleration/((2 * (targetDistance * tan(angle*RADIAN) - targetHeight))));
+	}
+
+	static ld vertical_velocity_by_Xvelocity_with_angle(ld xVelocity, ld angle)
+	{
+		return xVelocity * tan(angle*RADIAN);
+	}
 
 
+	 /// <summary>
+	 /// uses quadratic formula to return two angles in a vector, the larger angle
+	 /// is the best angle to use
+	 /// </summary>
+	 /// <param name="launchVelocity">The launch velocity.</param>
+	 /// <param name="releaseHeight">Height of the ball at its release.</param>
+	 /// <param name="hoopDistance">The hoop distance from shot.</param>
+	 /// <returns>angle to shoot</returns>
+	static vector<ld> basketball_angles(ld launchVelocity, ld releaseHeight, ld hoopDistance)
+	{
+		const ld hoopHeight = 3.05; //meters
+		ld a = (((-GA) * (hoopDistance * hoopDistance)) / (2 * (launchVelocity * launchVelocity)));
+		ld b = -hoopDistance;
+		ld c = ((hoopHeight - releaseHeight) + a);
+		vector_values[0] = atan(-((b)+sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
+		vector_values[1] = atan(-((b)-sqrt((b * b) - 4 * a * c)) / (2 * a))*DEGREE;
 
-
+		return vector_values;
+	}
 	~Kinematics()
 	{
 		delete _kinematicPtr;
 	}
 
+private:
+	static void countIncrease() { kinematics_objectCount += 1; }
+	static void countDecrease() { kinematics_objectCount -= 1; }
 };
 #endif
 

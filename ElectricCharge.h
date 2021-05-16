@@ -11,39 +11,41 @@
 #define ELECTRICCHARGE_H
 #include <iostream>
 #include <vector>
+
+#include "Vector2d.h"
 typedef long double ld;
 
 /// <summary>
 /// The meters light travels in one light year
 /// </summary>
-const ld METERS_1LY = 9460730472580800;
+constexpr auto METERS_1LY = 9460730472580800;
 
-//#include "PhysicsWorld.h"
-const ld π = acos(-1);
+//pi = 3.14159265359
+constexpr auto _π_ = 3.14159265359;
 /// <summary>
 /// Vacuum permittivity, commonly denoted ε0 (pronounced as "epsilon nought"
 /// or "epsilon zero") is the value of the absolute dielectric permittivity
 /// of classical vacuum.
 /// </summary>
-const ld _E0_ = 8.854187819013 * pow(10.00000, -12.000000); // 8.8542e-12
+constexpr auto _ε0_ = 8.854187819013e-12; // 8.8542e-12
 /// <summary>
 /// Coulombs constant 8.988 * pow(10.0, 9)Nm^2)/C^2
 /// </summary>
-const ld _k_ = 8.988 * pow(10.0, 9); //8.988 * pow(10.0, 9)Nm^2)/C^2
-const ld _K_ = 1.0 / (4.0 * π * _E0_);
+constexpr auto _k_ = 8.988e9; //8.988 * pow(10.0, 9)Nm^2)/C^2
+constexpr auto _K_ = 1.0 / (4.0 * _π_ * _ε0_);
 /// <summary>
 /// The electron = -1.6 * 10^-19 C
 /// </summary>
-const ld _ELECTRON_CHARGE_ = -1.602 * pow(10.0, -19); //-1.6e-19
+constexpr auto _ELECTRON_CHARGE_ = -(1.602e-19); //-1.6e-19
 
 /// <summary>
 /// The proton = 1.6 * 10^-19C
 /// </summary>
-const ld _PROTON_CHARGE_ = 1.6 * pow(10.0, -19); // 1.6e-19
-const ld _COULOMB_       = 1.0 / (_ELECTRON_CHARGE_);
+constexpr auto _PROTON_CHARGE_ = 1.602e-19; // 1.6e-19
+constexpr auto _COULOMB_       = 1.0 / (_ELECTRON_CHARGE_);
 
-const ld _ELECTRON_MASS_ = 9.11 * pow(10, -31);  //9.11e-31
-const ld _PROTON_MASS_   = 1.673 * pow(10, -27); //1.673e-27
+constexpr auto _ELECTRON_MASS_ = 9.11e-31;  //9.11e-31
+constexpr auto _PROTON_MASS_   = 1.673e-27; //1.673e-27
 
 static int electricCharge_objectCount = 0;
 
@@ -73,19 +75,19 @@ static struct ScientificNotationUnits
 	const ld YOCTO = pow(10, -24); //10^-24
 	friend snu operator+(const snu &r, const snu &l)
 	{	return  l.refVal + r.refVal;	}
-	snu operator+(_ld_ rhs)const
+	snu operator+(ld rhs)const
 	{	return this->refVal + rhs;	}
 	friend snu operator-(const snu &r, const snu &l)
 	{	return  l.refVal - r.refVal;	}
-	snu operator-(_ld_ rhs)const
+	snu operator-(ld rhs)const
 	{	return this->refVal - rhs;	}
 	friend snu operator*(const snu &r, const snu &l)
 	{	return  l.refVal * r.refVal;	}
-	snu operator*(_ld_ rhs)const
+	snu operator*(ld rhs)const
 	{	return this->refVal * rhs;	}
 	friend snu operator/(const snu &r, const snu &l)
 	{	return  l.refVal / r.refVal;	}
-	snu operator/(_ld_ rhs)const
+	snu operator/(ld rhs)const
 	{	return this->refVal / rhs;	}
 	ScientificNotationUnits()
 	{
@@ -726,7 +728,7 @@ inline std::vector<ld> ElectricCharge::electricFieldAtCenterTriangle(
 	);
 	//cout << "Ey: " << Ey << endl;
 	results[0] = sqrt((Ex * Ex) + (Ey * Ey));
-	results[1] = atan((Ey / Ex)) * 180 / π;
+	results[1] = atan((Ey / Ex)) * 180 / _π_;
 
 	return results;
 }

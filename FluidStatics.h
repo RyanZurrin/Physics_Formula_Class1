@@ -268,9 +268,7 @@ static ld radiusFromDiameter(const ld d){
 
 class FluidStatics
 {
-private:
-	static void countIncrease() { fluidStatics_objectCount += 1; }
-	static void countDecrease() { fluidStatics_objectCount -= 1; }
+
 public:
 	FluidStatics* _fluidStaticPtr;
 
@@ -743,6 +741,10 @@ public:
 		delete _fluidStaticPtr;
 		countDecrease();
 	}
+
+private:
+	static void countIncrease() { fluidStatics_objectCount += 1; }
+	static void countDecrease() { fluidStatics_objectCount -= 1; }
 };
 
 #endif

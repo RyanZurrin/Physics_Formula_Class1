@@ -3,8 +3,8 @@
 
 #include "ElectromagneticWaves.h"
 
-#ifndef GEOMETRICOPTICS_H
-#define GEOMETRICOPTICS_H
+#ifndef GEOMETRIC_OPTICS_H
+#define GEOMETRIC_OPTICS_H
 #include <iostream>
 
 
@@ -489,34 +489,34 @@ inline ld GeometricOptics::indexOfRefraction(const ld v, int precision = 3)
 	if (precision == 1)
 	{
 		ld scale = 0.1;
-		ld a = _c_ / v;
+		ld a = _C_ / v;
 		return floor(a/scale+.5)* scale;
 	}
 	if (precision == 2)
 	{
 		ld scale = 0.01;
-		ld a = _c_ / v;
+		ld a = _C_ / v;
 		return floor(a/scale+.5)* scale;
 	}
 	if (precision == 3)
 	{
 		ld scale = 0.001;
-		ld a = _c_ / v;
+		ld a = _C_ / v;
 		return floor(a/scale+.5)* scale;
 	}
 	if (precision == 4)
 	{
 		ld scale = 0.0001;
-		ld a = _c_ / v;
+		ld a = _C_ / v;
 		return floor(a/scale+.5)* scale;
 	}
 	else
-		return _c_ / v;;
+		return _C_ / v;;
 }
 
 inline ld GeometricOptics::speedOfLightFromRefractionIndex(const ld n)
 {
-	return _c_ / n;
+	return _C_ / n;
 }
 
 inline ld GeometricOptics::indexOfRefractionMedium2(const ld n1, const ld incidentAng1, const ld angRefraction2, int precision = 3)
@@ -624,7 +624,7 @@ inline std::map<std::string, ld> GeometricOptics::heightOfMirror(const ld floorT
 
 inline ld GeometricOptics::timeForSignalToTravel(const ld n, const ld d)
 {
-	return (d* n)/_c_;//s
+	return (d* n)/_C_;//s
 }
 
 inline ld GeometricOptics::powerOfLens(const ld f)

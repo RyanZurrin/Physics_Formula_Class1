@@ -7,7 +7,7 @@
  */
 #ifndef THERMODYNAMICS_H
 #define THERMODYNAMICS_H
-const int ATM_TO_PASCAL_MULTIPLIER = 101325;
+constexpr auto _ATM_TO_PASCAL_MULTIPLIER_ = 101325;
 static int thermodynamics_objectCount = 0;
 
 ld static kiloJoulesToCalories(const ld kJ)
@@ -156,7 +156,7 @@ public:
 
 		const ld v0 = mass / density;
 		const ld changeV = 3.0 * coefLinExp * v0 * (Tf - Ti);
-		const ld W = Patm * ATM_TO_PASCAL_MULTIPLIER * changeV; // a
+		const ld W = Patm * _ATM_TO_PASCAL_MULTIPLIER_ * changeV; // a
 		const ld Q = heatTransfer_Q(mass, c, Tf - Ti);
 		const ld U = Q - W;
 		vector<ld> results = { W, Q, U };
@@ -379,7 +379,7 @@ public:
 	 */
 	static ld monoatomicInternalEnergyChange(const ld Vi, const ld Vf, const ld pressureConstant)
 	{
-		return (pressureConstant * (Vf - Vi)) / (ATOMIC_MASS_UNIT - 1);
+		return (pressureConstant * (Vf - Vi)) / (_ATOMIC_MASS_UNIT_ - 1);
 	}
 	/**
 	 * @brief calculates the work done during an isobaric process

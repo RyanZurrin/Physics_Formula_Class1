@@ -10,10 +10,6 @@
 static int momentum_objectCount = 0;
 class Momentum
 {
-private:
-
-	static void countIncrease() { momentum_objectCount += 1; }
-	static void countDecrease() { momentum_objectCount -= 1; }
 public:
 	static void show_rotationalMotion_objectCount() { std::cout << "\nrotational motion Count: " << momentum_objectCount << endl; }
 	static int get_rotationalMotion_objectCount() { return momentum_objectCount; }
@@ -436,6 +432,11 @@ public:
 	{
 		delete _momentumPtr;
 	}
+
+private:
+
+	static void countIncrease() { momentum_objectCount += 1; }
+	static void countDecrease() { momentum_objectCount -= 1; }
 
 };
 #endif

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 /**
  * @class Heat
  * @details driver class for solving physics problems
@@ -11,10 +11,10 @@
 
 static int heat_objectCount = 0;
 /***
- * @ the stefan boltzmann constant is often represented as sigma in the
- * stefan-boltmann law of radiation equation
+ * @ the Stefan Boltzmann constant is often represented as sigma in the
+ * Stefan Boltzmann->(σ) law of radiation equation
  */
-const ld STEFAN_BOLTZMANN_C = 5.67 * pow(10, -8);
+constexpr auto _σ_ = 5.67e-8;
 
 
 
@@ -190,37 +190,37 @@ static struct InfraredEmissivityValues
 	const ld Fabric_Hessian_uncoloured = 0.87;
 	const ld Fibreglass = 0.75;
 	const ld Fibre_board_porous_untreated = 0.85;
+	const ld Fibre_board_hard_untreated = 0.85;
+	const ld Filler_white =	0.88;
+	const ld Firebrick = 0.68;
+	const ld Food_and_Organic_Materials = 0.96;
+	const ld Formica = 0.94;
+	const ld Galvanized_Pipe = 0.46;
+	const ld Glass = 0.92;
+	const ld Glass_chemical_ware_partly_transparent = 0.97;
+	const ld Glass_frosted_high = 0.96;
+	const ld Glass_frosted_low 	= 0.70;
+	const ld Glass_polished_plate = 0.94;
+	const ld Granite_natural_surface = 0.96;
+	const ld Graphite_powder = 0.97;
+	const ld Gravel = 0.28;
+	const ld Gypsum = 0.08;
+	const ld Hardwood_across_grain = 0.82;
+	const ld Hardwood_along_grain =	0.715;
+	const ld Ice = 0.97;
+	const ld Iron_heavily_rusted = 0.935;
+	const ld Lacquer_bakelite = 0.93;
+	const ld Lacquer_dull_black = 0.97;
+	const ld Lampblack = 0.96;
+	const ld Limestone_natural_surface = 0.96;
+	const ld Mortar = 0.87;
+	const ld Mortar_dry = 0.94;
+	const ld PVC = 0.92;
+	const ld Paint_3M_black_velvet_coating_9560_series_optical_black = 1.00;
+	const ld Paint_aluminium = 0.45;
+	const ld Paint_oil_average_of_16_colors = 0.94;
+	const ld Paint_oil_black_flat =	0.94;
 	/*
-	const ld Fibre board : hard, untreated 	0.85;;
-	const ld Filler: white 	0.88;
-	const ld Firebrick 	0.68;
-	const ld Food& Organic Materials 	0.95 - 0.97;
-	const ld Formica 	0.94;
-	const ld Galvanized Pipe 	0.46;
-	const ld Glass 	0.92;
-	const ld Glass: chemical ware(partly transparent) 	0.97;
-	const ld Glass: frosted 	0.96;
-	const ld Glass: frosted 	0.70;
-	const ld Glass: polished plate 	0.94;
-	const ld Granite: natural surface 	0.96;
-	const ld Graphite: powder 	0.97;
-	const ld Gravel 	0.28;
-	const ld Gypsum 	0.08;
-	const ld Hardwood: across grain 	0.82;
-	const ld Hardwood: along grain 	0.68 - 0.73;
-	const ld Ice 	0.97;
-	const ld Iron: heavily rusted 	0.91 - 0.96;
-	const ld Lacquer: bakelite 	0.93;
-	const ld Lacquer: dull black 	0.97;
-	const ld Lampblack 	0.96;
-	const ld Limestone: natural surface 	0.96;
-	const ld Mortar 	0.87;
-	const ld Mortar: dry 	0.94;
-	const ld P.V.C. 	0.91 - 0.93;
-	const ld Paint: 3M, black velvet coating 9560 series optical black 	@1.00;
-	const ld Paint: aluminium 	0.45;
-	const ld Paint, oil : average of 16 colours 	0.94;
-	const ld Paint: oil, black, flat 	0.94;
 	const ld Paint: oil, black, gloss 	0.92;
 	const ld Paint: oil, grey, flat 	0.97;
 	const ld Paint: oil, grey, gloss 	0.94;
@@ -259,7 +259,7 @@ static struct InfraredEmissivityValues
 	const ld Rubber: stopper, black 	0.97;
 	const ld Sand 	0.90;
 	const ld Skin, human 	0.95 - 0.98;
-	const ld const ld const ld Snow 	0.80;
+	const ld Snow 	0.80;
 	const ld Soil: dry 	0.92;
 	const ld Soil: frozen 	0.93;
 	const ld Soil: saturated with water 	0.95;
@@ -443,7 +443,7 @@ public:
 	 */
 	static ld stefanBoltzmannLawOfRadiation(const ld e, const ld A, const ld T)
 	{
-		return STEFAN_BOLTZMANN_C * e * A * pow(T, 4);
+		return _σ_ * e * A * pow(T, 4);
 	}
 
 
@@ -453,7 +453,7 @@ public:
 	 */
 	static ld netRateOfHeatTransferByRadiation(const ld e, const ld A, const ld T1, const ld T2)
 	{
-		return STEFAN_BOLTZMANN_C * e * A * ((pow(T2, 4) - pow(T1, 4)));
+		return _σ_ * e * A * ((pow(T2, 4) - pow(T1, 4)));
 	}
 
 	/**

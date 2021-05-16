@@ -5,20 +5,15 @@
  * @author Ryan Zurrin
  * @date  11/15/2020
  */
-#ifndef ROTATIONALMOTION_H
-#define ROTATIONALMOTION_H
+#ifndef ROTATIONAL_MOTION_H
+#define ROTATIONAL_MOTION_H
 #include "UniformCircularMotion.h"
 
 static int rotationalMotion_objectCount = 0;
 
 class RotationalMotion : UniformCircularMotion
 {
-private:
-	ld _angular_acceleration_;
-	ld _linear_acceleration_;
-	static void countIncrease() { rotationalMotion_objectCount += 1; }
-	static void countDecrease() { rotationalMotion_objectCount -= 1; }
-public:	
+public:
 	RotationalMotion* _rotational_motionPtr;
 	/**
 	 * @brief a structure filled with methods for finding the rotational inertia's of some commonly shaped objects
@@ -31,46 +26,56 @@ public:
 		 * @param R is the radius
 		 * @returns moment of inertia
 		 */
-		ld static hoop_aboutCylinderAxis(const ld M, const ld R)
+		template<typename T>
+		static auto hoop_aboutCylinderAxis(const T M, const T R)
 		{
 			return M * (R * R);
 		}
-		ld static hoop_aboutAnyDiameter(const ld M, const ld R)
+		template<typename T>
+		static auto hoop_aboutAnyDiameter(const T M, const T R)
 		{
 			return (M * (R * R)) / 2.0;
 		}
-		ld static solidCylinderOrDisk_aboutCylinderAxis(const ld M, const ld R)
+		template<typename T>
+		static auto solidCylinderOrDisk_aboutCylinderAxis(const T M, const T R)
 		{
 			return (M * (R * R)) / 2.0;
 		}
-		ld static thinRod_aboutAxisThroughCenterToLength(const ld M, const ld l)
+		template<typename T>
+		static auto thinRod_aboutAxisThroughCenterToLength(const T M, const T l)
 		{
 			return (M * (l * l)) / 12.0;
 		}
-		ld static solidSphere_aboutAnyDiameter(const ld M, const ld R)
+		template<typename T>
+		static auto solidSphere_aboutAnyDiameter(const T M, const T R)
 		{
 			return (2.0 * M * (R * R)) / 5.0;
 		}
-		ld static annularCylinderRing_aboutCylinderAxis(const ld M, const ld R1, const ld R2)
+		template<typename T>
+		static auto annularCylinderRing_aboutCylinderAxis(const T M, const T R1, const T R2)
 		{
 			return (M / 2.0)* ((R1 * R1) + (R2 * R2));
 		}
-		ld static solidCylinder_aboutCentralDiameter(const ld M, const ld R, const ld l)
+		template<typename T>
+		static auto solidCylinder_aboutCentralDiameter(const T M, const T R, const T l)
 		{
 			return ((M * (R * R)) / 4.0) + ((M * (l * l)) / 12.0);
 		}
-		ld static thinRod_aboutAxisThroughOneEndToLength(const ld M, const ld l)
+		template<typename T>
+		static auto thinRod_aboutAxisThroughOneEndToLength(const T M, const T l)
 		{
 			return (M * (l * l)) / 3.0;
 		}
-		ld static thinSphericalShell_aboutAnyDiameter(const ld M, const ld R)
+		template<typename T>
+		static auto thinSphericalShell_aboutAnyDiameter(const T M, const T R)
 		{
 			return (2 * M * (R * R)) / 3;
 		}
-		ld static slab_aboutAxisThroughCenter(const ld M, const ld sideA, const ld sideB)
+		template<typename T>
+		static auto slab_aboutAxisThroughCenter(const T M, const T sideA, const T sideB)
 		{
 			return (M * ((sideA * sideA) + (sideB * sideB)) / 12.0);
-		}		
+		}
 	}inertia;
 
 	RotationalMotion()
@@ -95,7 +100,7 @@ public:
 	ld get_linear_acceleration()const { return _linear_acceleration_; }
 	void show_angular_acceleration()const { cout << "angular acceleration: " << _angular_acceleration_ << endl; }
 	void show_linear_acceleration()const { cout << "linear acceleration: " <<_linear_acceleration_ << endl; }
-	
+
 	/**
 	 * @brief calculates the angular acceleration
 	 * @param w is the know angular velocity or torque
@@ -109,7 +114,7 @@ public:
 
 	/**
 	 * @brief calculate the angular acceleration using using net torque and the Inertia T/I
-	 * 
+	 *
 	 */
 	ld static angularAcceleration(const ld F, const ld r, const ld I)
 	{
@@ -140,13 +145,13 @@ public:
 	{
 		return ((2 * fC * Force) / (mass * r));
 	}
-	
+
 	/**
 	 * @brief calculates the angular acceleration using net torque and the rotational inertia of an object
 	 * @param netTorque is the torque force
 	 * @param I can be calculated with the inertia methods structure if not given
 	 * @returns the angular acceleration
-	 */ 
+	 */
 	ld static angularAcceleration_usingTorque_andInertia(const ld netTorque, const ld I)
 	{
 		return netTorque / I;
@@ -176,10 +181,10 @@ public:
 	}
 
 	/**
-	 * @brief calculates the final angular velocity	
+	 * @brief calculates the final angular velocity
 	 * @param Aa is the angular acceleration
 	 * @param seconds is the amount of seconds that pass
-	 * @param wi is the initial angular velocity, default is at 0 
+	 * @param wi is the initial angular velocity, default is at 0
 	 * @returns the final angular velocity
 	 */
 	ld static angularVelocity_final(const ld Aa, const ld seconds, const ld wi = 0.0)
@@ -208,7 +213,7 @@ public:
 	{
 		return r * F * t;
 	}
-	
+
 	/**
 	 * @brief calculate the angular momentum of a object
 	 * @param _I is the moment of inertia of the object
@@ -218,7 +223,7 @@ public:
 	ld static angularMomentum(const ld _I, const ld w)
 	{
 		return _I * w;
-	}	
+	}
 
 	/**
 	 * @brief calculates the linear acceleration which is (la = deltaV/deltaT, deltaV = rw, so la = r*deltaW/deltaT, a = deltaW/deltaT, so la = ra)
@@ -247,8 +252,8 @@ public:
 	 * @param wi initial angular velocity
 	 * @param wf final angular velocity
 	 * @param Aa angular acceleration
-	 * @param mode "rad" or "rev", radians or revolutions 
-	 * @returns the total displacement in rad must divide 
+	 * @param mode "rad" or "rev", radians or revolutions
+	 * @returns the total displacement in rad must divide
 	 */
 	ld static theta_from_kinematics(const ld wi, const ld wf, const ld Aa, const string mode = "rev")
 	{
@@ -257,10 +262,10 @@ public:
 			return ((wf * wf) - (wi * wi)) / (2 * (Aa));
 		}
 		return ((wf * wf) - (wi * wi)) / (2 * (Aa))/(2*_PI_);
-		
+
 	}
-	
-	
+
+
 	/**
 	 * @brief calculates the time to stop from known angular velocities
 	 */
@@ -270,7 +275,7 @@ public:
 	}
 
 	/**
-	 * @brief Sums inertia's of a system to return the total inertia 
+	 * @brief Sums inertia's of a system to return the total inertia
 	 */
 	ld static inertiaSUM(const ld i1 = 0.0, const ld i2 = 0.0, const ld i3 = 0.0,const ld i4 = 0.0,
 						 const ld i5 = 0.0, const ld i6 = 0.0, const ld i7 = 0.0, const ld i8 = 0.0,
@@ -449,13 +454,19 @@ public:
 		return results;
 	}
 
-	
+
 	~RotationalMotion()
 	{
 		delete _rotational_motionPtr;
 		countDecrease();
 	}
-	
+
+private:
+	ld _angular_acceleration_;
+	ld _linear_acceleration_;
+	static void countIncrease() { rotationalMotion_objectCount += 1; }
+	static void countDecrease() { rotationalMotion_objectCount -= 1; }
+
 };
 
 #endif

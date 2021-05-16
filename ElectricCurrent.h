@@ -158,14 +158,13 @@ static struct AWGWireSizesByGauge
 	const ld AWG25 = 0.4547*pow(10, -3);// 0.4547mm diameter
 }AWG;
 
-
+//static object counter for ElectricCurrent class
 static int electricCurrent_objectCount = 0;
 
 
 class ElectricCurrent
 {
 public:
-	friend class Circuits;
 	ElectricCurrent* _electricCurrentPtr;
 
 
@@ -699,12 +698,12 @@ public:
 
 inline ld ElectricCurrent::area_r(const ld r)
 {
-	return _PI * (r*r);//m^2
+	return _PI_ * (r*r);//m^2
 }
 
 inline ld ElectricCurrent::area_d(const ld d)
 {
-	return _PI*((d*d)/4);//m^2
+	return _PI_*((d*d)/4);//m^2
 }
 
 inline ld ElectricCurrent::electricCurrent(const ld Q, const ld t)
@@ -760,7 +759,7 @@ inline ld ElectricCurrent::resistanceUsingResistivity(const ld p, const ld l, co
 
 inline ld ElectricCurrent::resistanceUsingResistivityWire(const ld p, const ld l, const ld d)
 {
-	return p * l * (4.0 / (_PI * (d * d)));//Ohms
+	return p * l * (4.0 / (_PI_ * (d * d)));//Ohms
 }
 
 inline ld ElectricCurrent::areaOfResistor(const ld p, const ld R, const ld l)
@@ -775,7 +774,7 @@ inline ld ElectricCurrent::lengthOfResistor(const ld A, const ld R, const ld p)
 
 inline ld ElectricCurrent::lengthOfFilament(const ld d, const ld R, const ld p)
 {
-	return (_PI*(d*d)*R)/(4.0*p);//meters
+	return (_PI_*(d*d)*R)/(4.0*p);//meters
 }
 
 inline ld ElectricCurrent::lengthOfWireMade(const ld m, const ld R, const ld p, const ld pd)
@@ -790,7 +789,7 @@ inline ld ElectricCurrent::resistivityOfResistor(const ld R, const ld A, const l
 
 inline ld ElectricCurrent::resistivity(const ld l, const ld d, const ld R)
 {
-	return (_PI*(d*d)*R)/(4.0*l);//Ohms meters
+	return (_PI_*(d*d)*R)/(4.0*l);//Ohms meters
 }
 
 inline ld ElectricCurrent::voltageDropAcrossResistor(const ld I, const ld R)
@@ -800,13 +799,13 @@ inline ld ElectricCurrent::voltageDropAcrossResistor(const ld I, const ld R)
 
 inline ld ElectricCurrent::driftVelocity_commonWire(const ld q, const ld diameter, const ld I, const ld p, const ld mass)
 {
-	const ld n = (AVOGADRO * 1000.0 * p) / (mass);
-	return I / (n * q * (_PI*pow(diameter/2.0,2)));
+	const ld n = (_AVOGADRO_ * 1000.0 * p) / (mass);
+	return I / (n * q * (_PI_*pow(diameter/2.0,2)));
 }
 
 inline ld ElectricCurrent::driftVelocity_commonWire_n(const ld n, const ld q, const ld diameter, const ld I)
 {
-	return I / (n * q * (_PI * pow(diameter / 2, 2)));
+	return I / (n * q * (_PI_ * pow(diameter / 2, 2)));
 }
 
 inline ld ElectricCurrent::crossSectionalArea(const ld p, const ld l, const ld R)
@@ -866,7 +865,7 @@ inline ld ElectricCurrent::ratioOfDiametersInWires(const ld p1, const ld p2)
 
 inline ld ElectricCurrent::currentFlowThroughOfMaterial(const ld V, const ld p, const ld d, const ld l)
 {
-	return (V*_PI*(d*d))/(4.0*p*l);//Amperes(I)
+	return (V*_PI_*(d*d))/(4.0*p*l);//Amperes(I)
 }
 
 inline ld ElectricCurrent::maximumTempchange(const ld tempCoEffOfResistivity, const ld maxChangePercent)
@@ -933,12 +932,12 @@ inline ld ElectricCurrent::peekPower(const ld Vrms, const ld Irms)
 
 inline ld ElectricCurrent::voltageAC(const ld Vo, const ld f, const ld t)
 {
-	return Vo * sin(2*_PI)*f*t;// volts
+	return Vo * sin(2*_PI_)*f*t;// volts
 }
 
 inline ld ElectricCurrent::currentAC(const ld Io, const ld f, const ld t)
 {
-	return Io * sin(2 * _PI) * f * t;//amperes
+	return Io * sin(2 * _PI_) * f * t;//amperes
 }
 
 inline ld ElectricCurrent::tempCoeffOfResistivity(const ld R, const ld R_o, const ld T_i, const ld T_f)

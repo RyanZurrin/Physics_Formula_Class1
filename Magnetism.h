@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @class Magnetism
  * @details driver class for solving complex physics problems
  * @author Ryan Zurrin
@@ -13,16 +13,13 @@
 #define MAGNETISM_H
 
 static int magnetism_objectCount = 0;
-const ld _PI__ = acos(-1);
-const ld _GAUSS_ = pow(10, -4); //Tesla's
-const ld _Uo_ = 4.0 * _PI__ * pow(10, -7);//permeability of free space
+constexpr auto _GAUSS_ = 1.0e-4; //Tesla's
+constexpr auto _µo_ = 4.0 * _π_* 1.0e-7;//permeability of free space
 
 
 class Magnetism :
 	public ElectricCurrent, public ElectricCharge
 {
-
-
 public:
 	Magnetism* _magnetismPtr;
 
@@ -475,22 +472,22 @@ inline ld Magnetism::magneticFieldStrength_Fc(const ld m, const ld v, const ld q
 
 inline ld Magnetism::magneticFieldStrength_straightCurrentCarryingWire(const ld I, const ld r)
 {
-	return (_Uo_*I)/(2.0*_PI*r);//(T)
+	return (_µo_*I)/(2.0*_PI*r);//(T)
 }
 
 inline ld Magnetism::magneticFieldStrengthCenterCircularLoop(const ld I, const ld R, const ld N = 1.0)
 {
-	return (N * _Uo_ * I) / (2.0 * R);//(T)
+	return (N * _µo_ * I) / (2.0 * R);//(T)
 }
 
 inline ld Magnetism::magneticFieldStrengthInsideSolenoid(const ld n, const ld I)
 {
-	return _Uo_ * n * I;//(T)
+	return _µo_ * n * I;//(T)
 }
 
 inline ld Magnetism::magneticFieldStrengthInsideSolenoid(const ld N, const ld l, const ld I)
 {
-	return _Uo_*(N/l) * I;//T
+	return _µo_*(N/l) * I;//T
 }
 
 inline ld Magnetism::magneticFieldStrengthHallVoltage(const ld E, const ld d, const ld v)
@@ -515,17 +512,17 @@ inline ld Magnetism::radiusCurvatureOfPath(const ld m, const ld v, const ld q, c
 
 inline ld Magnetism::radiusLoopOfCurrentCarryingWire(const ld I, const ld B)
 {
-	return (_Uo_ * I) / (2.0 * B);//m
+	return (_µo_ * I) / (2.0 * B);//m
 }
 
 inline ld Magnetism::distanceBetween2wires(const ld I1, const ld I2, const ld Fl)
 {
-	return (_Uo_ * I1 * I2) / (2.0 * _PI * Fl);//m
+	return (_µo_ * I1 * I2) / (2.0 * _PI * Fl);//m
 }
 
 inline ld Magnetism::forceMagnitude2wires(const ld I1, const ld I2, const ld l, const ld r)
 {
-	return (_Uo_ * I1 * I2 * l) / (2.0 * _PI * r);//N
+	return (_µo_ * I1 * I2 * l) / (2.0 * _PI * r);//N
 }
 
 inline ld Magnetism::massOfChargedParticle(const ld r, const ld q, const ld B, const ld v)
@@ -555,12 +552,12 @@ inline ld Magnetism::forceOnWire(const ld I, const ld l, const ld B, const ld th
 
 inline ld Magnetism::forcePerUnitLengthBetween2ParallelWires(const ld I1, const ld I2, const ld r)
 {
-	return (_Uo_*I1*I2)/(2.0*_PI*r);
+	return (_µo_*I1*I2)/(2.0*_PI*r);
 }
 
 inline ld Magnetism::currentFromWire2ParallelRunning(const ld I1, const ld r, const ld Fl)
 {
-	return ((2.0 * _PI * r) / (_Uo_ * I1)) * Fl;//A
+	return ((2.0 * _PI * r) / (_µo_ * I1)) * Fl;//A
 }
 
 inline ld Magnetism::torqueOnCurrentCarryingLoop_umf(const ld N, const ld I, const ld A, const ld B, const ld theta)
@@ -580,12 +577,12 @@ inline ld Magnetism::currentFromTorqueMax(const ld tMax, const ld N, const ld A,
 
 inline ld Magnetism::currentInLongStraightWire(const ld r, const ld B)
 {
-	return (2.0 * _PI * r * B) / _Uo_;//(A)
+	return (2.0 * _PI * r * B) / _µo_;//(A)
 }
 
 inline ld Magnetism::currentSolenoid(const ld B, const ld n, const ld l)
 {
-	return B / (_Uo_ * (n / l));// A
+	return B / (_µo_ * (n / l));// A
 }
 
 inline ld Magnetism::angleThetaOfElectronToMagneticField(const ld v, const ld B, const ld F, const ld q = _ELECTRON_CHARGE_)

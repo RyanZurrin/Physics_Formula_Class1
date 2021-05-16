@@ -60,7 +60,7 @@ public:
 	/**
 	 * @brief copy assignment operator
 	 */
-	ElectroMagneticInduction& operator=(const ElectroMagneticInduction& t)
+	ElectroMagneticInduction& operator=(ElectroMagneticInduction&& t)noexcept
 	{
 		if (this != &t)
 		{
@@ -933,17 +933,17 @@ inline ld ElectroMagneticInduction::inductanceSolenoid_L(const ld N, const ld Ar
 	ld area;
 	if (mode == 'a' || mode == 'A')
 	{
-		return (_Uo_ * (N * N) * Ard) / l;//(H)
+		return (_µo_ * (N * N) * Ard) / l;//(H)
 	}
 	else if	(mode == 'r' || mode == 'R')
 	{
 		area = _PI * (Ard * Ard);
-		return (_Uo_ * (N * N) * area) / l;//(H)
+		return (_µo_ * (N * N) * area) / l;//(H)
 	}
 	else
 	{
 		area = _PI * ((Ard * Ard) / 4.0);
-		return (_Uo_ * (N * N) * area) / l;//(H)
+		return (_µo_ * (N * N) * area) / l;//(H)
 	}
 }
 

@@ -54,8 +54,7 @@ static auto physics_objectCount = 0;
 //
 //
 
-//Gravitational Constant 6.67408(31) * 10^(-11) * N
-const ld _GC_ = 6.674 * pow(10.0, -11.0);
+
 static ld _val_;// = 0.0;
 
 
@@ -65,67 +64,52 @@ static ld _val_;// = 0.0;
 /// </summary>
 /// <param name="v">The value to set val too.</param>
 /// <returns>returns the value of v</returns>
-static auto setVal(const ld v_)
-{
-	_val_ = v_;
+static auto setVal = []<class T>(const T & v) {
+	_val_ = v;
 	return _val_;
-}//end setVal
-
-template<typename T>
-static auto setVal(const T v_)
-{
-	_val_ = v_;
-	return _val_;
-}//end setVal
-
+};
 
 /// <summary>
 /// Gets the value.
 /// </summary>
 /// <returns></returns>
-static ld getVal() { return  _val_; }
-/// <summary>
-/// Shows the value.
-/// </summary>
-static void show_val() { cout << "_val_: " << _val_ << endl; }
-/// <summary>
-/// Shows the value.
-/// </summary>
-/// <param name="val">The value.</param>
-static void show_val(const ld val) { cout << "val: " << val << endl; }
+static auto getVal = []<class T>() {
+	return  _val_;
+};
+
 /// <summary>
 /// Shows the value with a label in front and units in back
 /// </summary>
 /// <param name="label">The label.</param>
 /// <param name="units">The units.</param>
-static void show_val(const string label, const string units = "")
-{ cout << "\n"+label+": " << _val_ << " "+units <<endl; }
-
+static auto show_val = []<class T>(const T label = "", const T units = "") {
+	cout << "\n"<<label<<": " << _val_ << " "<<units <<endl;
+};
 
 /// <summary>
 /// Prints the vector values of passed in vector.
 /// </summary>
 /// <param name="v">The v.</param>
+/*
 static void printVectorValues(vector<ld>& v)
 {
-	const auto size = v.size();
 	cout << "vector: ";
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < v.size(); i++)
 	{
 		std::cout << v[i] << ", ";
 	}
 	std::cout << std::endl;
 }//end printVectorValues
-
+*/
 /// <summary>
-/// Prints the vector values of a vector full of long doubles
+/// Prints the vector values of a vector
 /// </summary>
 /// <param name="v">The vector to print.</param>
-static void printVectorValues(vector<ld> v)
+template<typename T>
+static auto printVectorValues(vector<T>& v)
 {
-	const auto size = v.size();
 	cout << "vector: ";
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < v.size(); i++)
 	{
 		std::cout << v[i] << ", ";
 	}
@@ -290,10 +274,10 @@ void static printArr(const ld arr[], const int n)
 /// </summary>
 /// <param name="r">The radius.</param>
 /// <returns>the area of sphere (m^2)</returns>
-static ld sphereArea(const ld r)
+static auto sphereArea = []<class T>(const T r)
 {
 	return 4.0 * _PI_ * (r * r);
-}
+};
 
 
 /// <summary>
@@ -301,10 +285,10 @@ static ld sphereArea(const ld r)
 /// </summary>
 /// <param name="r">The radius.</param>
 /// <returns>the volume of sphere(m^3)</returns>
-static ld sphereVolume(const ld r)
+static auto sphereVolume = []<class T>(const ld r)
 {
 	return (4.0 / 3.0) * (_PI_ * (r * r * r));
-}
+};
 
 
 /// <summary>
@@ -315,14 +299,14 @@ static ld sphereVolume(const ld r)
 /// radius. Do not add anything here if it is the radius you are using
 /// as it is defaulted to radius</param>
 /// <returns>circumference of circle (m)</returns>
-static ld circleCircumference(const ld rd, const char mode = 'r')
+static auto circleCircumference = []<class T>(const T rd, const char mode = 'r')
 {
-	if(mode == 'r')
+	if (mode == 'r')
 	{
 		return 2.0 * _PI_ * rd;
 	}
 	return _PI_ * rd;
-}
+};
 
 /// <summary>
 /// Calculates the area of a circle.
@@ -332,14 +316,14 @@ static ld circleCircumference(const ld rd, const char mode = 'r')
 /// radius. Do not add anything here if it is the radius you are using
 /// as it is defaulted to radius</param>
 /// <returns>area of a circle (m^2)</returns>
-static ld circleArea(const ld rd, const char mode = 'r')
+static auto circleArea = []<class T>(const T rd, const char mode = 'r')
 {
 	if (mode == 'r')
 	{
 		return _PI_ * (rd * rd);
 	}
 	return (_PI_ * (rd * rd)) / 4.0;
-}
+};
 
 /// <summary>
 /// Calculates the change in any two values xi and xf.
@@ -347,10 +331,10 @@ static ld circleArea(const ld rd, const char mode = 'r')
 /// <param name="xi">The  initial starting value.</param>
 /// <param name="xf">The final value.</param>
 /// <returns>the change in a value</returns>
-static ld delta(const ld xi, const ld xf)
+static auto delta = []<class T>(const T xi, const T xf)
 {
 	return xf - xi;
-}
+};
 
 
 /// <summary>
@@ -360,28 +344,31 @@ static struct Conversions
 {
 	struct SpecificHeatConverter
 	{
-		static ld joulesKgC_to_kcalKgC(const ld j = _val_)
+		template<typename T>
+		static auto joulesKgC_to_kCalKgC(const T j = _val_)
 		{
 			return j * .000238845896627;
 		}
-		static ld _kcalKgC_to_joulesKgC_IT(const ld kcal = _val_)
+		template<typename T>
+		static auto kCalKgC_to_joulesKgC_IT(const T kCal = _val_)
 		{
-			return kcal * 4186.8;
+			return kCal * 4186.8;
 		}
 	}heat;
 
-
-	static ld atomicWeight_to_kilograms(const ld u = _val_)
+	template<typename T>
+	static auto atomicWeight_to_kilograms(const T u = _val_)
 	{
 		return u * 1.6605402 * pow(10, -27);
 	}
 
-	static ld kiloJoules_to_calories(const ld kJ)
+	template<typename T>
+	static auto kiloJoules_to_calories(const T kJ)
 	{
 		return (kJ * 1000.0) / 4186.0;
 	}
-
-	static ld revolutionsFromRadians(const ld radTotal)
+	template<typename T>
+	static auto revolutionsFromRadians(const T radTotal)
 	{
 		//cout << "revolutions: " << radTotal / (2.0 * _PI_) << endl;
 		return radTotal / (2.0 * _PI_);
@@ -393,7 +380,8 @@ static struct Conversions
 	 * @param revMin revolutions per minute
 	 * @returns revolutions in radians per second
 	 */
-	static ld revolutions_min_to_radians_second(const ld revMin)
+	template<typename T>
+	static auto revolutions_min_to_radians_second(const T revMin)
 	{
 		return (revMin * 2.0 * _PI_) / 60;
 	}
@@ -404,7 +392,8 @@ static struct Conversions
 	 * @param radSec is the rotation speed in radians per second
 	 * @returns the revolutions per minute
 	 */
-	static ld radians_second_to_revolutions_minute(const ld radSec)
+	template<typename T>
+	static auto radians_second_to_revolutions_minute(const T radSec)
 	{
 		return (radSec * 60.0) / (2.0 * _PI_);
 	}
@@ -414,7 +403,8 @@ static struct Conversions
 	 *  @param unit can be whatever you are dividing by gravity acceleration
 	 *  @returns the gravity ratio
 	 */
-	static ld gravity_ratio(const ld unit)
+	template<typename T>
+	static auto gravity_ratio(const T unit)
 	{
 		return unit / _G_;
 	}
@@ -426,7 +416,8 @@ static struct Conversions
 	 * @param mps is meters per second
 	 * @returns kilometers per hour
 	 */
-	static ld mps_to_kmh(const ld mps = _val_)
+	template<typename T>
+	static auto mps_to_kmh(const T mps = _val_)
 	{
 		return mps * 3.6;
 	}
@@ -436,7 +427,8 @@ static struct Conversions
 	 * @param kmh is kilometers per hour
 	 * @returns meters per second
 	 */
-	static ld kmh_to_mps(const ld kmh = _val_)
+	template<typename T>
+	static auto kmh_to_mps(const T kmh = _val_)
 	{
 		return kmh / 3.6;
 	}
@@ -446,7 +438,8 @@ static struct Conversions
 	/// </summary>
 	/// <param name="kms">kilometers per second.</param>
 	/// <returns>kilometers per hour</returns>
-	static ld kms_to_kmh(const ld kms = _val_)
+	template<typename T>
+	static auto kms_to_kmh(const T kms = _val_)
 	{
 		return kms * 3600.0;
 	}
@@ -455,7 +448,8 @@ static struct Conversions
 	/// </summary>
 	/// <param name="kmh">kilometers per hour.</param>
 	/// <returns>kilometers per second</returns>
-	static ld kmh_to_kms(const ld kmh = _val_)
+	template<typename T>
+	static auto kmh_to_kms(const T kmh = _val_)
 	{
 		return kmh / 3600.0;
 	}
@@ -464,7 +458,8 @@ static struct Conversions
 	 * @param mph is miles per hour
 	 * @returns meters per second
 	 */
-	static ld mph_to_mps(const ld mph = _val_)
+	template<typename T>
+	static auto mph_to_mps(const T mph = _val_)
 	{
 		return mph / 2.237;
 	}
@@ -473,7 +468,8 @@ static struct Conversions
 	 * @param mps is meters per second
 	 * @returns miles per hour
 	 */
-	static ld mps_to_mph(const ld mps = _val_)
+	template<typename T>
+	static auto mps_to_mph(const T mps = _val_)
 	{
 		return mps * 2.237;
 	}
@@ -482,15 +478,18 @@ static struct Conversions
 	 * @param ms to be converted to seconds
 	 * @returns seconds from milliseconds
 	 */
-	static ld millisecond_to_seconds(const ld ms = _val_)
+	template<typename T>
+	static auto millisecond_to_seconds(const T ms = _val_)
 	{
 		return ms / 1000;
 	}
-	static ld minutes_to_seconds(const ld min = _val_)
+	template<typename T>
+	static auto minutes_to_seconds(const T min = _val_)
 	{
 		return min * 60;
 	}
-	static ld hours_to_seconds(const ld hours = _val_)
+	template<typename T>
+	static auto hours_to_seconds(const T hours = _val_)
 	{
 		return hours * 3600;
 	}
@@ -500,34 +499,38 @@ static struct Conversions
 	 * be 4.5
 	 * @returns total seconds converted from days
 	 */
-	static ld days_to_seconds(const ld days = _val_)
+	template<typename T>
+	static auto days_to_seconds(const T days = _val_)
 	{
-		return days * 86400;
+		return days * 86400.0;
 	}
 	/**
 	 * @brief Returns the conversion from seconds to days
 	 * @param seconds to be converted
 	 * @returns days
 	 */
-	static ld seconds_to_days(const ld seconds = _val_)
+	template<typename T>
+	static auto seconds_to_days(const T seconds = _val_)
 	{
-		return seconds / 86400;
+		return seconds / 86400.0;
 	}
 	/**
 	 * @brief Returns the conversion from miles to meters
 	 * @param miles to be converted
 	 * @returns meters from miles
 	 */
-	static ld miles_to_meters(const ld miles = _val_)
+	template<typename T>
+	static auto miles_to_meters(const T miles = _val_)
 	{
-		return miles * 1609;
+		return miles * 1609.0;
 	}
 	/**
 	 * @brief Returns the conversion from feet to meters
 	 * @param feet to be converted
 	 * @returns meters
 	 */
-	static ld feet_to_meters(const ld feet = _val_)
+	template<typename T>
+	static auto feet_to_meters(const T feet = _val_)
 	{
 		return feet / 3.281;
 	}
@@ -536,7 +539,8 @@ static struct Conversions
 	 * @param inches to be converted
 	 * @returns meters
 	 */
-	static ld inches_to_meters(const ld inches = _val_)
+	template<typename T>
+	static auto inches_to_meters(const T inches = _val_)
 	{
 		return inches / 39.37;
 	}
@@ -545,7 +549,8 @@ static struct Conversions
 	 * @param meters is the total meters
 	 * @returns inches
 	 */
-	static ld meters_to_inches(const ld meters = _val_)
+	template<typename T>
+	static auto meters_to_inches(const T meters = _val_)
 	{
 		return meters * 39.37;
 	}
@@ -554,75 +559,93 @@ static struct Conversions
 	 * @param cm centimeters
 	 * @returns meters
 	 */
-	static ld centimeters_to_meters(const ld cm = _val_)
+	template<typename T>
+	static auto centimeters_to_meters(const T cm = _val_)
 	{
 		return cm / 100;
 	}
-	static ld meters_to_centimeters(const ld m = _val_)
+	template<typename T>
+	static auto meters_to_centimeters(const T m = _val_)
 	{
 		return m * 100;
 	}
-	static ld kilometers_to_meters(const ld km = _val_)
+	template<typename T>
+	static auto kilometers_to_meters(const T km = _val_)
 	{
 		return km * 1000;
 	}
-	static ld millimeters_to_meters(const ld mm = _val_)
+	template<typename T>
+	static auto millimeters_to_meters(const T mm = _val_)
 	{
 		return mm / 1000;
 	}
-	static ld micrometers_to_meters(const ld Mm = _val_)
+	template<typename T>
+	static auto micrometers_to_meters(const T Mm = _val_)
 	{
 		return Mm / pow(1, -6);
 	}
-	static ld nanometers_to_meters(const ld nm = _val_)
+	template<typename T>
+	static auto nanometers_to_meters(const T nm = _val_)
 	{
 		return nm / pow(1, -9);
 	}
-	static ld pound_to_kilogram(const ld lbs = _val_)
+	template<typename T>
+	static auto pound_to_kilogram(const T lbs = _val_)
 	{
 		return lbs / 2.205;
 	}
-	static ld milligram_to_kilogram(const ld mg = _val_)
+	template<typename T>
+	static auto milligram_to_kilogram(const T mg = _val_)
 	{
 		return mg / pow(1, -6);
 	}
-	static ld gram_to_kilogram(const ld g = _val_)
+	template<typename T>
+	static auto gram_to_kilogram(const T g = _val_)
 	{
 		return g / 1000;
 	}
-	static ld ounce_to_kilogram(const ld ounce = _val_)
+	template<typename T>
+	static auto ounce_to_kilogram(const T ounce = _val_)
 	{
 		return ounce / 35.274;
 	}
-	static ld watts_to_kilowatts(const ld watt = _val_)
+	template<typename T>
+	static auto watts_to_kilowatts(const T watt = _val_)
 	{
 		return watt / 1000;
 	}
-	static ld kWh_to_joules(const ld kWh = _val_)
+	template<typename T>
+	static auto kWh_to_joules(const T kWh = _val_)
 	{
 		return kWh * (3.6*pow(10, 6));
 	}
-	static ld joules_to_kWh(const ld j = _val_)
+	template<typename T>
+	static auto joules_to_kWh(const T j = _val_)
 	{
 		return j / (3.6 * pow(10, 6));
 	}
-	static ld joules_to_eV(const ld j = _val_)
+	template<typename T>
+	static auto joules_to_eV(const T j = _val_)
 	{
 		return j / _PROTON_CHARGE_;
 	}
-	static ld newtonMeters_to_ftPounds(const ld Nm = _val_)
+	template<typename T>
+	static auto newtonMeters_to_ftPounds(const T Nm = _val_)
 	{
 		return Nm / .73756;
 	}
-	static ld radians_to_revolutions(const ld rad = _val_)
+	template<typename T>
+	static auto radians_to_revolutions(const T rad = _val_)
 	{
 		return rad / (2 * _PI_);
 	}
-	static ld revolutions_to_radians(const ld rev = _val_)
+	template<typename T>
+	static auto revolutions_to_radians(const T rev = _val_)
 	{
 		return rev * 2 * _PI_;
 	}
-	static ld atm_to_pascals(const ld atm = _val_)
+	template<typename T>
+	static auto atm_to_pascals(const T atm = _val_)
 	{
 		return atm * 101325.0;
 	}

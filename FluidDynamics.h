@@ -6,8 +6,8 @@
  * @date   12/17/2020
  */
 
-#ifndef FLUIDDYNAMICS_H
-#define FLUIDDYNAMICS_H
+#ifndef FLUID_DYNAMICS_H
+#define FLUID_DYNAMICS_H
 #include <iostream>
 
 
@@ -148,7 +148,7 @@ public:
 	/**
 	 * @brief copy assignment operator
 	 */
-	FluidDynamics& operator=(const FluidDynamics& t)
+	FluidDynamics& operator=(FluidDynamics&& t) noexcept
 	{
 		if (this != &t)
 		{

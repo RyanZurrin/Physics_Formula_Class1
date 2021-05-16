@@ -53,7 +53,7 @@ static ld quadraticEquation_minus(const ld a, const ld b, const ld c)
 }
 
 class Waves :
-	public Elasticity, public Energy
+	public Elasticity, Energy
 {
 private:
 	static void countIncrease() { waves_objectCount += 1; }

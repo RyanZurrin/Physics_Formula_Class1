@@ -9,16 +9,11 @@
 #include "Vector2d.h"
 
 typedef long double ld;
+//static object counter for Elasticity class
 static int elasticity_objectCount = 0;
 
 class Elasticity
 {
-private:
-
-	static void countIncrease() { elasticity_objectCount += 1; }
-	static void countDecrease() { elasticity_objectCount -= 1; }
-	ld _elasticityVal;
-
 public:
 	static void countShow() { std::cout << "elasticity count: " << elasticity_objectCount << std::endl; }
 
@@ -234,5 +229,11 @@ public:
 		countDecrease();
 		//countShow();
 	}
+
+private:
+
+	static void countIncrease() { elasticity_objectCount += 1; }
+	static void countDecrease() { elasticity_objectCount -= 1; }
+	ld _elasticityVal;
 };
 #endif

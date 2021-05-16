@@ -5,11 +5,11 @@
  * @author Ryan Zurrin
  * @date   10/15/2020
  */
-#ifndef DYNAMICSANDFORCES_H
-#define DYNAMICSANDFORCES_H
+#ifndef DYNAMICS_AND_FORCES_H
+#define DYNAMICS_AND_FORCES_H
 #include <iostream>
 #include <vector>
-const ld GA = 9.81;
+constexpr auto GA = 9.81;
 
 static int dynamicsAndForces_objectCount = 0;
 

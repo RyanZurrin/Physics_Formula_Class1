@@ -8,10 +8,18 @@
 
 
 typedef long double ld;
-static const ld _G_ = 9.8;
-const double _PI = acos(-1);
-const double _DEGREE_ = 180 / _PI;
-const double _RADIAN_ = _PI / 180;
+//Gravitational Constant 6.67408(31) * 10^(-11) * N
+constexpr auto _GRAV_CONSTANT_ =  6.67408e-11;
+//Acceleration due to gravity = 9.81
+constexpr auto _G_ = 9.81;
+//pi = 3.14159265359
+constexpr auto _PI = 3.14159265359;
+// convert radian value to degrees
+constexpr auto _DEGREE_ = 180 / _PI;
+//convert degrees to radian value
+constexpr auto _RADIAN_ = _PI / 180;
+
+//static object counter for class
 static int friction_objectCount = 0;
 
 // static friction coefficients

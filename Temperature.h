@@ -9,6 +9,20 @@
 #define TEMPERATURE_H
 #include <iostream>
 
+/**
+ * @brief Global Constant _K_ is the Boltzmann constant
+ * .0000000000000000000000138 J/K
+ */
+constexpr auto _BOLTZMANN_K_ = 1.38e-23;//1.38e-23
+
+constexpr auto _ATOMIC_MASS_UNIT_ = 1.66e-27; //1.6605e-27 (u)
+
+/**
+ * @brief Global Constant _Na_ is  Avogadro's number and is used to express
+ * units in moles, abb(mol) and is equal to 6.02e23 mol^-1
+ */
+constexpr auto _AVOGADRO_ = 6.02e23;//6.02*10^23
+
 static struct TemperatureConversions
 {
 	static ld  celsius_to_fahrenheit(const ld c) { return (9.0 / 5.0) * c + 32.0; }
@@ -51,20 +65,6 @@ static struct ThermalExpansionCoefficients
 	const ld air_and_most_gases_at_atmospheric_pressure = 3400 * pow(10, -6);
 
 }a;
-
-/**
- * @brief Global Constant _K_ is the Boltzmann constant
- * .0000000000000000000000138 J/K
- */
-const ld BOLTZMANN_K = 1.38 * pow(10, -23);//1.38e-23
-
-const ld ATOMIC_MASS_UNIT = 1.66*pow(10, -27); //1.6605e-27 (u)
-
-/**
- * @brief Global Constant _Na_ is  Avogadro's number and is used to express
- * units in moles, abb(mol) and is equal to 6.02e23 mol^-1
- */
-const ld AVOGADRO = 6.02 * pow(10, 23);//6.02*10^23
 
 /**
  * @brief Global constant _R_ is the universal gas constant struct which has _R_
@@ -284,7 +284,7 @@ public:
 	 */
 	ld static convert_to_mol(const ld N)
 	{
-		return N / AVOGADRO;
+		return N / _AVOGADRO_;
 	}
 
 	/**
@@ -374,7 +374,7 @@ public:
 	 */
 	static ld absolutePressure_idealGasLaw(const ld V, const ld N, const ld T)
 	{
-		return (N * BOLTZMANN_K * T) / V;
+		return (N * _BOLTZMANN_K_ * T) / V;
 	}
 	/**
 	 * @brief ideal gas law PV = NkT where reworked to solve for N
@@ -387,7 +387,7 @@ public:
 	 */
 	static ld numberMolecules_idealGasLaw(const ld P, const ld V, const ld T)
 	{
-		return (P * V)/(BOLTZMANN_K * T);
+		return (P * V)/(_BOLTZMANN_K_ * T);
 	}
 
 	/**
@@ -412,7 +412,7 @@ public:
 	 */
 	static ld translationalKineticEnergy_molecules(const ld T)
 	{
-		return (3.0 / 2.0)* BOLTZMANN_K* T;
+		return (3.0 / 2.0)* _BOLTZMANN_K_* T;
 	}
 
 	/**
@@ -422,7 +422,7 @@ public:
 	 */
 	static ld speedAverage_rms(const ld m, const ld T)
 	{
-		return sqrt((3.0 * BOLTZMANN_K * T) / m);
+		return sqrt((3.0 * _BOLTZMANN_K_ * T) / m);
 	}
 
 	/**
@@ -433,7 +433,7 @@ public:
 	 */
 	static ld temperatureOfMoleculeAtVelocity(const ld m, const ld v)
 	{
-		return (m * (v * v)) / (3.0 * BOLTZMANN_K);
+		return (m * (v * v)) / (3.0 * _BOLTZMANN_K_);
 	}
 
 	/**

@@ -5,10 +5,10 @@
 #define DRAG_H
 #include <algorithm>
 #include <iostream>
-#include <string.h>
 #include "Friction.h"
 #include "Vector2d.h"
 
+//drag objects static counter
 static int drag_objectCount = 0;
 
 static struct DragCoefficients
@@ -39,7 +39,8 @@ static struct DragCoefficients
 
 }drag_coefficients;
 
-class Drag
+class Drag:
+	public Friction
 {
 
 private:

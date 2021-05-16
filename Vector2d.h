@@ -15,10 +15,10 @@ typedef  long double _ld_;
 using namespace std;
 
 
-const _ld_ _PI_ = acos(-1);
-const _ld_ DEGREE = 180/_PI_;
-const _ld_ RADIAN = _PI_/180;
-const _ld_ _Ga_ = 9.81;
+constexpr auto _PI_ = 3.14159265359;
+constexpr auto DEGREE = 180/_PI_;
+constexpr auto RADIAN = _PI_/180;
+constexpr auto _Ga_ = 9.81;
 static int object_counter = 0;
 
 class Vector
@@ -30,7 +30,7 @@ private:
 	static void countIncrease() { object_counter += 1; }
 	static void countDecrease() { object_counter -= 1; }
 public:
-	Vector* _vptr2d;
+	Vector* _vPtr2d;
 	_ld_ x;
 	_ld_ y;
 	_ld_ magnitude;
@@ -40,7 +40,7 @@ public:
 	char mode;  //sets mode to Polar w/ 'p' or Rectangular w/ 'r'
 	static void countShow() { std::cout << "vector2d count: " << object_counter << std::endl; }
 	//void    calculate_parametric_equation();
-	void 	  validate_setMode();
+	void 	 validate_setMode();
 	void    normalize_magnitude();
 	void    calculate_magnitude();
 	void    calculate_angle();
@@ -144,7 +144,7 @@ public:
 
 inline Vector::Vector()
 {
-  _vptr2d =  nullptr;
+  _vPtr2d =  nullptr;
   x = 0;
   y = 0;
   magnitude = 0.0;
@@ -161,7 +161,7 @@ inline Vector::Vector()
 
 inline Vector::Vector(char _mode)
 {
-	_vptr2d =  nullptr;
+  _vPtr2d =  nullptr;
   x = 0;
   y = 0;
   magnitude = 0;
@@ -190,7 +190,7 @@ inline Vector::Vector(_ld_ xMag, _ld_ yAng, char _mode)
 	set_coordinates(x, y, _mode);
 	calculate_arcLength();
 	arcLength = return_angle();
-	_vptr2d =  nullptr;
+	_vPtr2d =  nullptr;
 	countIncrease();
 
 }
@@ -208,7 +208,7 @@ inline Vector::Vector(const Vector &v)
 	set_coordinates(x, y, mode);
 	calculate_arcLength();
 	arcLength = return_angle();
-	_vptr2d =  nullptr;
+	_vPtr2d =  nullptr;
 	countIncrease();
 }
 inline void Vector::showAllData()const
@@ -658,7 +658,7 @@ inline Vector& Vector::operator=(Vector&& right)noexcept
 }
 inline Vector::Vector(Vector&& temp) noexcept
 {
-	_vptr2d = nullptr;
+	_vPtr2d = nullptr;
 	x = temp.x;
 	y = temp.y;
 	mode = temp.mode;
@@ -730,7 +730,7 @@ inline istream& operator>>(istream& is, Vector& v)
 }
 inline Vector::~Vector()
 {
-	delete _vptr2d;
+	delete _vPtr2d;
 	countDecrease();
 	//countShow();
 }

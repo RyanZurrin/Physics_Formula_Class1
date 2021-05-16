@@ -7,14 +7,14 @@
  * @lastEdit 5/15/2021
  */
 
-#ifndef QUANTUMPHYSICS
-#define QUANTUMPHYSICS
-typedef long double ld;
-
+#ifndef QUANTUM_PHYSICS
+#define QUANTUM_PHYSICS
+#include "SpecialRelativity.h"
 #include <iostream>
 
 static int quantum_objectCount = 0;
-class QuantumPhysics
+class QuantumPhysics :
+	public SpecialRelativity
 {
 
 public:
