@@ -71,6 +71,10 @@ public:
 	void setTemplateVar(ld var) { quantumVar = var; }
 	auto getTemplateVar() const { return quantumVar; }
 
+
+
+
+
 private:
 	ld quantumVar;
 	static void countIncrease() { quantum_objectCount += 1; }

@@ -10,6 +10,8 @@
 #include <cmath>
 #include <complex>
 #include <cassert>
+
+#include "FluidStatics.h"
 using namespace std;
 typedef  long double _ld_;
 using namespace std;
@@ -26,28 +28,9 @@ class Vector
 
    friend class Vector3D;
    //friend class Physics;
-private:
-	static void countIncrease() { object_counter += 1; }
-	static void countDecrease() { object_counter -= 1; }
+
 public:
-	Vector* _vPtr2d;
-	_ld_ x;
-	_ld_ y;
-	_ld_ magnitude;
-	_ld_ angle;
-	_ld_ arcLength;
-	_ld_ revolutionAngle_inDegrees;
 	char mode;  //sets mode to Polar w/ 'p' or Rectangular w/ 'r'
-	static void countShow() { std::cout << "vector2d count: " << object_counter << std::endl; }
-	//void    calculate_parametric_equation();
-	void 	 validate_setMode();
-	void    normalize_magnitude();
-	void    calculate_magnitude();
-	void    calculate_angle();
-	void    adjust_angle();
-	void    calculate_rectangular();
-	void    calculate_polar();
-	void    calculate_arcLength();
 	Vector  check_division(_ld_);
    static Vector  check_division(Vector);
 
@@ -91,7 +74,7 @@ public:
 	_ld_ dot_product(const Vector&)const; //scalar dot_product
 	_ld_ distance(const Vector&)const;    //gives distance between two vectors
 	_ld_ cross_product2D(const Vector&)const;    //cross_product
-	Vector normalization();   //normalized vector
+	Vector normalize_vector();   //normalized vector
 	 //virtual void setParametricPoints();
 
 	bool operator>(const Vector &)const;
@@ -137,6 +120,27 @@ public:
 	friend istream& operator>>(istream&, Vector&);
 
 	virtual ~Vector();
+
+private:
+	Vector* _vPtr2d;
+	_ld_ x;
+	_ld_ y;
+	_ld_ magnitude;
+	_ld_ angle;
+	_ld_ arcLength;
+	_ld_ revolutionAngle_inDegrees;
+	static void countShow() { std::cout << "vector2d count: " << object_counter << std::endl; }
+	//void    calculate_parametric_equation();
+	void 	 validate_setMode();
+	void    normalize_magnitude();
+	void    calculate_magnitude();
+	void    calculate_angle();
+	void    adjust_angle();
+	void    calculate_rectangular();
+	void    calculate_polar();
+	void    calculate_arcLength();
+	static void countIncrease() { object_counter += 1; }
+	static void countDecrease() { object_counter -= 1; }
 };
 #endif
 //=============================================================================
@@ -234,7 +238,7 @@ inline void Vector::showVector()const
 
 inline void Vector::showRectCord()const
 {
-	 cout << setprecision(5) << fixed;
+	 cout << setprecision(9) << fixed;
 
 	 cout << "\n(x,y) = ";
 	 if(x < 0 && x > -1 ){
@@ -256,7 +260,7 @@ inline void Vector::showRectCord()const
 }
 inline void Vector::showPolarCord()const
 {
-	cout << setprecision(5) << fixed;
+	cout << setprecision(9) << fixed;
 	 if(magnitude >= 0 && angle >= 0){
 		 cout << "\n<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";
 	 }
@@ -410,10 +414,16 @@ inline _ld_ Vector::cross_product2D(const Vector& v)const
 {
 	return (x * v.y) - (y * v.x);
 }
-inline Vector Vector::normalization()
+inline Vector Vector::normalize_vector()
 {
 	assert(find_magnitude() != 0);  // NOLINT(clang-diagnostic-float-equal)
-	*this /= find_magnitude();
+	const auto length = sqrt((this->x * this->x) + (this->y * this->y));
+	this->x /= length;
+	this->y /= length;
+	calculate_polar();
+	calculate_angle();
+	adjust_angle();
+	calculate_arcLength();
 	return *this;
 }
 inline _ld_ Vector::find_magnitude()const
@@ -469,7 +479,6 @@ inline void Vector::adjust_angle()
 		angle = new_angle;
 	}else if (angle < 0 && angle > -360){
 		angle += 360;
-		cout <<"test:" << angle << endl;
 	}else if(angle < -360){
 		const int rev_degrees = static_cast<int>(angle) /360;
 		const int to_subtract = rev_degrees *360;
@@ -549,14 +558,14 @@ inline bool Vector::operator!=(const Vector& v) const
 }
 inline Vector Vector::operator+(const _ld_ n)const
 {
-	cout << "in  Vector::operator+(const _ld_ n)const"<<endl;
+	//cout << "in  Vector::operator+(const _ld_ n)const"<<endl;
 	Vector total(x + n, y + n);
 	total.mode = mode;
 	return total;
 }
 inline Vector& Vector::operator+=(const Vector& v)
 {
-	cout << "in Vector& Vector::operator+=(const Vector& v)" << endl;
+	//cout << "in Vector& Vector::operator+=(const Vector& v)" << endl;
 	Vector sum;
 	sum.x += v.x;
 	sum.y += v.y;
@@ -565,14 +574,14 @@ inline Vector& Vector::operator+=(const Vector& v)
 }
 inline Vector Vector::operator+(const Vector& v)const
 {
-	cout << "in  Vector::operator+(const Vector& v)const"<<endl;
+  //cout << "in  Vector::operator+(const Vector& v)const"<<endl;
   Vector sum(x + v.x, y + v.y);
   sum.mode = mode;
   return sum;
 }
 inline Vector Vector::operator+()const
 {
-	cout << "in  Vector::operator+()const"<<endl;
+	//cout << "in  Vector::operator+()const"<<endl;
 	Vector total(x+x, y+y);
 	total.mode = mode;
   return total;

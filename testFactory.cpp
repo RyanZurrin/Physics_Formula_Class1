@@ -1,19 +1,36 @@
-﻿#include <functional>
+﻿#include <chrono>
 
 #include "PhysicsWorld.h"
 
 
 int main()
 {
-	PhysicsWorld e1;
-	lFactor(.250);
-	const auto x = setVal(
-		e1.circuits->
-		powerDissipation(
-			2.0,3.9
-		));
-	show_val("p", "MeV/c");
+	//starting time do not edit code between solid comment lines
+	//_________________________________________________________________________
+	const auto begin =
+		std::chrono::high_resolution_clock::now();
+	//_________________________________________________________________________
+	//add test code between starred areas
+	//*************************************************************************
 
+	Vector u(4, -7);
+	Vector w(1, 11);
+	Vector r = w - u;
+	r.showAllData();
+	r.normalize_vector();
+	r.showAllData();
+
+
+
+	//*************************************************************************
+	//calculating run time by subtracting begin time from end time and printing
+	//_________________________________________________________________________
+	const auto end =
+		std::chrono::high_resolution_clock::now();
+	const auto elapsed =
+		std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+	printf("\n\nTime measured: %.9f seconds.\n", elapsed.count() *1e-9);
+	//_________________________________________________________________________
 	return 0;
 
 }

@@ -20,7 +20,8 @@ static struct UnifiedAtomicMass
 
 static struct Elements
 {
-	Elements() { cout << "testing Element" << endl; };
+	Elements() { //cout << "testing Element" << endl;
+		};
 
 	const struct NEUTRON
 	{
