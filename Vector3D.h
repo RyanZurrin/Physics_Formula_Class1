@@ -1,4 +1,4 @@
-// Part of a final project in c++ II, this program as a whole
+﻿// Part of a final project in c++ II, this program as a whole
 // will calculate the properties of 2D and 3D objects and vectors
 // author:   Ryan Zurrin
 #ifndef VECTOR3D_H
@@ -10,9 +10,6 @@ using namespace std;
 class Vector3D : public Vector
 {
 public:
-	ld z, xAngle, yAngle, zAngle;
-	void set_allAngles();
-	void set_magnitude();
 	Vector3D check_division(ld);
 	Vector3D* _ptr3d;
 	Vector3D(); //constructor
@@ -26,7 +23,9 @@ public:
 	void set_zAngle(ld);
 	void set_coordinates(ld, ld, ld);
 	void showAllData();
+	void showRectCord()const;
 	void showPolarCord()const;
+	void showAllAngles()const;
 	void display();    //display value of vectors
 	ld returnX()const; //return x
 	ld returnY()const; //return y
@@ -39,7 +38,7 @@ public:
 	ld distance(const Vector3D &vec);    //gives distance between two vectors
 	ld find_magnitude();  //magnitude of the vector
 	Vector3D cross_product(const Vector3D &vec);    //cross_product
-	Vector3D normalization();   //normalized vector
+	Vector3D normalize_vector();   //normalized vector
 	Vector3D operator+(const Vector3D &vec)const;    //addition
 	Vector3D operator+(Vector &vec)const;
 	Vector3D &operator+=(const Vector3D &vec);  ////assigning new result to the vector
@@ -57,6 +56,14 @@ virtual Vector3D operator/(int);
 	Vector3D &operator=(const Vector3D &vec);
 	friend ostream& operator<<(ostream&, const Vector3D&);
 	~Vector3D();
+private:
+	ld z, xAngle, yAngle, zAngle,radius, inclination, azimuth;
+	void setRadius();
+	void setInclination();
+	void setAzimuth();
+	void calculate_polar();
+	void set_allAngles();
+	void set_magnitude();
 };
 #endif
 
@@ -70,7 +77,7 @@ inline Vector3D::Vector3D() //constructor
   yAngle = 0.0;
   zAngle = 0.0;
   _ptr3d =  nullptr;
- // _ptr2d = nullptr;
+  calculate_polar();
   set_allAngles();
   object_counter++;
   //cout<< object_counter << ": " <<"in the 3dVector default constructor"<<endl;
@@ -84,7 +91,7 @@ inline Vector3D::Vector3D(ld x1,ld y1,ld z1) //initializing object with values.
   yAngle = 0.0;
   zAngle = 0.0;
   _ptr3d =  nullptr;
- // _ptr2d = nullptr;
+  calculate_polar();
   set_magnitude();
   set_allAngles();
   object_counter++;
@@ -100,6 +107,7 @@ inline Vector3D::Vector3D(const Vector3D &vec)
   yAngle = 0.0;
   zAngle = 0.0;
   _ptr3d = nullptr;
+  calculate_polar();
   set_magnitude();
   set_allAngles();
   object_counter++;
@@ -110,18 +118,21 @@ inline void Vector3D::setX(ld _x)
 	x = _x;
 	set_allAngles();
 	set_magnitude();
+	calculate_polar();
 }
 inline void Vector3D::setY(ld _y)
 {
 	y = _y;
 	set_allAngles();
 	set_magnitude();
+	calculate_polar();
 }
 inline void Vector3D::setZ(ld _z)
 {
 	z = _z;
 	set_allAngles();
 	set_magnitude();
+	calculate_polar();
 }
 inline void Vector3D::set_xAngle(ld _xa)
 {
@@ -150,7 +161,7 @@ inline void Vector3D::set_coordinates(ld x1, ld y1, ld z1)
 	yAngle = 0.0;
 	zAngle = 0.0;
 	_ptr3d = nullptr;
-	// _ptr2d = nullptr;
+
 	set_magnitude();
 	set_allAngles();
 	object_counter++;
@@ -158,18 +169,69 @@ inline void Vector3D::set_coordinates(ld x1, ld y1, ld z1)
 inline void Vector3D::showAllData()
 {
 	magnitude = find_magnitude();
-	cout<< setprecision(9) << fixed;
-	cout<< "x: " << x << " ";
-	cout<< "y: " << y << " ";
-	cout<< "z: " << z << endl;
+	showRectCord();
+	showPolarCord();
+	showAllAngles();
 	cout<< "mag: " << magnitude << endl;
-	cout << "angles aX: "<< xAngle << ", aY: "<<yAngle<<", aZ: "<<zAngle
-		 << endl;
-	show_mode();
+
+}
+inline void Vector3D::showRectCord() const
+{
+	cout << setprecision(9) << fixed;
+
+	cout << "\n(x,y,z) = ";
+	if (x < 0 && x > -1) {
+		cout << setiosflags(ios::fixed);
+		cout << fixed << "(" << x << ","
+			<< resetiosflags(ios::fixed);
+	}
+	else {
+		cout << "(" << x << ",";
+	}
+	if (y<0 && y>-1) {
+		cout << setiosflags(ios::fixed);
+		cout << y << "," << endl;
+		cout << resetiosflags(ios::fixed);
+	}
+	else {
+		cout << y << ",";
+	}
+	if (z<0 && z>-1) {
+		cout << setiosflags(ios::fixed);
+		cout << z << ")" << endl;
+		cout << resetiosflags(ios::fixed);
+	}
+	else {
+		cout << z << ")";
+	}
 }
 inline void Vector3D::showPolarCord()const
 {
-	cout << setprecision(9) << fixed << "polar<" << x << ", " << y << ", " << z << ">";
+	cout << setprecision(9) << fixed << "polar<" << radius
+		 << ", " << inclination << ", " << azimuth << ">";
+}
+inline void Vector3D::showAllAngles() const
+{
+	cout << "angles aX: " << xAngle << ", aY: " << yAngle << ", aZ: " << zAngle
+		<< endl;
+}
+inline void Vector3D::setRadius()
+{
+	radius = sqrt((this->x * this->x) + (this->y * this->y) + (this->z * this->z));
+}
+inline void Vector3D::setInclination()
+{
+	inclination = acos(z / radius);
+}
+inline void Vector3D::setAzimuth()
+{
+	azimuth = atan(y / x);
+}
+inline void Vector3D::calculate_polar()
+{
+	setRadius();
+	setInclination();
+	setAzimuth();
 }
 inline void Vector3D::set_allAngles()
 {
@@ -323,10 +385,14 @@ inline ld Vector3D::square()
 	return x*x+y*y+z*z;
 }
 
-inline Vector3D Vector3D::normalization()
+inline Vector3D Vector3D::normalize_vector()
 {
 	assert(find_magnitude()!=0);
-	*this/=find_magnitude();
+	const auto length = sqrt((this->x * this->x) + (this->y * this->y) + (this->z * this->z));
+	this->x /= length;
+	this->y /= length;
+	this->z /= length;
+	set_allAngles();
 	return *this;
 }
 

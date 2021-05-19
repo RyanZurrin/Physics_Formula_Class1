@@ -9,6 +9,8 @@
 #define FLUIDSTATICS_H
 #include <iostream>
 
+#include "Friction.h"
+
 typedef long double ld;
 static int fluidStatics_objectCount = 0;
 
@@ -408,7 +410,7 @@ public:
 	 */
 	static ld pressure(const ld m, const ld l, const ld w)
 	{
-		return (m * _Ga_) / (l * w);
+		return (m * _G_) / (l * w);
 	}
 
 	/**
@@ -420,7 +422,7 @@ public:
 	 */
 	static ld pressureAvg(const ld p, const ld l, const ld h)
 	{
-		return ((p * _Ga_ * h) / 2.0) * (l * h);
+		return ((p * _G_ * h) / 2.0) * (l * h);
 	}
 
 	/// <summary>
@@ -475,7 +477,7 @@ public:
 	/// <returns>Force master cylinder</returns>
 	static ld forceMaster_hydraulicSystemPascal(const ld m, const ld dM, const ld dS)
 	{
-		return (m * _Ga_ * (dM * dM)) / (dS * dS);
+		return (m * _G_ * (dM * dM)) / (dS * dS);
 	}
 
 	/// <summary>
@@ -544,7 +546,7 @@ public:
 	/// <returns>height</returns>
 	static ld heightOfFluid(const ld pressure, const ld density)
 	{
-		return pressure / (density * _Ga_);
+		return pressure / (density * _G_);
 	}
 
 	/// <summary>
@@ -555,7 +557,7 @@ public:
 	/// <returns></returns>
 	static ld gaugePressure(const ld density, const ld height)
 	{
-		return density * _Ga_ * height;
+		return density * _G_ * height;
 	}
 
 	/// <summary>
@@ -613,7 +615,7 @@ public:
 	/// <returns>force</returns>
 	static ld forceToStaySubmerged(const ld massObj, const ld densityObj, const ld densityFluid)
 	{
-		return massObj * _Ga_ * ((densityFluid / densityObj) - 1.0);
+		return massObj * _G_ * ((densityFluid / densityObj) - 1.0);
 	}
 
 	/// <summary>
@@ -627,7 +629,7 @@ public:
 	/// <returns>max weight before sinking in fluid</returns>
 	static ld maxWeightSupportedByFloatingAirMattress(const ld massMattress, const ld length, const ld width, const ld height, const ld fluidDensity)
 	{
-		return _Ga_ * (fluidDensity * (length * width * height) - massMattress);
+		return _G_ * (fluidDensity * (length * width * height) - massMattress);
 	}
 
 	/// <summary>
@@ -653,7 +655,7 @@ public:
 	/// <returns>height the fluid will rise in a capillary tube</returns>
 	static ld capillaryTubeHeight(const ld surfaceTension, const ld contactAngle, const ld density, const ld radius)
 	{
-		return (2.0 * surfaceTension * cos(contactAngle)) / (density * _Ga_ * radius);
+		return (2.0 * surfaceTension * cos(contactAngle)) / (density * _G_ * radius);
 	}
 
 	/// <summary>
@@ -666,7 +668,7 @@ public:
 	/// <returns>the radius of a capillary tube</returns>
 	static ld capillaryTubeRadius(const ld surfaceTension, const ld contactAngle, const ld density, const ld height)
 	{
-		return (2.0 * surfaceTension * cos(contactAngle)) / (density * _Ga_ * height);
+		return (2.0 * surfaceTension * cos(contactAngle)) / (density * _G_ * height);
 	}
 
 	/// <summary>
@@ -689,7 +691,7 @@ public:
 	/// <returns>surface tension</returns>
 	static ld effectiveSurfaceTensionBalloon(const ld density, const ld height, const ld radius)
 	{
-		return (density * _Ga_ * height * radius) / 4.0;
+		return (density * _G_ * height * radius) / 4.0;
 	}
 
 	/// <summary>
@@ -701,7 +703,7 @@ public:
 	/// <returns></returns>
 	static ld heightOfCapillaryActionByRatioOfContactAngles(const ld height1, const ld contactAngle1, const ld contactAngle2)
 	{
-		return height1 * (cos(contactAngle2*RADIAN) / cos(contactAngle1*RADIAN));
+		return height1 * (cos(contactAngle2*_RADIAN_) / cos(contactAngle1*_RADIAN_));
 	}
 
 	/// <summary>
@@ -714,7 +716,7 @@ public:
 	/// <returns>contact angle</returns>
 	static ld contactAngleTheta(const ld density, const ld height, const ld radius, const ld surfaceTension)
 	{
-		return acos((density * _Ga_ * height * radius) / (2.0 * surfaceTension))*DEGREE;
+		return acos((density * _G_ * height * radius) / (2.0 * surfaceTension))*_DEGREE_;
 	}
 
 	/// <summary>
@@ -729,7 +731,7 @@ public:
 	/// <returns>ration of heights</returns>
 	static ld ratioOfHeights_capillaryAction(const ld st1, const ld ca1, const ld density1, const ld st2, const ld ca2, const ld density2)
 	{
-		return (st1 * cos(ca1*RADIAN) * density2) / (st2 * cos(ca2*RADIAN) * density1);
+		return (st1 * cos(ca1*_RADIAN_) * density2) / (st2 * cos(ca2*_RADIAN_) * density1);
 	}
 
 
