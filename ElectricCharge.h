@@ -47,6 +47,10 @@ constexpr auto _COULOMB_       = 1.0 / (_ELECTRON_CHARGE_);
 constexpr auto _ELECTRON_MASS_ = 9.11e-31;  //9.11e-31
 constexpr auto _PROTON_MASS_   = 1.673e-27; //1.673e-27
 
+constexpr auto _PLANKS_J_ = 6.62606957e-34;
+constexpr auto _PLANKS_EM_ = 4.14e-15;
+constexpr auto _PLANKS_C_ = 1240.0;
+
 static int electricCharge_objectCount = 0;
 
 static struct ScientificNotationUnits

@@ -79,7 +79,7 @@ public:
 	/// <param name="ν">The velocity .</param>
 	/// <returns>Lorentz factor, gamma (γ)</returns>
 	template<typename T>
-	static auto lorentzFactor(const T ν);
+	static constexpr auto lorentzFactor(const T ν);
 
 
 	/// <summary>
@@ -91,7 +91,7 @@ public:
 	/// <param name="t_o">The proper time.</param>
 	/// <returns>value of gamma, Lorentz factor</returns>
 	template<typename T, typename K>
-	static auto lorentzValue(const T t, const K t_o);
+	static constexpr auto lorentzValue(const T t, const K t_o);
 
 	/// <summary>
 	/// Particles called π-mesons are produced by accelerator beams. If these
@@ -103,7 +103,7 @@ public:
 	/// <param name="t_o">The time in seconds particle can live.</param>
 	/// <returns>relativistic time alive is seconds, time dilation</returns>
 	template<typename T, typename K>
-	static auto relativisticTimeDilation(const T ν, const K t_o);
+	static constexpr auto relativisticTimeDilation(const T ν, const K t_o);
 
 	/// <summary>
 	/// Suppose a particle called a kaon is created by cosmic radiation striking
@@ -114,7 +114,7 @@ public:
 	/// <param name="t_o">The relatively observed time.</param>
 	/// <returns>time from observers perspective</returns>
 	template<typename T, typename K>
-	static auto timeDilation(const T νc, const K t_o);
+	static constexpr auto timeDilation(const T νc, const K t_o);
 
 	/// <summary>
 	/// A neutral π-meson is a particle that can be created by accelerator
@@ -126,7 +126,7 @@ public:
 	/// <param name="t_o">The proper time, time at rest.</param>
 	/// <returns>speed relative to the observed time</returns>
 	template<typename T, typename K>
-	static auto relativeVelocity(const T t, const K t_o);
+	static constexpr auto relativeVelocity(const T t, const K t_o);
 
 	/// <summary>
 	/// If relativistic effects are to be less than percent_γ %, then γ must be less
@@ -135,7 +135,7 @@ public:
 	/// <param name="percent_γ">The percent of Lorentz(γ).</param>
 	/// <returns>speed to achieve desired percent of Lorentz factor</returns>
 	template<typename T>
-	static auto relativeVelocity_percentLorentz(const T percent_γ);
+	static constexpr auto relativeVelocity_percentLorentz(const T percent_γ);
 
 	/// <summary>
 	/// Calculate at what relative velocity is gamma= γ
@@ -143,7 +143,7 @@ public:
 	/// <param name="γ">The γ.</param>
 	/// <returns></returns>
 	template<typename T>
-	static auto relativeVelocity_lorantzAt(const T γ);
+	static constexpr auto relativeVelocity_lorantzAt(const T γ);
 
 	/// <summary>
 	/// A neutron lives t_o s when at rest relative to an observer. How fast
@@ -155,7 +155,7 @@ public:
 	/// <returns>speed of particle as measured by while being observed in
 	/// under proper time</returns>
 	template<typename T, typename K>
-	static auto observedVelocity(const T t, const K t_o);
+	static constexpr auto observedVelocity(const T t, const K t_o);
 
 
 	/// <summary>
@@ -168,7 +168,7 @@ public:
 	/// <param name="vc">The velocity relative to light speed c.</param>
 	/// <returns>observed length, relativistic length</returns>
 	template<typename T, typename K>
-	static auto lengthContraction(const T L_o, const K vc);
+	static constexpr auto lengthContraction(const T L_o, const K vc);
 
 	/// <summary>
 	/// How fast would a l_o m-long sports car have to be going past you in
@@ -178,7 +178,7 @@ public:
 	/// <param name="l">The relativistic length.</param>
 	/// <returns>velocity to appear length</returns>
 	template<typename T, typename K>
-	static auto speedToAppearSomeLength(const T l_o, const K l);
+	static constexpr auto speedToAppearSomeLength(const T l_o, const K l);
 
 	/// <summary>
 	/// Suppose a cosmic ray colliding with a nucleus in the Earth’s upper
@@ -192,7 +192,7 @@ public:
 	/// <returns>distance traveled by particle from stationary observers
 	/// perspective</returns>
 	template<typename T, typename K>
-	static auto distanceTraveled_earthBoundObserver(const T t_o, const K vc);
+	static constexpr auto distanceTraveled_earthBoundObserver(const T t_o, const K vc);
 
 	/// <summary>
 	/// Suppose a cosmic ray colliding with a nucleus in the Earth’s upper
@@ -207,7 +207,7 @@ public:
 	/// <param name="vc">The vc.</param>
 	/// <returns>distance traveled (m)</returns>
 	template<typename T, typename K>
-	static auto distanceTraveled_proper(const T t_o, const K vc);
+	static constexpr auto distanceTraveled_proper(const T t_o, const K vc);
 
 
 	/// <summary>
@@ -218,7 +218,7 @@ public:
 	/// <param name="γ">The γ.</param>
 	/// <returns>contracted length</returns>
 	template<typename T, typename K>
-	static auto contractedLength(const T l_o, const K γ);
+	static constexpr auto contractedLength(const T l_o, const K γ);
 
 	/// <summary>
 	///  How long does it take the astronaut  to travel
@@ -228,7 +228,7 @@ public:
 	/// <param name="vc">The velocity with respect to speed of light.</param>
 	/// <returns>time to travel some distance</returns>
 	template<typename T, typename K>
-	static auto time(const T l_o, const K vc);
+	static constexpr auto time(const T l_o, const K vc);
 
 	/// <summary>
 	/// How long does it take a astronaut to travel t units at a speed of vc units
@@ -238,7 +238,7 @@ public:
 	/// <param name="vc">The speed.</param>
 	/// <returns>proper time</returns>
 	template<typename T, typename K>
-	static auto properTime(const T t, const K vc);
+	static constexpr auto properTime(const T t, const K vc);
 
 	/// <summary>
 	/// Verify time is related through time dilation with gamma = γ as given.
@@ -247,7 +247,7 @@ public:
 	/// <param name="γ">The γ.</param>
 	/// <returns></returns>
 	template<typename T, typename K>
-	static auto timeGamma(const T t_o, const K  γ);
+	static constexpr auto timeGamma(const T t_o, const K  γ);
 
 	/// <summary>
 	/// A spaceship is heading directly toward the Earth at a velocity of
@@ -259,7 +259,7 @@ public:
 	/// <param name="uv">The uv.</param>
 	/// <returns>speed relativity relationship</returns>
 	template<typename T, typename K>
-	static auto relative_velocity_away(const T v, const K uv);
+	static constexpr auto relative_velocity_away(const T v, const K uv);
 
 	/// <summary>
 	/// Relatives the velocity towards.
@@ -268,7 +268,7 @@ public:
 	/// <param name="uv">The uv.</param>
 	/// <returns></returns>
 	template<typename T, typename K>
-	static auto relative_velocity_towards(const T v, const K uv);
+	static constexpr auto relative_velocity_towards(const T v, const K uv);
 
 	/// <summary>
 	/// When a missile is shot from one spaceship towards another, it leaves
@@ -279,7 +279,7 @@ public:
 	/// <param name="u_">The relative velocity to the other observer.</param>
 	/// <returns>relative velocity between the two observers</returns>
 	template<typename T, typename K>
-	static auto relativeVelocity_between2Objects(const T u, const K u_);
+	static constexpr auto relativeVelocity_between2Objects(const T u, const K u_);
 
 	/// <summary>
 	/// Suppose the speed of light were only 3000 m/s(c_) . A jet fighter moving
@@ -292,7 +292,7 @@ public:
 	/// <param name="c_">The speed of light.</param>
 	/// <returns>velocity relative to target</returns>
 	template<typename T, typename K, typename C>
-	static auto relative_velocity(const T v, const K uv, const C c_);
+	static constexpr auto relative_velocity(const T v, const K uv, const C c_);
 
 	/// <summary>
 	/// If a galaxy moving away from the Earth has a speed of 1000 km/s(u) and
@@ -303,7 +303,7 @@ public:
 	/// <param name="λ_s">The wavelength source.</param>
 	/// <returns>observed wavelength</returns>
 	template<typename T, typename K>
-	static auto wavelengthObserved(const T u, const K λ_s);
+	static constexpr auto wavelengthObserved(const T u, const K λ_s);
 
 	/// <summary>
 	/// A space probe speeding towards the nearest star moves at 0.250c(u) and
@@ -314,7 +314,7 @@ public:
 	/// <param name="f_s">The f s.</param>
 	/// <returns></returns>
 	template<typename T, typename K>
-	static auto frequencyObserved(const T uc, const K f_s);
+	static constexpr auto frequencyObserved(const T uc, const K f_s);
 
 	/// <summary>
 	/// Near the center of our galaxy, hydrogen gas is moving directly away
@@ -326,7 +326,7 @@ public:
 	/// <param name="λ_obs">The λ obs.</param>
 	/// <returns></returns>
 	template<typename T, typename K>
-	static auto velocity_fromWaveLengths(const T λ_s, const K λ_obs);
+	static constexpr auto velocity_fromWaveLengths(const T λ_s, const K λ_obs);
 
 	/// <summary>
 	/// A highway patrol officer uses a device that measures the speed of
@@ -341,7 +341,7 @@ public:
 	/// back to the radar gun.</param>
 	/// <returns>velocity of moving object the frequency bounced off of</returns>
 	template<typename T, typename K>
-	static auto velocity_fromFrequencyEcho(const T f_s, const K increase);
+	static constexpr auto velocity_fromFrequencyEcho(const T f_s, const K increase);
 
 	/// <summary>
 	/// All but the closest galaxies are receding from our own Milky Way Galaxy.
@@ -356,7 +356,7 @@ public:
 	/// <param name="l_o">The l o.</param>
 	/// <returns>time for probe to reach other galaxy</returns>
 	template<typename T, typename K, typename L>
-	static auto relativisticTime(const T u, const K v, const L l_o);
+	static constexpr auto relativisticTime(const T u, const K v, const L l_o);
 
 	/// <summary>
 	/// Find the momentum of a helium nucleus having a mass of 6.68×10−27 kg(m)
@@ -366,7 +366,7 @@ public:
 	/// <param name="u">The velocity.</param>
 	/// <returns>relativistic momentum</returns>
 	template<typename T, typename K>
-	static auto relativisticMomentum(const T m, const K u);
+	static constexpr auto relativisticMomentum(const T m, const K u);
 
 	/// <summary>
 	/// One cosmic ray neutron has a velocity of 0.250c relative to the Earth.
@@ -376,7 +376,7 @@ public:
 	/// <param name="E_o">The rest energy, can be looked up in tables.</param>
 	/// <returns>momentum</returns>
 	template<typename V, typename E>
-	static auto momentum_fromEnergies(const V v, const E E_o);
+	static constexpr auto momentum_fromEnergies(const V v, const E E_o);
 
 	/// <summary>
 	/// Find the momentum of a 1.00×109 kg(m) asteroid heading towards the
@@ -386,7 +386,7 @@ public:
 	/// <param name="u">The u.</param>
 	/// <returns></returns>
 	template<typename T, typename K>
-	static auto momentum_slowerObject(const T m, const K u);
+	static constexpr auto momentum_slowerObject(const T m, const K u);
 
 	/// <summary>
 	///  Find the ratio of this momentum to the classical momentum.
@@ -395,7 +395,7 @@ public:
 	/// <param name="v">The velocity.</param>
 	/// <returns>gamma, Lorentz factor</returns>
 	template<typename T>
-	static auto momentumRatios_classical2relativistic(const T v);
+	static constexpr auto momentumRatios_classical2relativistic(const T v);
 
 	/// <summary>
 	/// What is the velocity of an electron that has a momentum of
@@ -406,7 +406,7 @@ public:
 	/// <param name="m">The mass.</param>
 	/// <returns>velocity</returns>
 	template<typename T, typename M>
-	static auto velocityFrom_momentum(const T p, const M m);
+	static constexpr auto velocityFrom_momentum(const T p, const M m);
 
 	/// <summary>
 	/// What is the rest energy of an electron, given its mass is 9.11
@@ -415,7 +415,7 @@ public:
 	/// <param name="m">The mass.</param>
 	/// <returns>energy in joules</returns>
 	template<typename T>
-	static auto newtonsEnergy(const T m);
+	static constexpr auto newtonsEnergy(const T m);
 
 	/// <summary>
 	/// Calculates the mass from rest energy.
@@ -423,7 +423,7 @@ public:
 	/// <param name="E_o">The rest energy o.</param>
 	/// <returns>mass in kg</returns>
 	template<typename T>
-	static auto mass_fromRestEnergy(const T E_o);
+	static constexpr auto mass_fromRestEnergy(const T E_o);
 
 	/// <summary>
 	/// If the rest energies of a proton and a neutron (the two constituents
@@ -434,7 +434,7 @@ public:
 	/// <param name="E_o2">The rest energy 2.</param>
 	/// <returns>difference in Mass</returns>
 	template<typename T, typename K>
-	static auto difference_inMass_fromRestEnergies(const T E_o1, const K E_o2);
+	static constexpr auto difference_inMass_fromRestEnergies(const T E_o1, const K E_o2);
 
 	/// <summary>
 	/// The Big Bang that began the universe is estimated to have released
@@ -445,7 +445,7 @@ public:
 	/// <param name="m">The mass.</param>
 	/// <returns>N objects that can be made(stars) from energy</returns>
 	template<typename T, typename K>
-	static auto objectsMade(const T E_o, const K m);
+	static constexpr auto objectsMade(const T E_o, const K m);
 
 	/// <summary>
 	/// Relativistics the total energy.
@@ -454,7 +454,7 @@ public:
 	/// <param name="m">The m.</param>
 	/// <returns></returns>
 	template<typename P, typename M>
-	static auto relativisticTotalEnergy(const P p, const M m);
+	static constexpr auto relativisticTotalEnergy(const P p, const M m);
 
 	/// <summary>
 	/// A supernova explosion of a 2.00×1030 kg star produces 1.00×1044 J of
@@ -465,7 +465,7 @@ public:
 	/// <param name="m_i">The m i.</param>
 	/// <returns></returns>
 	template<typename T, typename K>
-	static auto ratioOfMassUsedAsEnergy(const T m, const K m_i);
+	static constexpr auto ratioOfMassUsedAsEnergy(const T m, const K m_i);
 
 	/// <summary>
 	/// Calculates the kinetics energy.
@@ -474,7 +474,7 @@ public:
 	/// <param name="m">The mass.</param>
 	/// <returns>kinetic energy (J)</returns>
 	template<typename T, typename K>
-	static auto kineticEnergy(const T γ, const K m);
+	static constexpr auto kineticEnergy(const T γ, const K m);
 
 	/// <summary>
 	/// Totals the energy.
@@ -483,7 +483,7 @@ public:
 	/// <param name="v">The v.</param>
 	/// <returns></returns>
 	template<typename E, typename V>
-	static auto totalEnergy(const E E_o, const V v);
+	static constexpr auto totalEnergy(const E E_o, const V v);
 
 	/// <summary>
 	/// Calculate the relativistic kinetic energy of a 1000-kg(m) car moving at
@@ -494,7 +494,7 @@ public:
 	/// <param name="c_">The speed of light.</param>
 	/// <returns>relativistic kinetic energy</returns>
 	template<typename V, typename M, typename C>
-	static auto relativisticKineticEnergy(const V v, const M m, const C c_ = _C_);
+	static  auto relativisticKineticEnergy(const V v, const M m, const C c_ = _C_);
 
 	/// <summary>
 	/// Calculate the kinetic energy in MeV of a π-meson that lives 1.40×10−16 s(t)
@@ -506,7 +506,7 @@ public:
 	/// <param name="E_o">The rest energy.</param>
 	/// <returns>kinetic energy</returns>
 	template<typename T, typename T1, typename E>
-	static auto kineticEnergy_fromTimesAndRestEnergy(const T t_o, const T1 t, const E E_o);
+	static constexpr auto kineticEnergy_fromTimesAndRestEnergy(const T t_o, const T1 t, const E E_o);
 
 	/// <summary>
 	/// A muon has a rest mass energy of 105.7 MeV(m_i), and it decays into an
@@ -518,7 +518,7 @@ public:
 	/// <param name="m_d">The rest mass of particle after decay.</param>
 	/// <returns></returns>
 	template<typename T, typename M>
-	static auto gamma_fromRestMassesOfDecayingParticle(const T m_i, const M m_d);
+	static constexpr auto gamma_fromRestMassesOfDecayingParticle(const T m_i, const M m_d);
 
 	/// <summary>
 	/// A π-meson is a particle that decays into a muon and a mass-less particle.
@@ -531,7 +531,7 @@ public:
 	/// <param name="E_f">The e f.</param>
 	/// <returns>gamma γ</returns>
 	template<typename T, typename E>
-	static auto gamma_fromRestMassEnergies(const T E_i, const E E_f);
+	static constexpr auto gamma_fromRestMassEnergies(const T E_i, const E E_f);
 
 	/// <summary>
 	/// What is γ for a proton->(q) having a mass energy of 938.3 MeV->(M) accelerated
@@ -543,7 +543,7 @@ public:
 	/// <param name="m">The mass energy.</param>
 	/// <returns>gamma γ</returns>
 	template<typename Q, typename V, typename M>
-	static auto gamma_fromAccelerationThroughVoltage(const Q q, const V volts, const M m);
+	static constexpr auto gamma_fromAccelerationThroughVoltage(const Q q, const V volts, const M m);
 
 	/// <summary>
 	/// Calculate the effective accelerating potential for electrons->(m) at the
@@ -554,7 +554,7 @@ public:
 	/// <param name="q">The charge of particle.</param>
 	/// <returns>the effective volts needed to accelerate particle</returns>
 	template<typename G, typename M, typename Q>
-	static auto effectiveAccelerationPotential(const G γ, const M m, const Q q);
+	static constexpr auto effectiveAccelerationPotential(const G γ, const M m, const Q q);
 
 	/// <summary>
 	/// Using a calculation of the energy released by the destruction of 1.00 kg->(m)
@@ -565,7 +565,7 @@ public:
 	/// <param name="h">The h.</param>
 	/// <returns></returns>
 	template<typename M, typename H>
-	static auto forDestructionMassHowManyKgCanBeLiftedHeightKm(const M m, const H h);
+	static constexpr auto forDestructionMassHowManyKgCanBeLiftedHeightKm(const M m, const H h);
 
 
 
@@ -586,231 +586,231 @@ private:
 #endif
 
 template<typename T>
-inline auto SpecialRelativity::lorentzFactor(const T ν)
+constexpr auto SpecialRelativity::lorentzFactor(const T ν)
 {
 	return 1.0 / sqrt(1.0 - (ν * ν));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::lorentzValue(const T t, const K t_o)
+constexpr auto SpecialRelativity::lorentzValue(const T t, const K t_o)
 {
 	return t / t_o;
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::relativisticTimeDilation(const T ν, const K t_o)
+constexpr auto SpecialRelativity::relativisticTimeDilation(const T ν, const K t_o)
 {
 	return t_o / sqrt(1.0 - ((ν * ν)/(C_*C_) ));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::timeDilation(const T νc, const K t_o)
+constexpr auto SpecialRelativity::timeDilation(const T νc, const K t_o)
 {
 	return t_o / sqrt(1.0 - (νc * νc));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::relativeVelocity(const T t, const K t_o)
+constexpr auto SpecialRelativity::relativeVelocity(const T t, const K t_o)
 {
 	return (_C_ / t) * sqrt(pow(t, 2) - pow(t_o, 2));
 }
 
 template<typename T>
-inline auto SpecialRelativity::relativeVelocity_percentLorentz(const T percent_γ)
+constexpr auto SpecialRelativity::relativeVelocity_percentLorentz(const T percent_γ)
 {// γ = gamma = Lorentz
 	const auto γ = 1.00 + percent_γ / 100;
 	return (_C_ / γ) * sqrt((γ * γ) - 1);
 }
 
 template<typename T>
-inline auto SpecialRelativity::relativeVelocity_lorantzAt(const T γ)
+constexpr auto SpecialRelativity::relativeVelocity_lorantzAt(const T γ)
 {
 	return _C_ * sqrt(1.0 - (1.0 / (γ * γ)));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::observedVelocity(const T t, const K t_o)
+constexpr auto SpecialRelativity::observedVelocity(const T t, const K t_o)
 {
 	return _C_ * sqrt((1.0 - (t_o * t_o) / (t * t)));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::lengthContraction(const T L_o, const K vc)
+constexpr auto SpecialRelativity::lengthContraction(const T L_o, const K vc)
 {
 	return L_o * sqrt(1.0 - (vc * vc));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::speedToAppearSomeLength(const T l_o, const K l)
+constexpr auto SpecialRelativity::speedToAppearSomeLength(const T l_o, const K l)
 {
 	return _C_ * sqrt(1.0 - ((l*l)/ (l_o* l_o)));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::distanceTraveled_earthBoundObserver(const T t_o, const K vc)
+constexpr auto SpecialRelativity::distanceTraveled_earthBoundObserver(const T t_o, const K vc)
 {
 	return sqrt(1.0 - (vc * vc)) * vc * _C_ * t_o;
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::distanceTraveled_proper(const T t_o, const K vc)
+constexpr auto SpecialRelativity::distanceTraveled_proper(const T t_o, const K vc)
 {
 	return vc * _C_ * t_o;
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::contractedLength(const T l_o, const K γ)
+constexpr auto SpecialRelativity::contractedLength(const T l_o, const K γ)
 {
 	return l_o / γ;
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::time(const T l_o, const K vc)
+constexpr auto SpecialRelativity::time(const T l_o, const K vc)
 {
 	return l_o / (vc*_C_);
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::properTime(const T t, const K vc)
+constexpr auto SpecialRelativity::properTime(const T t, const K vc)
 {
 	return sqrt(1.0 - (vc * vc)) * t;
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::timeGamma(const T t_o, const K γ)
+constexpr auto SpecialRelativity::timeGamma(const T t_o, const K γ)
 {
 	return  γ * t_o;
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::relative_velocity_away(const T v, const K uv)
+constexpr auto SpecialRelativity::relative_velocity_away(const T v, const K uv)
 {
 	return (v - uv) / (1.0 - (v * uv));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::relative_velocity_towards(const T v, const K uv)
+constexpr auto SpecialRelativity::relative_velocity_towards(const T v, const K uv)
 {
 	return (v + uv) / (1.0 + (v * uv));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::relativeVelocity_between2Objects(const T u, const K u_)
+constexpr auto SpecialRelativity::relativeVelocity_between2Objects(const T u, const K u_)
 {
 	return (u_ - u) / ((u_ * u) - 1);
 }
 
 template<typename T, typename K, typename C>
-inline auto SpecialRelativity::relative_velocity(const T v, const K uv, const C c_)
+constexpr auto SpecialRelativity::relative_velocity(const T v, const K uv, const C c_)
 {
 	return (v + uv) / (1.0 + ((v * uv)/(c_*c_)));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::wavelengthObserved(const T u, const K λ_s)
+constexpr auto SpecialRelativity::wavelengthObserved(const T u, const K λ_s)
 {
 	return λ_s * sqrt((1.0 + (u / _C_)) / (1.0 - (u / _C_)));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::frequencyObserved(const T uc, const K f_s)
+constexpr auto SpecialRelativity::frequencyObserved(const T uc, const K f_s)
 {
 	return f_s * sqrt((1.0 - (uc )) / (1.0 + (uc )));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::velocity_fromWaveLengths(const T λ_s, const K λ_obs)
+constexpr auto SpecialRelativity::velocity_fromWaveLengths(const T λ_s, const K λ_obs)
 {
 	return _C_ * ((((λ_obs * λ_obs) / (λ_s * λ_s)) - 1.0) / (1.0 + (((λ_obs * λ_obs) / (λ_s * λ_s)))));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::velocity_fromFrequencyEcho(const T f_s, const K increase)
+constexpr auto SpecialRelativity::velocity_fromFrequencyEcho(const T f_s, const K increase)
 {
 	return _C_ * (-increase) / (2.0 * f_s + increase);
 }
 
 template<typename T, typename K, typename L>
-inline auto SpecialRelativity::relativisticTime(const T u, const K v, const L l_o)
+constexpr auto SpecialRelativity::relativisticTime(const T u, const K v, const L l_o)
 {
 	return l_o / (u - v);
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::relativisticMomentum(const T m, const K u)
+constexpr auto SpecialRelativity::relativisticMomentum(const T m, const K u)
 {
 	return (m * (u * _C_)) / sqrt(1.0 - (u * u));
 }
 
 template<typename V, typename E>
-inline auto SpecialRelativity::momentum_fromEnergies(const V v, const E E_o)
+constexpr auto SpecialRelativity::momentum_fromEnergies(const V v, const E E_o)
 {
 	const auto E_ = totalEnergy(E_o, v);
 	return sqrt((E_ * E_) - (E_o * E_o) );
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::momentum_slowerObject(const T m, const K u)
+constexpr auto SpecialRelativity::momentum_slowerObject(const T m, const K u)
 {
 	return (m * u) / sqrt(1.0 - ((u * u)/(_C_*_C_)));
 }
 
 template<typename T>
-inline auto SpecialRelativity::momentumRatios_classical2relativistic(const T v)
+constexpr auto SpecialRelativity::momentumRatios_classical2relativistic(const T v)
 {
 	return 1.0 + (1 / 2) * ((v * v) / (_C_ * _C_));
 }
 
 template<typename T, typename M>
-inline auto SpecialRelativity::velocityFrom_momentum(const T p, const M m)
+constexpr auto SpecialRelativity::velocityFrom_momentum(const T p, const M m)
 {
 	return p / sqrt((m * m) + ((p * p) / (_C_ * _C_)));
 }
 
 template<typename T>
-inline auto SpecialRelativity::newtonsEnergy(const T m)
+constexpr auto SpecialRelativity::newtonsEnergy(const T m)
 {
 	return m * (_C_ * _C_);
 }
 
 template<typename T>
-inline auto SpecialRelativity::mass_fromRestEnergy(const T E_o)
+constexpr auto SpecialRelativity::mass_fromRestEnergy(const T E_o)
 {
 	return E_o / (_C_ * _C_);
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::difference_inMass_fromRestEnergies(const T E_o1, const K E_o2)
+constexpr auto SpecialRelativity::difference_inMass_fromRestEnergies(const T E_o1, const K E_o2)
 {
 	return abs((E_o1 - E_o2) / (_C_ * _C_));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::objectsMade(const T E_o, const K m)
+constexpr auto SpecialRelativity::objectsMade(const T E_o, const K m)
 {
 	return E_o / (2.0 * m * (_C_ * _C_));
 }
 
 template<typename P, typename M>
-inline auto SpecialRelativity::relativisticTotalEnergy(const P p, const M m)
+constexpr auto SpecialRelativity::relativisticTotalEnergy(const P p, const M m)
 {
-	return sqrt((pow(p * _C_) + pow(m * (_C_ * _C_), 2)));
+	return sqrt((pow(p * _C_,2) + pow(m * (_C_ * _C_), 2)));
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::ratioOfMassUsedAsEnergy(const T m, const K m_i)
+constexpr auto SpecialRelativity::ratioOfMassUsedAsEnergy(const T m, const K m_i)
 {
 	return m / m_i;
 }
 
 template<typename T, typename K>
-inline auto SpecialRelativity::kineticEnergy(const T γ, const K m)
+constexpr auto SpecialRelativity::kineticEnergy(const T γ, const K m)
 {
 	return (γ - 1.0) * m * (_C_ * _C_);
 }
 
 template<typename E, typename V>
-inline auto SpecialRelativity::totalEnergy(const E E_o, const V v)
+constexpr auto SpecialRelativity::totalEnergy(const E E_o, const V v)
 {
 	return E_o / sqrt(1.0 - (v * v));
 }
@@ -822,37 +822,37 @@ inline auto SpecialRelativity::relativisticKineticEnergy(const V v, const M m, c
 }
 
 template<typename T, typename T1, typename E>
-inline auto SpecialRelativity::kineticEnergy_fromTimesAndRestEnergy(const T t_o, const T1 t, const E E_o)
+constexpr auto SpecialRelativity::kineticEnergy_fromTimesAndRestEnergy(const T t_o, const T1 t, const E E_o)
 {
 	return ((t / t_o) - 1.0) * E_o;
 }
 
 template<typename T, typename M>
-inline auto SpecialRelativity::gamma_fromRestMassesOfDecayingParticle(const T m_i, const M m_d)
+constexpr auto SpecialRelativity::gamma_fromRestMassesOfDecayingParticle(const T m_i, const M m_d)
 {
 	return m_i / m_d;
 }
 
 template<typename T, typename E>
-inline auto SpecialRelativity::gamma_fromRestMassEnergies(const T E_i, const E E_f)
+constexpr auto SpecialRelativity::gamma_fromRestMassEnergies(const T E_i, const E E_f)
 {
 	return ((E_i - E_f) / E_f) + 1.0;
 }
 
 template<typename Q, typename V, typename M>
-inline auto SpecialRelativity::gamma_fromAccelerationThroughVoltage(const Q q, const V volts, const M m)
+constexpr auto SpecialRelativity::gamma_fromAccelerationThroughVoltage(const Q q, const V volts, const M m)
 {
 	return ((q * volts) / (m * (_C_ * _C_))) + 1.0;
 }
 
 template<typename G, typename M, typename Q>
-inline auto SpecialRelativity::effectiveAccelerationPotential(const G γ, const M m, const Q q)
+constexpr auto SpecialRelativity::effectiveAccelerationPotential(const G γ, const M m, const Q q)
 {
 	return ((γ - 1.0) * m * (_C_ * _C_)) / q;
 }
 
 template<typename M, typename H>
-inline auto SpecialRelativity::forDestructionMassHowManyKgCanBeLiftedHeightKm(const M m, const H h)
+constexpr auto SpecialRelativity::forDestructionMassHowManyKgCanBeLiftedHeightKm(const M m, const H h)
 {
 	const auto PE = newtonsEnergy(m);
 	return PE / (_Ga_ * h);
