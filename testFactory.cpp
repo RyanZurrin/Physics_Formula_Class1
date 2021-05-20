@@ -13,12 +13,8 @@ int main()
 	//add test code between starred areas
 	//*************************************************************************
 
-	Vector u(4, -7);
-	Vector w(1, 11);
-	Vector r = w - u;
-	r.showAllData();
-	r.normalize_vector();
-	r.showAllData();
+	setVal(QuantumPhysics::maximumKineticEnergy(450, 2.28));
+	show_val("E", "eV");
 
 
 
@@ -36,6 +32,11 @@ int main()
 }
 
 /*
+ *	Vector u(7, 100);
+	Vector w(5, 290);
+	Vector r = u + w;
+	r.showAllData();
+ *
  *	//ld n2 = setVal(e1.geometric_optics->indexOfRefractionFromCriticalAngle(53.6, 1.00));
 	//show_val("n2", "");
 
