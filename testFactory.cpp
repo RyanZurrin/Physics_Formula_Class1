@@ -12,6 +12,7 @@ int main()
 	//_________________________________________________________________________
 	//add test code between starred areas
 	//*************************************************************************
+
 	Matrix<ld, 3, 1> m1;
 	m1 << -3, -5, -2;
 	std::cout << "matrix m1:\n"<<m1<<std::endl;
@@ -25,6 +26,7 @@ int main()
 	Matrix<ld, 3, 1> m5 = m1 * 3.1;
 	std::cout << "matrix m5=m1*3.1:\n"<<m5<<std::endl;
 	std::cout << "matrix m4 cross:\n"<<m4<<std::endl;
+
 
 
 	/*
@@ -53,6 +55,17 @@ int main()
 }
 
 /*
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  *	Vector u(7, 100);
 	Vector w(5, 290);
 	Vector r = u + w;
@@ -103,5 +116,40 @@ int main()
 	//const ld n = 1.66;
 	//printMapByValue(refractions, z);
  *
+ *
+ *
+ *
+ *
+ *
+ *	// First you need to create the PhysicsCommon object.
+	// This is a factory module that you can use to create physics
+	// world and other objects. It is also responsible for
+	// logging and memory management
+	PhysicsCommon physicsCommon;
+
+	// Create a physics world
+	PhysicsWorld* world = physicsCommon.createPhysicsWorld();
+	// Create a rigid body in the world
+	rp3d::Vector3 position(0, 20, 0);
+	rp3d::Quaternion orientation = rp3d::Quaternion::identity();
+	rp3d::Transform transform(position, orientation);
+	RigidBody* body = world->createRigidBody(transform);
+
+	const decimal timeStep = 1.0f / 60.0f;
+
+	// Step the simulation a few steps
+	for (int i=0; i < 20; i++) {
+
+		world->update(timeStep);
+
+		// Get the updated position of the body
+		const rp3d::Transform& transform = body->getTransform();
+		const rp3d::Vector3& position = transform.getPosition();
+
+		// Display the position of the body
+		std::cout << "Body Position: (" << position.x << ", " <<
+	  position.y << ", " << position.z << ")" << std::endl;
+	}
+
  *
  */

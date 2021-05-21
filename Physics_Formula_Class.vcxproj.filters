@@ -133,5 +133,8 @@
     <Text Include="oldProblems.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="CMakeLists.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

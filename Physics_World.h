@@ -46,8 +46,8 @@
 #include "SpecialRelativity.h"
 #include "QuantumPhysics.h"
 using namespace Eigen;
-//using namespace reactphysics3d;
-class PhysicsWorld;
+using namespace reactphysics3d;
+//class Physics_World;
 typedef long double ld;
 
 static auto physics_objectCount = 0;
@@ -763,11 +763,8 @@ public:
 	VisionOpticalInstruments* vision_optical;
 	SpecialRelativity* relativity;
 	QuantumPhysics* quantum;
-
-
-	//PhysicsCommon * physics_common;
-	//PhysicsWorld * world;
 	Physics_World * _ptr_;
+
 
 	Physics_World();
 	Physics_World(ld t1, ld t2, ld t3);

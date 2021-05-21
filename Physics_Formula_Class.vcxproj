@@ -60,6 +60,7 @@
     <ClCompile Include="testFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="CMakeLists.txt" />
     <Text Include="oldProblems.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
