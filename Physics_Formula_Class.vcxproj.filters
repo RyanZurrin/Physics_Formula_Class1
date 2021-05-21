@@ -51,9 +51,6 @@
     <ClInclude Include="FluidStatics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsWorld.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Temperature.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -121,6 +118,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VectorNd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics_World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

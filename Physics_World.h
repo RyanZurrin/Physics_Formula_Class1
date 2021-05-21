@@ -709,7 +709,7 @@ static struct Densities
 /// specific classes. This class instantiates all them classes for use in the
 /// testFactory.cpp driver file.
 /// </summary>
-class PhysicsWorld
+class Physics_World
 {
 private:
 	static void countIncrease() { physics_objectCount += 1; }
@@ -767,14 +767,14 @@ public:
 
 	//PhysicsCommon * physics_common;
 	//PhysicsWorld * world;
-	PhysicsWorld * _ptr_;
+	Physics_World * _ptr_;
 
-	PhysicsWorld();
-	PhysicsWorld(ld t1, ld t2, ld t3);
-	PhysicsWorld(ld t1, ld t2);
-	PhysicsWorld(const PhysicsWorld&); //copy constructor
-	PhysicsWorld& operator=(const PhysicsWorld&); //copy assignment operator
-	PhysicsWorld(PhysicsWorld&& o) noexcept :
+	Physics_World();
+	Physics_World(ld t1, ld t2, ld t3);
+	Physics_World(ld t1, ld t2);
+	Physics_World(const Physics_World&); //copy constructor
+	Physics_World& operator=(const Physics_World&); //copy assignment operator
+	Physics_World(Physics_World&& o) noexcept :
 		kinematics(o.kinematics),
 		friction(o.friction),
 		drag(o.drag),
@@ -813,13 +813,13 @@ public:
 	/**========================================================================
 	 * overloaded operators
 	 */
-	PhysicsWorld operator+(const PhysicsWorld& r)const
+	Physics_World operator+(const Physics_World& r)const
 	{
 		double x, y, z;
 		x = static_cast<ld>(vector3d->returnX() + r.vector3d->returnX());
 		y = static_cast<ld>(vector3d->returnY() + r.vector3d->returnY());
 		z = static_cast<ld>(vector3d->returnZ() + r.vector3d->returnZ());
-		PhysicsWorld sum;
+		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + r.vector2d->return_x());
 		y = static_cast<ld>(vector2d->return_y() + r.vector2d->return_y());
@@ -828,13 +828,13 @@ public:
 		sum.vector2d->mode = this->vector2d->mode;
 		return sum;
 	}
-	PhysicsWorld operator+(_ld_ n)const
+	Physics_World operator+(_ld_ n)const
 	{
 		double x, y, z;
 		x = static_cast<ld>(vector3d->returnX() + n);
 		y = static_cast<ld>(vector3d->returnY() + n);
 		z = static_cast<ld>(vector3d->returnZ() + n);
-		PhysicsWorld sum;
+		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + n);
 		y = static_cast<ld>(vector2d->return_y() + n);
@@ -845,13 +845,13 @@ public:
 		return sum;
 	}
 
-	PhysicsWorld& operator+=(const PhysicsWorld& r)
+	Physics_World& operator+=(const Physics_World& r)
 	{
 		double x, y, z;
 		x = static_cast<ld>(vector3d->returnX() + r.vector3d->returnX());
 		y = static_cast<ld>(vector3d->returnY() + r.vector3d->returnY());
 		z = static_cast<ld>(vector3d->returnZ() + r.vector3d->returnZ());
-		PhysicsWorld sum;
+		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + r.vector2d->return_x());
 		y = static_cast<ld>(vector2d->return_y() + r.vector2d->return_y());
@@ -861,13 +861,13 @@ public:
 		return sum;
 
 	}
-	PhysicsWorld operator+()const
+	Physics_World operator+()const
 	{
 		double x, y, z;
 		x = static_cast<ld>(vector3d->returnX() + 1.0);
 		y = static_cast<ld>(vector3d->returnY() + 1.0);
 		z = static_cast<ld>(vector3d->returnZ() + 1.0);
-		PhysicsWorld sum;
+		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + 1.0);
 		y = static_cast<ld>( vector2d->return_y() + 1.0);
@@ -880,9 +880,10 @@ public:
 	}
 
 	// destructor
-	~PhysicsWorld();
+	~Physics_World();
 };
-#endif // !PHYSICSWORLD_H
+#endif
+
 
 //=============================================================================
 //in-line class Implementation
@@ -890,7 +891,7 @@ public:
 /**
  *default constructor
  */
-inline PhysicsWorld::PhysicsWorld()
+inline Physics_World::Physics_World()
 {
 	_ptr_ = nullptr;
 	kinematics = new Kinematics;
@@ -932,7 +933,7 @@ inline PhysicsWorld::PhysicsWorld()
 /**
  *copy constructor
  */
-inline PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
+inline Physics_World::Physics_World(const Physics_World& p)
 {
 	_ptr_ = p._ptr_;
 	//vector_values = p.vector_values;
@@ -974,7 +975,7 @@ inline PhysicsWorld::PhysicsWorld(const PhysicsWorld& p)
 /**
  *copy assignment operator
  */
-inline PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
+inline Physics_World& Physics_World::operator=(const Physics_World& r)
 {
 	if(this != &r)
 	{
@@ -1018,7 +1019,7 @@ inline PhysicsWorld& PhysicsWorld::operator=(const PhysicsWorld& r)
 	return *this;
 }
 
-inline PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
+inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 {
 	_ptr_ = nullptr;
 	kinematics = new Kinematics;
@@ -1060,7 +1061,7 @@ inline PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	countIncrease();
 }
 
-inline PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
+inline Physics_World::Physics_World(const ld t1, const ld t2)
 {
 	drag = new Drag;
 	kinematics = new Kinematics;
@@ -1099,7 +1100,7 @@ inline PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	this->vector2d->set_coordinates(t1, t2);
 }
 
-inline PhysicsWorld::~PhysicsWorld()
+inline Physics_World::~Physics_World()
 {
 	delete kinematics;
 	delete elasticity;
