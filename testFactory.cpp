@@ -12,10 +12,31 @@ int main()
 	//_________________________________________________________________________
 	//add test code between starred areas
 	//*************************************************************************
+	Matrix<ld, 3, 1> m1;
+	m1 << -3, -5, -2;
+	std::cout << "matrix m1:\n"<<m1<<std::endl;
+	Matrix<ld, 3, 1> m2;
+	m2 << 4, -4, -5;
+	std::cout << "matrix m2:\n"<<m2<<std::endl;
+	Matrix<ld, 3, 1> m3 = m1 + m2;
+	std::cout << "matrix m3= m1+m2:\n"<<m3<<std::endl;
+	Matrix<ld, 3, 1> m4 = m1.cross(m2);
+	std::cout << "matrix m2 length:\n"<<sqrt(m2.dot(m2))<<std::endl;
+	Matrix<ld, 3, 1> m5 = m1 * 3.1;
+	std::cout << "matrix m5=m1*3.1:\n"<<m5<<std::endl;
+	std::cout << "matrix m4 cross:\n"<<m4<<std::endl;
 
-	setVal(QuantumPhysics::maximumKineticEnergy(450, 2.28));
-	show_val("E", "eV");
 
+	/*
+	Vector2D u(2, 5);
+	Vector2D w(7, 1);
+	std::cout << "\ndot product: "<< w.dot_product(u) << std::endl;
+	Vector3D a(1, 2, 3);
+	Vector3D b(-2, 0, 5);
+	std::cout << "\ndot product3: "<< b.dot_product(a) << std::endl;
+	*/
+	//Vector r = u + w;
+	//r.showAllData();
 
 
 	//*************************************************************************

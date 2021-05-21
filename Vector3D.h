@@ -3,11 +3,11 @@
 // author:   Ryan Zurrin
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
-#include "Vector2d.h"
+#include "Vector2D.h"
 
 using namespace std;
 
-class Vector3D : public Vector
+class Vector3D : public Vector2D
 {
 public:
 	Vector3D check_division(ld);
@@ -40,7 +40,7 @@ public:
 	Vector3D cross_product(const Vector3D &vec);    //cross_product
 	Vector3D normalize_vector();   //normalized vector
 	Vector3D operator+(const Vector3D &vec)const;    //addition
-	Vector3D operator+(Vector &vec)const;
+	Vector3D operator+(Vector3D &vec)const;
 	Vector3D &operator+=(const Vector3D &vec);  ////assigning new result to the vector
 	Vector3D operator-(const Vector3D &vec);    //substraction
 	Vector3D operator-(const ld number)const;
@@ -98,7 +98,7 @@ inline Vector3D::Vector3D(ld x1,ld y1,ld z1) //initializing object with values.
 	//cout<< object_counter << ": " <<"in the x,y,z constructor" << endl;;
 }
 inline Vector3D::Vector3D(const Vector3D &vec)
-	: Vector(vec)
+	: Vector2D(vec)
 {
   x=vec.x;
   y=vec.y;
@@ -204,11 +204,12 @@ inline void Vector3D::showRectCord() const
 	else {
 		cout << z << ")";
 	}
+	std::cout << std::endl;
 }
 inline void Vector3D::showPolarCord()const
 {
 	cout << setprecision(9) << fixed << "polar<" << radius
-		 << ", " << inclination << ", " << azimuth << ">";
+		 << ", " << inclination << ", " << azimuth << ">"<<std::endl;
 }
 inline void Vector3D::showAllAngles() const
 {
@@ -257,7 +258,7 @@ inline Vector3D Vector3D::operator+(const Vector3D &vec)const
 	cout << "in Vector3D::operator+(const Vector3D &vec)"<<endl;
 	return Vector3D(x+vec.x,y+vec.y,z+vec.z);
 }
-inline Vector3D Vector3D::operator+(Vector &vec)const
+inline Vector3D Vector3D::operator+(Vector3D &vec)const
 {
 	cout << "in Vector3D::operator+(Vector &vec)const "<<endl;
 	return Vector3D(x+vec.x,y+vec.y,z);

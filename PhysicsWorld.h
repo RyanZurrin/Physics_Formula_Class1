@@ -5,9 +5,12 @@
  * @author Ryan Zurrin
  * @date   10/15/2020
  */
-#ifndef PHYSICSWORLD_H
-#define PHYSICSWORLD_H
-
+#ifndef PHYSICS_WORLD_H
+#define PHYSICS_WORLD_H
+#include <reactphysics3d/reactphysics3d.h>
+#include <gsl/gsl_linalg.h>
+#include <gsl/gsl_integration.h>
+#include <Eigen/Eigen>
 #include <cmath>
 #include <iostream>
 #include "Circuits.h"
@@ -42,8 +45,8 @@
 #include "Waves.h"
 #include "SpecialRelativity.h"
 #include "QuantumPhysics.h"
-
-
+using namespace Eigen;
+//using namespace reactphysics3d;
 class PhysicsWorld;
 typedef long double ld;
 
@@ -727,14 +730,12 @@ public:
 		cout << endl;
 	}
 
-	//PhysicsCommon  physics_common;
-	//PhysicsWorld* world;
 	Kinematics* kinematics;
 	Friction* friction;
 	Drag* drag;
 	Elasticity* elasticity;
 	UniformCircularMotion* uniformCircularMotion;
-	Vector* vector2d;
+	Vector2D* vector2d;
 	Vector3D* vector3d;
 	Energy* energy;
 	Momentum* momentum;
@@ -897,7 +898,7 @@ inline PhysicsWorld::PhysicsWorld()
 	elasticity = new Elasticity;
 	friction = new Friction;
 	uniformCircularMotion = new UniformCircularMotion;
-	vector2d = new Vector;
+	vector2d = new Vector2D;
 	vector3d = new Vector3D;
 	energy = new Energy;
 	momentum = new Momentum;
@@ -1025,7 +1026,7 @@ inline PhysicsWorld::PhysicsWorld(const ld t1, const ld t2, const ld t3)
 	elasticity = new Elasticity;
 	friction = new Friction;
 	uniformCircularMotion = new UniformCircularMotion;
-	vector2d = new Vector;
+	vector2d = new Vector2D;
 	vector3d = new Vector3D;
 	energy = new Energy;
 	momentum = new Momentum;
@@ -1066,7 +1067,7 @@ inline PhysicsWorld::PhysicsWorld(const ld t1, const ld t2)
 	elasticity = new Elasticity;
 	friction = new Friction;
 	uniformCircularMotion = new UniformCircularMotion;
-	vector2d = new Vector;
+	vector2d = new Vector2D;
 	vector3d = new Vector3D;
 	energy = new Energy;
 	momentum = new Momentum;

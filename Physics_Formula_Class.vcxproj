@@ -49,8 +49,9 @@
     <ClInclude Include="RotationalMotion.h" />
     <ClInclude Include="Statics.h" />
     <ClInclude Include="Torque.h" />
-    <ClInclude Include="Vector2d.h" />
+    <ClInclude Include="Vector2D.h" />
     <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="VectorNd.h" />
     <ClInclude Include="VisionOpticalInstruments.h" />
     <ClInclude Include="WaveOptics.h" />
     <ClInclude Include="Waves.h" />
@@ -173,11 +174,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>H:\Includes\boost\boost_1_76_0\boost_1_76_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>H:\Includes\boost\boost_1_76_0\boost_1_76_0;H:\Includes\eigen-3.4-rc1\eigen-3.4-rc1;C:\Program Files %28x86%29\ReactPhysics3D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>H:\Includes\eigen-3.4-rc1\eigen-3.4-rc1\Eigen;C:\Program Files %28x86%29\ReactPhysics3D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
