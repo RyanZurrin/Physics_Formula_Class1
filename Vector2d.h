@@ -1,9 +1,9 @@
 #pragma once
 //author:	Ryan Zurrin
-//file:		Vector2d.h
-// Specification file for a  vector class
-#ifndef VECTOR2D_H
-#define VECTOR2D_H
+//file:		Vector2D2d.h
+// Specification file for a  Vector2D class
+#ifndef Vector2D_H
+#define Vector2D_H
 
 #include <iostream>
 #include <iomanip>
@@ -23,7 +23,7 @@ constexpr auto RADIAN = _PI_/180;
 constexpr auto _Ga_ = 9.81;
 static int object_counter = 0;
 
-class Vector
+class Vector2D
 {
 
    friend class Vector3D;
@@ -31,15 +31,15 @@ class Vector
 
 public:
 	char mode;  //sets mode to Polar w/ 'p' or Rectangular w/ 'r'
-	Vector  check_division(_ld_);
-   static Vector  check_division(Vector);
+	Vector2D  check_division(_ld_);
+   static Vector2D  check_division(Vector2D);
 
-	Vector(); //default constructor
-	Vector(char);//mode select, defaults to 0, in rectangular, constructor
-	Vector(_ld_, _ld_, char _mode = 'r'); //constructor takes both coordinates and mode
-	Vector(const Vector &);	//copy constructor
+	Vector2D(); //default constructor
+	Vector2D(char);//mode select, defaults to 0, in rectangular, constructor
+	Vector2D(_ld_, _ld_, char _mode = 'r'); //constructor takes both coordinates and mode
+	Vector2D(const Vector2D &);	//copy constructor
 	void showAllData()const; //virtual so any derived classes must redefine
-	void showVector()const;
+	void showVector2D()const;
 	void showRectCord()const;
 	void showPolarCord()const;
 	void showRevolutionAngle()const;
@@ -69,20 +69,20 @@ public:
 	void set_angle(_ld_);
 	void set_mode(char);
 	//void setPolarCurve();
-	_ld_ square()const;              //gives square o_ld_ the vector
-	_ld_ find_magnitude()const;             //magnitude o_ld_ the vector
-	_ld_ dot_product(const Vector&)const; //scalar dot_product
-	_ld_ distance(const Vector&)const;    //gives distance between two vectors
-	_ld_ cross_product2D(const Vector&)const;    //cross_product
-	Vector normalize_vector();   //normalized vector
+	_ld_ square()const;              //gives square o_ld_ the Vector2D
+	_ld_ find_magnitude()const;             //magnitude o_ld_ the Vector2D
+	_ld_ dot_product(const Vector2D&)const; //scalar dot_product
+	_ld_ distance(const Vector2D&)const;    //gives distance between two Vector2Ds
+	_ld_ cross_product2D(const Vector2D&)const;    //cross_product
+	Vector2D normalize_Vector2D();   //normalized Vector2D
 	 //virtual void setParametricPoints();
 
-	bool operator>(const Vector &)const;
-	bool operator>=(const Vector&)const;
-	bool operator<(const Vector &)const;
-	bool operator<=(const Vector&)const;
-	bool operator==(const Vector &)const;
-	bool operator!=(const Vector&)const;
+	bool operator>(const Vector2D &)const;
+	bool operator>=(const Vector2D&)const;
+	bool operator<(const Vector2D &)const;
+	bool operator<=(const Vector2D&)const;
+	bool operator==(const Vector2D &)const;
+	bool operator!=(const Vector2D&)const;
 	bool operator>(const _ld_& n)const { return magnitude > n; }
 	bool operator>=(const _ld_& n)const { return magnitude >= n; }
 	bool operator<(const _ld_& n)const { return magnitude < n; }
@@ -90,46 +90,46 @@ public:
 	bool operator==(const _ld_& n)const { return magnitude == n; }
 	bool operator!=(const _ld_& n)const { return !(magnitude == n); }
 
-	Vector operator+(const Vector &)const;
-	Vector operator+(_ld_ number)const;
-	Vector &operator+=(const Vector &);
-	Vector operator+()const;
-	Vector operator++();
-	Vector operator++(int);
-	Vector operator-(const Vector&) const;
-	Vector operator-(const _ld_ number)const;
-	Vector operator-()const;
-	Vector operator--();
-	Vector operator--(int);
-	Vector operator/(_ld_);
-	Vector operator/(int);
-	Vector operator/(Vector);
-	Vector &operator/=(_ld_);
-	Vector& operator=(const Vector &);
-	Vector &operator=(const Vector *);
-	Vector &operator=(Vector&& right)noexcept;
-	Vector(Vector&& temp)noexcept;
+	Vector2D operator+(const Vector2D &)const;
+	Vector2D operator+(_ld_ number)const;
+	Vector2D &operator+=(const Vector2D &);
+	Vector2D operator+()const;
+	Vector2D operator++();
+	Vector2D operator++(int);
+	Vector2D operator-(const Vector2D&) const;
+	Vector2D operator-(const _ld_ number)const;
+	Vector2D operator-()const;
+	Vector2D operator--();
+	Vector2D operator--(int);
+	Vector2D operator/(_ld_);
+	Vector2D operator/(int);
+	Vector2D operator/(Vector2D);
+	Vector2D &operator/=(_ld_);
+	Vector2D& operator=(const Vector2D &);
+	Vector2D &operator=(const Vector2D *);
+	Vector2D &operator=(Vector2D&& right)noexcept;
+	Vector2D(Vector2D&& temp)noexcept;
 
-	Vector operator*(_ld_)const;
+	Vector2D operator*(_ld_)const;
 
-	friend Vector operator*(_ld_ s, Vector& v);
-	friend Vector operator*(Vector& v, Vector& s);
-	friend Vector operator-(_ld_ s, Vector& v);
-	friend Vector operator+(_ld_ s, Vector& v);
-	friend ostream& operator<<(ostream&, const Vector&);
-	friend istream& operator>>(istream&, Vector&);
+	friend Vector2D operator*(_ld_ s, Vector2D& v);
+	friend Vector2D operator*(Vector2D& v, Vector2D& s);
+	friend Vector2D operator-(_ld_ s, Vector2D& v);
+	friend Vector2D operator+(_ld_ s, Vector2D& v);
+	friend ostream& operator<<(ostream&, const Vector2D&);
+	friend istream& operator>>(istream&, Vector2D&);
 
-	virtual ~Vector();
+	virtual ~Vector2D();
 
 private:
-	Vector* _vPtr2d;
+	Vector2D* _vPtr2d;
 	_ld_ x;
 	_ld_ y;
 	_ld_ magnitude;
 	_ld_ angle;
 	_ld_ arcLength;
 	_ld_ revolutionAngle_inDegrees;
-	static void countShow() { std::cout << "vector2d count: " << object_counter << std::endl; }
+	static void countShow() { std::cout << "Vector2D count: " << object_counter << std::endl; }
 	//void    calculate_parametric_equation();
 	void 	 validate_setMode();
 	void    normalize_magnitude();
@@ -146,7 +146,7 @@ private:
 //=============================================================================
 //in-line class Implementation
 
-inline Vector::Vector()
+inline Vector2D::Vector2D()
 {
   _vPtr2d =  nullptr;
   x = 0;
@@ -163,7 +163,7 @@ inline Vector::Vector()
   //countShow();
 }
 
-inline Vector::Vector(char _mode)
+inline Vector2D::Vector2D(char _mode)
 {
   _vPtr2d =  nullptr;
   x = 0;
@@ -182,7 +182,7 @@ inline Vector::Vector(char _mode)
   the third argument is the mode setting.
   Use 'r'/'R' for rectangular components, 'p'/'P' for polar components
 */
-inline Vector::Vector(_ld_ xMag, _ld_ yAng, char _mode)
+inline Vector2D::Vector2D(_ld_ xMag, _ld_ yAng, char _mode)
 {
 	revolutionAngle_inDegrees = 0;
 	magnitude = 0;
@@ -198,7 +198,7 @@ inline Vector::Vector(_ld_ xMag, _ld_ yAng, char _mode)
 	countIncrease();
 
 }
-inline Vector::Vector(const Vector &v)
+inline Vector2D::Vector2D(const Vector2D &v)
 {
 
 
@@ -215,7 +215,7 @@ inline Vector::Vector(const Vector &v)
 	_vPtr2d =  nullptr;
 	countIncrease();
 }
-inline void Vector::showAllData()const
+inline void Vector2D::showAllData()const
 {
 
   showRectCord();
@@ -224,7 +224,7 @@ inline void Vector::showAllData()const
  // show_mode();
   show_arcLength();
 }
-inline void Vector::showVector()const
+inline void Vector2D::showVector2D()const
 {
   if (mode == 'r' || mode == 'R') {
    showRectCord();
@@ -236,7 +236,7 @@ inline void Vector::showVector()const
   }
 }
 
-inline void Vector::showRectCord()const
+inline void Vector2D::showRectCord()const
 {
 	 cout << setprecision(9) << fixed;
 
@@ -258,7 +258,7 @@ inline void Vector::showRectCord()const
 		cout << y << ")";
 	 }
 }
-inline void Vector::showPolarCord()const
+inline void Vector2D::showPolarCord()const
 {
 	cout << setprecision(9) << fixed;
 	 if(magnitude >= 0 && angle >= 0){
@@ -270,27 +270,27 @@ inline void Vector::showPolarCord()const
 		 cout << resetiosflags(ios::fixed) << endl;
 	 }
 }
-inline void Vector::showRevolutionAngle()const
+inline void Vector2D::showRevolutionAngle()const
 {
   cout << "Angle in degrees:  " << revolutionAngle_inDegrees;
 }
-inline void Vector::show_x() const
+inline void Vector2D::show_x() const
 {
 	cout << "\nx: " << x << endl;
 }
-inline void Vector::show_y() const
+inline void Vector2D::show_y() const
 {
 	cout << "\ny: " << y << endl;
 }
-inline void Vector::show_mag() const
+inline void Vector2D::show_mag() const
 {
 	cout << "\nr: " << magnitude << endl;
 }
-inline void Vector::show_angle() const
+inline void Vector2D::show_angle() const
 {
 	cout << "\n\xE9: " << angle << "\xF8" << endl;
 }
-inline void Vector::show_mode()const
+inline void Vector2D::show_mode()const
 {
 	if (mode == 'p' || mode == 'P') {
 		cout << "\nmode: Polar" << endl;
@@ -298,32 +298,32 @@ inline void Vector::show_mode()const
 	else
 		cout << "\nmode: Rectangular" << endl;
 }
-inline void Vector::show_arcLength() const
+inline void Vector2D::show_arcLength() const
 {
    cout << setprecision(7)<< fixed;
 	cout << "\narc length: " << arcLength << endl;
 }
-inline _ld_ Vector::return_x() const
+inline _ld_ Vector2D::return_x() const
 {
 	return x;
 }
-inline _ld_ Vector::return_y()const
+inline _ld_ Vector2D::return_y()const
 {
 	return y;
 }
-inline _ld_ Vector::return_mag()const
+inline _ld_ Vector2D::return_mag()const
 {
 	return magnitude;
 }
-inline _ld_ Vector::return_angle()const
+inline _ld_ Vector2D::return_angle()const
 {
 	return angle;
 }
-inline _ld_ Vector::return_arcLength() const
+inline _ld_ Vector2D::return_arcLength() const
 {
 	return arcLength;
 }
-inline char Vector::return_mode()const
+inline char Vector2D::return_mode()const
 {
   return mode;
 }
@@ -332,7 +332,7 @@ inline char Vector::return_mode()const
 * arguments: x, y mode = 'r' or 'p' .by default is 'r'ectangular, 'p'= polar.
 * Use 'r'/'R' for rectangular components, 'p'/'P' for polar components
 */
-inline void Vector::set_coordinates(_ld_ xMag, _ld_ yAng, char _mode)
+inline void Vector2D::set_coordinates(_ld_ xMag, _ld_ yAng, char _mode)
 {
   validate_setMode();
 
@@ -346,14 +346,14 @@ inline void Vector::set_coordinates(_ld_ xMag, _ld_ yAng, char _mode)
   }
   calculate_arcLength();
 }
-inline void Vector::set_rectCord(_ld_ _x, _ld_ _y)
+inline void Vector2D::set_rectCord(_ld_ _x, _ld_ _y)
 {
   x = _x;
   y = _y;
   calculate_polar();
   revolutionAngle_inDegrees = angle;
 }
-inline void Vector::set_polarCord(_ld_ mag, _ld_ ang)
+inline void Vector2D::set_polarCord(_ld_ mag, _ld_ ang)
 {
   magnitude = mag;
   normalize_magnitude();
@@ -362,44 +362,44 @@ inline void Vector::set_polarCord(_ld_ mag, _ld_ ang)
   adjust_angle();
   calculate_rectangular();
 }
-inline void Vector::set_x(_ld_ _x)
+inline void Vector2D::set_x(_ld_ _x)
 {
   x = _x;
   calculate_polar();
 }
-inline void Vector::set_y(_ld_ _y)
+inline void Vector2D::set_y(_ld_ _y)
 {
   y = _y;
   calculate_polar();
 }
-inline void Vector::set_mag(_ld_ mag)
+inline void Vector2D::set_mag(_ld_ mag)
 {
   magnitude = mag;
   normalize_magnitude();
   calculate_rectangular();
   calculate_arcLength();
 }
-inline void Vector::set_angle(_ld_ ang)
+inline void Vector2D::set_angle(_ld_ ang)
 {
   angle = ang;
   adjust_angle();
   calculate_arcLength();
   calculate_rectangular();
 }
-inline void Vector::set_mode(char _mode)
+inline void Vector2D::set_mode(char _mode)
 {
   mode = _mode;
   validate_setMode();
 }
-inline _ld_ Vector::square()const
+inline _ld_ Vector2D::square()const
 {
 	return  x * x + y * y;
 }
-inline _ld_ Vector::dot_product(const Vector& vec)const
+inline _ld_ Vector2D::dot_product(const Vector2D& vec)const
 {
 	return  x * vec.x + vec.y * y;
 }
-inline _ld_ Vector::distance(const Vector& vec)const
+inline _ld_ Vector2D::distance(const Vector2D& vec)const
 {
 	_ld_ x1, x2, y1, y2, t1, t2;
 	x1 = this->x;
@@ -410,11 +410,11 @@ inline _ld_ Vector::distance(const Vector& vec)const
 	t2 = y2 - y1;
 	return sqrt(pow(t1, 2) + pow(t2, 2));
 }
-inline _ld_ Vector::cross_product2D(const Vector& v)const
+inline _ld_ Vector2D::cross_product2D(const Vector2D& v)const
 {
 	return (x * v.y) - (y * v.x);
 }
-inline Vector Vector::normalize_vector()
+inline Vector2D Vector2D::normalize_Vector2D()
 {
 	assert(find_magnitude() != 0);  // NOLINT(clang-diagnostic-float-equal)
 	const auto length = sqrt((this->x * this->x) + (this->y * this->y));
@@ -426,12 +426,12 @@ inline Vector Vector::normalize_vector()
 	calculate_arcLength();
 	return *this;
 }
-inline _ld_ Vector::find_magnitude()const
+inline _ld_ Vector2D::find_magnitude()const
 {
 	return sqrt(square());
 }
 /*
-void Vector::setPolarCurve()
+void Vector2D::setPolarCurve()
 {
 	cout << "\nEnter the Polar Curve to convert to cartiesian equation\n>";
 	cin >> Curve.r;
@@ -439,7 +439,7 @@ void Vector::setPolarCurve()
   Curve.theta = atan(y / x);
 }
 */
-inline void Vector::validate_setMode()
+inline void Vector2D::validate_setMode()
 {
 	do{
 		  if (tolower(mode) == 'r' || tolower(mode) == 'p') {
@@ -454,20 +454,20 @@ inline void Vector::validate_setMode()
 			 }
   }while(!cin || tolower(mode) != 'r' || tolower(mode) != 'p');
 }
-inline void Vector::normalize_magnitude()
+inline void Vector2D::normalize_magnitude()
 {
   if (magnitude < 0)
 	magnitude = abs(magnitude);
 }
-inline void Vector::calculate_magnitude()
+inline void Vector2D::calculate_magnitude()
 {
    magnitude = sqrt(x * x + y * y);
 }
-inline void Vector::calculate_angle()
+inline void Vector2D::calculate_angle()
 {
 	angle = atan2(y, x) * DEGREE;
 }
-inline void Vector::adjust_angle()
+inline void Vector2D::adjust_angle()
 {
   if(angle == -360 || angle == -720 || angle == -1080 || angle == -1440){  // NOLINT(clang-diagnostic-float-equal)
 	angle = 0;
@@ -486,12 +486,12 @@ inline void Vector::adjust_angle()
 		angle = newAngle;
 	}
 }
-inline void Vector::calculate_rectangular()
+inline void Vector2D::calculate_rectangular()
 {
   x = magnitude* cos(angle*RADIAN);
   y = magnitude* sin(angle*RADIAN);
 }
-inline void Vector::calculate_polar()
+inline void Vector2D::calculate_polar()
 {
 	 magnitude = sqrt(x * x + y * y);
 	if (x == 0.0 && y == 0.0)
@@ -503,140 +503,140 @@ inline void Vector::calculate_polar()
 	calculate_arcLength();
 	revolutionAngle_inDegrees = angle;
 }
-inline void Vector::calculate_arcLength()
+inline void Vector2D::calculate_arcLength()
 {
   adjust_angle();
   arcLength = (_PI_ * (magnitude*2)) *
 		(angle / 360.0);
 }
-inline Vector Vector::check_division(_ld_ d)
+inline Vector2D Vector2D::check_division(_ld_ d)
 {
 	return *this;
 }
-inline Vector Vector::check_division(Vector d)
+inline Vector2D Vector2D::check_division(Vector2D d)
 {
-	Vector temp;
+	Vector2D temp;
 	return temp;
 }
-inline bool Vector::operator<(const Vector &v) const
+inline bool Vector2D::operator<(const Vector2D &v) const
 {
   if (magnitude < v.magnitude)
 	return true;
   return false;
 }
-inline bool Vector::operator<=(const Vector& v) const
+inline bool Vector2D::operator<=(const Vector2D& v) const
 {
 	if (magnitude <= v.magnitude)
 		return true;
 	return false;
 }
-inline bool Vector::operator>(const Vector & v)const
+inline bool Vector2D::operator>(const Vector2D & v)const
 {
   if (magnitude > v.magnitude)
 	return true;
   return false;
 }
-inline bool Vector::operator>=(const Vector& v) const
+inline bool Vector2D::operator>=(const Vector2D& v) const
 {
 	if (magnitude >= v.magnitude)
 		return true;
 
 	return false;  // NOLINT(clang-diagnostic-misleading-indentation)
 }
-inline bool Vector::operator==(const Vector & v)const
+inline bool Vector2D::operator==(const Vector2D & v)const
 {
   if (magnitude == v.magnitude && angle == v.angle)  // NOLINT(clang-diagnostic-float-equal)
 	return true;
   return false;
 }
-inline bool Vector::operator!=(const Vector& v) const
+inline bool Vector2D::operator!=(const Vector2D& v) const
 {
 	if (!(magnitude == v.magnitude && angle == v.angle))  // NOLINT(clang-diagnostic-float-equal)
 		return true;
 	else
 		return false;
 }
-inline Vector Vector::operator+(const _ld_ n)const
+inline Vector2D Vector2D::operator+(const _ld_ n)const
 {
-	//cout << "in  Vector::operator+(const _ld_ n)const"<<endl;
-	Vector total(x + n, y + n);
+	//cout << "in  Vector2D::operator+(const _ld_ n)const"<<endl;
+	Vector2D total(x + n, y + n);
 	total.mode = mode;
 	return total;
 }
-inline Vector& Vector::operator+=(const Vector& v)
+inline Vector2D& Vector2D::operator+=(const Vector2D& v)
 {
-	//cout << "in Vector& Vector::operator+=(const Vector& v)" << endl;
-	Vector sum;
+	//cout << "in Vector2D& Vector2D::operator+=(const Vector2D& v)" << endl;
+	Vector2D sum;
 	sum.x += v.x;
 	sum.y += v.y;
 	sum.mode = v.mode;
 	return *this;
 }
-inline Vector Vector::operator+(const Vector& v)const
+inline Vector2D Vector2D::operator+(const Vector2D& v)const
 {
-  //cout << "in  Vector::operator+(const Vector& v)const"<<endl;
-  Vector sum(x + v.x, y + v.y);
+  //cout << "in  Vector2D::operator+(const Vector2D& v)const"<<endl;
+  Vector2D sum(x + v.x, y + v.y);
   sum.mode = mode;
   return sum;
 }
-inline Vector Vector::operator+()const
+inline Vector2D Vector2D::operator+()const
 {
-	//cout << "in  Vector::operator+()const"<<endl;
-	Vector total(x+x, y+y);
+	//cout << "in  Vector2D::operator+()const"<<endl;
+	Vector2D total(x+x, y+y);
 	total.mode = mode;
   return total;
 }
-inline Vector Vector::operator++()
+inline Vector2D Vector2D::operator++()
 {
-	Vector sum(++x, ++y);
+	Vector2D sum(++x, ++y);
 	sum.mode = mode;
   return sum;
 }
-inline Vector Vector::operator++(int)
+inline Vector2D Vector2D::operator++(int)
 {
-  Vector sum(x++, y++, mode);
+  Vector2D sum(x++, y++, mode);
   return sum;
 }
-inline Vector Vector::operator-(const Vector& v) const
+inline Vector2D Vector2D::operator-(const Vector2D& v) const
 {
-  Vector sum(x-v.x, y-v.y, mode);
+  Vector2D sum(x-v.x, y-v.y, mode);
   return sum;
 }
-inline Vector Vector::operator-(const _ld_ number)const
+inline Vector2D Vector2D::operator-(const _ld_ number)const
 {
-	Vector total(x - number, y - number);
+	Vector2D total(x - number, y - number);
 	total.mode = mode;
 	return total;
 }
-inline Vector Vector::operator-()const
+inline Vector2D Vector2D::operator-()const
 {
-	Vector total(-x, -y);
+	Vector2D total(-x, -y);
 	total.mode = mode;
   return total;
 }
-inline Vector Vector::operator--()
+inline Vector2D Vector2D::operator--()
 {
-  Vector difference(--x, --y);
+  Vector2D difference(--x, --y);
   difference.mode = mode;
   return difference;
 }
-inline Vector Vector::operator--(int)
+inline Vector2D Vector2D::operator--(int)
 {
-  Vector difference(x--, y--);
+  Vector2D difference(x--, y--);
   difference.mode = mode;
   return difference;
 }
-inline Vector operator-(_ld_ s, Vector& v)
+inline Vector2D operator-(_ld_ s, Vector2D& v)
 {
- Vector total(s-v.return_x(),s-v.return_y(),v.return_mode());
+ Vector2D total(s-v.return_x(),s-v.return_y(),v.return_mode());
  return total;
 }
-inline Vector operator+(_ld_ s, Vector& v)
+inline Vector2D operator+(_ld_ s, Vector2D& v)
 {
- Vector total(s+v.return_x(),s+v.return_y(),v.return_mode());
+ Vector2D total(s+v.return_x(),s+v.return_y(),v.return_mode());
  return total;
 }
-inline Vector& Vector::operator=(const Vector &right)
+inline Vector2D& Vector2D::operator=(const Vector2D &right)
 {
   if (this != &right) {
 
@@ -647,7 +647,7 @@ inline Vector& Vector::operator=(const Vector &right)
 	}
   return *this;
 }
-inline Vector& Vector::operator=(const Vector *vec)
+inline Vector2D& Vector2D::operator=(const Vector2D *vec)
 {
   x = vec->x;
   y = vec->y;
@@ -655,7 +655,7 @@ inline Vector& Vector::operator=(const Vector *vec)
   calculate_arcLength();
   return *this;
 }
-inline Vector& Vector::operator=(Vector&& right)noexcept
+inline Vector2D& Vector2D::operator=(Vector2D&& right)noexcept
 {
 	 if (this != &right)
 	 {
@@ -665,7 +665,7 @@ inline Vector& Vector::operator=(Vector&& right)noexcept
 	 }
 	 return *this;
 }
-inline Vector::Vector(Vector&& temp) noexcept
+inline Vector2D::Vector2D(Vector2D&& temp) noexcept
 {
 	_vPtr2d = nullptr;
 	x = temp.x;
@@ -679,19 +679,19 @@ inline Vector::Vector(Vector&& temp) noexcept
 	arcLength = return_arcLength();
 	calculate_arcLength();
 }
-inline Vector Vector::operator/(_ld_ d)
+inline Vector2D Vector2D::operator/(_ld_ d)
 {
 	return check_division(d);
 }
-inline Vector Vector::operator/(int d)
+inline Vector2D Vector2D::operator/(int d)
 {
 	return check_division(d);
 }
-inline Vector Vector::operator/(Vector v)
+inline Vector2D Vector2D::operator/(Vector2D v)
 {
 	return check_division(v);
 }
-inline Vector &Vector::operator/=(_ld_ value)
+inline Vector2D &Vector2D::operator/=(_ld_ value)
 {
 	x /= value;
 	y /= value;
@@ -700,22 +700,22 @@ inline Vector &Vector::operator/=(_ld_ value)
 	return *this;
 
 }
-inline Vector Vector::operator*(const _ld_ scalar)const
+inline Vector2D Vector2D::operator*(const _ld_ scalar)const
 {
-	Vector results(x*scalar, y*scalar);
+	Vector2D results(x*scalar, y*scalar);
 	results.mode = mode;
 	return results;
 }
-inline Vector operator*(_ld_ s, Vector& v)
+inline Vector2D operator*(_ld_ s, Vector2D& v)
 {
   return v * s;
 }
-inline Vector operator*(Vector& v, Vector& s)
+inline Vector2D operator*(Vector2D& v, Vector2D& s)
 {
-   Vector results(v.x*s.x, v.y*s.y, v.mode);
+   Vector2D results(v.x*s.x, v.y*s.y, v.mode);
    return results;
 }
-inline ostream& operator<<(ostream& os, const Vector& v)
+inline ostream& operator<<(ostream& os, const Vector2D& v)
 {
   if(v.mode == 'R' || v.mode == 'r'){
 	v.showRectCord();
@@ -725,7 +725,7 @@ inline ostream& operator<<(ostream& os, const Vector& v)
   }
   return os;
 }
-inline istream& operator>>(istream& is, Vector& v)
+inline istream& operator>>(istream& is, Vector2D& v)
 {
   if(v.mode == 'R' || v.mode == 'r'){
 	is>> v.x >> v.y;
@@ -737,7 +737,7 @@ inline istream& operator>>(istream& is, Vector& v)
   }
   return is;
 }
-inline Vector::~Vector()
+inline Vector2D::~Vector2D()
 {
 	delete _vPtr2d;
 	countDecrease();
