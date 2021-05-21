@@ -34,6 +34,7 @@
     <ClInclude Include="Kinematics.h" />
     <ClInclude Include="Magnetism.h" />
     <ClInclude Include="PeriodicElements.h" />
+    <ClInclude Include="Physics_World.h" />
     <ClInclude Include="QuantumPhysics.h" />
     <ClInclude Include="SpecialRelativity.h" />
     <ClInclude Include="Temperature.h" />
@@ -45,7 +46,6 @@
     <ClInclude Include="Energy.h" />
     <ClInclude Include="Friction.h" />
     <ClInclude Include="Momentum.h" />
-    <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="RotationalMotion.h" />
     <ClInclude Include="Statics.h" />
     <ClInclude Include="Torque.h" />
@@ -60,6 +60,7 @@
     <ClCompile Include="testFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="CMakeLists.txt" />
     <Text Include="oldProblems.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
