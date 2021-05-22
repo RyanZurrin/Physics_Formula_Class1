@@ -36,6 +36,7 @@
     <ClInclude Include="PeriodicElements.h" />
     <ClInclude Include="Physics_World.h" />
     <ClInclude Include="QuantumPhysics.h" />
+    <ClInclude Include="RunTimer.h" />
     <ClInclude Include="SpecialRelativity.h" />
     <ClInclude Include="Temperature.h" />
     <ClInclude Include="TemplateClass.h" />
@@ -60,7 +61,6 @@
     <ClCompile Include="testFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="CMakeLists.txt" />
     <Text Include="oldProblems.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -141,7 +141,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d;%(AdditionalIncludeDirectories);C:\Program Files %28x86%29\ReactPhysics3D\include</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>reactphysics3d.h</PrecompiledHeaderFile>
@@ -150,7 +150,11 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\Program Files %28x86%29\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\reactphysics3d\include\reactphysics3d;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -175,13 +179,17 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>H:\Includes\boost\boost_1_76_0\boost_1_76_0;H:\Includes\eigen-3.4-rc1\eigen-3.4-rc1;C:\Program Files %28x86%29\ReactPhysics3D\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>H:\Includes\boost\boost_1_76_0\boost_1_76_0;H:\Includes\eigen-3.4-rc1\eigen-3.4-rc1;C:\Program Files %28x86%29\ReactPhysics3D\include;%(AdditionalIncludeDirectories);C:\Program Files %28x86%29\ReactPhysics3D\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>H:\Includes\eigen-3.4-rc1\eigen-3.4-rc1\Eigen;C:\Program Files %28x86%29\ReactPhysics3D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

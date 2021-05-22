@@ -148,6 +148,17 @@ public:
 	static constexpr auto bindingEnergy(const T λ);
 
 	/// <summary>
+	/// Violet light of wavelength 400 nm(λ) ejects electrons with a maximum
+	/// kinetic energy of 0.860 eV(KE) from sodium metal. Calculate the binding
+	/// energy of electrons to sodium metal
+	/// </summary>
+	/// <param name="λ">The wavelength λ.</param>
+	/// <param name="KE">The kinetic energy.</param>
+	/// <returns>binding energy (eV)</returns>
+	template<typename T, typename K>
+	static constexpr auto bindingEnergy(const T λ, const K KE);
+
+	/// <summary>
 	/// Calculate the maximum kinetic energy in eV of electrons ejected from
 	/// sodium metal by 450-nm EM(λ) radiation, given that the binding energy
 	/// is 2.28 eV?(BE)
@@ -157,6 +168,52 @@ public:
 	/// <returns></returns>
 	template<typename T, typename B>
 	static constexpr auto maximumKineticEnergy(const T λ, const B BE);
+
+	/// <summary>
+	/// Maximums the kinetic energy f.
+	/// </summary>
+	/// <param name="f">The f.</param>
+	/// <param name="BE">The be.</param>
+	/// <returns></returns>
+	template<typename T, typename B>
+	static constexpr auto maximumKineticEnergy_f(const T f, const B BE);
+
+	/// <summary>
+	///Calculate the wavelength of EM radiation that ejects 2.00-eV(KE) electrons
+	/// from calcium metal, given that the binding energy is 2.71 eV(BE).
+	/// </summary>
+	/// <param name="KE">The kinetic energy.</param>
+	/// <param name="BE">The binding energy.</param>
+	/// <returns>wavelength</returns>
+	template<typename K, typename B>
+	static constexpr auto wavelength(const K KE, const B BE);
+
+	/// <summary>
+	/// Calculate the maximum velocity of electrons(m) ejected from a material by
+	/// 80-nm photons( λ), if they are bound to the material by 4.73 eV(BE)
+	/// </summary>
+	/// <param name="λ">The λ.</param>
+	/// <param name="m">The mass.</param>
+	/// <param name="BE">The binding energy.</param>
+	/// <returns>maximum velocity</returns>
+	template<typename T, typename M, typename B>
+	static constexpr auto maximumVelocity(const T λ, const M m, const B BE);
+
+	/// <summary>
+	/// Photoelectrons(m) from a material with a binding energy of 2.71 eV(BE) are
+	/// ejected by 420-nm(λ) photons. Once ejected, how long does it take these
+	/// electrons to travel 2.50 cm(dis) to a detection device
+	/// </summary>
+	/// <param name="λ">The λ.</param>
+	/// <param name="m">The m.</param>
+	/// <param name="BE">The be.</param>
+	/// <param name="dis">The dis.</param>
+	/// <returns></returns>
+	template<typename T, typename M, typename B, typename D>
+	static constexpr auto timeToTravelDistance(const T λ, const M m, const B BE, const D dis);
+
+
+
 
 private:
 	ld quantumVar;
@@ -200,17 +257,47 @@ constexpr auto QuantumPhysics::oscillationFrequency(const E energy)
 template<typename T>
 constexpr auto QuantumPhysics::longestWavelength_eMRadiationEjection(const T BE)
 {
-	return (_C_ * _PLANKS_EM_) / BE;
+	return (_PLANKS_C_) / BE;
 }
 
 template<typename T>
 constexpr auto QuantumPhysics::bindingEnergy(const T λ)
 {
-	return (_PLANKS_EM_ * _C_) / λ;
+	return (_PLANKS_C_) / λ;
+}
+
+template<typename T, typename K>
+inline constexpr auto QuantumPhysics::bindingEnergy(const T λ, const K KE)
+{
+	return ((_PLANKS_C_) / λ) - KE;
 }
 
 template<typename T, typename B>
 inline constexpr auto QuantumPhysics::maximumKineticEnergy(const T λ, const B BE)
 {
-	return (_PLANKS_C_ / λ) - BE;
+	return ((_PLANKS_C_)/ λ) - BE;
+}
+
+template<typename T, typename B>
+inline constexpr auto QuantumPhysics::maximumKineticEnergy_f(const T f, const B BE)
+{
+	return _PLANKS_EM_ * f - BE;
+}
+
+template<typename K, typename B>
+inline constexpr auto QuantumPhysics::wavelength(const K KE, const B BE)
+{
+	return _PLANKS_C_ / (KE + BE);
+}
+
+template<typename T, typename M, typename B>
+inline constexpr auto QuantumPhysics::maximumVelocity(const T λ, const M m, const B BE)
+{
+	return sqrt((2.0 / m) * (((_PLANKS_J_*_C_) / λ) - (BE*1.602e-19 )));
+}
+
+template<typename T, typename M, typename B, typename D>
+inline constexpr auto QuantumPhysics::timeToTravelDistance(const T λ, const M m, const B BE, const D dis)
+{
+	return dis/sqrt((2.0 / m) * (((_PLANKS_J_ * _C_) / λ) - (BE * 1.602e-19)));
 }
