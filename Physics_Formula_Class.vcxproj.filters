@@ -123,6 +123,9 @@
     <ClInclude Include="Physics_World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RunTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testFactory.cpp">
@@ -132,9 +135,6 @@
   <ItemGroup>
     <Text Include="oldProblems.txt">
       <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="CMakeLists.txt">
-      <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>
 </Project>

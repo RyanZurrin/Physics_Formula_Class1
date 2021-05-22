@@ -7,7 +7,6 @@
  */
 #ifndef PHYSICS_WORLD_H
 #define PHYSICS_WORLD_H
-#include <reactphysics3d/reactphysics3d.h>
 #include <gsl/gsl_linalg.h>
 #include <gsl/gsl_integration.h>
 #include <Eigen/Eigen>
@@ -45,8 +44,28 @@
 #include "Waves.h"
 #include "SpecialRelativity.h"
 #include "QuantumPhysics.h"
+typedef QuantumPhysics QP;
+typedef SpecialRelativity SR;
+typedef WaveOptics WO;
+typedef VisionOpticalInstruments VOI;
+typedef UniformCircularMotion UCM;
+typedef Thermodynamics TD;
+typedef Temperature TEMP;
+typedef RotationalMotion RM;
+typedef PeriodicElements PE;
+typedef GeometricOptics GO;
+typedef FluidStatics FS;
+typedef FluidDynamics FD;
+typedef ElectromagneticWaves EMW;
+typedef ElectroMagneticInduction EMI;
+typedef ElectricPotential EP;
+typedef ElectricCurrent EC;
+typedef ElectricCharge ELCHRG;
+typedef DynamicsAndForces DAF;
+
+
+
 using namespace Eigen;
-using namespace reactphysics3d;
 //class Physics_World;
 typedef long double ld;
 
