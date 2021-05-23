@@ -212,6 +212,55 @@ public:
 	template<typename T, typename M, typename B, typename D>
 	static constexpr auto timeToTravelDistance(const T λ, const M m, const B BE, const D dis);
 
+	/// <summary>
+	/// A laser with a power output of 2.00 mW(P) at a wavelength of 400 nm(λ)
+	/// is projected onto calcium metal. Calculate How many electrons per second
+	/// are ejected.
+	/// </summary>
+	/// <param name="λ">The wavelength λ.</param>
+	/// <param name="P">The power output.</param>
+	/// <returns>how many electrons per second are ejected</returns>
+	template<typename T, typename P>
+	static constexpr auto electronsPerSecondEjected(const T λ, const P P_);
+
+	/// <summary>
+	///  Calculate the number of photoelectrons per second ejected from a
+	///  1.00 mm^2 area(A) of sodium metal by 500-nm EM(λ) radiation having an
+	///  intensity of 1.30 kW/m2(I) (the intensity of sunlight above the
+	///  Earth’s atmosphere)
+	/// </summary>
+	/// <param name="A">area.</param>
+	/// <param name="λ">The wavelength λ.</param>
+	/// <param name="I">The intensity.</param>
+	/// <returns></returns>
+	template<typename T>
+	static constexpr auto photoelectronsPerSecondEjected(const T A, const T λ, const T I);
+
+	/// <summary>
+	/// A laser with a power output of 2.00 mW(P) at a wavelength of 400 nm(λ)
+	/// is projected onto calcium metal. What power is carried away by the
+	/// electrons, given that the binding energy is 2.71 eV(BE).
+	/// </summary>
+	/// <param name="λ">The wavelength λ.</param>
+	/// <param name="P">The power output.</param>
+	/// <param name="BE">The binding energy.</param>
+	/// <returns>power carried away by the electrons (W)</returns>
+	template<typename T>
+	static constexpr auto powerCarriedAwayByElectrons(const T λ, const T P, const T BE);
+
+	/// <summary>
+	/// If the number of photoelectrons per second ejected from a
+	/// 1.00 mm2 area of sodium metal by 500-nm EM radiation having an
+	/// intensity of 1.30 kW/m2 as well as a binding energy is 2.28 eV,
+	/// calculate the power that is carried away by the electrons.
+	/// </summary>
+	/// <param name="A">a.</param>
+	/// <param name="λ">The λ.</param>
+	/// <param name="I">The i.</param>
+	/// <param name="BE">The be.</param>
+	/// <returns></returns>
+	template<typename T>
+	static constexpr auto powerCarriedAwayByElectrons(const T A, const T λ, const T I, const T BE);
 
 
 
@@ -300,4 +349,28 @@ template<typename T, typename M, typename B, typename D>
 inline constexpr auto QuantumPhysics::timeToTravelDistance(const T λ, const M m, const B BE, const D dis)
 {
 	return dis/sqrt((2.0 / m) * (((_PLANKS_J_ * _C_) / λ) - (BE * 1.602e-19)));
+}
+
+template<typename T, typename P>
+inline constexpr auto QuantumPhysics::electronsPerSecondEjected(const T λ, const P P_)
+{
+	return (P_ * λ) / (_PLANKS_J_ * _C_);
+}
+
+template<typename T>
+inline constexpr auto QuantumPhysics::photoelectronsPerSecondEjected(const T A, const T λ, const T I)
+{
+	return (I * (A * A) * λ) / (_PLANKS_J_ * _C_);
+}
+
+template<typename T>
+inline constexpr auto QuantumPhysics::powerCarriedAwayByElectrons(const T λ, const T P, const T BE)
+{
+	return (((_PLANKS_J_ * _C_) / λ) - (BE*1.602e-19)) * electronsPerSecondEjected(λ, P);
+}
+
+template<typename T>
+inline constexpr auto QuantumPhysics::powerCarriedAwayByElectrons(const T A, const T λ, const T I, const T BE)
+{
+	return I * (A * A) * (1.0 - (BE * λ) / _PLANKS_C_);
 }
