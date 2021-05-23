@@ -126,6 +126,9 @@
     <ClInclude Include="RunTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TriangleSolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testFactory.cpp">
