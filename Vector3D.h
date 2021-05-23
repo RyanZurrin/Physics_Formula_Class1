@@ -10,11 +10,10 @@ using namespace std;
 class Vector3D : public Vector2D
 {
 public:
-	Vector3D check_division(ld);
 	Vector3D* _ptr3d;
-	Vector3D(); //constructor
-	Vector3D(ld, ld, ld);  //initializing object with values.
-	Vector3D(const Vector3D &vec);    //copy constructor
+	Vector3D(string id = ""); //constructor
+	Vector3D(ld, ld, ld, string id = "");  //initializing object with values.
+	Vector3D(const Vector3D &vec, string id = "");    //copy constructor
 	void setX(ld);
 	void setY(ld);
 	void setZ(ld);
@@ -22,23 +21,31 @@ public:
 	void set_yAngle(ld);
 	void set_zAngle(ld);
 	void set_coordinates(ld, ld, ld);
-	void showAllData();
-	void showRectCord()const;
-	void showPolarCord()const;
-	void showAllAngles()const;
-	void display();    //display value of vectors
+	void displayAllData(std::string label = "");
+	void showRectCord(std::string label = "")const;
+	void showSphericalCoordinates(std::string label = "")const;
+	void showAllAngles(std::string label = "")const;
+	void display()const;    //display value of vector
 	ld returnX()const; //return x
 	ld returnY()const; //return y
 	ld returnZ()const; //return z
 	ld return_xAngle()const; //return x angle
 	ld return_yAngle()const; //return y angle
 	ld return_zAngle()const; //return z angle
+	ld projection(Vector3D& v)const;
+	ld angle_between_vectors(Vector3D& v)const;
 	ld square(); //gives square of the vector
 	ld dot_product(const Vector3D &vec) const; //scalar dot_product
 	ld distance(const Vector3D &vec);    //gives distance between two vectors
 	ld find_magnitude();  //magnitude of the vector
 	Vector3D cross_product(const Vector3D &vec);    //cross_product
 	Vector3D normalize_vector();   //normalized vector
+	bool operator==(const Vector3D& v)const;
+	bool operator!=(const Vector3D& v)const;
+	bool operator>(const Vector3D& v)const;
+	bool operator>=(const Vector3D& v)const;
+	bool operator<(const Vector3D& v)const;
+	bool operator<=(const Vector3D& v)const;
 	Vector3D operator+(const Vector3D &vec)const;    //addition
 	Vector3D operator+(Vector3D &vec)const;
 	Vector3D &operator+=(const Vector3D &vec);  ////assigning new result to the vector
@@ -50,9 +57,6 @@ public:
 	Vector3D &operator-=(const Vector3D &vec);  //assigning new result to the vector
 	Vector3D operator*(ld value);    //multiplication
 	Vector3D &operator*=(ld value);  //assigning new result to the vector.
-	Vector3D operator/(ld);    //division
-virtual Vector3D operator/(int);
-	Vector3D &operator/=(ld value);  //assigning new result to the vector
 	Vector3D &operator=(const Vector3D &vec);
 	friend ostream& operator<<(ostream&, const Vector3D&);
 	~Vector3D();
@@ -61,29 +65,32 @@ private:
 	void setRadius();
 	void setInclination();
 	void setAzimuth();
-	void calculate_polar();
+	void calculate_spherical();
 	void set_allAngles();
 	void set_magnitude();
 };
 #endif
 
 
-inline Vector3D::Vector3D() //constructor
+inline Vector3D::Vector3D(string id) //constructor
 {
+  ID = id;
   x=0;
   y=0;
   z=0;
   xAngle = 0.0;
   yAngle = 0.0;
   zAngle = 0.0;
+  magnitude = 0.0;
   _ptr3d =  nullptr;
-  calculate_polar();
+  calculate_spherical();
   set_allAngles();
   object_counter++;
   //cout<< object_counter << ": " <<"in the 3dVector default constructor"<<endl;
 }
-inline Vector3D::Vector3D(ld x1,ld y1,ld z1) //initializing object with values.
+inline Vector3D::Vector3D(ld x1,ld y1,ld z1,string id) //initializing object with values.
 {
+  ID = id;
   x=x1;
   y=y1;
   z=z1;
@@ -91,15 +98,16 @@ inline Vector3D::Vector3D(ld x1,ld y1,ld z1) //initializing object with values.
   yAngle = 0.0;
   zAngle = 0.0;
   _ptr3d =  nullptr;
-  calculate_polar();
+  calculate_spherical();
   set_magnitude();
   set_allAngles();
   object_counter++;
 	//cout<< object_counter << ": " <<"in the x,y,z constructor" << endl;;
 }
-inline Vector3D::Vector3D(const Vector3D &vec)
+inline Vector3D::Vector3D(const Vector3D &vec, string id)
 	: Vector2D(vec)
 {
+  ID = id;
   x=vec.x;
   y=vec.y;
   z=vec.z;
@@ -107,7 +115,7 @@ inline Vector3D::Vector3D(const Vector3D &vec)
   yAngle = 0.0;
   zAngle = 0.0;
   _ptr3d = nullptr;
-  calculate_polar();
+  calculate_spherical();
   set_magnitude();
   set_allAngles();
   object_counter++;
@@ -118,21 +126,21 @@ inline void Vector3D::setX(ld _x)
 	x = _x;
 	set_allAngles();
 	set_magnitude();
-	calculate_polar();
+	calculate_spherical();
 }
 inline void Vector3D::setY(ld _y)
 {
 	y = _y;
 	set_allAngles();
 	set_magnitude();
-	calculate_polar();
+	calculate_spherical();
 }
 inline void Vector3D::setZ(ld _z)
 {
 	z = _z;
 	set_allAngles();
 	set_magnitude();
-	calculate_polar();
+	calculate_spherical();
 }
 inline void Vector3D::set_xAngle(ld _xa)
 {
@@ -166,20 +174,21 @@ inline void Vector3D::set_coordinates(ld x1, ld y1, ld z1)
 	set_allAngles();
 	object_counter++;
 }
-inline void Vector3D::showAllData()
+inline void Vector3D::displayAllData(std::string label)
 {
+	std::cout << ((label == "") ? ID : label);
 	magnitude = find_magnitude();
 	showRectCord();
-	showPolarCord();
+	showSphericalCoordinates();
 	showAllAngles();
 	cout<< "mag: " << magnitude << endl;
 
 }
-inline void Vector3D::showRectCord() const
+inline void Vector3D::showRectCord(std::string label) const
 {
 	cout << setprecision(9) << fixed;
 
-	cout << "\n(x,y,z) = ";
+	cout<< "\n" <<((label == "") ? ID : label) << "(x,y,z) = ";
 	if (x < 0 && x > -1) {
 		cout << setiosflags(ios::fixed);
 		cout << fixed << "(" << x << ","
@@ -190,7 +199,7 @@ inline void Vector3D::showRectCord() const
 	}
 	if (y<0 && y>-1) {
 		cout << setiosflags(ios::fixed);
-		cout << y << "," << endl;
+		cout << y << ",";
 		cout << resetiosflags(ios::fixed);
 	}
 	else {
@@ -206,15 +215,17 @@ inline void Vector3D::showRectCord() const
 	}
 	std::cout << std::endl;
 }
-inline void Vector3D::showPolarCord()const
+inline void Vector3D::showSphericalCoordinates(std::string label)const
 {
-	cout << setprecision(9) << fixed << "polar<" << radius
-		 << ", " << inclination << ", " << azimuth << ">"<<std::endl;
+	cout<<((label == "") ? ID : label) << setprecision(9) << fixed
+		<< "<r,\xE9,\xE8> = <" << radius
+		<< ", " << inclination << ", " << azimuth << ">"<<std::endl;
 }
-inline void Vector3D::showAllAngles() const
+inline void Vector3D::showAllAngles(std::string label) const
 {
-	cout << "angles aX: " << xAngle << ", aY: " << yAngle << ", aZ: " << zAngle
-		<< endl;
+	cout <<((label == "") ? ID : label) << " Direction Angles \xE9x: "
+		 << xAngle << ", \xE9y: " << yAngle
+		 << ", \xE9z: " << zAngle << endl;
 }
 inline void Vector3D::setRadius()
 {
@@ -222,13 +233,13 @@ inline void Vector3D::setRadius()
 }
 inline void Vector3D::setInclination()
 {
-	inclination = acos(z / radius);
+	inclination = acos(z / radius)*DEGREE;
 }
 inline void Vector3D::setAzimuth()
 {
-	azimuth = atan(y / x);
+	azimuth = atan(y / x)*DEGREE;
 }
-inline void Vector3D::calculate_polar()
+inline void Vector3D::calculate_spherical()
 {
 	setRadius();
 	setInclination();
@@ -247,10 +258,7 @@ inline void Vector3D::set_magnitude()
 	magnitude = find_magnitude();
 }
 
-inline Vector3D Vector3D::check_division(ld d)
-{
-	return *this;
-}
+
 
 //addition
 inline Vector3D Vector3D::operator+(const Vector3D &vec)const
@@ -270,6 +278,7 @@ inline Vector3D &Vector3D::operator+=(const Vector3D &vec)
 	x+=vec.x;
 	y+=vec.y;
 	z+=vec.z;
+	calculate_spherical();
 	set_allAngles();
 	return *this;
 }
@@ -318,28 +327,6 @@ inline Vector3D &Vector3D::operator*=(ld value)
 	return *this;
 }
 
-//scalar division
-
-inline Vector3D Vector3D::operator/(ld d)
-{
-	return check_division(d);
-
-}
-inline Vector3D Vector3D::operator/(int d)
-{
-	return check_division(d);
-
-}
-
-inline Vector3D &Vector3D::operator/=(ld value)
-{
-
-	x/=value;
-	y/=value;
-	z/=value;
-	set_allAngles();
-	return *this;
-}
 
 inline Vector3D& Vector3D::operator=(const Vector3D& vec)
 {
@@ -393,8 +380,45 @@ inline Vector3D Vector3D::normalize_vector()
 	this->x /= length;
 	this->y /= length;
 	this->z /= length;
+	calculate_spherical();
 	set_allAngles();
 	return *this;
+}
+
+inline bool Vector3D::operator==(const Vector3D& v) const
+{
+	return std::make_tuple(this->x, this->y, this->z) ==
+		std::make_tuple(v.x, v.y, v.z);
+}
+
+inline bool Vector3D::operator!=(const Vector3D& v) const
+{
+	return std::make_tuple(this->x, this->y, this->z) !=
+		std::make_tuple(v.x, v.y, v.z);
+}
+
+inline bool Vector3D::operator>(const Vector3D& v) const
+{
+	return std::make_tuple(this->x, this->y, this->z) >
+		std::make_tuple(v.x, v.y, v.z);
+}
+
+inline bool Vector3D::operator>=(const Vector3D& v) const
+{
+	return std::make_tuple(this->x, this->y, this->z) >=
+		std::make_tuple(v.x, v.y, v.z);
+}
+
+inline bool Vector3D::operator<(const Vector3D& v) const
+{
+	return std::make_tuple(this->x, this->y, this->z) <
+		std::make_tuple(v.x, v.y, v.z);
+}
+
+inline bool Vector3D::operator<=(const Vector3D& v) const
+{
+	return std::make_tuple(this->x, this->y, this->z) <=
+		std::make_tuple(v.x, v.y, v.z);
 }
 
 
@@ -434,9 +458,18 @@ inline ld Vector3D::return_zAngle()const
 {
 	return atan2(sqrt(x * x  + y * y), z) * DEGREE;
 }
-inline void Vector3D::display()
+inline ld Vector3D::projection(Vector3D& v) const
 {
-	cout<<x<<" "<<y<<" "<<z<<endl;
+	const auto Θ = this->angle_between_vectors(v);
+	return this->magnitude * cos(Θ * RADIAN);
+}
+inline ld Vector3D::angle_between_vectors(Vector3D& v)const
+{
+	return acos(this->dot_product(v) / (this->magnitude * v.magnitude)) * DEGREE;
+}
+inline void Vector3D::display()const
+{
+	cout<<"<"<<x<<", "<<y<<", "<<z<<">"<<endl;
 }
 
 inline Vector3D::~Vector3D()
