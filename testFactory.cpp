@@ -18,7 +18,7 @@ int main()
 	v.display_vector();
 	VectorNd<ld> vv(1, 8,5,8, 2);
 	vv.display_vector();
-	VectorNd<ld> test = v*vv;
+	VectorNd<ld> test = v*2;
 	std::cout << "test length" << test.size()<<std::endl;
 	test.display_vector();
 	v.vec << 1, 4, 7, 9, 6;
