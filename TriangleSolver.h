@@ -15,29 +15,6 @@
 #include "Vector2D.h"
 
 static int counter = 0;
-//using namespace std;
-
-// use the char name as a mode selector in the constructor followed by the
-// three values being entered all seperated by commas of course.
-//  example->  Triangle exampleConstruct(ssa, 12.5, 9, 75);   <-sample
-
-// sss uses the the sides_a than side_b than side_c for input order
-const char sss = 's'; // sidea sideb sidec input
-
-// sas uses the side a, angle C, than side b for input order
-const char sas = 'a'; // side angle side between
-
-// ssa uses side a, side b, angle A as input order
-const char ssa = 'b'; // side side angle not between
-
-// all angles cant be solved further will ask for one side length
-const char aaa = 'l'; // all angles *cant go further need to have a side too
-
-// asa uses angle
-const char asa = 'i'; // angleA side_c angleB side between
-
-// asa uses angle A then angle C then side c, as the unput sides at the moment
-const char aas = 'n';  // angle angle side not between
 
 
 class TriangleSolver
@@ -96,20 +73,22 @@ public:
 	TriangleSolver();
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="TriangleSolver"/> class.\n
-	/// mode types: sss='s', sas='a', ssa ='b', aaa='l', asa='i', aas='n'\n
-	/// side, side, side(sss)\n
-	/// side angle side(sas)\n
-	/// side, side, angle(ssa)\n
-	/// angleA, angleB, angleC(aaa)\n
-	/// angleA ,side_c, angleB (asa)\n
-	///	angleA angleC side_c (aas)\n
+	/// Initializes a new instance of the TriangleSolver class.\n
+	/// type of triangle:->("use")\n
+	/// <defaulted "sss" = no argument needed>side, side, side->("sss")\n
+	/// else use:___________________________________________\n
+	/// side angle side->("sas")\n
+	/// side, side, angle->("ssa")\n
+	/// angleA, angleB, angleC->("aaa")\n
+	/// angleA ,side_c, angleB->("asa")\n
+	///	angleA angleC side_c->("aas")\n
+	///	_____________________________________________________
 	/// </summary>
-	/// <param name="m">The mode.</param>
-	/// <param name="s1">The s1.</param>
-	/// <param name="a">a.</param>
-	/// <param name="s2">The s2.</param>
-	TriangleSolver(double, double, double,char = 's');
+	/// <param name="param1">The first parameter.</param>
+	/// <param name="param2">The second parameter.</param>
+	/// <param name="param3">The third parameter.</param>
+	/// <param name="type">Three letter string literal or The type of triangle to be solved.</param>
+	TriangleSolver(const double param1, const double param2, const double param3, const string type = "sss");
 
 	TriangleSolver(const TriangleSolver&); // copy constructor
 	TriangleSolver make2rights(); // makes two 90 degree triangles by modifiying itself and returning the other part to new object.
@@ -286,12 +265,12 @@ private:
 	void calculate_rVal();
 	void calculate_sVal();
 	void calculate_iVal();
-	TriangleSolver *solve_by_AAA(double&, double&, double&); // three sides known
-	TriangleSolver *solve_by_AAS(double&, double&, double&); // two angles and a side not between
-	TriangleSolver *solve_by_ASA(double&, double&, double&); // two angles and a side bewteen them
-	TriangleSolver *solve_by_SAS(double&, double&, double&); // two sides and the included angle.
-	TriangleSolver *solve_by_SSA(double&, double&, double&); //  two sides and one angle that is not the included angle
-	TriangleSolver *solve_by_SSS(double&, double&, double&); //  all three sides of a triangle, but no angles
+	TriangleSolver *solve_by_AAA(const double&, const double&, const double&); // three sides known
+	TriangleSolver *solve_by_AAS(const double&, const double&, const double&); // two angles and a side not between
+	TriangleSolver *solve_by_ASA(const double&, const double&, const double&); // two angles and a side bewteen them
+	TriangleSolver *solve_by_SAS(const double&, const double&, const double&); // two sides and the included angle.
+	TriangleSolver *solve_by_SSA(const double&, const double&, const double&); //  two sides and one angle that is not the included angle
+	TriangleSolver *solve_by_SSS(const double&, const double&, const double&); //  all three sides of a triangle, but no angles
 
 };
 
@@ -310,34 +289,33 @@ inline TriangleSolver::TriangleSolver()
 }
 
 
-inline TriangleSolver::TriangleSolver(double s1, double a, double s2,char m)
+inline TriangleSolver::TriangleSolver(const double param1, const double param2, const double param3, const string type)
 {	//sss='s', sas='a', ssa ='b', aaa='l', asa='i', aas='n'
-	initiate_triangle();
+	initiate_triangle();   // s1,  a ,  s2
 	counter++;
-	if (m == 's') // side, side, side(sss)
+	if (type == "sss" || type == "SSS") // side, side, side(sss)
 	{
-		solve_by_SSS(s1, a, s2);
+		solve_by_SSS(param1, param2, param3);
 	}
-	else if (m == 'a') // side angle side(sas)
+	else if (type == "sas" || type == "SAS") // side angle side(sas)
 	{
-		solve_by_SAS(s1, a, s2);
+		solve_by_SAS(param1, param2, param3);
 	}
-	else if (m == 'b') // side, side, angle(ssa)
+	else if (type == "ssa" || type == "SSA") // side, side, angle(ssa)
 	{
-		solve_by_SSA(s1, a, s2);
+		solve_by_SSA(param1, param2, param3);
 	}
-	else if (m == 'l') // angleA, angleB, angleC(aaa)
+	else if (type == "aaa" || type == "AAA") // angleA, angleB, angleC(aaa)
 	{
-		solve_by_AAA(s1, a, s2);
+		solve_by_AAA(param1, param2, param3);
 	}
-
-	else if (m == 'i') // angleA ,side_c, angleB (asa)
+	else if (type == "asa" || type == "ASA") // angleA ,side_c, angleB (asa)
 	{
-		solve_by_ASA(s1, a , s2);
+		solve_by_ASA(param1, param2, param3);
 	}
-	else if (m == 'n') // angleA angleC side_c (aas)
+	else if (type == "aas" || type == "AAS") // angleA angleC side_c (aas)
 	{
-		solve_by_AAS(s1, a, s2);
+		solve_by_AAS(param1, param2, param3);
 	}
 }
 
@@ -706,7 +684,7 @@ inline void TriangleSolver::calculate_iVal()
 {
 	iVal = area / sVal;
 }
-inline TriangleSolver *TriangleSolver::solve_by_AAA(double& a1, double& a2, double& a3)
+inline TriangleSolver *TriangleSolver::solve_by_AAA(const double& a1, const double& a2, const double& a3)
 {
 	angle_A = a1; angle_B = a2; angle_C = a3;
 
@@ -775,7 +753,7 @@ inline TriangleSolver *TriangleSolver::solve_by_AAA(double& a1, double& a2, doub
 
 	return this;
 }
-inline TriangleSolver *TriangleSolver::solve_by_AAS(double& a1, double& a2, double& s)
+inline TriangleSolver *TriangleSolver::solve_by_AAS(const double& a1, const double& a2, const double& s)
 {
 	//double tmp1, tmp2, tmp3, tmp4;
 	angle_A = a1;
@@ -791,7 +769,7 @@ inline TriangleSolver *TriangleSolver::solve_by_AAS(double& a1, double& a2, doub
 	}
 	return this;
 }
-inline TriangleSolver *TriangleSolver::solve_by_ASA(double& a1, double& s, double& a2)
+inline TriangleSolver *TriangleSolver::solve_by_ASA(const double& a1, const double& s, const double& a2)
 {
 	angle_A = a1;
 	side_c = s;
@@ -807,7 +785,7 @@ inline TriangleSolver *TriangleSolver::solve_by_ASA(double& a1, double& s, doubl
 	}
 	return this;
 }
-inline TriangleSolver* TriangleSolver::solve_by_SAS(double &s1, double &a, double &s2)
+inline TriangleSolver* TriangleSolver::solve_by_SAS(const double &s1, const double &a, const double &s2)
 {
 	side_a = s1;
 	angle_C = a;
@@ -815,7 +793,7 @@ inline TriangleSolver* TriangleSolver::solve_by_SAS(double &s1, double &a, doubl
 	findMissingSide();
 	return this;
 }
-inline TriangleSolver* TriangleSolver::solve_by_SSA(double& s1, double& s2, double& _a)
+inline TriangleSolver* TriangleSolver::solve_by_SSA(const double& s1, const double& s2, const double& _a)
 {
 	double t1 = 0.0, t2 = 0.0, t3 = 0.0, t4 = 0.0;
 
@@ -852,7 +830,7 @@ inline TriangleSolver* TriangleSolver::solve_by_SSA(double& s1, double& s2, doub
 	return this;
 
 }
-inline TriangleSolver *TriangleSolver::solve_by_SSS(double& s1, double& s2, double& s3) //law of cosines to solve angle C
+inline TriangleSolver *TriangleSolver::solve_by_SSS(const double& s1, const double& s2, const double& s3) //law of cosines to solve angle C
 {
 	side_a = s1;
 	side_b = s2;

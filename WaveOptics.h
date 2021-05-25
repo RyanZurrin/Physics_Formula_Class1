@@ -4,8 +4,15 @@
 #ifndef WAVE_OPTICS_H
 #define WAVE_OPTICS_H
 //α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
-//Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240
-
+//Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ, γ
+/**
+ * @class WaveOptics
+ * @details class of static methods that relate to chapter 27 of the open-stax
+ * college physics text book.
+ * @author Ryan Zurrin
+ * dateBuilt  5/15/2021
+ * lastEdit 5/15/2021
+ */
 static int waveOptics_objectCount = 0;
 
 class WaveOptics :

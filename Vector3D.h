@@ -59,6 +59,7 @@ public:
 	Vector3D &operator*=(ld value);  //assigning new result to the vector.
 	Vector3D &operator=(const Vector3D &vec);
 	friend ostream& operator<<(ostream&, const Vector3D&);
+	friend istream& operator>>(istream&, Vector3D&);
 	~Vector3D();
 private:
 	ld z, xAngle, yAngle, zAngle,radius, inclination, azimuth;
@@ -263,18 +264,15 @@ inline void Vector3D::set_magnitude()
 //addition
 inline Vector3D Vector3D::operator+(const Vector3D &vec)const
 {
-	cout << "in Vector3D::operator+(const Vector3D &vec)"<<endl;
 	return Vector3D(x+vec.x,y+vec.y,z+vec.z);
 }
 inline Vector3D Vector3D::operator+(Vector3D &vec)const
 {
-	cout << "in Vector3D::operator+(Vector &vec)const "<<endl;
 	return Vector3D(x+vec.x,y+vec.y,z);
 }
 
 inline Vector3D &Vector3D::operator+=(const Vector3D &vec)
 {
-	cout << "in &Vector3D::operator+=(const Vector3D &vec)"<<endl;
 	x+=vec.x;
 	y+=vec.y;
 	z+=vec.z;
@@ -348,6 +346,14 @@ inline ostream& operator<<(ostream& os, const Vector3D & v)
 	v.showPolarCord();
   }
   return os;
+}
+
+inline istream& operator>>(istream& is, Vector3D& v)
+{
+	ld x_, y_, z_;
+	is >> x_ >> y_ >> z_;
+	v.setX(x_); v.setY(y_); v.setZ(z_);
+	return is;
 }
 
 
