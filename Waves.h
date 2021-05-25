@@ -1,17 +1,19 @@
 ﻿#pragma once
-/**
- * @class Waves
- * @details driver class for solving complex physics problems
- * @author Ryan Zurrin
- * @date   12/17/2020
- ____________________________________________________________________________*/
-
 #ifndef WAVES_H
 #define WAVES_H
 #include <iostream>
 #include "Elasticity.h"
 #include "Energy.h"
-
+//α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
+//Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ, γ
+/**
+ * @class Waves
+ * @details class of static methods that relate to chapter 16 of the open-stax
+ * college physics text book.
+ * @author Ryan Zurrin
+ * dateBuilt  12/20/2020
+ * lastEdit 12/26/2020
+ */
 
 static int waves_objectCount = 0;
 

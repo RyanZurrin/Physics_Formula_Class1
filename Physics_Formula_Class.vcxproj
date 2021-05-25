@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testFactory.cpp" />
+    <ClCompile Include="VectorNd.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="oldProblems.txt" />
@@ -77,6 +78,9 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <UseIntelMKL>No</UseIntelMKL>
+    <UseInteloneMKL>Sequential</UseInteloneMKL>
+    <UseMpiLibrary1A>INTELMPI</UseMpiLibrary1A>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -90,6 +94,9 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <UseIntelMKL>No</UseIntelMKL>
+    <UseInteloneMKL>Sequential</UseInteloneMKL>
+    <UseMpiLibrary1A>INTELMPI</UseMpiLibrary1A>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>

@@ -10,6 +10,7 @@
 #include <cmath>
 #include <complex>
 #include <cassert>
+#include "VectorNd.h"
 
 typedef long double _ld_;
 using namespace std;
@@ -666,6 +667,7 @@ inline Vector2D operator*(_ld_ s, Vector2D& v)
 {
   return v * s;
 }
+
 inline Vector2D operator*(Vector2D& v, Vector2D& s)
 {
    Vector2D results(v.x*s.x, v.y*s.y, v.mode);

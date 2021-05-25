@@ -7,8 +7,8 @@
  */
 #ifndef PHYSICS_WORLD_H
 #define PHYSICS_WORLD_H
-#include <gsl/gsl_linalg.h>
 #include <gsl/gsl_integration.h>
+#include <gsl/gsl_linalg.h>
 #include <Eigen/Eigen>
 #include "Circuits.h"
 #include "Drag.h"
@@ -38,6 +38,7 @@
 #include "TriangleSolver.h"
 #include "UniformCircularMotion.h"
 #include "Vector3D.h"
+#include "VectorNd.h"
 #include "VisionOpticalInstruments.h"
 #include "WaveOptics.h"
 #include "Waves.h"
@@ -748,6 +749,7 @@ public:
 
 		cout << endl;
 	}
+	VectorNd<ld>* vectorNd;
 	TriangleSolver* triangle;
 	Kinematics* kinematics;
 	Friction* friction;
@@ -791,6 +793,7 @@ public:
 	Physics_World(const Physics_World&); //copy constructor
 	Physics_World& operator=(const Physics_World&); //copy assignment operator
 	Physics_World(Physics_World&& o) noexcept :
+		vectorNd(o.vectorNd),
 		triangle(o.triangle),
 		kinematics(o.kinematics),
 		friction(o.friction),
@@ -911,6 +914,7 @@ public:
 inline Physics_World::Physics_World()
 {
 	_ptr_ = nullptr;
+	vectorNd = new VectorNd<ld>;
 	triangle = new TriangleSolver;
 	kinematics = new Kinematics;
 	drag = new Drag;
@@ -945,6 +949,7 @@ inline Physics_World::Physics_World()
 	vision_optical = new VisionOpticalInstruments;
 	relativity = new SpecialRelativity;
 	quantum = new QuantumPhysics;
+
 	countIncrease();
 	//countShow();
 }
@@ -954,6 +959,7 @@ inline Physics_World::Physics_World()
 inline Physics_World::Physics_World(const Physics_World& p)
 {
 	_ptr_ = p._ptr_;
+	vectorNd = p.vectorNd;
 	//vector_values = p.vector_values;
 	triangle = p.triangle;
 	kinematics = p.kinematics;
@@ -999,6 +1005,7 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 	if(this != &r)
 	{
 		_ptr_ = r._ptr_;
+		vectorNd = r.vectorNd;
 		triangle = r.triangle;
 		//vector_values = r.vector_values;
 		kinematics = r.kinematics;
@@ -1042,6 +1049,7 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 {
 	_ptr_ = nullptr;
+	vectorNd = new VectorNd<ld>;
 	triangle = new TriangleSolver;
 	kinematics = new Kinematics;
 	drag = new Drag;
@@ -1084,6 +1092,7 @@ inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 
 inline Physics_World::Physics_World(const ld t1, const ld t2)
 {
+	vectorNd = new VectorNd<ld>;
 	triangle = new TriangleSolver;
 	drag = new Drag;
 	kinematics = new Kinematics;
@@ -1124,6 +1133,7 @@ inline Physics_World::Physics_World(const ld t1, const ld t2)
 
 inline Physics_World::~Physics_World()
 {
+	delete vectorNd;
 	delete triangle;
 	delete kinematics;
 	delete elasticity;
