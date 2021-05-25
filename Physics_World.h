@@ -38,7 +38,7 @@
 #include "TriangleSolver.h"
 #include "UniformCircularMotion.h"
 #include "Vector3D.h"
-#include "VectorNd.h"
+#include "VectorND.h"
 #include "VisionOpticalInstruments.h"
 #include "WaveOptics.h"
 #include "Waves.h"

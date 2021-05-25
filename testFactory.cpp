@@ -12,13 +12,16 @@ int main()
 	//add test code between starred areas
 	//*************************************************************************
 
-	VectorNd<ld> v(4, 3 ,2 ,1);
+	VectorNd<ld> v(4, 3 ,2 ,1, 8);
 	v.display_vector();
-	VectorNd<ld> vv(1, 8,5,8);
+	v *= 2;
+	v.display_vector();
+	VectorNd<ld> vv(1, 8,5,8, 2);
 	vv.display_vector();
-	VectorNd<ld> test = v+vv;
+	VectorNd<ld> test = v*vv;
+	std::cout << "test length" << test.size()<<std::endl;
 	test.display_vector();
-	//v.vec << 1, 4, 7, 9;
+	v.vec << 1, 4, 7, 9, 6;
 
 	//v.push_back(88);
 	//v.push_back(55);

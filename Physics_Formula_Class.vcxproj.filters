@@ -117,7 +117,7 @@
     <ClInclude Include="QuantumPhysics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VectorNd.h">
+    <ClInclude Include="VectorND.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics_World.h">
