@@ -135,7 +135,7 @@ public:
 
 	friend VectorNd<T> operator*(T s, VectorNd& v)
 	{
-		return s * v;
+		return v*s;
 	}
 	friend VectorNd<T> operator*(VectorNd& v, VectorNd& s)
 	{
