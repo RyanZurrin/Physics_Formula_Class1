@@ -16,10 +16,33 @@ class VectorNd {
 
 
 public:
-	explicit VectorNd(ll = 100);
+	explicit VectorNd(ll = 4);
+	VectorNd(VectorNd&& v)noexcept
+	{
+		this->capacity = v.capacity;
+		this->vec = v.vec;
+		this->arr = v.arr;
+		this->length = 0;
+		for (size_t i = 0; i < v.length; i++)
+		{
+			this->push_back(v.arr[i]);
+		}
+	};
+
+	VectorNd(const VectorNd& v)
+	{
+		this->capacity = v.capacity;
+		this->vec = v.vec;
+		this->arr = v.arr;
+		this->length = 0;
+		for (size_t i = 0; i < v.length; i++)
+		{
+			this->push_back(v.arr[i]);
+		}
+	}
 
 	template<typename ... Args>
-	VectorNd(const T& first, const Args&... args);
+	explicit VectorNd(const T& first, const Args&... args);
 
 	// Function that returns the number of
 	// elements in array after pushing the data
@@ -36,7 +59,9 @@ public:
 	// Function that return the size of vector
 	ll size() const;
 	T& operator[](ll);
-	Eigen::VectorX<T> vec;
+
+	VectorNd<T> multiplyScalar(T scalar)const;
+
 	// Iterator Class
 	class iterator {
 
@@ -85,6 +110,7 @@ public:
 	iterator end() const;
 
 
+	//VectorNd<T>(VectorNd<T>&& temp)noexcept;
 	bool operator==(const VectorNd& v)const;
 	bool operator!=(const VectorNd& v)const;
 	bool operator>(const VectorNd& v)const;
@@ -100,10 +126,28 @@ public:
 	VectorNd<T> operator--();
 	VectorNd<T> operator--(int);
 	VectorNd<T> &operator-=(const VectorNd &vec);  //assigning new result to the vector
-	VectorNd<T> operator*(T value);    //multiplication
-	VectorNd<T> &operator*=(T value);  //assigning new result to the vector.
-	VectorNd<T> &operator=(const VectorNd &vec);
 
+	VectorNd<T> &operator*=(T value);  //assigning new result to the vector.
+	VectorNd<T> &operator=(const VectorNd<T> &vec);
+	VectorNd<T> &operator=(const VectorNd<T> *v);
+	VectorNd<T> &operator=(VectorNd<T>&& right)noexcept;
+	VectorNd<T> operator*(T)const;
+
+	friend VectorNd<T> operator*(T s, VectorNd& v)
+	{
+		return s * v;
+	}
+	friend VectorNd<T> operator*(VectorNd& v, VectorNd& s)
+	{
+		VectorNd<T> temp(v.length);
+		temp.vec = v.vec;
+		temp.length = 0;
+		for (size_t i = 0; i < v.length; i++)
+		{
+			temp.push_back(v.arr[i] * s.arr[i]);
+		}
+		return temp;
+	}
 private:
 	T* arr;
 
@@ -114,6 +158,10 @@ private:
 	// Variable to store the length of the
 	// vector
 	ll length;
+
+public:
+	Eigen::VectorX<T> vec;
+	~VectorNd();
 };
 #endif
 
@@ -121,15 +169,18 @@ private:
 // vector of different data_type
 template <typename T>
 VectorNd<T>::VectorNd(ll n)
-	: vec(Eigen::VectorX<T>(n)), arr(new T[100]), capacity(100),length(0)
+	: arr(new T[100]), capacity(100), length(0),vec(Eigen::VectorX<T>(n))
 {
 }
 
 template<typename T>
 template<typename ...Args>
 inline VectorNd<T>::VectorNd(const T& first, const Args & ...args)
-	:VectorNd()
+	//:VectorNd()
 {
+	arr = new T[100];
+	capacity = 100;
+	length = 0;
 	vector<T> container;
 	container.push_back(first);
 	int dummy[] = { 0, (container.push_back(args), 0)... };
@@ -139,6 +190,7 @@ inline VectorNd<T>::VectorNd(const T& first, const Args & ...args)
 	{
 		this->push_back(i);
 	}
+	vec = Eigen::VectorX<T>(length);
 }
 
 template<typename T>
@@ -156,6 +208,20 @@ inline void VectorNd<T>::addValuesToVector(const T& first, const Args & ...args)
 	}
 
 }
+/*
+template<typename T>
+inline VectorNd<T>::VectorNd(VectorNd<T>&& temp) noexcept
+{
+	this->capacity = temp.capacity;
+	this->length = temp.length;
+	this->arr = new T[capacity];
+	for (size_t i = 0; i < length; i++)
+	{
+		this->arr[i] == temp.arr[i];
+	}
+	this->vec = temp.vec;
+}
+*/
 
 
 // Template class to insert the element
@@ -204,15 +270,24 @@ ll VectorNd<T>::size() const
 template <typename T>
 T& VectorNd<T>::operator[](ll index)
 {
-	// if given index is greater than the
-	// size of vector print Error
-	if (index >= length) {
+	if (index >= length&&index>capacity) {
 		cout << "Error: Array index out of bound";
 		exit(0);
 	}
-
-	// else return value at that index
 	return *(arr + index);
+}
+
+template<typename T>
+inline VectorNd<T> VectorNd<T>::multiplyScalar(T scalar)const
+{
+	VectorNd<T> temp;
+	temp.capacity = capacity;
+	temp.vec = vec;
+	for (size_t i = 0; i < length; i++)
+	{
+		temp.push_back(arr[i] * scalar);
+	}
+	return temp;
 }
 
 // Template class to return begin iterator
@@ -270,10 +345,10 @@ bool VectorNd<T>::operator<=(const VectorNd& v) const
 template<typename T>
 VectorNd<T> VectorNd<T>::operator+(const VectorNd& vec) const
 {
-	VectorNd<T> temp(length);
-	for (size_t i = 0; i < length; i++)
+	VectorNd<T> temp;
+	for (size_t i = 0; i < vec.length; i++)
 	{
-		temp[i] = this->arr[i] + vec.arr[i];
+		temp.push_back(this->arr[i] + vec.arr[i]);
 	}
 	return temp;
 }
@@ -281,10 +356,10 @@ VectorNd<T> VectorNd<T>::operator+(const VectorNd& vec) const
 template <typename T>
 VectorNd<T> VectorNd<T>::operator+(VectorNd& vec) const
 {
-	VectorNd<T> temp(length);
-	for (size_t i = 0; i < length; i++)
+	VectorNd<T> temp;
+	for (size_t i = 0; i < vec.length; i++)
 	{
-		temp[i] = this->arr[i] + vec.arr[i];
+		temp.push_back(this->arr[i] + vec.arr[i]);
 	}
 	return temp;
 }
@@ -365,22 +440,12 @@ template<typename T>
  }
 
  template<typename T>
- VectorNd<T> VectorNd<T>::operator*(T value)
- {
-	 VectorNd<T> temp;
-	 for (size_t i = 0; i < length; i++)
-	 {
-		 temp.arr[i] = this->arr[i] * value;
-	 }
-	 return VectorNd();
- }
-
- template<typename T>
  VectorNd<T>& VectorNd<T>::operator*=(T value)
  {
 	 for (size_t i = 0; i < length; i++)
 	 {
-		 this.arr[i] *= value;
+		 arr[i] *= value;
+
 	 }
 	 return *this;
  }
@@ -397,6 +462,52 @@ template<typename T>
 	 }
 	 return *this;
  }
+
+ template<typename T>
+ inline VectorNd<T>& VectorNd<T>::operator=(const VectorNd<T>* v)
+ {
+	 this->capacity = v->capacity;
+	 this->length = v->length;
+	 this->vec = v.vec;
+	 for (size_t i = 0; i < vec.length; i++)
+	 {
+		 this->arr[i] = v->arr[i];
+	 }
+	 return *this;
+ }
+
+ template<typename T>
+ inline VectorNd<T>& VectorNd<T>::operator=(VectorNd<T>&& right) noexcept
+ {
+	 if (this != &right)
+	 {
+		 swap(this->capacity, right.capacity);
+		 swap(this->length, right.length);
+		 swap(this.arr, right.arr);
+		 swap(this->vec, right.vec);
+	 }
+	 return *this;
+ }
+
+ template<typename T>
+ inline VectorNd<T> VectorNd<T>::operator*(T s)const
+ {
+	 VectorNd<T> temp;
+	 temp.vec = vec;
+	 for (size_t i = 0; i < length; i++)
+	 {
+		 temp.push_back(arr[i] * s);
+	 }
+	 return	temp;
+ }
+
+
+
+ template<typename T>
+ inline VectorNd<T>::~VectorNd() = default;
+
+
+
 
 
 
