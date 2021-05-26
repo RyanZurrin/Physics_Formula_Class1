@@ -4,7 +4,7 @@
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
 #include "Vector2D.h"
-
+static int vec3d_objectCount = 0;
 using namespace std;
 
 class Vector3D : public Vector2D
@@ -21,11 +21,11 @@ public:
 	void set_yAngle(ld);
 	void set_zAngle(ld);
 	void set_coordinates(ld, ld, ld);
-	void displayAllData(std::string label = "");
-	void showRectCord(std::string label = "")const;
+	void displayAllData(std::string label = "")const override;
+	void showRectCord(std::string label = "")const override;
 	void showSphericalCoordinates(std::string label = "")const;
 	void showAllAngles(std::string label = "")const;
-	void display()const;    //display value of vector
+	void display()const override;    //display value of vector
 	ld returnX()const; //return x
 	ld returnY()const; //return y
 	ld returnZ()const; //return z
@@ -49,7 +49,7 @@ public:
 	Vector3D operator+(const Vector3D &vec)const;    //addition
 	Vector3D operator+(Vector3D &vec)const;
 	Vector3D &operator+=(const Vector3D &vec);  ////assigning new result to the vector
-	Vector3D operator-(const Vector3D &vec);    //substraction
+	Vector3D operator-(const Vector3D &vec);    //subtraction
 	Vector3D operator-(const ld number)const;
 	Vector3D operator-()const;
 	Vector3D operator--();
@@ -60,7 +60,11 @@ public:
 	Vector3D &operator=(const Vector3D &vec);
 	friend ostream& operator<<(ostream&, const Vector3D&);
 	friend istream& operator>>(istream&, Vector3D&);
-	~Vector3D();
+	static void show_objectCount() { std::cout << "\n vector3D object count: "
+							<< vec3d_objectCount << std::endl; }
+	static int get_objectCount() { return vec3d_objectCount; }
+
+	~Vector3D()override;
 private:
 	ld z, xAngle, yAngle, zAngle,radius, inclination, azimuth;
 	void setRadius();
@@ -69,13 +73,14 @@ private:
 	void calculate_spherical();
 	void set_allAngles();
 	void set_magnitude();
+	static void countIncrease() { vec3d_objectCount += 1; }
+	static void countDecrease() { vec3d_objectCount -= 1; }
 };
 #endif
 
 
 inline Vector3D::Vector3D(string id) //constructor
 {
-  ID = id;
   x=0;
   y=0;
   z=0;
@@ -86,7 +91,15 @@ inline Vector3D::Vector3D(string id) //constructor
   _ptr3d =  nullptr;
   calculate_spherical();
   set_allAngles();
-  object_counter++;
+  countIncrease();
+  if (id == "")
+  {
+	  ID = "vec3d_" + std::to_string(vecNd_objCounter);
+  }
+  else
+  {
+	  ID = id;
+  }
   //cout<< object_counter << ": " <<"in the 3dVector default constructor"<<endl;
 }
 inline Vector3D::Vector3D(ld x1,ld y1,ld z1,string id) //initializing object with values.
@@ -102,7 +115,15 @@ inline Vector3D::Vector3D(ld x1,ld y1,ld z1,string id) //initializing object wit
   calculate_spherical();
   set_magnitude();
   set_allAngles();
-  object_counter++;
+  countIncrease();
+  if (id == "")
+  {
+	  ID = "vec3d_" + std::to_string(vecNd_objCounter);
+  }
+  else
+  {
+	  ID = id;
+  }
 	//cout<< object_counter << ": " <<"in the x,y,z constructor" << endl;;
 }
 inline Vector3D::Vector3D(const Vector3D &vec, string id)
@@ -119,7 +140,15 @@ inline Vector3D::Vector3D(const Vector3D &vec, string id)
   calculate_spherical();
   set_magnitude();
   set_allAngles();
-  object_counter++;
+  countIncrease();
+  if (id == "")
+  {
+	  ID = "vec3d_" + std::to_string(vecNd_objCounter);
+  }
+  else
+  {
+	  ID = id;
+  }
 
 }
 inline void Vector3D::setX(ld _x)
@@ -170,15 +199,12 @@ inline void Vector3D::set_coordinates(ld x1, ld y1, ld z1)
 	yAngle = 0.0;
 	zAngle = 0.0;
 	_ptr3d = nullptr;
-
 	set_magnitude();
 	set_allAngles();
-	object_counter++;
 }
-inline void Vector3D::displayAllData(std::string label)
+inline void Vector3D::displayAllData(std::string label)const
 {
 	std::cout << ((label == "") ? ID : label);
-	magnitude = find_magnitude();
 	showRectCord();
 	showSphericalCoordinates();
 	showAllAngles();
@@ -189,7 +215,7 @@ inline void Vector3D::showRectCord(std::string label) const
 {
 	cout << setprecision(9) << fixed;
 
-	cout<< "\n" <<((label == "") ? ID : label) << "(x,y,z) = ";
+	cout<< "\n" <<((label == "") ? ID : label) << ":(x,y,z) = ";
 	if (x < 0 && x > -1) {
 		cout << setiosflags(ios::fixed);
 		cout << fixed << "(" << x << ","
@@ -219,14 +245,14 @@ inline void Vector3D::showRectCord(std::string label) const
 inline void Vector3D::showSphericalCoordinates(std::string label)const
 {
 	cout<<((label == "") ? ID : label) << setprecision(9) << fixed
-		<< "<r,\xE9,\xE8> = <" << radius
+		<< ":<r,\xE9,\xE8> = <" << radius
 		<< ", " << inclination << ", " << azimuth << ">"<<std::endl;
 }
 inline void Vector3D::showAllAngles(std::string label) const
 {
-	cout <<((label == "") ? ID : label) << " Direction Angles \xE9x: "
-		 << xAngle << ", \xE9y: " << yAngle
-		 << ", \xE9z: " << zAngle << endl;
+	cout <<((label == "") ? ID : label) << ":(\xE9x,\xE9y,\xE9z) = ("
+		 << xAngle << ", " << yAngle
+		 << ", " << zAngle << ")" <<std::endl;
 }
 inline void Vector3D::setRadius()
 {
@@ -480,9 +506,6 @@ inline void Vector3D::display()const
 
 inline Vector3D::~Vector3D()
 {
-	--object_counter;
+	countDecrease();
 	delete _ptr3d;
-	//delete this;
-	//cout << "In Vector3D destructor: "<< object_counter << " objects remain\n"
-	//		 << endl;
 }

@@ -20,7 +20,7 @@ constexpr auto _PI_ = 3.14159265359;
 constexpr auto DEGREE = 180/_PI_;
 constexpr auto RADIAN = _PI_/180;
 constexpr auto _Ga_ = 9.81;
-static int object_counter = 0;
+static int vec2d_object_counter = 0;
 
 class Vector2D
 {
@@ -35,10 +35,10 @@ public:
 	Vector2D(char, string id = "");//mode select, defaults to 0, in rectangular, constructor
 	Vector2D(_ld_, _ld_, char _mode = 'r', string id = ""); //constructor takes both coordinates and mode
 	Vector2D(const Vector2D &, string id = "");	//copy constructor
-	void displayAllData(std::string label = "")const; //virtual so any derived classes must redefine
-	void display()const;
-	void showRectCord()const;
-	void showPolarCord()const;
+	virtual void displayAllData(std::string label = "")const; //virtual so any derived classes must redefine
+	virtual void display()const;
+	virtual void showRectCord(std::string label = "")const;
+	void showPolarCord(std::string label = "")const;
 	void showRevolutionAngle()const;
 
 	//virtual void showPolarCurve()const;
@@ -55,7 +55,7 @@ public:
 	_ld_ return_angle()const;
 	_ld_ return_arcLength()const;
 	char return_mode()const;
-	static int return_objectCount(){return object_counter;}
+	static int return_objectCount(){return vec2d_object_counter;}
 
 	void set_coordinates(_ld_, _ld_, char _mode = 'r');
 	void set_rectCord(_ld_, _ld_);
@@ -75,7 +75,9 @@ public:
 	_ld_ cross_product(const Vector2D&)const;    //cross_product
 	Vector2D normalize_Vector2D();   //normalized Vector2D
 	 //virtual void setParametricPoints();
-
+	static void show_objectCount() { std::cout << "\n vector2D object count: "
+							<< vecNd_objCounter << std::endl; }
+	static int get_objectCount() { return vecNd_objCounter; }
 	bool operator>(const Vector2D &)const;
 	bool operator>=(const Vector2D&)const;
 	bool operator<(const Vector2D &)const;
@@ -125,9 +127,9 @@ private:
 	_ld_ angle;
 	_ld_ arcLength;
 	_ld_ revolutionAngle_inDegrees;
-	static void countShow() { std::cout << "Vector2D count: " << object_counter << std::endl; }
+	static void countShow() { std::cout << "Vector2D count: " << vec2d_object_counter << std::endl; }
 	//void    calculate_parametric_equation();
-	void 	 validate_setMode();
+	void 	validate_setMode();
 	void    normalize_magnitude();
 	void    calculate_magnitude();
 	void    calculate_angle();
@@ -135,8 +137,8 @@ private:
 	void    calculate_rectangular();
 	void    calculate_polar();
 	void    calculate_arcLength();
-	static void countIncrease() { object_counter += 1; }
-	static void countDecrease() { object_counter -= 1; }
+	static void countIncrease() { vec2d_object_counter += 1; }
+	static void countDecrease() { vec2d_object_counter -= 1; }
 };
 #endif
 //=============================================================================
@@ -145,7 +147,6 @@ private:
 inline Vector2D::Vector2D(string id)
 {
   _vPtr2d =  nullptr;
-  ID = id;
   x = 0;
   y = 0;
   magnitude = 0.0;
@@ -155,15 +156,21 @@ inline Vector2D::Vector2D(string id)
   revolutionAngle_inDegrees = 0.0;
   mode = 'r';
   validate_setMode();
-
   countIncrease();
+  if (id == "")
+  {
+	  ID = "vec2d_" + std::to_string(vecNd_objCounter);
+  }
+  else
+  {
+	  ID = id;
+  }
   //countShow();
 }
 
 inline Vector2D::Vector2D(char _mode, string id)
 {
   _vPtr2d =  nullptr;
-  ID = id;
   x = 0;
   y = 0;
   magnitude = 0;
@@ -174,6 +181,14 @@ inline Vector2D::Vector2D(char _mode, string id)
   mode = _mode;
   validate_setMode();
   countIncrease();
+  if (id == "")
+  {
+	  ID = "vec2d_" + std::to_string(vecNd_objCounter);
+  }
+  else
+  {
+	  ID = id;
+  }
   //countShow();
 }
 /*______________________________________________________________________________
@@ -195,6 +210,15 @@ inline Vector2D::Vector2D(_ld_ xMag, _ld_ yAng, char _mode, string id)
 	arcLength = return_angle();
 	_vPtr2d =  nullptr;
 	countIncrease();
+	if (id == "")
+	{
+	  ID = "vec2d_" + std::to_string(vecNd_objCounter);
+	}
+	else
+	{
+	  ID = id;
+	}
+
 
 }
 inline Vector2D::Vector2D(const Vector2D &v, string id)
@@ -213,10 +237,18 @@ inline Vector2D::Vector2D(const Vector2D &v, string id)
 	arcLength = return_angle();
 	_vPtr2d =  nullptr;
 	countIncrease();
+	if (id == "")
+	{
+	  ID = "vec2d_" + std::to_string(vecNd_objCounter);
+	}
+	else
+	{
+	  ID = id;
+	}
 }
 inline void Vector2D::displayAllData(std::string label)const
 {
-  std::cout << ((label == "") ? ID : label) << std::endl;
+  std::cout << ((label == "") ? ID : label) << ":"<<std::endl;
   showRectCord();
   showPolarCord();
   showRevolutionAngle();
@@ -232,43 +264,42 @@ inline void Vector2D::display()const
   }
 }
 
-inline void Vector2D::showRectCord()const
-{
-	 cout << setprecision(9) << fixed;
-
-	 cout << "\n(x,y) = ";
-	 if(x < 0 && x > -1 ){
-		 cout << setiosflags(ios::fixed);
-	 cout << fixed << "(" << x << ","
-		 << resetiosflags(ios::fixed);
-   }
-	 else{
-	 cout << "(" << x << ",";
-   }
-   if(y<0 && y>-1){
-	   cout << setiosflags(ios::fixed);
-	   cout << y << ")" <<endl;
-		 cout << resetiosflags(ios::fixed);
-	 }
-	 else{
-		cout << y << ")";
-	 }
-}
-inline void Vector2D::showPolarCord()const
+inline void Vector2D::showRectCord(std::string label)const
 {
 	cout << setprecision(9) << fixed;
-	 if(magnitude >= 0 && angle >= 0){
-		 cout << "\n<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";
-	 }
-	 else{
-		 cout << setiosflags(ios::fixed);
-		 cout << "\n<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";
-		 cout << resetiosflags(ios::fixed) << endl;
-	 }
+	cout<< "\n" <<((label == "") ? ID : label) << ":(x,y) = ";
+	if(x < 0 && x > -1 ){
+		cout << setiosflags(ios::fixed);
+		cout << fixed << "(" << x << ","
+		<< resetiosflags(ios::fixed);
+	}
+	else{
+		cout << "(" << x << ",";
+	}
+	if(y<0 && y>-1){
+		cout << setiosflags(ios::fixed);
+		cout << y << ")" <<endl;
+		cout << resetiosflags(ios::fixed);
+	}
+	else{
+		cout << y << ")";
+	}
+}
+inline void Vector2D::showPolarCord(std::string label)const
+{
+	cout<< "\n" << ((label == "") ? ID : label) << setprecision(9) << fixed;
+	if(magnitude >= 0 && angle >= 0){
+		cout << ":<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";
+	}
+	else{
+		cout << setiosflags(ios::fixed);
+		cout << ":<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";
+		cout << resetiosflags(ios::fixed) << endl;
+	}
 }
 inline void Vector2D::showRevolutionAngle()const
 {
-  cout << "Angle in degrees:  " << revolutionAngle_inDegrees;
+	cout << "Angle in degrees:  " << revolutionAngle_inDegrees;
 }
 inline void Vector2D::show_x() const
 {
@@ -296,7 +327,7 @@ inline void Vector2D::show_mode()const
 }
 inline void Vector2D::show_arcLength() const
 {
-   cout << setprecision(7)<< fixed;
+	cout << setprecision(7)<< fixed;
 	cout << "\narc length: " << arcLength << endl;
 }
 inline _ld_ Vector2D::return_x() const
