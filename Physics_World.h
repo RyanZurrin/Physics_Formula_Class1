@@ -749,7 +749,7 @@ public:
 
 		cout << endl;
 	}
-	VectorNd<ld>* vectorNd;
+	VectorND<ld>* vectorNd;
 	TriangleSolver* triangle;
 	Kinematics* kinematics;
 	Friction* friction;
@@ -914,7 +914,7 @@ public:
 inline Physics_World::Physics_World()
 {
 	_ptr_ = nullptr;
-	vectorNd = new VectorNd<ld>;
+	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
 	kinematics = new Kinematics;
 	drag = new Drag;
@@ -1049,7 +1049,7 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 {
 	_ptr_ = nullptr;
-	vectorNd = new VectorNd<ld>;
+	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
 	kinematics = new Kinematics;
 	drag = new Drag;
@@ -1092,7 +1092,7 @@ inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 
 inline Physics_World::Physics_World(const ld t1, const ld t2)
 {
-	vectorNd = new VectorNd<ld>;
+	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
 	drag = new Drag;
 	kinematics = new Kinematics;
