@@ -1,11 +1,20 @@
-#pragma once
+﻿#pragma once
 #ifndef VECTOR_ND_H
 #define VECTOR_ND_H
 #include <cstdarg>
 #include <Eigen/Eigen>
 #define ull unsigned long long
 #define ll  long double
-
+//α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
+//Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ, γ
+/**
+ * @class VectorND
+ * @details class of static methods that relate to chapter 29 of the open stax
+ * college physics text book.
+ * @author Ryan Zurrin
+ * dateBuilt  5/22/2021
+ * lastEdit 5/26/2021
+ */
 
 static int vecNd_objCounter = 0;
 using namespace std;

@@ -20,6 +20,7 @@
 #include "ElectroMagneticInduction.h"
 #include "ElectromagneticWaves.h"
 #include "Energy.h"
+#include "ETL.h"
 #include "FluidDynamics.h"
 #include "FluidStatics.h"
 #include "Friction.h"
@@ -749,6 +750,7 @@ public:
 
 		cout << endl;
 	}
+	ETL* etl;
 	VectorND<ld>* vectorNd;
 	TriangleSolver* triangle;
 	Kinematics* kinematics;
@@ -793,6 +795,7 @@ public:
 	Physics_World(const Physics_World&); //copy constructor
 	Physics_World& operator=(const Physics_World&); //copy assignment operator
 	Physics_World(Physics_World&& o) noexcept :
+		etl(o.etl),
 		vectorNd(o.vectorNd),
 		triangle(o.triangle),
 		kinematics(o.kinematics),
@@ -914,6 +917,7 @@ public:
 inline Physics_World::Physics_World()
 {
 	_ptr_ = nullptr;
+	etl = new ETL;
 	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
 	kinematics = new Kinematics;
@@ -959,6 +963,7 @@ inline Physics_World::Physics_World()
 inline Physics_World::Physics_World(const Physics_World& p)
 {
 	_ptr_ = p._ptr_;
+	etl = p.etl;
 	vectorNd = p.vectorNd;
 	//vector_values = p.vector_values;
 	triangle = p.triangle;
@@ -1005,6 +1010,7 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 	if(this != &r)
 	{
 		_ptr_ = r._ptr_;
+		etl = r.etl;
 		vectorNd = r.vectorNd;
 		triangle = r.triangle;
 		//vector_values = r.vector_values;
@@ -1049,6 +1055,7 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 {
 	_ptr_ = nullptr;
+	etl = new ETL;
 	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
 	kinematics = new Kinematics;
@@ -1092,6 +1099,7 @@ inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 
 inline Physics_World::Physics_World(const ld t1, const ld t2)
 {
+	etl = new ETL;
 	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
 	drag = new Drag;
@@ -1133,6 +1141,7 @@ inline Physics_World::Physics_World(const ld t1, const ld t2)
 
 inline Physics_World::~Physics_World()
 {
+	delete etl;
 	delete vectorNd;
 	delete triangle;
 	delete kinematics;

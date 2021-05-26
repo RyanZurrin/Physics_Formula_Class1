@@ -26,6 +26,7 @@
     <ClInclude Include="ElectricPotential.h" />
     <ClInclude Include="ElectroMagneticInduction.h" />
     <ClInclude Include="ElectromagneticWaves.h" />
+    <ClInclude Include="ETL.h" />
     <ClInclude Include="FluidDynamics.h" />
     <ClInclude Include="FluidStatics.h" />
     <ClInclude Include="GeometricOptics.h" />

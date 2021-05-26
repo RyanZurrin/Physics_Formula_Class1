@@ -12,6 +12,22 @@ int main()
 	//add test code between starred areas
 	//*************************************************************************
 
+
+	ETL test("winedata.csv", ",", false);
+	std::vector<std::vector<std::string>> dataset = test.readCSV();
+
+	int rows = dataset.size();
+	int cols = dataset[0].size();
+
+	Eigen::MatrixXd dataMat = test.CSVtoEigen(dataset, rows, cols);
+
+	std::cout << dataMat << std::endl;
+
+
+
+
+
+	/*
 	VectorND<ld> v(4, 3 ,2 ,1, 8);
 	v.display_vector("v");
 	VectorND<ld> vv(1, 8,5,8, 2);
@@ -55,7 +71,7 @@ int main()
 	value = aaa != bbb;
 	std::cout << "aaa!=bbb:"<<value<< endl;
 
-
+	*/
 	//setVal(QP::powerCarriedAwayByElectrons(1.00e-3, 500e-9, 1.30e3,2.28));
 	//show_val("N/t", "elec/sec");
 
