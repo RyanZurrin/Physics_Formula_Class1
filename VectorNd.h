@@ -3,10 +3,9 @@
 #define VECTOR_ND_H
 #include <cstdarg>
 #include <Eigen/Eigen>
-#define ll long long
 
 
-
+static int vecNd_objCounter = 0;
 using namespace std;
 
 // Template class to create vector of
@@ -16,29 +15,35 @@ class VectorNd {
 
 
 public:
-	explicit VectorNd(ll = 4);
+	explicit VectorNd(T = 4);
 	VectorNd(VectorNd&& v)noexcept
 	{
+		countIncrease();
+		ID = "vecNd_" + std::to_string(vecNd_objCounter);
 		this->capacity = v.capacity;
 		this->vec = v.vec;
 		this->arr = v.arr;
 		this->length = 0;
-		for (size_t i = 0; i < v.length; i++)
+		for (T i = 0; i < v.length; i++)
 		{
 			this->push_back(v.arr[i]);
 		}
+		calculateMagnitude();
 	};
 
 	VectorNd(const VectorNd& v)
 	{
+		countIncrease();
+		ID = "vecNd_" + std::to_string(vecNd_objCounter);
 		this->capacity = v.capacity;
 		this->vec = v.vec;
 		this->arr = v.arr;
 		this->length = 0;
-		for (size_t i = 0; i < v.length; i++)
+		for (int i = 0; i < v.length; i++)
 		{
 			this->push_back(v.arr[i]);
 		}
+		calculateMagnitude();
 	}
 
 	template<typename ... Args>
@@ -46,7 +51,7 @@ public:
 
 	// Function that returns the number of
 	// elements in array after pushing the data
-	ll push_back(T);
+	T push_back(T);
 
 	// function that returns the popped element
 	T pop_back();
@@ -54,13 +59,11 @@ public:
 	template<typename... Args>
 	void addValuesToVector(const T& first, const Args&... args);
 
-	void display_vector()const;
+	void display_vector(std::string label = "")const;
 
 	// Function that return the size of vector
-	ll size() const;
-	T& operator[](ll);
-
-	VectorNd<T> multiplyScalar(T scalar)const;
+	T size() const;
+	T& operator[](T);
 
 	// Iterator Class
 	class iterator {
@@ -109,6 +112,9 @@ public:
 	// End iterator
 	iterator end() const;
 
+	static void show_objectCount() { std::cout << "\nvectorND object count: "
+							<< vecNd_objCounter << std::endl; }
+	static int get_objectCount() { return vecNd_objCounter; }
 
 	//VectorNd<T>(VectorNd<T>&& temp)noexcept;
 	bool operator==(const VectorNd& v)const;
@@ -142,7 +148,7 @@ public:
 		VectorNd<T> temp(v.length);
 		temp.vec = v.vec;
 		temp.length = 0;
-		for (size_t i = 0; i < v.length; i++)
+		for (int i = 0; i < v.length; i++)
 		{
 			temp.push_back(v.arr[i] * s.arr[i]);
 		}
@@ -153,11 +159,22 @@ private:
 
 	// Variable to store the current capacity
 	// of the vector
-	ll capacity;
+	T capacity;
 
 	// Variable to store the length of the
 	// vector
-	ll length;
+	T length;
+
+	//Variable to store the magnitude of all the elements
+	T magnitude;
+
+	//Variable to store the vector name
+	string ID;
+
+	T calculateMagnitude();
+	void setMag();
+	static void countIncrease() { vecNd_objCounter += 1; }
+	static void countDecrease() { vecNd_objCounter -= 1; }
 
 public:
 	Eigen::VectorX<T> vec;
@@ -168,16 +185,20 @@ public:
 // Template class to return the size of
 // vector of different data_type
 template <typename T>
-VectorNd<T>::VectorNd(ll n)
+VectorNd<T>::VectorNd(T n)
 	: arr(new T[100]), capacity(100), length(0),vec(Eigen::VectorX<T>(n))
 {
+
+	countIncrease();
+	ID = "vecNd_" + std::to_string(vecNd_objCounter);
 }
 
 template<typename T>
 template<typename ...Args>
 inline VectorNd<T>::VectorNd(const T& first, const Args & ...args)
-	//:VectorNd()
 {
+	countIncrease();
+	ID = "vecNd_" + std::to_string(vecNd_objCounter);
 	arr = new T[100];
 	capacity = 100;
 	length = 0;
@@ -208,26 +229,12 @@ inline void VectorNd<T>::addValuesToVector(const T& first, const Args & ...args)
 	}
 
 }
-/*
-template<typename T>
-inline VectorNd<T>::VectorNd(VectorNd<T>&& temp) noexcept
-{
-	this->capacity = temp.capacity;
-	this->length = temp.length;
-	this->arr = new T[capacity];
-	for (size_t i = 0; i < length; i++)
-	{
-		this->arr[i] == temp.arr[i];
-	}
-	this->vec = temp.vec;
-}
-*/
 
 
 // Template class to insert the element
 // in vector
 template <typename T>
-ll VectorNd<T>::push_back(T data)
+T VectorNd<T>::push_back(T data)
 {
 	if (length == capacity) {
 		T* old = arr;
@@ -248,8 +255,9 @@ T VectorNd<T>::pop_back()
 }
 
 template<class T>
-inline void VectorNd<T>::display_vector()const
+inline void VectorNd<T>::display_vector(std::string label)const
 {
+	std::cout << ((label == "") ? ID : label)<<": ";
 	for (typename VectorNd::iterator ptr = this->begin(); ptr != this->end(); ++ptr) {
 		cout << *ptr << ' ';
 	}
@@ -260,7 +268,7 @@ inline void VectorNd<T>::display_vector()const
 // Template class to return the size of
 // vector
 template <typename T>
-ll VectorNd<T>::size() const
+T VectorNd<T>::size() const
 {
 	return length;
 }
@@ -268,7 +276,7 @@ ll VectorNd<T>::size() const
 // Template class to return the element of
 // vector at given index
 template <typename T>
-T& VectorNd<T>::operator[](ll index)
+T& VectorNd<T>::operator[](T index)
 {
 	if (index >= length&&index>capacity) {
 		cout << "Error: Array index out of bound";
@@ -277,18 +285,6 @@ T& VectorNd<T>::operator[](ll index)
 	return *(arr + index);
 }
 
-template<typename T>
-inline VectorNd<T> VectorNd<T>::multiplyScalar(T scalar)const
-{
-	VectorNd<T> temp;
-	temp.capacity = capacity;
-	temp.vec = vec;
-	for (size_t i = 0; i < length; i++)
-	{
-		temp.push_back(arr[i] * scalar);
-	}
-	return temp;
-}
 
 // Template class to return begin iterator
 template <typename T>
@@ -305,6 +301,18 @@ typename VectorNd<T>::iterator
 {
 	return iterator(arr + length);
 }
+
+template <typename T>
+T VectorNd<T>::calculateMagnitude()
+{
+	auto total = 0.0;
+	for (size_t i = 0; i < length; i++)
+	{
+		total += sqrt(arr[i]);
+	}
+	return total;
+}
+
 
 template<typename T>
 bool VectorNd<T>::operator==(const VectorNd& v) const
@@ -422,7 +430,7 @@ template<typename T>
  inline VectorNd<T> VectorNd<T>::operator--(int)
  {
 	 VectorNd<T> temp;
-	 for (size_t i = 0; i < length; i++)
+	 for (int i = 0; i < length; i++)
 	 {
 		 temp.arr[i] = this->arr[i--];
 	 }
@@ -432,7 +440,7 @@ template<typename T>
  template<typename T>
  inline VectorNd<T>& VectorNd<T>::operator-=(const VectorNd& vec)
  {
-	 for (size_t i = 0; i < length; i++)
+	 for (int i = 0; i < length; i++)
 	 {
 		 this->arr[i] -= vec.arr[i];
 	 }
@@ -442,7 +450,7 @@ template<typename T>
  template<typename T>
  VectorNd<T>& VectorNd<T>::operator*=(T value)
  {
-	 for (size_t i = 0; i < length; i++)
+	 for (ll i = 0; i < length; i++)
 	 {
 		 arr[i] *= value;
 
@@ -456,7 +464,7 @@ template<typename T>
 	 this->vec = v.vec;
 	 this->length = v.length;
 	 this->capacity = v.capacity;
-	 for (size_t i = 0; i < length; i++)
+	 for (int i = 0; i < length; i++)
 	 {
 		 this->arr[i] = v.arr[i];
 	 }
@@ -494,7 +502,7 @@ template<typename T>
  {
 	 VectorNd<T> temp;
 	 temp.vec = vec;
-	 for (size_t i = 0; i < length; i++)
+	 for (ll i = 0; i < length; i++)
 	 {
 		 temp.push_back(arr[i] * s);
 	 }
@@ -504,7 +512,10 @@ template<typename T>
 
 
  template<typename T>
- inline VectorNd<T>::~VectorNd() = default;
+ inline VectorNd<T>::~VectorNd()
+{
+	 countDecrease();
+}
 
 
 
