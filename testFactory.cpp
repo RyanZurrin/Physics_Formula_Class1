@@ -13,8 +13,7 @@ int main()
 	//*************************************************************************
 
 
-	ETL etl("winedata.csv", ",", false);
-	LinearRegression lr;
+	ETL etl("adult_data_short.csv", ",", false);
 
 	std::vector<std::vector<std::string>> dataset = etl.readCSV();
 
@@ -24,12 +23,12 @@ int main()
 	//std::cout << "cols: " << cols << std::endl;
 
 	Eigen::MatrixXd dataMat = etl.CSVtoEigen(dataset,rows,cols);
-	Eigen::MatrixXd nor = etl.Normalize(dataMat, true);
-	//std::cout << nor;
-	//std::cout << dataMat.rows() << std::endl;
+	Eigen::MatrixXd norm = etl.Normalize(dataMat, false);
 
+	//std::cout << norm;
 	Eigen::MatrixXd X_train, y_train, X_test, y_test;
-	std::tuple<Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd> split_data = etl.TrainTestSplit(nor, 0.8);
+	std::tuple<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXd>
+	split_data = etl.TrainTestSplit(norm, 0.8);
 	std::tie(X_train, y_train, X_test, y_test) = split_data;
 	std::cout << "x-train rows: " << X_train.rows() << std::endl;
 	std::cout << "x-train cols: " << X_train.cols() << std::endl;
@@ -40,57 +39,36 @@ int main()
 	std::cout << "y-test rows: " << y_test.rows() << std::endl;
 	std::cout << "y-test cols: " << y_test.cols() << std::endl;
 
+	LogisticRegression lr;
 
+	int dims = X_train.cols();
+	Eigen::MatrixXd W = Eigen::VectorXd::Zero(dims);
+	double b = 0.0;
+	double lambda = 0.0;
+	bool log_cost = true;
+	double learning_rate = 0.01;
+	int num_iter = 5000;
 
+	Eigen::MatrixXd dw;
+	double db;
+	std::list<double> costs;
+	std::tuple<Eigen::MatrixXd, double, Eigen::MatrixXd, double, std::list<double>>
+	optimize = lr.Optimize(W, b, X_train, y_train, num_iter, learning_rate, lambda, log_cost);
+	std::tie(W,b,dw,db,costs) = optimize;
 
-	Eigen::VectorXd vec_train = Eigen::VectorXd::Ones(X_train.rows());
-	Eigen::VectorXd vec_test = Eigen::VectorXd::Ones(X_test.rows());
+	Eigen::MatrixXd y_pred_test = lr.Predict(W,b,X_test);
+	Eigen::MatrixXd y_pred_train = lr.Predict(W,b,X_train);
 
-	X_train.conservativeResize(X_train.rows(), X_train.cols()+1);
-	X_train.col(X_train.cols()-1) = vec_train;
+	auto train_acc = (100-(y_pred_train-y_train).cwiseAbs().mean()*100);
+	auto test_acc = (100-(y_pred_test-y_test).cwiseAbs().mean()*100);
 
-	X_test.conservativeResize(X_test.rows(), X_test.cols()+1);
-	X_test.col(X_train.cols()-1) = vec_test;
+	std::cout << "Train Accuracy: " << train_acc << std::endl;
+	std::cout << "Test Accuracy: " << test_acc << std::endl;
 
-	Eigen::VectorXd theta = Eigen::VectorXd::Zero(X_train.cols());
-	float alpha = 0.01;
-	int iters = 1000;
-
-	Eigen::VectorXd thetaOut;
-	//std::cout <<"theta: "<< theta <<std::endl;
-	std::vector<float> cost;
-
-
-	std::tuple<Eigen::VectorXd,std::vector<float>> gd = lr.GradientDescent(X_train, y_train, theta, alpha, iters);
-	std::tie(thetaOut,cost) = gd;
-
-	//std::cout << "thetaout: " << thetaOut << std::endl;
-
-
-	//etl.Vectortofile(cost,"datasets/cost.txt");
-	//etl.EigentoFile(thetaOut,"datasets/thetaOut.txt");
-
-	auto mu_data = dataMat.colwise().mean();
-	std::cout << "mu_data: " << mu_data << std::endl;
-	auto mu_z = mu_data(0,11);
-	std::cout << "mu_z: " << mu_z << std::endl;
-	auto scaled_data = dataMat.rowwise() - dataMat.colwise().mean();
-	std::cout << "scaled data: " << scaled_data << std::endl;
-	auto sigma_data = ((scaled_data.array().square().colwise().sum())/(scaled_data.rows()-1)).sqrt();
-	std::cout << "sigma data: " << sigma_data << std::endl;
-	auto sigma_z = sigma_data(0,11);
-	std::cout << "sigma z: " << sigma_z << std::endl;
-	Eigen::MatrixXd y_train_hat = (X_train*thetaOut*sigma_z).array() + mu_z;
-	std::cout << "yTrain hat: " << y_train_hat << std::endl;
-	Eigen::MatrixXd y = dataMat.col(11).topRows(1279);
-	std::cout << "y: " << y << std::endl;
-	float R_Squared = lr.RSquared(y,y_train_hat);
-	std::cout << "R-Squared: " << R_Squared << std::endl;
-
-	//etl.EigentoFile(y_train_hat,"datasets/y_train_hat.txt");
+	//std::vector<float> costVec(costs.begin(), costs.end());
+	//etl.Vectortofile(costVec,"datasets/cost.txt");
 
 	return EXIT_SUCCESS;
-
 
 	/*
 	VectorND<ld> v(4, 3 ,2 ,1, 8);

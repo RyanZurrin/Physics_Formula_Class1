@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="linearRegression.txt" />
+    <Text Include="LogisticalRegression.txt" />
     <Text Include="oldProblems.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
