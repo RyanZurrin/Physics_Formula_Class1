@@ -40,8 +40,8 @@ public:
 	Eigen::MatrixXd CSVtoEigen(std::vector<std::vector<std::string>> dataset, int rows, int cols);
 
 	Eigen::MatrixXd Normalize(Eigen::MatrixXd data, bool normalizeTarget);
-	auto Mean(Eigen::MatrixXd data) -> decltype(data.colwise().mean());
-	auto Std(Eigen::MatrixXd data) -> decltype(((data.array().square().colwise().sum())/(data.rows()-1)).sqrt());
+	//auto Mean(Eigen::MatrixXd data) -> decltype(data.colwise().mean());
+	//auto Std(Eigen::MatrixXd data) -> decltype(((data.array().square().colwise().sum())/(data.rows()-1)).sqrt());
 
 	std::tuple<Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd> TrainTestSplit(Eigen::MatrixXd data, float train_size);
 
@@ -51,7 +51,8 @@ public:
 
 #endif
 
-std::vector<std::vector<std::string>> ETL::readCSV(){
+std::vector<std::vector<std::string>> ETL::readCSV()
+{
 
 	std::ifstream file(dataset);
 	std::vector<std::vector<std::string>> dataString;
@@ -69,7 +70,9 @@ std::vector<std::vector<std::string>> ETL::readCSV(){
 	return dataString;
 }
 
-Eigen::MatrixXd ETL::CSVtoEigen(std::vector<std::vector<std::string>> dataset, int rows, int cols){
+Eigen::MatrixXd ETL::CSVtoEigen(std::vector<std::vector<std::string>>
+	dataset, int rows, int cols)
+{
 
 	if(header==true){
 		rows = rows - 1;
@@ -85,7 +88,9 @@ Eigen::MatrixXd ETL::CSVtoEigen(std::vector<std::vector<std::string>> dataset, i
 	return mat.transpose();
 }
 
-std::tuple<Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd> ETL::TrainTestSplit(Eigen::MatrixXd data, float train_size){
+std::tuple<Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd>
+ETL::TrainTestSplit(Eigen::MatrixXd data, float train_size)
+{
 
 	int rows = data.rows();
 	int train_rows = round(train_size*rows);
@@ -104,34 +109,31 @@ std::tuple<Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd> ETL:
 	return std::make_tuple(X_train, y_train, X_test, y_test);
 }
 
-auto ETL::Mean(Eigen::MatrixXd data) -> decltype(data.colwise().mean()){
-	//std::cout<< "in mean: " << data.colwise().mean()<<" ";
+auto Mean(Eigen::MatrixXd data) -> decltype(data.colwise().mean()){
 	return data.colwise().mean();
 }
 
-auto ETL::Std(Eigen::MatrixXd data) -> decltype(((data.array().square().colwise().sum())/(data.rows()-1)).sqrt()){
+auto Std(Eigen::MatrixXd data) ->
+decltype(((data.array().square().colwise().sum())/(data.rows()-1)).sqrt())
+{
 	return ((data.array().square().colwise().sum())/(data.rows()-1)).sqrt();
 }
 
-Eigen::MatrixXd ETL::Normalize(Eigen::MatrixXd data, bool normalizeTarget){
-	//std::cout << " data: " << data;
+Eigen::MatrixXd ETL::Normalize(Eigen::MatrixXd data, bool normalizeTarget)
+{
 	Eigen::MatrixXd dataNorm;
 	if(normalizeTarget==true) {
 		dataNorm = data;
 	} else {
 		dataNorm = data.leftCols(data.cols()-1);
 	}
-	//std::cout << "data norm" << dataNorm;
 
 	auto mean = dataNorm.colwise().mean();
-	//std::cout << "mean" << mean;
 	Eigen::MatrixXd scaled_data = dataNorm.rowwise() - mean;
-	//std::cout << "scaled data: " << scaled_data<<std::endl;
-	auto std = ((scaled_data.array().square().colwise().sum()) / (scaled_data.rows() - 1)).sqrt();
-	//std::cout << "std: " << std << std::endl;
+	auto std = ((scaled_data.array().square().colwise().sum()) / 
+		(scaled_data.rows() - 1)).sqrt();
 
 	Eigen::MatrixXd norm = scaled_data.array().rowwise()/std;
-	//std::cout << "get norm" << norm;
 
 	if(normalizeTarget==false) {
 		norm.conservativeResize(norm.rows(), norm.cols()+1);
@@ -141,13 +143,15 @@ Eigen::MatrixXd ETL::Normalize(Eigen::MatrixXd data, bool normalizeTarget){
 	return norm;
 }
 
-void ETL::Vectortofile(std::vector<float> vector, std::string filename){
+void ETL::Vectortofile(std::vector<float> vector, std::string filename)
+{
 	std::ofstream output_file(filename);
 	std::ostream_iterator<float> output_iterator(output_file, "\n");
 	std::copy(vector.begin(), vector.end(), output_iterator);
 }
 
-void ETL::EigentoFile(Eigen::MatrixXd data, std::string filename){
+void ETL::EigentoFile(Eigen::MatrixXd data, std::string filename)
+{
 	std::ofstream output_file(filename);
 	if(output_file.is_open()){
 		output_file << data << "\n";

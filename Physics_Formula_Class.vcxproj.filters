@@ -151,5 +151,8 @@
     <Text Include="linearRegression.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="LogisticalRegression.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
