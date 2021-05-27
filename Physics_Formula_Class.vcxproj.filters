@@ -132,17 +132,23 @@
     <ClInclude Include="ETL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LinearRegression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogisticRegression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VectorNd.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="oldProblems.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="linearRegression.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

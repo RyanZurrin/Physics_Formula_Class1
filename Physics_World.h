@@ -28,6 +28,8 @@
 #include "Hearing.h"
 #include "Heat.h"
 #include "Kinematics.h"
+#include "LinearRegression.h"
+#include "LogisticRegression.h"
 #include "Magnetism.h"
 #include "Momentum.h"
 #include "PeriodicElements.h"
@@ -750,6 +752,8 @@ public:
 
 		cout << endl;
 	}
+	LinearRegression* linear_regression;
+	LogisticRegression* logistic_regression;
 	ETL* etl;
 	VectorND<ld>* vectorNd;
 	TriangleSolver* triangle;
@@ -795,6 +799,8 @@ public:
 	Physics_World(const Physics_World&); //copy constructor
 	Physics_World& operator=(const Physics_World&); //copy assignment operator
 	Physics_World(Physics_World&& o) noexcept :
+		linear_regression(o.linear_regression),
+		logistic_regression(o.logistic_regression),
 		etl(o.etl),
 		vectorNd(o.vectorNd),
 		triangle(o.triangle),
@@ -917,6 +923,8 @@ public:
 inline Physics_World::Physics_World()
 {
 	_ptr_ = nullptr;
+	linear_regression = new LinearRegression;
+	logistic_regression = new LogisticRegression;
 	etl = new ETL;
 	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
@@ -963,6 +971,8 @@ inline Physics_World::Physics_World()
 inline Physics_World::Physics_World(const Physics_World& p)
 {
 	_ptr_ = p._ptr_;
+	linear_regression = p.linear_regression;
+	logistic_regression = p.logistic_regression;
 	etl = p.etl;
 	vectorNd = p.vectorNd;
 	//vector_values = p.vector_values;
@@ -1010,6 +1020,8 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 	if(this != &r)
 	{
 		_ptr_ = r._ptr_;
+		linear_regression = r.linear_regression;
+		logistic_regression = r.logistic_regression;
 		etl = r.etl;
 		vectorNd = r.vectorNd;
 		triangle = r.triangle;
@@ -1055,6 +1067,8 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 {
 	_ptr_ = nullptr;
+	linear_regression = new LinearRegression;
+	logistic_regression = new LogisticRegression;
 	etl = new ETL;
 	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
@@ -1099,6 +1113,8 @@ inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 
 inline Physics_World::Physics_World(const ld t1, const ld t2)
 {
+	linear_regression = new LinearRegression;
+	logistic_regression = new LogisticRegression;
 	etl = new ETL;
 	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
@@ -1141,6 +1157,8 @@ inline Physics_World::Physics_World(const ld t1, const ld t2)
 
 inline Physics_World::~Physics_World()
 {
+	delete linear_regression;
+	delete logistic_regression;
 	delete etl;
 	delete vectorNd;
 	delete triangle;

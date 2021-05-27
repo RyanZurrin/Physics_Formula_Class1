@@ -1,0 +1,63 @@
+ETL test("winedata.csv", ",", false);
+	LinearRegression lr;
+
+	std::vector<std::vector<std::string>> dataset = test.readCSV();
+
+	int rows = dataset.size();
+	int cols = dataset[0].size();
+
+	Eigen::MatrixXd dataMat = test.CSVtoEigen(dataset,rows,cols);
+	Eigen::MatrixXd norm = test.Normalize(dataMat);
+	//std::cout << norm << endl;
+	std::cout << dataMat.rows() << std::endl;
+
+	Eigen::MatrixXd X_train, y_train, X_test, y_test;
+	std::tuple<Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd> split_data = test.TrainTestSplit(norm, 0.8);
+	std::tie(X_train, y_train, X_test, y_test) = split_data;
+
+	Eigen::VectorXd vec_train = Eigen::VectorXd::Ones(X_train.rows());
+	Eigen::VectorXd vec_test = Eigen::VectorXd::Ones(X_test.rows());
+
+	X_train.conservativeResize(X_train.rows(), X_train.cols()+1);
+	X_train.col(X_train.cols()-1) = vec_train;
+
+	X_test.conservativeResize(X_test.rows(), X_test.cols()+1);
+	X_test.col(X_train.cols()-1) = vec_test;
+
+	Eigen::VectorXd theta = Eigen::VectorXd::Zero(X_train.cols());
+	float alpha = 0.01;
+	int iters = 1000;
+
+	Eigen::VectorXd thetaOut;
+	std::vector<double> cost;
+
+
+
+	std::tuple<Eigen::VectorXd,std::vector<double>> gd = lr.GradientDescent(X_train, y_train, theta, alpha, iters);
+	std::tie(thetaOut,cost) = gd;
+
+	std::cout << "theta: " << thetaOut << std::endl;
+	for(auto v : cost)
+	{
+		std::cout << v << std::endl;
+	}
+
+	//test.Vectortofile(cost,"datasets/cost.txt");
+	//test.EigentoFile(thetaOut,"datasets/thetaOut.txt");
+
+	auto mu_data = test.Mean(dataMat);
+	auto mu_z = mu_data(0,11);
+
+	auto scaled_data = dataMat.rowwise() - dataMat.colwise().mean();
+
+	auto sigma_data = test.Std(scaled_data);
+	auto sigma_z = sigma_data(0,11);
+
+	Eigen::MatrixXd y_train_hat = (X_train*thetaOut*sigma_z).array() + mu_z;
+	Eigen::MatrixXd y = dataMat.col(11).topRows(1279);
+
+	float R_Squared = lr.RSquared(y,y_train_hat);
+	std::cout << "R-Squared: " << R_Squared << std::endl;
+
+
+	//test.EigentoFile(y_train_hat,"datasets/y_train_hat.txt");
