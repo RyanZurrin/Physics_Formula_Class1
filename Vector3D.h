@@ -25,7 +25,7 @@ public:
 	void showRectCord(std::string label = "")const override;
 	void showSphericalCoordinates(std::string label = "")const;
 	void showAllAngles(std::string label = "")const;
-	void display()const override;    //display value of vector
+	void display(std::string label = "")const override;    //display value of vector
 	ld returnX()const; //return x
 	ld returnY()const; //return y
 	ld returnZ()const; //return z
@@ -94,7 +94,7 @@ inline Vector3D::Vector3D(string id) //constructor
   countIncrease();
   if (id == "")
   {
-	  ID = "vec3d_" + std::to_string(vecNd_objCounter);
+	  ID = "vec3d_" + std::to_string(vec3d_objectCount);
   }
   else
   {
@@ -118,7 +118,7 @@ inline Vector3D::Vector3D(ld x1,ld y1,ld z1,string id) //initializing object wit
   countIncrease();
   if (id == "")
   {
-	  ID = "vec3d_" + std::to_string(vecNd_objCounter);
+	  ID = "vec3d_" + std::to_string(vec3d_objectCount);
   }
   else
   {
@@ -143,7 +143,7 @@ inline Vector3D::Vector3D(const Vector3D &vec, string id)
   countIncrease();
   if (id == "")
   {
-	  ID = "vec3d_" + std::to_string(vecNd_objCounter);
+	  ID = "vec3d_" + std::to_string(vec3d_objectCount);
   }
   else
   {
@@ -499,9 +499,10 @@ inline ld Vector3D::angle_between_vectors(Vector3D& v)const
 {
 	return acos(this->dot_product(v) / (this->magnitude * v.magnitude)) * DEGREE;
 }
-inline void Vector3D::display()const
+inline void Vector3D::display(std::string label)const
 {
-	cout<<"<"<<x<<", "<<y<<", "<<z<<">"<<endl;
+	std::cout << ((label == "") ? ID : label)
+			  <<":<x,y,z,> = "<<"<"<<x<<", "<<y<<", "<<z<<">"<<endl;
 }
 
 inline Vector3D::~Vector3D()

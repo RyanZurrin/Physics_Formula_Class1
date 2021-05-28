@@ -36,10 +36,10 @@ public:
 	Vector2D(_ld_, _ld_, char _mode = 'r', string id = ""); //constructor takes both coordinates and mode
 	Vector2D(const Vector2D &, string id = "");	//copy constructor
 	virtual void displayAllData(std::string label = "")const; //virtual so any derived classes must redefine
-	virtual void display()const;
+	virtual void display(std::string label = "")const;
 	virtual void showRectCord(std::string label = "")const;
 	void showPolarCord(std::string label = "")const;
-	void showRevolutionAngle()const;
+	void showRevolutionAngle(std::string label = "")const;
 
 	//virtual void showPolarCurve()const;
 	//virtual void showParametricEquation()const;
@@ -127,7 +127,8 @@ private:
 	_ld_ angle;
 	_ld_ arcLength;
 	_ld_ revolutionAngle_inDegrees;
-	static void countShow() { std::cout << "Vector2D count: " << vec2d_object_counter << std::endl; }
+	static void countShow() { std::cout << "Vector2D count: "
+										<< vec2d_object_counter << std::endl; }
 	//void    calculate_parametric_equation();
 	void 	validate_setMode();
 	void    normalize_magnitude();
@@ -159,7 +160,7 @@ inline Vector2D::Vector2D(string id)
   countIncrease();
   if (id == "")
   {
-	  ID = "vec2d_" + std::to_string(vecNd_objCounter);
+	  ID = "vec2d_" + std::to_string(vec2d_object_counter);
   }
   else
   {
@@ -183,7 +184,7 @@ inline Vector2D::Vector2D(char _mode, string id)
   countIncrease();
   if (id == "")
   {
-	  ID = "vec2d_" + std::to_string(vecNd_objCounter);
+	  ID = "vec2d_" + std::to_string(vec2d_object_counter);
   }
   else
   {
@@ -212,7 +213,7 @@ inline Vector2D::Vector2D(_ld_ xMag, _ld_ yAng, char _mode, string id)
 	countIncrease();
 	if (id == "")
 	{
-	  ID = "vec2d_" + std::to_string(vecNd_objCounter);
+	  ID = "vec2d_" + std::to_string(vec2d_object_counter);
 	}
 	else
 	{
@@ -239,7 +240,7 @@ inline Vector2D::Vector2D(const Vector2D &v, string id)
 	countIncrease();
 	if (id == "")
 	{
-	  ID = "vec2d_" + std::to_string(vecNd_objCounter);
+	  ID = "vec2d_" + std::to_string(vec2d_object_counter);
 	}
 	else
 	{
@@ -248,19 +249,20 @@ inline Vector2D::Vector2D(const Vector2D &v, string id)
 }
 inline void Vector2D::displayAllData(std::string label)const
 {
-  std::cout << ((label == "") ? ID : label) << ":"<<std::endl;
-  showRectCord();
-  showPolarCord();
-  showRevolutionAngle();
+  std::cout << ((label == "") ? ID : label) << ":";
+  showRectCord(label);
+  showPolarCord(label);
+  showRevolutionAngle(label);
   show_arcLength();
+  std::cout << std::endl;
 }
-inline void Vector2D::display()const
+inline void Vector2D::display(std::string label)const
 {
   if (mode == 'r' || mode == 'R') {
-   showRectCord();
+   showRectCord(label);
   }
   else {
-   showPolarCord();
+   showPolarCord(label);
   }
 }
 
@@ -297,9 +299,10 @@ inline void Vector2D::showPolarCord(std::string label)const
 		cout << resetiosflags(ios::fixed) << endl;
 	}
 }
-inline void Vector2D::showRevolutionAngle()const
+inline void Vector2D::showRevolutionAngle(std::string label)const
 {
-	cout << "Angle in degrees:  " << revolutionAngle_inDegrees;
+	cout<< "\n" << ((label == "") ? ID : label) << ":rev\xE9\xF8 = "
+		<< revolutionAngle_inDegrees;
 }
 inline void Vector2D::show_x() const
 {

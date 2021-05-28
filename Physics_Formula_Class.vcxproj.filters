@@ -138,6 +138,9 @@
     <ClInclude Include="LogisticRegression.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MatrixND.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testFactory.cpp">
