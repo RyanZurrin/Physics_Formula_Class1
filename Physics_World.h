@@ -31,6 +31,7 @@
 #include "LinearRegression.h"
 #include "LogisticRegression.h"
 #include "Magnetism.h"
+#include "MatrixND.h"
 #include "Momentum.h"
 #include "PeriodicElements.h"
 #include "RotationalMotion.h"
