@@ -11,7 +11,7 @@ int main()
 	//_________________________________________________________________________
 	//add test code between starred areas
 	//*************************************************************************
-
+	/*
 	Vector2D x_o(-2, -2);
 	Vector2D x_1(-2, 1);
 	Vector2D x_2(2, -2);
@@ -32,7 +32,17 @@ int main()
 
 	to_reduced_row_echelon_form(M);
 	print_matrix(M, 3, 4);
+	*/
 
+
+	TriangleSolver t(2, 3, 3);
+	t.displayTriangleData();
+
+	TriangleSolver t1(3, 2, 3);
+	t1.displayTriangleData();
+
+	t1.congruentBy(t);
+	t1.similarBy(t);
 
 	//setVal(QP::powerCarriedAwayByElectrons(1.00e-3, 500e-9, 1.30e3,2.28));
 	//show_val("N/t", "elec/sec");
