@@ -14,12 +14,54 @@
 #include <algorithm>
 #include "Vector2D.h"
 
+
 static int counter = 0;
 
 
 class TriangleSolver
 {
-	//friend class ExceptionHandler;
+	void badTriangle();
+	template<typename T>
+	T negativeNumCheck(T& num);
+	template<typename T>
+	T negativeNumFix(T& num);
+
+	void initiate_triangle();
+	void calculate_angleA();
+	void calculate_angleB();
+	void calculate_angleC();
+	void calculate_All_angles();
+	void calculate_AllHeight();
+	void calculate_heightBase_a(),
+			 calculate_heightBase_b(),
+			 calculate_heightBase_c();
+	void calculate_medians_abc();
+	void findMissingSide();
+	void find_base();
+	void calculate_area();
+	void calculate_perimeter();
+	void calculate_rVal();
+	void calculate_sVal();
+	void calculate_iVal();
+	void set_vertices();
+	void set_centroid();
+	void set_eulersDistance();
+	void set_ccc();//sets the circumcenter coordinates
+	bool checkSimilarity(TriangleSolver& T);
+	bool check_SSS(TriangleSolver&);// by Arnab Kundu
+	bool check_SAS(TriangleSolver&);
+	bool check_AAA(TriangleSolver&);
+	bool cong_SAS(TriangleSolver& t);
+	bool cong_ASA(TriangleSolver& t);
+	bool cong_AAS(TriangleSolver& t);
+	bool cong_SSS(TriangleSolver& t);
+	bool cong_HL(TriangleSolver& t);
+	TriangleSolver *solve_by_AAA(const double&, const double&, const double&); // three sides known
+	TriangleSolver *solve_by_AAS(const double&, const double&, const double&); // two angles and a side not between
+	TriangleSolver *solve_by_ASA(const double&, const double&, const double&); // two angles and a side bewteen them
+	TriangleSolver *solve_by_SAS(const double&, const double&, const double&); // two sides and the included angle.
+	TriangleSolver *solve_by_SSA(const double&, const double&, const double&); //  two sides and one angle that is not the included angle
+	TriangleSolver *solve_by_SSS(const double&, const double&, const double&); //  all three sides of a triangle, but no angles
 
 public:
 	TriangleSolver* _triPtr;
@@ -39,15 +81,15 @@ public:
 	double sVal, altSval; // Semiperimeter
 	double rVal, altRval; // Circumradius
 	double iVal, altIval; // inradius
-	// these bools are for determining cungruency and type
+	// these bools are for determining congruency and type
 	double median_a, altMedian_a;
 	double median_b, altMedian_b;
 	double median_c, altMedian_c;
-	bool   sssFlag,
-		   aaaFlag,
-		   sasFlag,
-		   ssaFlag,
-		   asaFlag,
+	bool   sssFlag, congSSSflag,
+		   aaaFlag, congSASflag,
+		   sasFlag, congASAflag,
+		   ssaFlag, congAASflag,
+		   asaFlag, congHLflag,
 		   aasFlag,
 		   missingSideFlag,
 		   altTriFlag;
@@ -56,17 +98,13 @@ public:
 
 	string sideType;
 	string angleType;
-
-
+	ld eulersDistance;
+	vector<pair<ld, ld>> vertices;
+	pair<ld,ld> centroid;
+	pair<ld, ld> circumcenterCoordinate;
 	double pythagoreanTheorem(double, double)const;
 	void update_triangle();
-	//ExceptionHandler catcher;
-	struct TriangleAsCartesianPoints
-	{
-		pair<double, double> pt1;
-		pair<double, double> pt2;
-		pair<double, double> pt3;
-	}cTri;
+
 
 	void makeTriangleAsPoints();
 
@@ -94,23 +132,25 @@ public:
 	TriangleSolver make2rights(); // makes two 90 degree triangles by modifiying itself and returning the other part to new object.
 	TriangleSolver& operator=(const TriangleSolver& right)noexcept; //self assignment
 
-	void check_SSS(TriangleSolver&);// by Arnab Kundu
-	void check_SAS(TriangleSolver&);
-	void check_AAA(TriangleSolver&);
+
 
 	[[nodiscard]] bool checkSides()const;
 	[[nodiscard]] bool checkTriangle()const;
 	[[nodiscard]] bool checkAngles()const;
 	void triangleTypeBySide();
 	void triangleTypeByAngle();
-	bool checkCongruent(TriangleSolver& T);
-	void congruentBy(TriangleSolver&);
-
+	void similarBy(TriangleSolver&);
+	bool isCongruent(TriangleSolver& t);
+	void congruentBy(TriangleSolver& t);
 	void displayTriangleData()const;
-	void showTriangleSides()const;
-	void showTriangleAngles()const;
+	void showVertices()const;
+	void showCentroid()const;
+	void showEulersDistance()const;
+	void showCircumcenterCoordinates()const;
+	void showSides()const;
+	void showAngles()const;
 	void showAngleType()const;
-	void showTriangleAreaPerimeter()const;
+	void showAreaPerimeter()const;
 	void showSide_a()const { cout << "side a: " << side_a<< endl; }
 	void showSide_b()const { cout << "side b: " << side_b << endl; }
 	void showSide_c()const { cout << "side c: " << side_c << endl; }
@@ -126,7 +166,6 @@ public:
 	void showMedian_a()const { cout << "median_a: " << median_a << endl; }
 	void showMedian_b()const { cout << "median_b: " << median_b << endl; }
 	void showMedian_c()const { cout << "median_c: " << median_c << endl; }
-	static void showVertex();
 	void showAllHeights()const {
 		cout << "height_a: " << height_a << endl
 			 << "height_b: " << height_b << endl
@@ -142,8 +181,6 @@ public:
 	void showInRadius()const { cout << "in-radius: " << iVal << endl; }
 	void showSemiParameter()const { cout << "semi-parameter: " << sVal << endl; }
 	void showCongruencyFlags()const;
-	static void showTriangleAsCartesianPoints();
-
 
 	[[nodiscard]] double returnSide_a()const { return side_a; }
 	[[nodiscard]] double returnSide_b()const { return side_b; }
@@ -240,37 +277,7 @@ public:
 	}
 
 
-private:
-	void badTriangle();
-	template<typename T>
-	T negativeNumCheck(T& num);
-	template<typename T>
-	T negativeNumFix(T& num);
-	//double sVal;
-	//double rVal;
-	void initiate_triangle();
-	void calculate_angleA();
-	void calculate_angleB();
-	void calculate_angleC();
-	void calculate_All_angles();
-	void calculate_AllHeight();
-	void calculate_heightBase_a(),
-			 calculate_heightBase_b(),
-			 calculate_heightBase_c();
-	void calculate_medians_abc();
-	void findMissingSide();
-	void find_base();
-	void calculate_area();
-	void calculate_perimeter();
-	void calculate_rVal();
-	void calculate_sVal();
-	void calculate_iVal();
-	TriangleSolver *solve_by_AAA(const double&, const double&, const double&); // three sides known
-	TriangleSolver *solve_by_AAS(const double&, const double&, const double&); // two angles and a side not between
-	TriangleSolver *solve_by_ASA(const double&, const double&, const double&); // two angles and a side bewteen them
-	TriangleSolver *solve_by_SAS(const double&, const double&, const double&); // two sides and the included angle.
-	TriangleSolver *solve_by_SSA(const double&, const double&, const double&); //  two sides and one angle that is not the included angle
-	TriangleSolver *solve_by_SSS(const double&, const double&, const double&); //  all three sides of a triangle, but no angles
+
 
 };
 
@@ -346,13 +353,13 @@ inline TriangleSolver::TriangleSolver(const TriangleSolver& t)
 	area = t.area;
 	altArea = t.altArea;
 	sideType = t.sideType;
-	sssFlag = t.sssFlag;
+	sssFlag = t.sssFlag; congSSSflag = t.congSSSflag;
 	aaaFlag = t.aaaFlag;
-	sasFlag = t.sasFlag;
+	sasFlag = t.sasFlag; congSASflag = t.congSASflag;
 	ssaFlag = t.ssaFlag;
-	asaFlag = t.asaFlag;
-	aasFlag = t.aasFlag;
-	altTriFlag = t.altTriFlag;
+	asaFlag = t.asaFlag; congASAflag = t.congASAflag;
+	aasFlag = t.aasFlag; congAASflag = t.congAASflag;
+	altTriFlag = t.altTriFlag; congHLflag = t.congHLflag;
 	height_a = t.height_a;
 	height_b = t.height_b;
 	height_c = t.height_c;
@@ -366,6 +373,7 @@ inline TriangleSolver::TriangleSolver(const TriangleSolver& t)
 	altMedian_b = t.altMedian_b;
 	altMedian_c = t.altMedian_c;
 	missingSideFlag = t.missingSideFlag;
+	eulersDistance = t.eulersDistance;
 
 	//return *this;
 }
@@ -406,6 +414,9 @@ inline void TriangleSolver::update_triangle()
 		calculate_medians_abc();
 		triangleTypeByAngle();
 		triangleTypeBySide();
+		set_vertices();
+		set_centroid();
+		set_eulersDistance();
 	}
 	else if (max_side > 0 && max_height > 0) {
 		calculate_area();
@@ -418,6 +429,10 @@ inline void TriangleSolver::update_triangle()
 		calculate_medians_abc();
 		triangleTypeByAngle();
 		triangleTypeBySide();
+		set_vertices();
+		set_centroid();
+		set_eulersDistance();
+		set_ccc();
 	}
 	else if (side_a > 0 && side_b > 0 && side_c > 0 &&
 		angle_A > 0 && angle_B > 0 && angle_C > 0)
@@ -432,6 +447,10 @@ inline void TriangleSolver::update_triangle()
 		calculate_medians_abc();
 		triangleTypeByAngle();
 		triangleTypeBySide();
+		set_vertices();
+		set_centroid();
+		set_eulersDistance();
+		set_ccc();
 	}
 	else {
 		calculate_perimeter();
@@ -447,6 +466,10 @@ inline void TriangleSolver::update_triangle()
 		calculate_medians_abc();
 		triangleTypeByAngle();
 		triangleTypeBySide();
+		set_vertices();
+		set_centroid();
+		set_eulersDistance();
+		set_ccc();
 	}
 	triangleTypeByAngle();
 	triangleTypeBySide();
@@ -522,20 +545,26 @@ inline void TriangleSolver::initiate_triangle()
 	median_a = 0.0; altMedian_a = 0.0;
 	median_b = 0.0; altMedian_b = 0.0;
 	median_c = 0.0; altMedian_c = 0.0;
-	sssFlag = 0.0;
-	aaaFlag = 0.0;
-	sasFlag = 0.0;
-	ssaFlag = 0.0;
-	asaFlag = 0.0;
-	aasFlag = 0.0;
-	missingSideFlag = 0.0;
-	altTriFlag = 0.0;
+	sssFlag = false;
+	aaaFlag = false;
+	sasFlag = false;
+	ssaFlag = false;
+	asaFlag = false;
+	aasFlag = false;
+	congSASflag = false;
+	congSSSflag = false;
+	congASAflag = false;
+	congAASflag = false;
+	congHLflag = false;
+	missingSideFlag = false;
+	altTriFlag = false;
 	rVal = 0.0;
 	sVal = 0.0;
 	iVal = 0.0;
 	altRval = 0.0;
 	altSval = 0.0;
 	altIval = 0.0;
+	eulersDistance = 0.0;
 
 
 }
@@ -683,6 +712,37 @@ inline void TriangleSolver::calculate_sVal()
 inline void TriangleSolver::calculate_iVal()
 {
 	iVal = area / sVal;
+}
+inline void TriangleSolver::set_vertices()
+{
+	pair<ld, ld> a, b, c;
+	a.first = 0;
+	a.second = 0;
+	b.first = side_c;
+	b.second = 0;
+	c.first = side_b * (pow(side_b, 2) + pow(side_c, 2) - pow(side_a, 2)) / (2.0 * side_b * side_c);
+	c.second = sqrt(pow(side_b, 2) - pow(c.first, 2));
+	vertices = vector<pair<ld, ld>>{ a,b,c };
+
+}
+inline void TriangleSolver::set_centroid()
+{
+	centroid.first = (vertices[0].first + vertices[1].first + vertices[2].first) / 3.0;
+	centroid.second = (vertices[0].second + vertices[1].second + vertices[2].second) / 3.0;
+}
+inline void TriangleSolver::set_eulersDistance()
+{
+	eulersDistance = sqrt(pow(rVal, 2) - (2 * iVal * rVal));
+}
+inline void TriangleSolver::set_ccc()
+{
+	auto d = 2.0 * (vertices[1].first * vertices[2].second - vertices[1].second * vertices[2].first);
+
+	circumcenterCoordinate.first = (vertices[2].second * (pow(vertices[1].first, 2) + pow(vertices[1].second, 2)) -
+		(vertices[1].second * (pow(vertices[2].first, 2) + pow(vertices[2].second, 2)))) / d;
+
+	circumcenterCoordinate.second = (vertices[1].first * (pow(vertices[2].first, 2) + pow(vertices[2].second, 2)) -
+		(vertices[2].first * (pow(vertices[1].first, 2) + pow(vertices[1].second, 2)))) / d;
 }
 inline TriangleSolver *TriangleSolver::solve_by_AAA(const double& a1, const double& a2, const double& a3)
 {
@@ -845,15 +905,11 @@ inline TriangleSolver *TriangleSolver::solve_by_SSS(const double& s1, const doub
 }
 
 
-inline void TriangleSolver::check_SSS(TriangleSolver& t)
+inline bool TriangleSolver::check_SSS(TriangleSolver& t)
 {
 
 	double s1[] = { side_a, side_b, side_c };
 	double s2[] = { t.side_a, t.side_b, t.side_c };
-
-	double a1[] = { angle_A, angle_B, angle_C };
-	double a2[] = { t.angle_A, t.angle_B, t.angle_C };
-	// Function for SSS similarity
 	//double simi_sss(double s1[], double s2[]);
 
 	sort(s1, s1 + 3);
@@ -863,12 +919,15 @@ inline void TriangleSolver::check_SSS(TriangleSolver& t)
 	if (s1[0] / s2[0] == s1[1] / s2[1] &&
 		s1[1] / s2[1] == s1[2] / s2[2] &&
 		s1[2] / s2[2] == s1[0] / s2[0])
-		sssFlag = 1;
-
-	sssFlag = 0;
+	{
+		sssFlag = true;
+		return true;
+	}
+	sssFlag = false;
+	return false;
 
 }
-inline void TriangleSolver::check_SAS(TriangleSolver& t)
+inline bool TriangleSolver::check_SAS(TriangleSolver& t)
 {// Function for SAS similarity
 
 	double s1[] = { side_a, side_b, side_c };
@@ -889,30 +948,36 @@ inline void TriangleSolver::check_SAS(TriangleSolver& t)
 	if (s1[0] / s2[0] == s1[1] / s2[1])
 	{
 		if (a1[2] == a2[2])
-			sasFlag = 1;
+		{
+			sasFlag = true;
+			return true;
+		}
 	}
 	if (s1[1] / s2[1] == s1[2] / s2[2])
 	{
 		if (a1[0] == a2[0])
-			sasFlag = 1;
+		{
+			sasFlag = true;
+			return true;
+		}
 	}
 	if (s1[2] / s2[2] == s1[0] / s2[0])
 	{
 		if (a1[1] == a2[1])
-			sasFlag = 1;
+		{
+			sasFlag = true;
+			return true;
+		}
 	}
-	sasFlag = 0;
+	sasFlag = false;
+	return false;
+
 }
 
-inline void TriangleSolver::check_AAA(TriangleSolver& t)
+inline bool TriangleSolver::check_AAA(TriangleSolver& t)
 {
-
-	double s1[] = { side_a, side_b, side_c };
-	double s2[] = { t.side_a, t.side_b, t.side_c };
-
 	double a1[] = { angle_A, angle_B, angle_C };
 	double a2[] = { t.angle_A, t.angle_B, t.angle_C };
-
 
 	sort(a1, a1 + 3);
 	sort(a2, a2 + 3);
@@ -921,9 +986,165 @@ inline void TriangleSolver::check_AAA(TriangleSolver& t)
 	if (a1[0] == a2[0] &&
 		a1[1] == a2[1] &&
 		a1[2] == a2[2])
+	{
 		aaaFlag = true;
-	else
-		aaaFlag = false;
+		return true;
+	}
+	aaaFlag = false;
+	return false;
+}
+inline bool TriangleSolver::cong_SAS(TriangleSolver& t)
+{
+	double s1[] = { side_a, side_b, side_c };
+	double s2[] = { t.side_a, t.side_b, t.side_c };
+
+	double a1[] = { angle_A, angle_B, angle_C };
+	double a2[] = { t.angle_A, t.angle_B, t.angle_C };
+
+	sort(a1, a1 + 3);
+	sort(a2, a2 + 3);
+	sort(s1, s1 + 3);
+	sort(s2, s2 + 3);
+
+	if (s1[0] == s2[0] && s1[1] == s2[1])
+	{
+		if (a1[2] == a2[2])
+		{
+			congSASflag = true;
+			return true;
+		}
+	}
+	if (s1[1] == s2[1] && s1[2] == s2[2])
+	{
+		if (a1[0] == a2[0])
+		{
+			congSASflag = true;
+			return true;
+		}
+	}
+	if (s1[2] == s2[2] && s1[0] == s2[0])
+	{
+		if (a1[1] == a2[1])
+		{
+			congSASflag = true;
+			return true;
+		}
+	}
+	sasFlag = false;
+	return false;
+}
+inline bool TriangleSolver::cong_ASA(TriangleSolver& t)
+{
+	double s1[] = { side_a, side_b, side_c };
+	double s2[] = { t.side_a, t.side_b, t.side_c };
+
+	double a1[] = { angle_A, angle_B, angle_C };
+	double a2[] = { t.angle_A, t.angle_B, t.angle_C };
+
+	sort(a1, a1 + 3);
+	sort(a2, a2 + 3);
+	sort(s1, s1 + 3);
+	sort(s2, s2 + 3);
+
+	if (a1[0] == a2[0] && a1[1] == a2[1])
+	{
+		if (s1[2] == s2[2])
+		{
+			congASAflag = true;
+			return true;
+		}
+	}
+	if (a1[1] == a2[1] && a1[2] == a2[2])
+	{
+		if (s1[0] == s2[0])
+		{
+			congASAflag = true;
+			return true;
+		}
+	}
+	if (a1[2] == a2[2] && a1[0] == a2[0])
+	{
+		if (s1[1] == s2[1])
+		{
+			congASAflag = true;
+			return true;
+		}
+	}
+	sasFlag = false;
+	return false;
+}
+inline bool TriangleSolver::cong_AAS(TriangleSolver& t)
+{
+	double s1[] = { side_a, side_b, side_c };
+	double s2[] = { t.side_a, t.side_b, t.side_c };
+
+	double a1[] = { angle_A, angle_B, angle_C };
+	double a2[] = { t.angle_A, t.angle_B, t.angle_C };
+
+	sort(a1, a1 + 3);
+	sort(a2, a2 + 3);
+	sort(s1, s1 + 3);
+	sort(s2, s2 + 3);
+
+	if (a1[0] == a2[0] && a1[1] == a2[1])
+	{
+		if (s1[0] == s2[0] || s1[1] == s2[1])
+		{
+			congAASflag = true;
+			return true;
+		}
+	}
+	if (a1[1] == a2[1] && a1[2] == a2[2])
+	{
+		if (s1[1] == s2[1] || s1[2] == s2[2])
+		{
+			congAASflag = true;
+			return true;
+		}
+	}
+	if (a1[2] == a2[2] && a1[0] == a2[0])
+	{
+		if (s1[0] == s2[0] || s1[2] == s2[2])
+		{
+			congAASflag = true;
+			return true;
+		}
+	}
+	sasFlag = false;
+	return false;
+}
+inline bool TriangleSolver::cong_SSS(TriangleSolver& t)
+{
+	double s1[] = { side_a, side_b, side_c };
+	double s2[] = { t.side_a, t.side_b, t.side_c };
+	sort(s1, s1 + 3);
+	sort(s2, s2 + 3);
+
+	if (s1[0]==s2[0] && s1[1]==s2[1] && s1[2]==s2[2])
+	{
+		congSSSflag = true;
+		return true;
+	}
+	return false;
+}
+inline bool TriangleSolver::cong_HL(TriangleSolver& t)
+{
+	double s1[] = { side_a, side_b, side_c };
+	double s2[] = { t.side_a, t.side_b, t.side_c };
+	sort(s1, s1 + 3);
+	sort(s2, s2 + 3);
+
+
+	if (s1[2] == s2[2])
+	{
+		if (s1[1] == s2[1] || s1[0]== s2[0])
+		{
+			congHLflag = true;
+			return true;
+		}
+	}
+
+	return false;
 }
 /*______________________________________________________________________________
 */
@@ -949,7 +1170,7 @@ inline bool TriangleSolver::checkTriangle()const
 	return false;
 }
 
-inline bool TriangleSolver::checkCongruent(TriangleSolver &T)
+inline bool TriangleSolver::checkSimilarity(TriangleSolver &T)
 {
 	check_AAA(T);
 	check_SAS(T);
@@ -963,17 +1184,53 @@ inline bool TriangleSolver::checkCongruent(TriangleSolver &T)
 	return false;
 
 }
-inline void TriangleSolver::congruentBy(TriangleSolver &T)
+
+inline void TriangleSolver::similarBy(TriangleSolver &T)
 {
-		if(checkCongruent(T)==true){
+		if(checkSimilarity(T)==true){
 				cout << "Triangles are "
 					<< "similar by ";
 				if (aaaFlag == 1) cout << "AAA ";
 				if (sssFlag == 1) cout << "SSS ";
-				if (sasFlag == 1) cout << "SAS.";
+				if (sasFlag == 1) cout << "SAS ";
 		}
 		else
-		 		cout<< "Triangles are not congruent" << endl;
+				cout<< "Triangles are not congruent" << endl;
+
+}
+
+inline bool TriangleSolver::isCongruent(TriangleSolver& t)
+{
+	cong_AAS(t);
+	cong_ASA(t);
+	cong_SAS(t);
+	cong_SSS(t);
+	cong_HL(t);
+	if (congAASflag == true ||
+		congSASflag == true ||
+		congASAflag == true ||
+		congSSSflag == true ||
+		congHLflag ==true
+
+		)
+		return true;
+
+	return false;
+}
+
+inline void TriangleSolver::congruentBy(TriangleSolver& t)
+{
+	if(isCongruent(t)==true){
+		cout << "Triangles are congruent by ";
+		if (congSASflag == 1) cout << "SAS ";
+		if (congAASflag == 1) cout << "AAS ";
+		if (congASAflag == 1) cout << "ASA ";
+		if (congSSSflag == 1) cout << "SSS ";
+		if (congHLflag == 1) cout << "HL ";
+		std::cout << endl;
+	}
+	else
+		cout<< "Triangles are not congruent" << endl;
 
 }
 
@@ -1045,8 +1302,8 @@ inline void TriangleSolver::triangleTypeByAngle()
 inline void TriangleSolver::displayTriangleData() const
 {
 	showAngleType();
-	showTriangleSides();
-	showTriangleAngles();
+	showSides();
+	showAngles();
 	showArea();
 	showParameter();
 	showSemiParameter();
@@ -1055,6 +1312,10 @@ inline void TriangleSolver::displayTriangleData() const
 	showAllMedians();
 	showCircumradius();
 	showInRadius();
+	showVertices();
+	showCentroid();
+	showCircumcenterCoordinates();
+	showEulersDistance();
 	if (altTriFlag == true) {
 
 		cout << "\nthis Triangle has an alternative" << endl;
@@ -1070,22 +1331,46 @@ inline void TriangleSolver::displayTriangleData() const
 	cout << endl;
 }
 
-inline void TriangleSolver::showTriangleSides() const
+inline void TriangleSolver::showSides() const
 {
 	showSide_a();
 	showSide_b();
 	showSide_c();
 }
 
-inline void TriangleSolver::showTriangleAngles() const
+inline void TriangleSolver::showAngles() const
 {
 	showAngle_A();
 	showAngle_B();
 	showAngle_C();
 
 }
-inline void TriangleSolver::showVertex()
+inline void TriangleSolver::showVertices()const
 {
+	size_t it = 0;
+	std::cout << "Vertex coordinates:";
+	for (const auto& v : vertices)
+	{
+		std::cout << "(" << v.first << "," << v.second
+				  << ((it < 2) ? "), " : ")");
+		it++;
+	}
+	std::cout << std::endl;
+}
+inline void TriangleSolver::showCentroid() const
+{
+	std::cout << "Centroid: (" << centroid.first
+		<< "," << centroid.second << ")" <<std::endl;
+}
+inline void TriangleSolver::showEulersDistance() const
+{
+	std::cout << "Euler's distance: " << eulersDistance;
+	std::cout << std::endl ;
+}
+inline void TriangleSolver::showCircumcenterCoordinates() const
+{
+	std::cout << "Curcumcenter coordiates: (" << circumcenterCoordinate.first
+		<< "," << circumcenterCoordinate.second << ")" << std::endl;
 }
 inline void TriangleSolver::showCongruencyFlags() const
 {
@@ -1094,15 +1379,11 @@ inline void TriangleSolver::showCongruencyFlags() const
 	cout << "aaaFlag: " << aaaFlag << endl;
 }
 
-inline void TriangleSolver::showTriangleAsCartesianPoints()
-{
-}
-
 inline void TriangleSolver::showAngleType() const
 {
 	cout << "\ntype: " << angleType << "  " << sideType << endl;
 }
-inline void TriangleSolver::showTriangleAreaPerimeter() const
+inline void TriangleSolver::showAreaPerimeter() const
 {
 	showArea();
 	showParameter();
