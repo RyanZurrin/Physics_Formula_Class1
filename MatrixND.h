@@ -277,8 +277,12 @@ public:
 */
 
 template <typename T>
-MatrixND<T>::MatrixND():rows(0),cols(0),data(data.clear())
-{}
+MatrixND<T>::MatrixND()
+{
+	data.clear();
+	rows = 0;
+	cols = 0;
+}
 
 
 template<typename T>
