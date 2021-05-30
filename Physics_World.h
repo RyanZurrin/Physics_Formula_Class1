@@ -846,9 +846,9 @@ public:
 	Physics_World operator+(const Physics_World& r)const
 	{
 		double x, y, z;
-		x = static_cast<ld>(vector3d->returnX() + r.vector3d->returnX());
-		y = static_cast<ld>(vector3d->returnY() + r.vector3d->returnY());
-		z = static_cast<ld>(vector3d->returnZ() + r.vector3d->returnZ());
+		x = static_cast<ld>(vector3d->return_x() + r.vector3d->return_x());
+		y = static_cast<ld>(vector3d->return_y() + r.vector3d->return_y());
+		z = static_cast<ld>(vector3d->return_z() + r.vector3d->return_z());
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + r.vector2d->return_x());
@@ -861,9 +861,9 @@ public:
 	Physics_World operator+(_ld_ n)const
 	{
 		double x, y, z;
-		x = static_cast<ld>(vector3d->returnX() + n);
-		y = static_cast<ld>(vector3d->returnY() + n);
-		z = static_cast<ld>(vector3d->returnZ() + n);
+		x = static_cast<ld>(vector3d->return_x() + n);
+		y = static_cast<ld>(vector3d->return_y() + n);
+		z = static_cast<ld>(vector3d->return_z() + n);
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + n);
@@ -878,9 +878,9 @@ public:
 	Physics_World& operator+=(const Physics_World& r)
 	{
 		double x, y, z;
-		x = static_cast<ld>(vector3d->returnX() + r.vector3d->returnX());
-		y = static_cast<ld>(vector3d->returnY() + r.vector3d->returnY());
-		z = static_cast<ld>(vector3d->returnZ() + r.vector3d->returnZ());
+		x = static_cast<ld>(vector3d->return_x() + r.vector3d->return_x());
+		y = static_cast<ld>(vector3d->return_y() + r.vector3d->return_y());
+		z = static_cast<ld>(vector3d->return_z() + r.vector3d->return_z());
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + r.vector2d->return_x());
@@ -894,9 +894,9 @@ public:
 	Physics_World operator+()const
 	{
 		double x, y, z;
-		x = static_cast<ld>(vector3d->returnX() + 1.0);
-		y = static_cast<ld>(vector3d->returnY() + 1.0);
-		z = static_cast<ld>(vector3d->returnZ() + 1.0);
+		x = static_cast<ld>(vector3d->return_x() + 1.0);
+		y = static_cast<ld>(vector3d->return_y() + 1.0);
+		z = static_cast<ld>(vector3d->return_z() + 1.0);
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
 		x = static_cast<ld>(vector2d->return_x() + 1.0);

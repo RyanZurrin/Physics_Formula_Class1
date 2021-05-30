@@ -12,13 +12,13 @@ public:
 	LogisticRegression()
 	{}
 
-	Eigen::MatrixXd Sigmoid(Eigen::MatrixXd Z);
+	static Eigen::MatrixXd Sigmoid(Eigen::MatrixXd Z);
 
-	std::tuple<Eigen::MatrixXd, double, double>
+	static std::tuple<Eigen::MatrixXd, double, double>
 		Propagate(Eigen::MatrixXd W, double b, Eigen::MatrixXd X, Eigen::MatrixXd y, double lambda);
-	std::tuple<Eigen::MatrixXd, double, Eigen::MatrixXd, double, std::list<double>>
+	static std::tuple<Eigen::MatrixXd, double, Eigen::MatrixXd, double, std::list<double>>
 		Optimize(Eigen::MatrixXd W, double b, Eigen::MatrixXd X, Eigen::MatrixXd y, int num_iter, double learning_rate, double lambda, bool log_cost);
-	Eigen::MatrixXd Predict(Eigen::MatrixXd W, double b, Eigen::MatrixXd X);
+	Eigen::MatrixXd Predict(Eigen::MatrixXd W, double b, Eigen::MatrixXd X)const;
 };
 
 #endif
@@ -32,7 +32,7 @@ inline std::tuple<Eigen::MatrixXd, double, double>
 LogisticRegression::Propagate(Eigen::MatrixXd W, double b, Eigen::MatrixXd X,
 							  Eigen::MatrixXd y, double lambda)
 {
-	int m = y.rows();
+	const int m = static_cast<int>( y.rows());
 	//std::cout << "in Propagate(rows) m: " << m << endl;
 	//std::cout << "in Propagate(b): " << b << endl;
 	//std::cout << "in Propagate(lambda): " << lambda<< endl;
@@ -117,12 +117,12 @@ LogisticRegression::Optimize(Eigen::MatrixXd W, double b,
 }
 
 inline Eigen::MatrixXd
-LogisticRegression::Predict(Eigen::MatrixXd W, double b, Eigen::MatrixXd X)
+LogisticRegression::Predict(Eigen::MatrixXd W, double b, Eigen::MatrixXd X)const
 {
 	//std::cout << "in Predict(W): " << W << endl;
 	//std::cout << "in Predict(b): " << b << endl;
 	//std::cout << "in Predict(X): " << W << endl;
-	int m = X.rows();
+	const int m = static_cast<int>( X.rows());
 	//std::cout << "in Predict(m): " << m << endl;
 
 

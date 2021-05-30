@@ -4,7 +4,6 @@
 #include <cassert>
 #include <vector>
 #include <iostream>
-
 // Matrix traits: This describes how a matrix is accessed. By
 // externalizing this information into a traits class, the same code
 // can be used both with native arrays and matrix classes. To use the
@@ -171,6 +170,7 @@ template<typename MatrixType>
 template<typename MatrixType>
 void print_matrix(MatrixType m, int rows, int cols)
 {
+	std::cout << setprecision(4) << std::endl;
 	for (size_t r = 0; r < rows; r++)
 	{
 		for (size_t c = 0; c < cols; c++)
@@ -179,21 +179,30 @@ void print_matrix(MatrixType m, int rows, int cols)
 		}
 		std::cout << "\n";
 	}
+	std::cout << std::endl;
 }
 
 
- template <typename T> class Matrix;
-template <typename T> std::ostream& operator<<(std::ostream& os, const Matrix<T>& rhs);
+
+template <typename T> class MatrixND;
+template <typename T> std::ostream& operator<<(std::ostream& os, const MatrixND<T>& rhs);
+
+
 
 template<typename T>
-class MatrixND {
-private:
-	std::vector<T> data;
+class MatrixND
+{
 	int rows;
 	int cols;
+	std::vector<T> data;
+
 
 public:
 	MatrixND();
+
+	template<typename ... Args>
+	explicit MatrixND(const int& r_, const int& c_, const T& first, const Args&... args);
+
 	MatrixND(std::vector<T>, int rows, int cols);
 	void set(std::vector<T>, int rows, int cols);
 	//Matrix(const Matrix<T>&);
@@ -219,6 +228,12 @@ public:
 	MatrixND<T> operator*(const MatrixND<T> &);
 	MatrixND<T> operator*(const T &);
 	bool operator==(const MatrixND<T> &);
+
+
+	template <typename T>
+	friend ostream& operator<<(ostream& os, const MatrixND<T>& rhs);
+
+
 	/*
 	MatrixND& operator+=(T a);
 	MatrixND& operator-=(T a);
@@ -250,6 +265,9 @@ public:
 	Vector<T> operator*(MatrixND<T> const& a, Vector<T> const& b);
 	Vector<T> operator*(Vector<T> const& a, MatrixND<T> const& b);
 	*/
+
+	~MatrixND();
+
 };
 
 /** Default Constructor
@@ -259,10 +277,30 @@ public:
 */
 
 template <typename T>
-MatrixND<T>::MatrixND() {
+MatrixND<T>::MatrixND():rows(0),cols(0),data(data.clear())
+{}
+
+
+template<typename T>
+template<typename ...Args>
+MatrixND<T>::MatrixND(const int& r_, const int& c_, const T& first, const Args & ...args)
+{
 	data.clear();
-	rows = 0;
-	cols = 0;
+	rows = r_;
+	cols = c_;
+	auto total = rows * cols;
+	data.push_back(first);
+	int dummy[] = { 0, (data.push_back(args), 0)... };
+	(void)dummy;
+	for (const auto& i : data)
+	{
+		if(i<=total)
+		{
+			data.push_back(i);
+		}
+	}
+
+
 }
 
 /** Constructor
@@ -276,15 +314,18 @@ MatrixND<T>::MatrixND() {
 */
 
 template <typename T>
-MatrixND<T>::MatrixND(std::vector<T> elements, int numRows, int numCols) {
+MatrixND<T>::MatrixND(std::vector<T> elements, int numRows, int numCols)
+{
 	rows = numRows;
 	cols = numCols;
-
 	data.clear();
 	for(unsigned int i = 0; i < elements.size(); i++) {
 		data.push_back(elements[i]);
 	}
 }
+
+
+
 
 /** set
 
@@ -298,10 +339,10 @@ MatrixND<T>::MatrixND(std::vector<T> elements, int numRows, int numCols) {
 */
 
 template <typename T>
-void MatrixND<T>::set(std::vector<T> elements, int numRows, int numCols) {
+void MatrixND<T>::set(std::vector<T> elements, int numRows, int numCols)
+{
 	rows = numRows;
 	cols = numCols;
-
 	data.clear();
 	for(unsigned int i = 0; i < elements.size(); i++) {
 		data.push_back(elements[i]);
@@ -319,7 +360,8 @@ void MatrixND<T>::set(std::vector<T> elements, int numRows, int numCols) {
 */
 
 template <typename T>
-MatrixND<T> MatrixND<T>::operator+(const MatrixND<T> & rhs) {
+MatrixND<T> MatrixND<T>::operator+(const MatrixND<T> & rhs)
+{
 	return this->add(rhs);
 }
 
@@ -334,7 +376,8 @@ MatrixND<T> MatrixND<T>::operator+(const MatrixND<T> & rhs) {
 */
 
 template <typename T>
-MatrixND<T> MatrixND<T>::operator-(const MatrixND<T> & rhs) {
+MatrixND<T> MatrixND<T>::operator-(const MatrixND<T> & rhs)
+{
 	return this->sub(rhs);
 }
 
@@ -350,7 +393,8 @@ MatrixND<T> MatrixND<T>::operator-(const MatrixND<T> & rhs) {
 
 */
 template <typename T>
-MatrixND<T> MatrixND<T>::operator*(const MatrixND<T> & rhs) {
+MatrixND<T> MatrixND<T>::operator*(const MatrixND<T> & rhs)
+{
 	return this->dot(rhs);
 }
 
@@ -382,6 +426,8 @@ bool MatrixND<T>::operator==(const MatrixND<T> & rhs)
 	return this->isEqual(rhs);
 }
 
+template<typename T>
+inline MatrixND<T>::~MatrixND() = default;
 /* ostream operator
 
 	adds elements to output stream
@@ -393,13 +439,13 @@ bool MatrixND<T>::operator==(const MatrixND<T> & rhs)
 	 @return os, ostream reference
 
 */
-
-template <typename T>
-std::ostream& operator<<(std::ostream& os, const MatrixND<T> & rhs)
+template<typename T>
+ std::ostream& operator<<(std::ostream& os, const MatrixND<T>& rhs)
 {
-	for(unsigned int i = 0; i < rhs.data.size(); i++) {
-		os << rhs.data[i] << "  ";
-		if((i+1)%rhs.cols == 0)
+	 auto total = rhs.rows * rhs.cols;
+	for (size_t i = 0; i < total; i++) {
+		os << setw(5) << left << rhs.data[i] << "  ";
+		if ((i + 1) % rhs.cols == 0)
 			os << std::endl;
 	}
 	return os;
@@ -566,12 +612,14 @@ MatrixND<T> MatrixND<T>::sub(const MatrixND<T> & rhs)
 template <typename T>
 void MatrixND<T>::print()
 {
-	for(unsigned int i = 0; i < data.size(); i++) {
-		std::cout << data[i] << ", ";
+	const auto total = rows * cols;
+	for(unsigned int i = 0; i < total; i++) {
+		std::cout<< setw(5) << left << data[i];
 		if((i+1) % cols == 0)
 			std::cout << std::endl;
 	}
 }
+
 
 /** transpose
 
@@ -685,3 +733,6 @@ int MatrixND<T>::getCols()const
 {
 	return cols;
 }
+
+
+

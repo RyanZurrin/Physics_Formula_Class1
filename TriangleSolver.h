@@ -15,7 +15,7 @@
 #include "Vector2D.h"
 
 
-static int counter = 0;
+static int triangle_object_count = 0;
 
 
 class TriangleSolver
@@ -25,8 +25,11 @@ class TriangleSolver
 	T negativeNumCheck(T& num);
 	template<typename T>
 	T negativeNumFix(T& num);
-
-	void initiate_triangle();
+	double pythagoreanTheorem(double, double)const;
+	void update_triangle();
+	void triangleTypeBySide();
+	void triangleTypeByAngle();
+	void initiate_triangle(string id);
 	void calculate_angleA();
 	void calculate_angleB();
 	void calculate_angleC();
@@ -56,6 +59,7 @@ class TriangleSolver
 	bool cong_AAS(TriangleSolver& t);
 	bool cong_SSS(TriangleSolver& t);
 	bool cong_HL(TriangleSolver& t);
+
 	TriangleSolver *solve_by_AAA(const double&, const double&, const double&); // three sides known
 	TriangleSolver *solve_by_AAS(const double&, const double&, const double&); // two angles and a side not between
 	TriangleSolver *solve_by_ASA(const double&, const double&, const double&); // two angles and a side bewteen them
@@ -63,8 +67,8 @@ class TriangleSolver
 	TriangleSolver *solve_by_SSA(const double&, const double&, const double&); //  two sides and one angle that is not the included angle
 	TriangleSolver *solve_by_SSS(const double&, const double&, const double&); //  all three sides of a triangle, but no angles
 
-public:
-	TriangleSolver* _triPtr;
+	// member variablesfor keeping track of triangle data
+	string ID;
 	double max_side;
 	double height_a, altHeight_a;
 	double height_b, altHeight_b;
@@ -81,7 +85,7 @@ public:
 	double sVal, altSval; // Semiperimeter
 	double rVal, altRval; // Circumradius
 	double iVal, altIval; // inradius
-	// these bools are for determining congruency and type
+	// these bools are for determining congruency and similarity type
 	double median_a, altMedian_a;
 	double median_b, altMedian_b;
 	double median_c, altMedian_c;
@@ -93,22 +97,16 @@ public:
 		   aasFlag,
 		   missingSideFlag,
 		   altTriFlag;
-	// these are char flag variables to add to constructor to define what data you are entering
-
-
 	string sideType;
 	string angleType;
-	ld eulersDistance;
-	vector<pair<ld, ld>> vertices;
-	pair<ld,ld> centroid;
-	pair<ld, ld> circumcenterCoordinate;
-	double pythagoreanTheorem(double, double)const;
-	void update_triangle();
+	double eulersDistance;
+	vector<pair<double ,double>> vertices;
+	pair<double,double> centroid;
+	pair<double, double> circumcenterCoordinate;
 
 
-	void makeTriangleAsPoints();
-
-	TriangleSolver();
+public:
+	TriangleSolver(string id = "");
 
 	/// <summary>
 	/// Initializes a new instance of the TriangleSolver class.\n
@@ -126,23 +124,25 @@ public:
 	/// <param name="param2">The second parameter.</param>
 	/// <param name="param3">The third parameter.</param>
 	/// <param name="type">Three letter string literal or The type of triangle to be solved.</param>
-	TriangleSolver(const double param1, const double param2, const double param3, const string type = "sss");
+	/// <param name="id">object identifier if wanted</param>
+	TriangleSolver(const double param1, const double param2, const double param3,
+				   const string type = "sss", const string id = "");
 
-	TriangleSolver(const TriangleSolver&); // copy constructor
-	TriangleSolver make2rights(); // makes two 90 degree triangles by modifiying itself and returning the other part to new object.
-	TriangleSolver& operator=(const TriangleSolver& right)noexcept; //self assignment
+	TriangleSolver( TriangleSolver&); // copy constructor
+	TriangleSolver(TriangleSolver&& t)noexcept;
+	TriangleSolver& operator=(TriangleSolver const& t);
+	TriangleSolver& operator=(TriangleSolver&& t)noexcept;
 
 
 
 	[[nodiscard]] bool checkSides()const;
 	[[nodiscard]] bool checkTriangle()const;
 	[[nodiscard]] bool checkAngles()const;
-	void triangleTypeBySide();
-	void triangleTypeByAngle();
+
 	void similarBy(TriangleSolver&);
 	bool isCongruent(TriangleSolver& t);
 	void congruentBy(TriangleSolver& t);
-	void displayTriangleData()const;
+	void displayTriangleData(std::string label = "")const;
 	void showVertices()const;
 	void showCentroid()const;
 	void showEulersDistance()const;
@@ -176,7 +176,7 @@ public:
 			 << "median_b: " << median_b << endl
 			 << "median_c: " << median_c << endl;
 	}
-	void showLargestSide()const { cout << "base: " << max_side << endl; }
+	void showLargestSide()const { cout << "most stable base: " << max_side << endl; }
 	void showCircumradius()const { cout << "circum-radius: " << rVal << endl; }
 	void showInRadius()const { cout << "in-radius: " << iVal << endl; }
 	void showSemiParameter()const { cout << "semi-parameter: " << sVal << endl; }
@@ -212,7 +212,7 @@ public:
 	void setSide_c(double _c);
 	void setSides(double, double, double);
 	void setAngles(double, double, double);
-	static int getCount() { return counter; }
+	static int getTriangleObjectCount() { return triangle_object_count; }
 	//double setAngle_A(double _A) { angle_A = _A; update_triangle(); }
 	//double setAngle_B(double _B) { angle_B = _B; update_triangle(); }
 	//double setAngle_C(double _C) { angle_C = _C; update_triangle(); }
@@ -234,25 +234,25 @@ public:
 	bool operator!=(const double& n)const { return !(area == n); }
 
 	//overloaded additon operators
-
-	TriangleSolver operator+()const;
-	TriangleSolver operator++()const;
-	TriangleSolver operator++(int)const;
+	TriangleSolver operator++();
+	TriangleSolver operator++(int);
 	TriangleSolver operator+(const TriangleSolver&)const;
-	TriangleSolver operator+(double);
+	TriangleSolver operator+(double)const;
 	TriangleSolver& operator+=(const TriangleSolver&);
 	friend TriangleSolver operator+(double num, TriangleSolver&);
+	friend TriangleSolver operator+(TriangleSolver& v, TriangleSolver& s);
+	TriangleSolver& operator+(const TriangleSolver& rhs);
 	//friend Triangle operator+(Triangle lhs, const Triangle&);
 
 	// overloaded subtraction operators
 	TriangleSolver operator-()const;
-	TriangleSolver operator--()const;
-	TriangleSolver operator--(int)const;
+	TriangleSolver operator--();
+	TriangleSolver operator--(int);
 	TriangleSolver operator-(const TriangleSolver&)const;
 	TriangleSolver operator-(double)const;
 	TriangleSolver& operator-=(const TriangleSolver&);
 	friend TriangleSolver operator-(double num, TriangleSolver&);
-	//friend Triangle operator-(Triangle lhs, const Triangle&);
+	friend TriangleSolver operator-(TriangleSolver&, const TriangleSolver&);
 
 	TriangleSolver operator*(double value)const;   // multiply
 
@@ -264,17 +264,8 @@ public:
 
 	friend ostream& operator<<(ostream&, const TriangleSolver&);
 	friend istream& operator>>(istream&, TriangleSolver&);
-	/*
-	operator float();
-	operator double();
-	operator int();
-	operator string();
-	*/
 
-	~TriangleSolver()
-	{
-		counter--;
-	}
+	~TriangleSolver() = default;
 
 
 
@@ -283,23 +274,19 @@ public:
 
 #endif // ! TRIANGLE_H
 
-inline void TriangleSolver::makeTriangleAsPoints()
-{
-}
-
 /*______________________________________________________________________________
 */
-inline TriangleSolver::TriangleSolver()
+inline TriangleSolver::TriangleSolver(string id)
 {
-	initiate_triangle();
-	counter++;
+	triangle_object_count++;
+	initiate_triangle(id);
 }
 
 
-inline TriangleSolver::TriangleSolver(const double param1, const double param2, const double param3, const string type)
+inline TriangleSolver::TriangleSolver(const double param1, const double param2, const double param3, const string type, const string id)
 {	//sss='s', sas='a', ssa ='b', aaa='l', asa='i', aas='n'
-	initiate_triangle();   // s1,  a ,  s2
-	counter++;
+	triangle_object_count++;
+	initiate_triangle(id);
 	if (type == "sss" || type == "SSS") // side, side, side(sss)
 	{
 		solve_by_SSS(param1, param2, param3);
@@ -326,10 +313,9 @@ inline TriangleSolver::TriangleSolver(const double param1, const double param2, 
 	}
 }
 
-inline TriangleSolver::TriangleSolver(const TriangleSolver& t)
+inline TriangleSolver::TriangleSolver(TriangleSolver& t)
 {
-	counter++;
-	_triPtr = t._triPtr;
+	ID = "triangle_" + std::to_string(triangle_object_count);
 	side_a = t.side_a;
 	side_b = t.side_b;
 	side_c = t.side_c;
@@ -373,30 +359,93 @@ inline TriangleSolver::TriangleSolver(const TriangleSolver& t)
 	altMedian_b = t.altMedian_b;
 	altMedian_c = t.altMedian_c;
 	missingSideFlag = t.missingSideFlag;
+	vertices = t.vertices;
+	centroid = t.centroid;
+	circumcenterCoordinate = t.circumcenterCoordinate;
 	eulersDistance = t.eulersDistance;
+}
 
-	//return *this;
+inline TriangleSolver::TriangleSolver(TriangleSolver&& t)noexcept
+{
+	triangle_object_count++;
+	ID = "Triangle_" + std::to_string(triangle_object_count);
+	side_a = t.side_a;
+	side_b = t.side_b;
+	side_c = t.side_c;
+	altSide = t.altSide;
+	angle_A = t.angle_A;
+	angle_B = t.angle_B;
+	angle_C = t.angle_C;
+	altAngle_A = t.altAngle_A;
+	altAngle_B = t.altAngle_B;
+	altAngle_C = t.altAngle_C;
+	perimeter = t.perimeter;
+	altPerimeter = t.altPerimeter;
+	max_height = t.max_height;
+	max_side = t.max_side;
+	sVal = t.sVal;
+	rVal = t.rVal;
+	iVal = t.iVal;
+	altRval = t.altRval;
+	altSval = t.altSval;
+	altIval = t.altIval;
+	area = t.area;
+	altArea = t.altArea;
+	sideType = t.sideType;
+	sssFlag = t.sssFlag; congSSSflag = t.congSSSflag;
+	aaaFlag = t.aaaFlag;
+	sasFlag = t.sasFlag; congSASflag = t.congSASflag;
+	ssaFlag = t.ssaFlag;
+	asaFlag = t.asaFlag; congASAflag = t.congASAflag;
+	aasFlag = t.aasFlag; congAASflag = t.congAASflag;
+	altTriFlag = t.altTriFlag; congHLflag = t.congHLflag;
+	height_a = t.height_a;
+	height_b = t.height_b;
+	height_c = t.height_c;
+	altHeight_a = t.altHeight_a;
+	altHeight_b = t.altHeight_b;
+	altHeight_c = t.altHeight_c;
+	median_a = t.median_a;
+	median_b = t.median_b;
+	median_c = t.median_c;
+	altMedian_a = t.altMedian_a;
+	altMedian_b = t.altMedian_b;
+	altMedian_c = t.altMedian_c;
+	missingSideFlag = t.missingSideFlag;
+	vertices = t.vertices;
+	centroid = t.centroid;
+	circumcenterCoordinate = t.circumcenterCoordinate;
+	eulersDistance = t.eulersDistance;
 }
 
 
-inline TriangleSolver& TriangleSolver::operator=(const TriangleSolver& right)noexcept
+inline TriangleSolver& TriangleSolver::operator=(TriangleSolver const& right)
 {
+	TriangleSolver temp;
 	//cout << "in the overloaded Triangle =operator";
 	if (this != &right) {
-		side_a = right.side_a;
-		side_b = right.side_b;
-		side_c = right.side_c;
-		update_triangle();
+		temp.side_a = right.side_a;
+		temp.side_b = right.side_b;
+		temp.side_c = right.side_c;
+		temp.update_triangle();
+		return temp;
 	}
 	return *this;
 }
 
-inline TriangleSolver TriangleSolver::make2rights()
+inline TriangleSolver& TriangleSolver::operator=(TriangleSolver&& t) noexcept
 {
-	return TriangleSolver();
+	TriangleSolver temp;
+	//cout << "in the overloaded Triangle =operator";
+	if (this != &t) {
+		temp.side_a = t.side_a;
+		temp.side_b = t.side_b;
+		temp.side_c = t.side_c;
+		temp.update_triangle();
+		return temp;
+	}
+	return *this;
 }
-/*______________________________________________________________________________
-*/
 
 inline void TriangleSolver::update_triangle()
 {
@@ -517,9 +566,16 @@ inline void TriangleSolver::badTriangle()
 
 }
 
-inline void TriangleSolver::initiate_triangle()
+inline void TriangleSolver::initiate_triangle(string id)
 {
-	_triPtr = this;
+	if (id == "")
+	{
+		ID = "Triangle_" + std::to_string(triangle_object_count);
+	}
+	else
+	{
+		ID = id;
+	}
 	max_side = 0.0;
 	max_height = 0.0;
 	height_a = 0.0;
@@ -565,8 +621,6 @@ inline void TriangleSolver::initiate_triangle()
 	altSval = 0.0;
 	altIval = 0.0;
 	eulersDistance = 0.0;
-
-
 }
 
 inline void TriangleSolver::calculate_angleA()
@@ -575,7 +629,9 @@ inline void TriangleSolver::calculate_angleA()
 		angle_A = 180 - (angle_B + angle_C);
 	}
 	else {
-		angle_A = (180 / _PI_) * asin(side_a / (2 * rVal));
+		auto cosA = (pow(side_b, 2) + pow(side_c, 2) -
+			pow(side_a, 2)) / (2.0 * side_b * side_c);
+		angle_A = acos(cosA)*DEGREE;
 	}
 }
 
@@ -585,7 +641,9 @@ inline void TriangleSolver::calculate_angleB()
 		angle_B = 180 - (angle_A + angle_C);
 	}
 	else {
-		angle_B = (180 / _PI_) * asin(side_b / (2 * rVal));
+		auto cosB = (pow(side_c, 2) + pow(side_a, 2) -
+			pow(side_b, 2)) / (2.0 * side_c * side_a);
+		angle_B =  acos(cosB)*DEGREE;
 	}
 }
 
@@ -595,7 +653,9 @@ inline void TriangleSolver::calculate_angleC()
 		angle_C = 180 - (angle_A + angle_B);
 	}
 	else {
-		angle_C = (180 / _PI_) * asin(side_c / (2 * rVal));
+		auto cosC = (pow(side_a, 2) + pow(side_b, 2) -
+			pow(side_c, 2)) / (2.0 * side_a * side_b);
+		angle_C =  acos(cosC)*DEGREE;
 	}
 
 }
@@ -715,14 +775,15 @@ inline void TriangleSolver::calculate_iVal()
 }
 inline void TriangleSolver::set_vertices()
 {
-	pair<ld, ld> a, b, c;
+	pair<double, double> a, b, c;
 	a.first = 0;
 	a.second = 0;
 	b.first = side_c;
 	b.second = 0;
-	c.first = side_b * (pow(side_b, 2) + pow(side_c, 2) - pow(side_a, 2)) / (2.0 * side_b * side_c);
+	c.first = side_b * (pow(side_b, 2) + pow(side_c, 2) -
+		pow(side_a, 2)) / (2.0 * side_b * side_c);
 	c.second = sqrt(pow(side_b, 2) - pow(c.first, 2));
-	vertices = vector<pair<ld, ld>>{ a,b,c };
+	vertices = vector<pair<double, double>>{ a,b,c };
 
 }
 inline void TriangleSolver::set_centroid()
@@ -736,13 +797,16 @@ inline void TriangleSolver::set_eulersDistance()
 }
 inline void TriangleSolver::set_ccc()
 {
-	auto d = 2.0 * (vertices[1].first * vertices[2].second - vertices[1].second * vertices[2].first);
+	auto d = 2.0 * (vertices[1].first * vertices[2].second -
+		vertices[1].second * vertices[2].first);
 
-	circumcenterCoordinate.first = (vertices[2].second * (pow(vertices[1].first, 2) + pow(vertices[1].second, 2)) -
-		(vertices[1].second * (pow(vertices[2].first, 2) + pow(vertices[2].second, 2)))) / d;
+	circumcenterCoordinate.first = (vertices[2].second * (pow(vertices[1].first, 2) +
+		pow(vertices[1].second, 2)) -	(vertices[1].second * (pow(vertices[2].first, 2) +
+			pow(vertices[2].second, 2)))) / d;
 
-	circumcenterCoordinate.second = (vertices[1].first * (pow(vertices[2].first, 2) + pow(vertices[2].second, 2)) -
-		(vertices[2].first * (pow(vertices[1].first, 2) + pow(vertices[1].second, 2)))) / d;
+	circumcenterCoordinate.second = (vertices[1].first * (pow(vertices[2].first, 2) +
+		pow(vertices[2].second, 2)) -	(vertices[2].first * (pow(vertices[1].first, 2) +
+			pow(vertices[1].second, 2)))) / d;
 }
 inline TriangleSolver *TriangleSolver::solve_by_AAA(const double& a1, const double& a2, const double& a3)
 {
@@ -1188,14 +1252,14 @@ inline bool TriangleSolver::checkSimilarity(TriangleSolver &T)
 inline void TriangleSolver::similarBy(TriangleSolver &T)
 {
 		if(checkSimilarity(T)==true){
-				cout << "Triangles are "
-					<< "similar by ";
-				if (aaaFlag == 1) cout << "AAA ";
-				if (sssFlag == 1) cout << "SSS ";
-				if (sasFlag == 1) cout << "SAS ";
+			cout<< ID << " is similar with "<< T.ID << " by: ";
+			if (aaaFlag == 1) cout << "AAA ";
+			if (sssFlag == 1) cout << "SSS ";
+			if (sasFlag == 1) cout << "SAS ";
+			std::cout << endl;
 		}
 		else
-				cout<< "Triangles are not congruent" << endl;
+			cout << ID << " is not similar with " << T.ID << std::endl;
 
 }
 
@@ -1220,8 +1284,8 @@ inline bool TriangleSolver::isCongruent(TriangleSolver& t)
 
 inline void TriangleSolver::congruentBy(TriangleSolver& t)
 {
-	if(isCongruent(t)==true){
-		cout << "Triangles are congruent by ";
+	if (isCongruent(t) == true) {
+		cout << ID << " is congruent with " << t.ID << " by: ";
 		if (congSASflag == 1) cout << "SAS ";
 		if (congAASflag == 1) cout << "AAS ";
 		if (congASAflag == 1) cout << "ASA ";
@@ -1230,7 +1294,7 @@ inline void TriangleSolver::congruentBy(TriangleSolver& t)
 		std::cout << endl;
 	}
 	else
-		cout<< "Triangles are not congruent" << endl;
+		cout << ID << " is not congruent with " << t.ID << std::endl;
 
 }
 
@@ -1299,23 +1363,23 @@ inline void TriangleSolver::triangleTypeByAngle()
 }
 
 
-inline void TriangleSolver::displayTriangleData() const
+inline void TriangleSolver::displayTriangleData(std::string label) const
 {
+	std::cout << ((label == "") ? ID : label);
 	showAngleType();
 	showSides();
 	showAngles();
-	showArea();
 	showParameter();
 	showSemiParameter();
-	showLargestSide();
-	showAllHeights();
-	showAllMedians();
-	showCircumradius();
+	showArea();
 	showInRadius();
-	showVertices();
-	showCentroid();
-	showCircumcenterCoordinates();
+	showCircumradius();
 	showEulersDistance();
+	showAllMedians();
+	showAllHeights();
+	showVertices();
+	showCircumcenterCoordinates();
+	showCentroid();
 	if (altTriFlag == true) {
 
 		cout << "\nthis Triangle has an alternative" << endl;
@@ -1348,7 +1412,7 @@ inline void TriangleSolver::showAngles() const
 inline void TriangleSolver::showVertices()const
 {
 	size_t it = 0;
-	std::cout << "Vertex coordinates:";
+	std::cout << "Vertex coordinates:" << setprecision(6);
 	for (const auto& v : vertices)
 	{
 		std::cout << "(" << v.first << "," << v.second
@@ -1369,7 +1433,7 @@ inline void TriangleSolver::showEulersDistance() const
 }
 inline void TriangleSolver::showCircumcenterCoordinates() const
 {
-	std::cout << "Curcumcenter coordiates: (" << circumcenterCoordinate.first
+	std::cout << "Circumcenter coordinates: (" << circumcenterCoordinate.first
 		<< "," << circumcenterCoordinate.second << ")" << std::endl;
 }
 inline void TriangleSolver::showCongruencyFlags() const
@@ -1491,39 +1555,25 @@ inline void TriangleSolver::setAngles(double aA, double aB, double aC)
 }
 /*______________________________________________________________________________
 											   overloaded addition opperators*/
-inline TriangleSolver TriangleSolver::operator+() const
+
+inline TriangleSolver TriangleSolver::operator++()
 {
-	return TriangleSolver();
+	return TriangleSolver(++side_a, ++side_b, ++side_c);
 }
 
-inline TriangleSolver TriangleSolver::operator++()const
+inline TriangleSolver TriangleSolver::operator++(int)
 {
-	return TriangleSolver();
-}
-
-inline TriangleSolver TriangleSolver::operator++(int)const
-{
-	return TriangleSolver();
+	return TriangleSolver(side_a++,side_b++,side_c++);
 }
 
 inline TriangleSolver TriangleSolver::operator+(const TriangleSolver& tri)const
 {
-	double a,b,c;
-	a = this->side_a + tri.side_a;
-	b = this->side_b + tri.side_b;
-	c = this->side_c + tri.side_c;
-	return TriangleSolver(a, b, c);
+	return TriangleSolver(side_a+tri.side_a, side_b+tri.side_b,side_c+tri.side_c);
 }
 
-inline TriangleSolver TriangleSolver::operator+(double n)
+inline TriangleSolver TriangleSolver::operator+(double n)const
 {
-	side_a = side_a + n;
-	side_b = side_b + n;
-	side_c = side_c + n;
-	if (checkSides() == true) {
-		update_triangle();
-	}
-	return TriangleSolver();
+	return TriangleSolver(side_a+n,side_b+n,side_c+n);
 }
 
 inline TriangleSolver& TriangleSolver::operator+=(const TriangleSolver& rhs)
@@ -1534,41 +1584,38 @@ inline TriangleSolver& TriangleSolver::operator+=(const TriangleSolver& rhs)
 	calculate_All_angles();
 	return *this;
 }
-inline TriangleSolver operator+(double num, TriangleSolver&)
+inline TriangleSolver& TriangleSolver::operator+(const TriangleSolver& rhs)
 {
-	return TriangleSolver();
-}
-/*
-Triangle operator+(Triangle lhs, const Triangle& rhs)
-{
-	Triangle temp(
-			lhs.side_a+rhs.side_a,
-			lhs.side_b+rhs.side_b,
-			lhs.side_c+rhs.side_c
-			);
-
+	TriangleSolver temp(
+		side_a + rhs.side_a,
+		side_b + rhs.side_b,
+		side_c + rhs.side_c
+	);
 	temp.update_triangle();
 	return temp;
 }
+inline TriangleSolver operator+(double num, TriangleSolver& t)
+{
+	return TriangleSolver(num + t.side_a, num + t.side_b, num + t.side_c);
+}
 
-*/
+inline TriangleSolver operator+(TriangleSolver& v, TriangleSolver& s)
+{
+	return TriangleSolver(v.side_a + s.side_a, v.side_b + s.side_b, v.side_c + s.side_c);
+}
+
 
 /*______________________________________________________________________________
 											overloaded subtraction opperators*/
 
-inline TriangleSolver TriangleSolver::operator-() const
+inline TriangleSolver TriangleSolver::operator--()
 {
-	return TriangleSolver();
+	return TriangleSolver(--side_a, --side_b, --side_c);
 }
 
-inline TriangleSolver TriangleSolver::operator--()const
+inline TriangleSolver TriangleSolver::operator--(int)
 {
-	return TriangleSolver();
-}
-
-inline TriangleSolver TriangleSolver::operator--(int)const
-{
-	return TriangleSolver();
+	return TriangleSolver(side_a--, side_b--, side_c--);
 }
 
 inline TriangleSolver TriangleSolver::operator-(const TriangleSolver& tri) const
@@ -1580,9 +1627,9 @@ inline TriangleSolver TriangleSolver::operator-(const TriangleSolver& tri) const
 	return TriangleSolver(a, b, c);
 }
 
-inline TriangleSolver TriangleSolver::operator-(double) const
+inline TriangleSolver TriangleSolver::operator-(double n) const
 {
-	return TriangleSolver();
+	return TriangleSolver(side_a-n,side_b-n,side_c-n);
 }
 
 inline TriangleSolver& TriangleSolver::operator-=(const TriangleSolver& rhs)
@@ -1591,19 +1638,20 @@ inline TriangleSolver& TriangleSolver::operator-=(const TriangleSolver& rhs)
 	side_b -= rhs.side_b;
 	side_c -= rhs.side_c;
 	calculate_All_angles();
+	update_triangle();
 	return *this;
 }
 
-inline TriangleSolver operator-(double num, TriangleSolver&)
+inline TriangleSolver operator-(double num, TriangleSolver& t)
 {
-	return TriangleSolver();
+	return TriangleSolver(num - t.side_a, num - t.side_b, num - t.side_c);
 }
-/*
-Triangle operator-(Triangle lhs, const Triangle&)
+
+inline TriangleSolver operator-(TriangleSolver& v, const TriangleSolver& s)
 {
-	return Triangle();
+	return TriangleSolver(v.side_a - s.side_a, v.side_b - s.side_b, v.side_c - s.side_c);
 }
-*/
+
 /*______________________________________________________________________________
 												overloaded division opperators*/
 
@@ -1632,10 +1680,7 @@ inline TriangleSolver operator*(double s, TriangleSolver& t)
 
 inline TriangleSolver operator*(TriangleSolver& v, TriangleSolver& s)
 {
-	TriangleSolver results(v.side_a * s.side_a, v.side_b * s.side_b, v.side_c * s.side_c);
-
-	return results;
-
+	return TriangleSolver(v.side_a * s.side_a, v.side_b * s.side_b, v.side_c * s.side_c);
 }
 inline ostream& operator<<(ostream& os, const TriangleSolver& t)
 {
