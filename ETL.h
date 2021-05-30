@@ -39,14 +39,15 @@ public:
 	std::vector<std::vector<std::string>> readCSV();
 	Eigen::MatrixXd CSVtoEigen(std::vector<std::vector<std::string>> dataset, int rows, int cols);
 
-	Eigen::MatrixXd Normalize(Eigen::MatrixXd data, bool normalizeTarget);
+	static Eigen::MatrixXd Normalize(Eigen::MatrixXd data, bool normalizeTarget);
 	//auto Mean(Eigen::MatrixXd data) -> decltype(data.colwise().mean());
 	//auto Std(Eigen::MatrixXd data) -> decltype(((data.array().square().colwise().sum())/(data.rows()-1)).sqrt());
 
-	std::tuple<Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd> TrainTestSplit(Eigen::MatrixXd data, float train_size);
+	std::tuple<Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd>
+	TrainTestSplit(Eigen::MatrixXd data, float train_size)const;
 
-	void Vectortofile(std::vector<float> vector, std::string filename);
-	void EigentoFile(Eigen::MatrixXd data, std::string filename);
+	void VectorToFile(std::vector<float> vector, std::string filename)const;
+	static void EigenToFile(Eigen::MatrixXd data, std::string filename);
 };
 
 #endif
@@ -88,13 +89,13 @@ Eigen::MatrixXd ETL::CSVtoEigen(std::vector<std::vector<std::string>>
 	return mat.transpose();
 }
 
-std::tuple<Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd>
-ETL::TrainTestSplit(Eigen::MatrixXd data, float train_size)
+inline std::tuple<Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd,Eigen::MatrixXd>
+ETL::TrainTestSplit(Eigen::MatrixXd data, float train_size)const
 {
 
-	int rows = data.rows();
-	int train_rows = round(train_size*rows);
-	int test_rows = rows - train_rows;
+	const int rows = static_cast<int>( data.rows());
+	const int train_rows = static_cast<int>( round(train_size*rows));
+	const int test_rows = rows - train_rows;
 
 	Eigen::MatrixXd train = data.topRows(train_rows);
 
@@ -109,17 +110,18 @@ ETL::TrainTestSplit(Eigen::MatrixXd data, float train_size)
 	return std::make_tuple(X_train, y_train, X_test, y_test);
 }
 
-auto Mean(Eigen::MatrixXd data) -> decltype(data.colwise().mean()){
+inline auto Mean(Eigen::MatrixXd data) -> decltype(data.colwise().mean())
+{
 	return data.colwise().mean();
 }
 
-auto Std(Eigen::MatrixXd data) ->
+inline auto Std(Eigen::MatrixXd data) ->
 decltype(((data.array().square().colwise().sum())/(data.rows()-1)).sqrt())
 {
 	return ((data.array().square().colwise().sum())/(data.rows()-1)).sqrt();
 }
 
-Eigen::MatrixXd ETL::Normalize(Eigen::MatrixXd data, bool normalizeTarget)
+inline Eigen::MatrixXd ETL::Normalize(Eigen::MatrixXd data, bool normalizeTarget)
 {
 	Eigen::MatrixXd dataNorm;
 	if(normalizeTarget==true) {
@@ -130,7 +132,7 @@ Eigen::MatrixXd ETL::Normalize(Eigen::MatrixXd data, bool normalizeTarget)
 
 	auto mean = dataNorm.colwise().mean();
 	Eigen::MatrixXd scaled_data = dataNorm.rowwise() - mean;
-	auto std = ((scaled_data.array().square().colwise().sum()) / 
+	auto std = ((scaled_data.array().square().colwise().sum()) /
 		(scaled_data.rows() - 1)).sqrt();
 
 	Eigen::MatrixXd norm = scaled_data.array().rowwise()/std;
@@ -143,14 +145,14 @@ Eigen::MatrixXd ETL::Normalize(Eigen::MatrixXd data, bool normalizeTarget)
 	return norm;
 }
 
-void ETL::Vectortofile(std::vector<float> vector, std::string filename)
+inline void ETL::VectorToFile(std::vector<float> vector, std::string filename)const
 {
 	std::ofstream output_file(filename);
 	std::ostream_iterator<float> output_iterator(output_file, "\n");
 	std::copy(vector.begin(), vector.end(), output_iterator);
 }
 
-void ETL::EigentoFile(Eigen::MatrixXd data, std::string filename)
+inline void ETL::EigenToFile(Eigen::MatrixXd data, std::string filename)
 {
 	std::ofstream output_file(filename);
 	if(output_file.is_open()){

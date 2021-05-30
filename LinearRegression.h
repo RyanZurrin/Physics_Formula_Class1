@@ -25,25 +25,31 @@ public:
 	/// <param name="y">The y.</param>
 	/// <param name="theta">The theta.</param>
 	/// <returns></returns>
-	float OLS_Cost(Eigen::MatrixXd X, Eigen::MatrixXd y, Eigen::MatrixXd theta);
-	std::tuple<Eigen::VectorXd,std::vector<float>> GradientDescent(Eigen::MatrixXd X, Eigen::MatrixXd y, Eigen::VectorXd theta, float alpha, int iters);
-	float RSquared(Eigen::MatrixXd y, Eigen::MatrixXd y_hat);
+	float OLS_Cost(Eigen::MatrixXd X, Eigen::MatrixXd y, Eigen::MatrixXd theta)const;
+	std::tuple<Eigen::VectorXd,std::vector<float>>
+		GradientDescent(Eigen::MatrixXd X, Eigen::MatrixXd y,
+					    Eigen::VectorXd theta, float alpha, int iters)const;
+	float RSquared(Eigen::MatrixXd y, Eigen::MatrixXd y_hat)const;
 };
 
 #endif
 
-float LinearRegression::OLS_Cost(Eigen::MatrixXd X, Eigen::MatrixXd y, Eigen::MatrixXd theta){
+inline float LinearRegression::OLS_Cost(Eigen::MatrixXd X, Eigen::MatrixXd y, Eigen::MatrixXd theta)const
+{
 
 	Eigen::MatrixXd inner = pow(((X*theta)-y).array(),2);
 
-	return inner.sum()/(2*X.rows());
+	return static_cast<float>( inner.sum()/(2*X.rows()));
 }
 
-std::tuple<Eigen::VectorXd,std::vector<float>> LinearRegression::GradientDescent(Eigen::MatrixXd X, Eigen::MatrixXd y, Eigen::VectorXd theta, float alpha, int iters){
+inline std::tuple<Eigen::VectorXd,std::vector<float>>
+LinearRegression::GradientDescent(Eigen::MatrixXd X, Eigen::MatrixXd y,
+								  Eigen::VectorXd theta, float alpha, int iters)const
+{
 
 	Eigen::MatrixXd temp = theta;
 
-	int parameters = theta.rows();
+	const int parameters = static_cast<int>( theta.rows());
 
 	std::vector<float> cost;
 	cost.push_back(OLS_Cost(X,y,theta));
@@ -62,12 +68,13 @@ std::tuple<Eigen::VectorXd,std::vector<float>> LinearRegression::GradientDescent
 	return std::make_tuple(theta,cost);
 }
 
-float LinearRegression::RSquared(Eigen::MatrixXd y, Eigen::MatrixXd y_hat){
+inline float LinearRegression::RSquared(Eigen::MatrixXd y, Eigen::MatrixXd y_hat)const
+{
 	std::cout << "in Rsq - y:" << y << std::endl;
 	std::cout << "in Rsq - yhat: " << y_hat << std::endl;
 	auto num = pow((y-y_hat).array(),2).sum();
 	std::cout << "in Rsq num: " << num << std::endl;
 	auto den = pow(y.array()-y.mean(),2).sum();
 	std::cout << "in Rsq den: " << den << std::endl;
-	return 1 - num/den;
+	return static_cast<float>( 1 - num/den);
 }
