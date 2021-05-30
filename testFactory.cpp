@@ -56,7 +56,7 @@ int main()
 
 	MatrixND<int> mat(3, 4, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13);
 	cout << mat;
-
+	print_type_properties<ld>();
 	//setVal(QP::powerCarriedAwayByElectrons(1.00e-3, 500e-9, 1.30e3,2.28));
 	//show_val("N/t", "elec/sec");
 

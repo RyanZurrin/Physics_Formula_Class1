@@ -52,7 +52,7 @@ LogisticRegression::Propagate(Eigen::MatrixXd W, double b, Eigen::MatrixXd X,
 	auto cross_entropy =
 		-(ce_var1 + ce_var2 * ce_var3)/m;
 	//std::cout << "in Propagate(cross-entropy): " << cross_entropy << std::endl;
-	double l2_reg_cost = W.array().pow(2).sum() * (lambda/(2*m));
+	double l2_reg_cost = W.array().pow(2).sum() * (lambda/(2.0*m));
 	std::cout << "in Propagate(l2 reg cost) = W.array.pow.sum*lamda/2*m: " << l2_reg_cost << endl;
 
 	double cost = static_cast<const double>((cross_entropy.array()[0])) + l2_reg_cost;

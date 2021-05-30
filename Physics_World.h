@@ -76,6 +76,34 @@ typedef long double ld;
 
 static auto physics_objectCount = 0;
 
+
+template<typename T>
+void print_type_properties()
+{
+	std::cout <<'\n'
+		<< "min="
+		<< std::numeric_limits<T>::min() << '\n'
+		<< "max="
+		<< std::numeric_limits<T>::max() << '\n'
+		<< "bits="
+		<< std::numeric_limits<T>::digits << '\n'
+		<< "decdigits="
+		<< std::numeric_limits<T>::digits10 << '\n'
+		<< "integral="
+		<< std::numeric_limits<T>::is_integer << '\n'
+		<< "signed="
+		<< std::numeric_limits<T>::is_signed << '\n'
+		<< "exact="
+		<< std::numeric_limits<T>::is_exact << '\n'
+		<< "infinity="
+		<< std::numeric_limits<T>::has_infinity << '\n';
+}
+
+
+
+
+
+
 //_____________________________________________________________________________
 //global constants, methods and structures
 //
@@ -756,6 +784,7 @@ public:
 	LinearRegression* linear_regression;
 	LogisticRegression* logistic_regression;
 	ETL* etl;
+	MatrixND<ld>* matrixNd;
 	VectorND<ld>* vectorNd;
 	TriangleSolver* triangle;
 	Kinematics* kinematics;
@@ -803,6 +832,7 @@ public:
 		linear_regression(o.linear_regression),
 		logistic_regression(o.logistic_regression),
 		etl(o.etl),
+		matrixNd(o.matrixNd),
 		vectorNd(o.vectorNd),
 		triangle(o.triangle),
 		kinematics(o.kinematics),
@@ -927,6 +957,7 @@ inline Physics_World::Physics_World()
 	linear_regression = new LinearRegression;
 	logistic_regression = new LogisticRegression;
 	etl = new ETL;
+	matrixNd = new MatrixND<ld>;
 	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
 	kinematics = new Kinematics;
@@ -975,6 +1006,7 @@ inline Physics_World::Physics_World(const Physics_World& p)
 	linear_regression = p.linear_regression;
 	logistic_regression = p.logistic_regression;
 	etl = p.etl;
+	matrixNd = p.matrixNd;
 	vectorNd = p.vectorNd;
 	//vector_values = p.vector_values;
 	triangle = p.triangle;
@@ -1024,6 +1056,7 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 		linear_regression = r.linear_regression;
 		logistic_regression = r.logistic_regression;
 		etl = r.etl;
+		matrixNd = r.matrixNd;
 		vectorNd = r.vectorNd;
 		triangle = r.triangle;
 		//vector_values = r.vector_values;
@@ -1071,6 +1104,7 @@ inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 	linear_regression = new LinearRegression;
 	logistic_regression = new LogisticRegression;
 	etl = new ETL;
+	matrixNd = new MatrixND<ld>;
 	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
 	kinematics = new Kinematics;
@@ -1117,6 +1151,7 @@ inline Physics_World::Physics_World(const ld t1, const ld t2)
 	linear_regression = new LinearRegression;
 	logistic_regression = new LogisticRegression;
 	etl = new ETL;
+	matrixNd = new MatrixND<ld>;
 	vectorNd = new VectorND<ld>;
 	triangle = new TriangleSolver;
 	drag = new Drag;
@@ -1161,6 +1196,7 @@ inline Physics_World::~Physics_World()
 	delete linear_regression;
 	delete logistic_regression;
 	delete etl;
+	delete matrixNd;
 	delete vectorNd;
 	delete triangle;
 	delete kinematics;
