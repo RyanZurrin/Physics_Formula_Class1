@@ -84,6 +84,24 @@ public:
 	static constexpr auto energyBetweenOscillatorStates_eM(const T f);
 
 	/// <summary>
+	/// Calculates the energy in joules a photon in a radio wave from
+	/// an AM station that has a 1530-kHz(f) broadcast frequency
+	/// </summary>
+	/// <param name="f">The frequency.</param>
+	/// <returns>Energy in Joules</returns>
+	template<typename T>
+	static constexpr auto energy_J(const T f);
+
+	/// <summary>
+	/// Calculates the energy in eV of a photon in a radio wave from
+	/// an AM station that has a 1530-kHz(f) broadcast frequency
+	/// </summary>
+	/// <param name="f">The frequency.</param>
+	/// <returns>Energy in eV</returns>
+	template<typename T>
+	static constexpr auto energy_eM(const T f);
+
+	/// <summary>
 	/// A physicist is watching a 15-kg orangutan at a zoo swing lazily in a
 	/// tire at the end of a rope. He (the physicist) notices that each
 	/// oscillation takes 3.00 s(time) and hypothesizes that the energy is
@@ -159,6 +177,15 @@ public:
 	static constexpr auto bindingEnergy(const T λ, const K KE);
 
 	/// <summary>
+	/// Bindings the energy f.
+	/// </summary>
+	/// <param name="f">The f.</param>
+	/// <param name="KE">The ke.</param>
+	/// <returns></returns>
+	template<typename T, typename K>
+	static constexpr auto bindingEnergy_f(const T f, const K KE);
+
+	/// <summary>
 	/// Calculate the maximum kinetic energy in eV of electrons ejected from
 	/// sodium metal by 450-nm EM(λ) radiation, given that the binding energy
 	/// is 2.28 eV?(BE)
@@ -187,6 +214,14 @@ public:
 	/// <returns>wavelength</returns>
 	template<typename K, typename B>
 	static constexpr auto wavelength(const K KE, const B BE);
+
+	/// <summary>
+	/// Calculates the wavelength of a 1.00-eV(E) photon
+	/// </summary>
+	/// <param name="E">The Energy.</param>
+	/// <returns>wavelength  λ</returns>
+	template<typename T>
+	static constexpr auto wavelength(const T E);
 
 	/// <summary>
 	/// Calculate the maximum velocity of electrons(m) ejected from a material by
@@ -250,7 +285,7 @@ public:
 
 	/// <summary>
 	/// If the number of photoelectrons per second ejected from a
-	/// 1.00 mm2 area of sodium metal by 500-nm EM radiation having an
+	/// 1.00 mm^2 area of sodium metal by 500-nm EM radiation having an
 	/// intensity of 1.30 kW/m2 as well as a binding energy is 2.28 eV,
 	/// calculate the power that is carried away by the electrons.
 	/// </summary>
@@ -262,7 +297,24 @@ public:
 	template<typename T>
 	static constexpr auto powerCarriedAwayByElectrons(const T A, const T λ, const T I, const T BE);
 
+	/// <summary>
+	/// Calculates the frequency in hertz of a 1.00-MeV(E) γ-ray photon.
+	/// </summary>
+	/// <param name="E">The Energy.</param>
+	/// <returns>the frequency in (Hz)</returns>
+	template<typename T>
+	static constexpr auto frequency_fromE(const T E);
 
+	/// <summary>
+	/// Calculate the energy in eV of an IR photon of frequency 2.00×1013 Hz.
+	/// How many of these photons would need to be absorbed simultaneously by
+	/// a tightly bound molecule to break it apart
+	/// </summary>
+	/// <param name="E_tot">The e tot.</param>
+	/// <param name="E">The e.</param>
+	/// <returns>number of photons</returns>
+	template<typename T>
+	static constexpr  auto numberOfSimultaneouslyAbsorbedPhotons(const T E_tot, const T E);
 
 private:
 	ld quantumVar;
@@ -275,6 +327,18 @@ private:
 #endif
 template<typename T>
 constexpr auto QuantumPhysics::energyBetweenOscillatorStates_eM(const T f)
+{
+	return _PLANKS_EM_ * f;
+}
+
+template<typename T>
+inline constexpr auto QuantumPhysics::energy_J(const T f)
+{
+	return _PLANKS_J_ * f;
+}
+
+template<typename T>
+inline constexpr auto QuantumPhysics::energy_eM(const T f)
 {
 	return _PLANKS_EM_ * f;
 }
@@ -321,6 +385,12 @@ inline constexpr auto QuantumPhysics::bindingEnergy(const T λ, const K KE)
 	return ((_PLANKS_C_) / λ) - KE;
 }
 
+template<typename T, typename K>
+inline constexpr auto QuantumPhysics::bindingEnergy_f(const T f, const K KE)
+{
+	return (_PLANKS_J_*f) - KE;
+}
+
 template<typename T, typename B>
 inline constexpr auto QuantumPhysics::maximumKineticEnergy(const T λ, const B BE)
 {
@@ -337,6 +407,12 @@ template<typename K, typename B>
 inline constexpr auto QuantumPhysics::wavelength(const K KE, const B BE)
 {
 	return _PLANKS_C_ / (KE + BE);
+}
+
+template<typename T>
+inline constexpr auto QuantumPhysics::wavelength(const T E)
+{
+	return _PLANKS_C_ / E;
 }
 
 template<typename T, typename M, typename B>
@@ -373,4 +449,16 @@ template<typename T>
 inline constexpr auto QuantumPhysics::powerCarriedAwayByElectrons(const T A, const T λ, const T I, const T BE)
 {
 	return I * (A * A) * (1.0 - (BE * λ) / _PLANKS_C_);
+}
+
+template<typename T>
+inline constexpr auto QuantumPhysics::frequency_fromE(const T E)
+{
+	return E / _PLANKS_EM_;
+}
+
+template<typename T>
+inline constexpr auto QuantumPhysics::numberOfSimultaneouslyAbsorbedPhotons(const T E_tot, const T E)
+{
+	return E_tot / E;
 }
