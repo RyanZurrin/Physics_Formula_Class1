@@ -40,6 +40,7 @@
     <ClInclude Include="PeriodicElements.h" />
     <ClInclude Include="Physics_World.h" />
     <ClInclude Include="QuantumPhysics.h" />
+    <ClInclude Include="RandomNumbers.h" />
     <ClInclude Include="RunTimer.h" />
     <ClInclude Include="SpecialRelativity.h" />
     <ClInclude Include="Temperature.h" />
@@ -63,6 +64,7 @@
     <ClInclude Include="Waves.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="RandomNumbers.cpp" />
     <ClCompile Include="testFactory.cpp" />
   </ItemGroup>
   <ItemGroup>

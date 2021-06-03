@@ -78,6 +78,7 @@ public:
 	void		 set_y(_ld_);
 	void		 set_mag(unsigned long);
 	void		 set_mode(char);
+	Vector2D	 projection(Vector2D& v);
 	_ld_		 projection(Vector2D&)const;
 	_ld_		 angle_between_vectors(Vector2D&)const;
 	virtual _ul_ square()const;              //gives square o_ld_ the Vector2D
@@ -398,6 +399,11 @@ inline void Vector2D::set_mode(char _mode)
   mode = _mode;
   validate_setMode();
 }
+inline Vector2D Vector2D::projection(Vector2D& v)
+{
+	const _ld_ xx = dot_product(v) / v.dot_product(v);
+	return Vector2D(xx*v.x , xx*v.y, this->mode);
+}
 inline _ld_ Vector2D::projection(Vector2D& v) const
 {
 	const auto Θ = this->angle_between_vectors(v);
@@ -520,7 +526,7 @@ inline void Vector2D::calculate_polar()
 inline void Vector2D::calculate_arcLength()
 {
   adjust_angle();
-  arcLength = (_PI_ * (magnitude*2)) *
+  arcLength = (_PI_ * (magnitude*2.0)) *
 		(angle / 360.0);
 }
 

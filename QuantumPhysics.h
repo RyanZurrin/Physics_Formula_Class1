@@ -306,7 +306,7 @@ public:
 	static constexpr auto frequency_fromE(const T E);
 
 	/// <summary>
-	/// Calculate the energy in eV of an IR photon of frequency 2.00×1013 Hz.
+	/// Calculate the energy in eV of an IR photon of frequency 2.00×10^13 Hz.
 	/// How many of these photons would need to be absorbed simultaneously by
 	/// a tightly bound molecule to break it apart
 	/// </summary>
@@ -315,6 +315,25 @@ public:
 	/// <returns>number of photons</returns>
 	template<typename T>
 	static constexpr  auto numberOfSimultaneouslyAbsorbedPhotons(const T E_tot, const T E);
+
+	/// <summary>
+	/// Numbers the of tightly bound molecules γ ray can break apart.
+	/// </summary>
+	/// <param name="E_tot">The e tot.</param>
+	/// <param name="E">The e.</param>
+	/// <returns></returns>
+	template<typename T>
+	static constexpr auto numOfTightlyBoundMolecules_γRayCanBreakApart(const T E_tot, const T E);
+
+	/// <summary>
+	/// What is the accelerating voltage of an x-ray tube that produces x-rays
+	/// with a shortest wavelength of 0.0103 nm?
+	/// </summary>
+	/// <param name="λ">The λ.</param>
+	/// <param name="q">The q.</param>
+	/// <returns>accelerating voltage</returns>
+	template<typename T>
+	static constexpr auto acceleratingVoltage(const T λ, const T q);
 
 private:
 	ld quantumVar;
@@ -461,4 +480,16 @@ template<typename T>
 inline constexpr auto QuantumPhysics::numberOfSimultaneouslyAbsorbedPhotons(const T E_tot, const T E)
 {
 	return E_tot / E;
+}
+
+template<typename T>
+inline constexpr auto QuantumPhysics::numOfTightlyBoundMolecules_γRayCanBreakApart(const T E_tot, const T E)
+{
+	return E / E_tot;
+}
+
+template<typename T>
+inline constexpr auto QuantumPhysics::acceleratingVoltage(const T λ, const T q)
+{
+	return (_PLANKS_J_ * _C_) / (q * λ);
 }

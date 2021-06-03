@@ -7,6 +7,7 @@
  */
 #ifndef PHYSICS_WORLD_H
 #define PHYSICS_WORLD_H
+
 #include <gsl/gsl_integration.h>
 #include <gsl/gsl_linalg.h>
 #include <Eigen/Eigen>
@@ -34,6 +35,7 @@
 #include "MatrixND.h"
 #include "Momentum.h"
 #include "PeriodicElements.h"
+#include "RandomNumbers.h"
 #include "RotationalMotion.h"
 #include "Statics.h"
 #include "Temperature.h"
@@ -67,6 +69,7 @@ typedef ElectricPotential EP;
 typedef ElectricCurrent EC;
 typedef ElectricCharge ELCHRG;
 typedef DynamicsAndForces DAF;
+typedef RandomNumbers RN;
 
 
 
