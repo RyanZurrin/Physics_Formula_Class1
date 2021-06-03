@@ -141,9 +141,15 @@
     <ClInclude Include="MatrixND.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RandomNumbers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomNumbers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

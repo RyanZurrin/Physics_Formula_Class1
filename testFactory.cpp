@@ -13,7 +13,8 @@ int main()
 	//*************************************************************************
 
 
-	setVal(QP::numberOfSimultaneouslyAbsorbedPhotons(10.0, .0828));
+
+	setVal(QP::acceleratingVoltage(.0103e-9, _PROTON_CHARGE_));
 	show_val("f", "Hz");
 
 	//setVal(QP::energy_eM(90e6));
