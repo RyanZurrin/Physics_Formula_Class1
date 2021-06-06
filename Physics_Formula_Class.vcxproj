@@ -43,6 +43,7 @@
     <ClInclude Include="RandomNumbers.h" />
     <ClInclude Include="RunTimer.h" />
     <ClInclude Include="SpecialRelativity.h" />
+    <ClInclude Include="StringHelper.h" />
     <ClInclude Include="Temperature.h" />
     <ClInclude Include="TemplateClass.h" />
     <ClInclude Include="Thermodynamics.h" />

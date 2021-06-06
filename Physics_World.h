@@ -11,6 +11,7 @@
 #include <gsl/gsl_integration.h>
 #include <gsl/gsl_linalg.h>
 #include <Eigen/Eigen>
+#include "StringHelper.h"
 #include "Circuits.h"
 #include "Drag.h"
 #include "DynamicsAndForces.h"
@@ -70,7 +71,6 @@ typedef ElectricCurrent EC;
 typedef ElectricCharge ELCHRG;
 typedef DynamicsAndForces DAF;
 typedef RandomNumbers RN;
-
 
 
 using namespace Eigen;
