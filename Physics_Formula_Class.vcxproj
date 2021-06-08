@@ -41,6 +41,7 @@
     <ClInclude Include="Physics_World.h" />
     <ClInclude Include="QuantumPhysics.h" />
     <ClInclude Include="RandomNumbers.h" />
+    <ClInclude Include="RegexHelper.h" />
     <ClInclude Include="RunTimer.h" />
     <ClInclude Include="SpecialRelativity.h" />
     <ClInclude Include="StringHelper.h" />

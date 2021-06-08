@@ -500,3 +500,71 @@ void printTuple(const std::tuple<Args...>& t)
 	std::cout << ")\n";
 }
 ____________________________________________________________________________
+
+	string text ="#remove # to uncomment a line	timeout=120	server = 127.0.0.1 #retry_count=3";
+
+	string pattern { R"((^(?!#)(\w+)\s*=\s*([\w\d]+[\w\d._,-:])+[\w\d]\s*)$)"s };
+
+	auto rx = std::regex{ pattern };
+
+	auto match = std::smatch{};
+	for (size_t i = 0; i < match.size(); i++)
+	{
+		std::cout << match[i];
+	}
+
+	if (std::regex_search(text, match, rx))
+	{
+		std::cout << match[1] << '=' << match[2] << '\n';
+	}
+
+
+	auto end = std::sregex_iterator{};
+	for (auto it = std::sregex_iterator{ std::begin(text), std::end(text), rx };
+		it != end; ++it)
+	{
+		std::cout << '\'' << (*it)[1] << "'='" << (*it)[2] << '\'' << '\n';
+
+	}
+
+	auto endd = std::sregex_token_iterator{};
+	for (auto it = std::sregex_token_iterator{std::begin(text), std::end(text), rx, 1};
+		it != endd; ++it)
+	{
+		std::cout << *it << '\n';
+	}
+
+
+
+
+
+
+	std::cout << "\n\nafter if statement" << std::endl;
+	auto p = rgXRaw.EMAIL;
+	auto valid = is_valid_format("marius@domain.com"s, p);
+
+	reg_test("C:/fileformat/file", rgXRaw.ROOT_PATH);
+	reg_test("/files/users/me.txt"s, rgXRaw.ROOT_PATH);
+	reg_test("file.txt"s, rgXRaw.ROOT_PATH);
+	reg_test("D:/files/test/help.txt"s, rgXRaw.ROOT_PATH);
+	reg_test("01-23-45-67-AH"s, rgXRaw.MAC);
+	reg_test("fffe:3465:efab:23fe:2235:6565:aaab:0001"s, rgXRaw.IPV6);
+
+	std::cout << "isvalidstring: "<< valid << std::endl;
+	string test = "........hello. all. you .beautiful .letters........";
+	std::cout << "test with spaces: " << test << std::endl;
+	const string test3 = remove(test, '.');
+	std::cout << "test3: " << test3 << std::endl;
+	string t2 = "HELLO ALL YOU BEAUTIFUL LETTERS";
+	vector<string> parts = split(t2, ' ');
+	printVector(parts);
+	string t3 = to_upper(test3);
+	std::cout << "\ntest to upper: " << t3 << std::endl;
+
+	string tlow = to_lower(t2);
+	std::cout << "t2: " << tlow << std::endl;
+
+	string revS = reverse(tlow);
+	std::cout << "reversed test: " << revS << std::endl;
+
+	___________________________________________________________________________
