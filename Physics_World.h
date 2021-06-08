@@ -13,6 +13,7 @@
 #include <Eigen/Eigen>
 #include "StringHelper.h"
 #include "RegexHelper.h"
+#include "AtomicPhysics.h"
 #include "Circuits.h"
 #include "Drag.h"
 #include "DynamicsAndForces.h"
@@ -72,7 +73,7 @@ typedef ElectricCurrent EC;
 typedef ElectricCharge ELCHRG;
 typedef DynamicsAndForces DAF;
 typedef RandomNumbers RN;
-
+typedef AtomicPhysics AP;
 
 
 using namespace Eigen;
@@ -786,6 +787,7 @@ public:
 
 		cout << endl;
 	}
+	AtomicPhysics* atomic;
 	LinearRegression* linear_regression;
 	LogisticRegression* logistic_regression;
 	ETL* etl;
@@ -834,6 +836,7 @@ public:
 	Physics_World(const Physics_World&); //copy constructor
 	Physics_World& operator=(const Physics_World&); //copy assignment operator
 	Physics_World(Physics_World&& o) noexcept :
+		atomic(o.atomic),
 		linear_regression(o.linear_regression),
 		logistic_regression(o.logistic_regression),
 		etl(o.etl),
@@ -959,6 +962,7 @@ public:
 inline Physics_World::Physics_World()
 {
 	_ptr_ = nullptr;
+	atomic = new AtomicPhysics;
 	linear_regression = new LinearRegression;
 	logistic_regression = new LogisticRegression;
 	etl = new ETL;
@@ -1008,6 +1012,7 @@ inline Physics_World::Physics_World()
 inline Physics_World::Physics_World(const Physics_World& p)
 {
 	_ptr_ = p._ptr_;
+	atomic = p.atomic;
 	linear_regression = p.linear_regression;
 	logistic_regression = p.logistic_regression;
 	etl = p.etl;
@@ -1058,6 +1063,7 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 	if(this != &r)
 	{
 		_ptr_ = r._ptr_;
+		atomic = r.atomic;
 		linear_regression = r.linear_regression;
 		logistic_regression = r.logistic_regression;
 		etl = r.etl;
@@ -1106,6 +1112,7 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 {
 	_ptr_ = nullptr;
+	atomic = new AtomicPhysics;
 	linear_regression = new LinearRegression;
 	logistic_regression = new LogisticRegression;
 	etl = new ETL;
@@ -1153,6 +1160,7 @@ inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 
 inline Physics_World::Physics_World(const ld t1, const ld t2)
 {
+	atomic = new AtomicPhysics;
 	linear_regression = new LinearRegression;
 	logistic_regression = new LogisticRegression;
 	etl = new ETL;
@@ -1198,6 +1206,7 @@ inline Physics_World::Physics_World(const ld t1, const ld t2)
 
 inline Physics_World::~Physics_World()
 {
+	delete atomic;
 	delete linear_regression;
 	delete logistic_regression;
 	delete etl;

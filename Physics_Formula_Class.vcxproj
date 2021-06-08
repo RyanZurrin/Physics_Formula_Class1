@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AtomicPhysics.h" />
     <ClInclude Include="Circuits.h" />
     <ClInclude Include="DynamicsAndForces.h" />
     <ClInclude Include="ElectricCharge.h" />

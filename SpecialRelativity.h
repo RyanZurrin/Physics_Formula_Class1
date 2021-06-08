@@ -12,6 +12,8 @@
 #ifndef SPECIAL_RELATIVITY_H
 #define SPECIAL_RELATIVITY_H
 #include <iostream>
+
+#include "VisionOpticalInstruments.h"
 static int specialRelativity_objectCount = 0;
 typedef long double ld;
 
