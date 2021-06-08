@@ -20,7 +20,7 @@ int main()
 	//setVal(QP::acceleratingVoltage(.0103e-9, _PROTON_CHARGE_));
 	//show_val("f", "Hz");
 
-	setVal(QP::kineticEnergy(_ELECTRON_MASS_, 290.933));
+	setVal(QP::uncertaintyInPosition(.0025*_C_, _PROTON_MASS_));
 	show_val("photons", "per second");
 
 
