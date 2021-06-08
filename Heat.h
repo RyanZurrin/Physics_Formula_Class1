@@ -45,7 +45,7 @@ static struct SpecificHeatCapacity
 	const std::vector<ld> glass_S = { 840.0, .20 };//< 840.0J/kg*C`, .20kCal/kg*C` >
 	const std::vector<ld> sand_s = { 840.0, };//< 840.0J/kg*C`, .20kCal/kg*C` >
 	const std::vector<ld> gold_S = { 129.0, .0308 };//< 129.0J/kg*C`,.0308kCal/kg*C` >
-	const std::vector<ld> human_body_average_S = { 3500.0, .83 };//< 3500.0J/kg*C`, .83kCal/kg*C` >
+	const std::vector<ld> human_body_average_S = { 3474.38, .83 };//< 3500.0J/kg*C`, .83kCal/kg*C` >
 	const std::vector<ld> ice_average_S = { 2090.0, .50 };//< 2090.0J/kg*C`, .50kCal/kg*C` >
 	const std::vector<ld> iron_steel_S = { 452, .108 };//< 452J/kg*C`, .108kCal/kg*C` >
 	const std::vector<ld> lead_S = { 128.0, .0305 };//< 128.0J/kg*C`, .0305kCal/kg*C` >
@@ -601,6 +601,19 @@ public:
 		return Q / P;
 	}
 
+
+	/// <summary>
+	/// Times to heat object.
+	/// </summary>
+	/// <param name="m">The mass.</param>
+	/// <param name="c_">The specific heat.</param>
+	/// <param name="Δ_t">The δ temperature.</param>
+	/// <param name="P">The power output.</param>
+	/// <returns>time to heat object by specified temperature</returns>
+	static ld timeToHeatObject(const ld m, const ld c_, const ld Δ_t, const ld P)
+	{
+		return (m * c_ * Δ_t) / P;
+	}
 
 
 	/**

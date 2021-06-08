@@ -6,14 +6,14 @@
 
 static int quantum_objectCount = 0;
 //α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
-//Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ, γ
+//Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ, γ, Δ
 /**
  * @class QuantumPhysics
- * @details class of static methods that relate to chapter 29 of the open stax
+ * @details class of static methods that relate to chapter 29 of the open-stax
  * college physics text book.
  * @author Ryan Zurrin
  * dateBuilt  5/15/2021
- * lastEdit 5/15/2021
+ * lastEdit 6/8/2021
  */
 
 class QuantumPhysics :
@@ -164,6 +164,14 @@ public:
 	/// <returns>binding energy</returns>
 	template<typename T>
 	static constexpr auto bindingEnergy(const T λ);
+
+	/// <summary>
+	/// Calculates the binding energy in joules.
+	/// </summary>
+	/// <param name="λ">The λ.</param>
+	/// <returns>energy in joules</returns>
+	template<typename T>
+	static constexpr auto bindingEnergy_Joules(const T λ);
 
 	/// <summary>
 	/// Violet light of wavelength 400 nm(λ) ejects electrons with a maximum
@@ -534,9 +542,9 @@ public:
 	/// </summary>
 	/// <param name="x">The accuracy of measurement.</param>
 	/// <param name="m">The mass.</param>
-	/// <returns>the uncertainty</returns>
+	/// <returns>minimum uncertainty of velocity</returns>
 	template<typename X, typename M>
-	static constexpr auto uncertaintyInVelocity(const X x, const M m);
+	static constexpr auto min_uncertaintyInVelocity(const X x, const M m);
 
 	/// <summary>
 	/// Suppose the velocity of an electron(m) in an atom is known to an accuracy
@@ -545,9 +553,73 @@ public:
 	/// </summary>
 	/// <param name="v">The velocity.</param>
 	/// <param name="m">The mass.</param>
-	/// <returns>uncertainty in position</returns>
+	/// <returns>minimum uncertainty in position</returns>
 	template<typename M, typename V>
-	static constexpr auto uncertaintyInPosition(const V v, const M m);
+	static constexpr auto min_uncertaintyInPosition(const V v, const M m);
+
+	/// <summary>
+	/// A relatively long-lived excited state of an atom has a lifetime of
+	/// 3.00 ms(t). What is the minimum uncertainty in its energy
+	/// </summary>
+	/// <param name="t">The t.</param>
+	/// <returns>minimum uncertainty in energy</returns>
+	template<typename T>
+	static constexpr auto min_uncertaintyInEnergy(const T t);
+
+	/// <summary>
+	/// The decay energy of a short-lived particle has an uncertainty of
+	/// 1.0 MeV(E_) due to its short lifetime. Calculate the smallest lifetime
+	/// it can have
+	/// </summary>
+	/// <param name="E_">The energy.</param>
+	/// <returns>minimum possible lifespan of particle</returns>
+	template<typename E>
+	static constexpr auto min_uncertaintyInLifetime(const E E_);
+
+	/// <summary>
+	/// What is the approximate uncertainty in the mass of a muon, as
+	/// determined from its decay lifetime(t).
+	/// </summary>
+	/// <param name="t">The decay time.</param>
+	/// <returns>uncertainty in mass</returns>
+	template<typename T>
+	static constexpr auto min_uncertaintyInMass(const T t);
+
+	/// <summary>
+	/// A certain heat lamp has a binding energy of E_.
+	/// How many of these photons are required to increase the temperature
+	/// of a object by  Δ_temp∘ , assuming the affected object is has a mass kg
+	/// with a specific heat of specHeat⋅C∘. Also assume no other
+	/// significant heat transfer
+	/// </summary>
+	/// <param name="mass">The mass.</param>
+	/// <param name="specHeat">The spec heat.</param>
+	/// <param name="Δ_temp">The δ temporary.</param>
+	/// <param name="E_">The e.</param>
+	/// <returns></returns>
+	template<typename M, typename C, typename T, typename E>
+	static constexpr  auto photonsRequiredToIncreaseTemperature(
+		const M mass, const C specHeat, const T Δ_temp, const E E_
+	);
+
+	/// <summary>
+	/// A certain heat lamp emits 200 W of mostly IR radiation averaging
+	/// 1500 nm in wavelength. How many of these photons are required to
+	/// increase the temperature of a person’s shoulder by 2.0C∘ , assuming
+	/// the affected mass is 4.0 kg with a specific heat of 0.83 kcal/kg⋅C∘.
+	/// Also assume no other significant heat transfer
+	/// </summary>
+	/// <param name="watts">The watts.</param>
+	/// <param name="λ">The wavelength λ.</param>
+	/// <param name="mass">The mass.</param>
+	/// <param name="specHeat">The specific heat.</param>
+	/// <param name="Δ_temp">The δ(change in) temperature.</param>
+	/// <returns>total Number of photons to increase mass by
+	/// temperature specified</returns>
+	template<typename P, typename W, typename M, typename C, typename T>
+	static constexpr  auto photonsRequiredToIncreaseTemperature(
+		const P watts, const W λ, const M mass, const C specHeat, const T Δ_temp
+	);
 
 
 private:
@@ -613,6 +685,12 @@ template<typename T>
 constexpr auto QuantumPhysics::bindingEnergy(const T λ)
 {
 	return (_PLANKS_C_) / λ;
+}
+
+template<typename T>
+constexpr auto QuantumPhysics::bindingEnergy_Joules(const T λ)
+{
+	return (_PLANKS_J_ * _C_) / λ;
 }
 
 template<typename T, typename K>
@@ -827,13 +905,46 @@ template<typename P, typename F>
  }
 
  template<typename X, typename M>
- constexpr auto QuantumPhysics::uncertaintyInVelocity(const X x, const M m)
+ constexpr auto QuantumPhysics::min_uncertaintyInVelocity(const X x, const M m)
  {
 	 return _PLANKS_J_ / (4.0 * _PI * x * m);
  }
 
  template<typename M, typename V>
- constexpr auto QuantumPhysics::uncertaintyInPosition(const V v, const M m)
+ constexpr auto QuantumPhysics::min_uncertaintyInPosition(const V v, const M m)
  {
 	 return _PLANKS_J_ / (4.0 * _PI * m * v);
+ }
+
+ template<typename T>
+ constexpr auto QuantumPhysics::min_uncertaintyInEnergy(const T t)
+ {
+	 return _PLANKS_EM_ / (4.0 * _PI * t);
+ }
+
+ template<typename E>
+ constexpr auto QuantumPhysics::min_uncertaintyInLifetime(const E E_)
+ {
+	 return _PLANKS_EM_ / (4.0 * _PI * E_);
+ }
+
+ template<typename T>
+ constexpr auto QuantumPhysics::min_uncertaintyInMass(const T t)
+ {
+	 return _PLANKS_J_ / (4.0 * _PI * (_C_ * _C_) * t);
+ }
+
+ template<typename M, typename C, typename T, typename E>
+ constexpr auto QuantumPhysics::photonsRequiredToIncreaseTemperature(
+	 const M mass, const C specHeat, const T Δ_temp, const E E_)
+ {
+	 return (mass * specHeat * Δ_temp) / E_;
+ }
+
+ template<typename P, typename W, typename M, typename C, typename T>
+ constexpr auto QuantumPhysics::photonsRequiredToIncreaseTemperature(
+	 const P watts, const W λ, const M mass, const C specHeat, const T Δ_temp)
+ {
+	auto engJ = bindingEnergy_Joules(λ);
+	return  (mass * specHeat * Δ_temp) / engJ;
  }

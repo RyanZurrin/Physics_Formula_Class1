@@ -21,7 +21,7 @@ static int electricalPotential_objectCount = 0;
 
 constexpr auto _eV_ = 1.602e-19;
 
-constexpr auto _LIGHT_SPEED_ = 2.99792458e8;
+//constexpr auto _LIGHTSPEED_ = 2.99792458e8;
 //multiply joules by this to convert to electron Volts
 constexpr auto _JOULES2eV_ = 1.0 / _eV_;
 

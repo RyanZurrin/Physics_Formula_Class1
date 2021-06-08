@@ -19,7 +19,7 @@ public:
 	{}
 
 	/// <summary>
-	/// Ordianry least squares (OLS) used to find the slope m of a data set
+	/// Ordinary least squares (OLS) used to find the slope m of a data set
 	/// </summary>
 	/// <param name="X">The x.</param>
 	/// <param name="y">The y.</param>

@@ -20,7 +20,7 @@ int main()
 	//setVal(QP::acceleratingVoltage(.0103e-9, _PROTON_CHARGE_));
 	//show_val("f", "Hz");
 
-	setVal(QP::uncertaintyInPosition(.0025*_C_, _PROTON_MASS_));
+	setVal(Heat::timeToHeatObject(4.0, c.human_body_average_S[0], 2.0, 200.0));
 	show_val("photons", "per second");
 
 
