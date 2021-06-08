@@ -327,13 +327,125 @@ public:
 
 	/// <summary>
 	/// What is the accelerating voltage of an x-ray tube that produces x-rays
-	/// with a shortest wavelength of 0.0103 nm?
+	/// with a shortest wavelength of  λ nm?
 	/// </summary>
-	/// <param name="λ">The λ.</param>
-	/// <param name="q">The q.</param>
+	/// <param name="λ">The wavelength λ.</param>
+	/// <param name="q">The charge.</param>
 	/// <returns>accelerating voltage</returns>
 	template<typename T>
 	static constexpr auto acceleratingVoltage(const T λ, const T q);
+
+	/// <summary>
+	/// Calculate the maximum energy in eV of photons produced in a CRT using a
+	/// 25.0-kV(volts) accelerating potential, such as a color TV
+	/// </summary>
+	/// <param name="q">The charge of a proton or other molecule.</param>
+	/// <param name="volts">The volts.</param>
+	/// <returns>the max energy produced</returns>
+	template<typename Q, typename V>
+	static constexpr auto energyMax_eV(const Q q, const V volts);
+
+	/// <summary>
+	///  Calculate the ratio of power outputs by two microwave ovens having
+	///  frequencies of f_1 and f_2 Hz, if they emit the same number of
+	///  photons per second
+	/// </summary>
+	/// <param name="f_1">The first frequency.</param>
+	/// <param name="f_2">The second frequency.</param>
+	/// <returns>ratio of the frequency</returns>
+	template<typename F>
+	static constexpr auto ratioOf_frequencies(const F f_1, const F f_2);
+
+
+	/// <summary>
+	/// calculate the ratio of photons per second if two microwave ovens having
+	///  frequencies of f_1 and f_2 Hz have the same power output
+	/// </summary>
+	/// <param name="f_1">The f 1.</param>
+	/// <param name="f_2">The f 2.</param>
+	/// <returns>ratio of photons per second</returns>
+	template<typename F>
+	static constexpr auto ratioOf_photonsPerSecond(const F f_1, const F f_2);
+
+	/// <summary>
+	/// Calculate how many photons per second are emitted by the antenna of a microwave
+	/// oven, if its power output is P_ at a frequency of f Hz
+	/// </summary>
+	/// <param name="P_">The power.</param>
+	/// <param name="f">The frequency.</param>
+	/// <returns>number of photons per second emitted</returns>γ
+	template<typename P, typename F>
+	static constexpr auto photonsPerSecondEmitted(const P P_, const F f);
+
+	/// <summary>
+	/// Some satellites use nuclear power. If such a satellite emits a
+	/// 1.00-W(P_) flux of γ rays having an average energy of 0.500 MeV(E_),
+	/// Calculate how many are emitted per second.
+	/// </summary>
+	/// <param name="P_">The power.</param>
+	/// <param name="E_">The energy.</param>
+	/// <returns>gamma rays emitted per second</returns>
+	template<typename P, typename E>
+	static constexpr auto gammaRaysPerSecondEmitted(const P P_, const E E_);
+
+	/// <summary>
+	/// Some satellites use nuclear power. If such a satellite emits a
+	/// 1.00-W(P_) flux of γ rays having an average energy of 0.500 MeV(E_),
+	/// Using the number of emitted per second and that these γ rays affect other
+	/// satellites. Calculate how far away must another satellite be to only
+	/// receive one γ ray per second per square meter.
+	/// </summary>
+	/// <param name="P_">The power.</param>
+	/// <param name="E_">The energy.</param>
+	/// <param name="Φ">The φ or number of gamma rays per second received by
+	/// satellite.</param>
+	/// <returns>radius r, or distance away</returns>
+	template<typename P, typename E, typename F>
+	static constexpr auto distanceBetween2Satellites(const P P_, const E E_, const F Φ);
+
+	/// <summary>
+	/// Find the momentum of a 4.00-cm-wavelength(λ) microwave photon
+	/// </summary>
+	/// <param name="λ">The wavelength λ.</param>
+	/// <returns>photon momentum</returns>
+	template<typename W>
+	static constexpr auto photonMomentum(const W λ);
+
+	/// <summary>
+	/// the momentum of a  photon is p for which it can
+	/// detect details of an atom. What is its energy in eV
+	/// </summary>
+	/// <param name="p">The momentum.</param>
+	/// <returns>energy in eV</returns>
+	template<typename P>
+	static constexpr auto energy_fromMomentum(const P p);
+
+	/// <summary>
+	/// What is the wavelength of a photon that has a momentum of 5.00×10−29 kg⋅m/s? .
+	/// </summary>
+	/// <param name="p">The momentum.</param>
+	/// <returns>wavelength</returns>
+	template<typename P>
+	static constexpr auto wavelength_fromMomentum(const P p);
+
+	/// <summary>
+	/// Velocities from momentum.
+	/// </summary>
+	/// <param name="p">The p.</param>
+	/// <param name="m">The m.</param>
+	/// <returns></returns>
+	template<typename P, typename M>
+	static constexpr auto velocityFromMomentum(const P p, const M m);
+
+	/// <summary>
+	/// Kinetics the energy.
+	/// </summary>
+	/// <param name="m">The m.</param>
+	/// <param name="v">The v.</param>
+	/// <returns></returns>
+	template<typename M, typename V>
+	static constexpr auto kineticEnergy(const M m, const V v);
+
 
 private:
 	ld quantumVar;
@@ -399,97 +511,163 @@ constexpr auto QuantumPhysics::bindingEnergy(const T λ)
 }
 
 template<typename T, typename K>
-inline constexpr auto QuantumPhysics::bindingEnergy(const T λ, const K KE)
+constexpr auto QuantumPhysics::bindingEnergy(const T λ, const K KE)
 {
 	return ((_PLANKS_C_) / λ) - KE;
 }
 
 template<typename T, typename K>
-inline constexpr auto QuantumPhysics::bindingEnergy_f(const T f, const K KE)
+constexpr auto QuantumPhysics::bindingEnergy_f(const T f, const K KE)
 {
 	return (_PLANKS_J_*f) - KE;
 }
 
 template<typename T, typename B>
-inline constexpr auto QuantumPhysics::maximumKineticEnergy(const T λ, const B BE)
+constexpr auto QuantumPhysics::maximumKineticEnergy(const T λ, const B BE)
 {
 	return ((_PLANKS_C_)/ λ) - BE;
 }
 
 template<typename T, typename B>
-inline constexpr auto QuantumPhysics::maximumKineticEnergy_f(const T f, const B BE)
+constexpr auto QuantumPhysics::maximumKineticEnergy_f(const T f, const B BE)
 {
 	return _PLANKS_EM_ * f - BE;
 }
 
 template<typename K, typename B>
-inline constexpr auto QuantumPhysics::wavelength(const K KE, const B BE)
+constexpr auto QuantumPhysics::wavelength(const K KE, const B BE)
 {
 	return _PLANKS_C_ / (KE + BE);
 }
 
 template<typename T>
-inline constexpr auto QuantumPhysics::wavelength(const T E)
+constexpr auto QuantumPhysics::wavelength(const T E)
 {
 	return _PLANKS_C_ / E;
 }
 
 template<typename T, typename M, typename B>
-inline constexpr auto QuantumPhysics::maximumVelocity(const T λ, const M m, const B BE)
+constexpr auto QuantumPhysics::maximumVelocity(const T λ, const M m, const B BE)
 {
 	return sqrt((2.0 / m) * (((_PLANKS_J_*_C_) / λ) - (BE*1.602e-19 )));
 }
 
 template<typename T, typename M, typename B, typename D>
-inline constexpr auto QuantumPhysics::timeToTravelDistance(const T λ, const M m, const B BE, const D dis)
+constexpr auto QuantumPhysics::timeToTravelDistance(const T λ, const M m, const B BE, const D dis)
 {
 	return dis/sqrt((2.0 / m) * (((_PLANKS_J_ * _C_) / λ) - (BE * 1.602e-19)));
 }
 
 template<typename T, typename P>
-inline constexpr auto QuantumPhysics::electronsPerSecondEjected(const T λ, const P P_)
+constexpr auto QuantumPhysics::electronsPerSecondEjected(const T λ, const P P_)
 {
 	return (P_ * λ) / (_PLANKS_J_ * _C_);
 }
 
 template<typename T>
-inline constexpr auto QuantumPhysics::photoelectronsPerSecondEjected(const T A, const T λ, const T I)
+constexpr auto QuantumPhysics::photoelectronsPerSecondEjected(const T A, const T λ, const T I)
 {
 	return (I * (A * A) * λ) / (_PLANKS_J_ * _C_);
 }
 
 template<typename T>
-inline constexpr auto QuantumPhysics::powerCarriedAwayByElectrons(const T λ, const T P, const T BE)
+constexpr auto QuantumPhysics::powerCarriedAwayByElectrons(const T λ, const T P, const T BE)
 {
 	return (((_PLANKS_J_ * _C_) / λ) - (BE*1.602e-19)) * electronsPerSecondEjected(λ, P);
 }
 
 template<typename T>
-inline constexpr auto QuantumPhysics::powerCarriedAwayByElectrons(const T A, const T λ, const T I, const T BE)
+constexpr auto QuantumPhysics::powerCarriedAwayByElectrons(const T A, const T λ, const T I, const T BE)
 {
 	return I * (A * A) * (1.0 - (BE * λ) / _PLANKS_C_);
 }
 
 template<typename T>
-inline constexpr auto QuantumPhysics::frequency_fromE(const T E)
+constexpr auto QuantumPhysics::frequency_fromE(const T E)
 {
 	return E / _PLANKS_EM_;
 }
 
 template<typename T>
-inline constexpr auto QuantumPhysics::numberOfSimultaneouslyAbsorbedPhotons(const T E_tot, const T E)
+constexpr auto QuantumPhysics::numberOfSimultaneouslyAbsorbedPhotons(const T E_tot, const T E)
 {
 	return E_tot / E;
 }
 
 template<typename T>
-inline constexpr auto QuantumPhysics::numOfTightlyBoundMolecules_γRayCanBreakApart(const T E_tot, const T E)
+constexpr auto QuantumPhysics::numOfTightlyBoundMolecules_γRayCanBreakApart(const T E_tot, const T E)
 {
 	return E / E_tot;
 }
 
 template<typename T>
-inline constexpr auto QuantumPhysics::acceleratingVoltage(const T λ, const T q)
+constexpr auto QuantumPhysics::acceleratingVoltage(const T λ, const T q)
 {
 	return (_PLANKS_J_ * _C_) / (q * λ);
 }
+
+template<typename Q, typename V>
+constexpr auto QuantumPhysics::energyMax_eV(const Q q, const V volts)
+{
+	return q * volts * _JOULES2eV_;
+}
+
+template<typename F>
+constexpr auto QuantumPhysics::ratioOf_frequencies(const F f_1, const F f_2)
+{
+	return static_cast<ld>( f_1) / static_cast<ld>( f_2);
+}
+
+template<typename F>
+ constexpr auto QuantumPhysics::ratioOf_photonsPerSecond(const F f_1, const F f_2)
+{
+	return static_cast<ld>( f_2) / static_cast<ld>( f_1);
+}
+
+template<typename P, typename F>
+ constexpr auto QuantumPhysics::photonsPerSecondEmitted(const P P_, const F f)
+{
+	 return P_ / (_PLANKS_J_ * f);
+}
+
+ template<typename P, typename E>
+ constexpr auto QuantumPhysics::gammaRaysPerSecondEmitted(const P P_, const E E_)
+ {
+	 return P_ / (E_ * _PROTON_CHARGE_);
+ }
+
+ template<typename P, typename E, typename F>
+ constexpr auto QuantumPhysics::distanceBetween2Satellites(const P P_, const E E_, const F Φ)
+ {
+	 return sqrt(gammaRaysPerSecondEmitted(P_, E_) / (4.0 * _PI * Φ));
+ }
+
+ template<typename W>
+ constexpr auto QuantumPhysics::photonMomentum(const W λ)
+ {
+	 return _PLANKS_J_ / λ;
+ }
+
+ template<typename P>
+ constexpr auto QuantumPhysics::energy_fromMomentum(const P p)
+ {
+	 return p * _C_ * _JOULES2eV_;
+ }
+
+ template<typename P>
+ constexpr auto QuantumPhysics::wavelength_fromMomentum(const P p)
+ {
+	 return _PLANKS_J_ / p;
+ }
+
+ template<typename P, typename M>
+ constexpr auto QuantumPhysics::velocityFromMomentum(const P p, const M m)
+ {
+	 return p / m;
+ }
+
+ template<typename M, typename V>
+ constexpr auto QuantumPhysics::kineticEnergy(const M m, const V v)
+ {
+	 return (1.0 / 2.0) * m * (v * v);
+ }

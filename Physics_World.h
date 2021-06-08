@@ -12,6 +12,7 @@
 #include <gsl/gsl_linalg.h>
 #include <Eigen/Eigen>
 #include "StringHelper.h"
+#include "RegexHelper.h"
 #include "Circuits.h"
 #include "Drag.h"
 #include "DynamicsAndForces.h"
@@ -71,6 +72,7 @@ typedef ElectricCurrent EC;
 typedef ElectricCharge ELCHRG;
 typedef DynamicsAndForces DAF;
 typedef RandomNumbers RN;
+
 
 
 using namespace Eigen;
@@ -164,12 +166,12 @@ static void printVectorValues(vector<ld>& v)
 /// </summary>
 /// <param name="v">The vector to print.</param>
 template<typename T>
-static auto printVectorValues(vector<T>& v)
+static auto printVector(vector<T>& v)
 {
 	cout << "vector: ";
 	for (size_t i = 0; i < v.size(); i++)
 	{
-		std::cout << v[i] << ", ";
+		std::cout << v[i] << (i<v.size()-1?", ":"");
 	}
 	std::cout << std::endl;
 }//end printVectorValues
