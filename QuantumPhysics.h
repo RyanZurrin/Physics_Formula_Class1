@@ -412,6 +412,14 @@ public:
 	static constexpr auto photonMomentum(const W λ);
 
 	/// <summary>
+	/// Find the momentum of a 100-keV(E_) x-ray photon
+	/// </summary>
+	/// <param name="E_">The e.</param>
+	/// <returns></returns>
+	template<typename E>
+	static constexpr auto momentum_fromEnergy(const E E_);
+
+	/// <summary>
 	/// the momentum of a  photon is p for which it can
 	/// detect details of an atom. What is its energy in eV
 	/// </summary>
@@ -446,6 +454,101 @@ public:
 	template<typename M, typename V>
 	static constexpr auto kineticEnergy(const M m, const V v);
 
+	/// <summary>
+	/// Calculate the kinetic energy of an electron in a TEM having a 0.0100-nm
+	/// wavelength
+	/// </summary>
+	/// <param name="m">The mass.</param>
+	/// <param name="λ">The wavelength λ.</param>
+	/// <returns>the kinetic energy</returns>
+	template<typename M, typename W>
+	static constexpr auto kineticEnergy_fromWavelength(const M m, const W λ);
+
+	/// <summary>
+	/// Calculate at what velocity an electron will have a wavelength of λ
+	/// </summary>
+	/// <param name="λ">The wavelength λ.</param>
+	/// <returns>velocity of electron</returns>
+	template<typename W>
+	static constexpr auto electronVelocity(const W  λ);
+
+	/// <summary>
+	/// Calculate the velocity of a 0.400-kg(m) billiard ball if its wavelength
+	/// is 7.50 cm(λ) (large enough for it to interfere with other billiard balls
+	/// </summary>
+	/// <param name="m">The mass.</param>
+	/// <param name="λ">The wavelength λ.</param>
+	/// <returns></returns>
+	template<typename M, typename W>
+	static constexpr auto objectVelocity(const M m, const W λ);
+
+	/// <summary>
+	/// What is the wavelength of an electron moving at 3.00%(percentOfLightSpeed)
+	/// of the speed of light
+	/// </summary>
+	/// <param name="percentOfLightSpeed">The percent of light speed.</param>
+	/// <returns></returns>
+	template<typename V>
+	static constexpr auto electronWavelength_movingAtPercentSpeedOfLight(
+		const V percentOfLightSpeed
+	);
+
+
+	/// <summary>
+	/// Find the wavelength of a particle of mass m moving at the speed of v
+	/// </summary>
+	/// <param name="m">The m.</param>
+	/// <param name="v">The speed.</param>
+	/// <returns></returns>
+	template<typename M, typename V>
+	static constexpr auto deBrogile_wavelength(const M m, const V v);
+
+	/// <summary>
+	/// Calculate the wavelength of an electron(m,q) accelerated through a
+	/// 30.0-kV(v) potential, as in a TV tube?
+	/// </summary>
+	/// <param name="m">The mass of particle.</param>
+	/// <param name="q">The charge of particle.</param>
+	/// <param name="v">The voltage accelerated through.</param>
+	/// <returns>the wavelength</returns>
+	template<typename M, typename Q, typename V>
+	static constexpr auto wavelengthParticleAcceleratedThroughVoltageOf(
+		const M m, const Q q, const V v
+	);
+
+	/// <summary>
+	/// Calculate through what voltage must an electron be accelerated to have
+	/// a speed of (velocity)
+	/// </summary>
+	/// <param name="m">The mass of particle.</param>
+	/// <param name="q">The charge of particle.</param>
+	/// <param name="velocity">The velocity.</param>
+	/// <returns>voltage accelerated through to have certain speed</returns>
+	template<typename M, typename Q, typename V>
+	static constexpr auto voltageToHaveVelocityOf(const M m, const Q q, const V velocity);
+
+	/// <summary>
+	/// If the position of an electron in a membrane is measured to an
+	/// accuracy of 1.00 μm(x), what is the electron’s(m) minimum uncertainty
+	/// in velocity
+	/// </summary>
+	/// <param name="x">The accuracy of measurement.</param>
+	/// <param name="m">The mass.</param>
+	/// <returns>the uncertainty</returns>
+	template<typename X, typename M>
+	static constexpr auto uncertaintyInVelocity(const X x, const M m);
+
+	/// <summary>
+	/// Suppose the velocity of an electron(m) in an atom is known to an accuracy
+	/// of 2.0×10^3 m/s(v) (reasonably accurate compared with orbital velocities).
+	/// Calculate the electron’s minimum uncertainty in position
+	/// </summary>
+	/// <param name="v">The velocity.</param>
+	/// <param name="m">The mass.</param>
+	/// <returns>uncertainty in position</returns>
+	template<typename M, typename V>
+	static constexpr auto uncertaintyInPosition(const V v, const M m);
+
 
 private:
 	ld quantumVar;
@@ -456,6 +559,8 @@ private:
 };
 
 #endif
+
+
 template<typename T>
 constexpr auto QuantumPhysics::energyBetweenOscillatorStates_eM(const T f)
 {
@@ -648,6 +753,12 @@ template<typename P, typename F>
 	 return _PLANKS_J_ / λ;
  }
 
+ template<typename E>
+ constexpr auto QuantumPhysics::momentum_fromEnergy(const E E_)
+ {
+	 return (E_*_PROTON_CHARGE_) / _C_;
+ }
+
  template<typename P>
  constexpr auto QuantumPhysics::energy_fromMomentum(const P p)
  {
@@ -670,4 +781,59 @@ template<typename P, typename F>
  constexpr auto QuantumPhysics::kineticEnergy(const M m, const V v)
  {
 	 return (1.0 / 2.0) * m * (v * v);
+ }
+
+ template<typename M, typename W>
+ constexpr auto QuantumPhysics::kineticEnergy_fromWavelength(const M m, const W λ)
+ {
+	 return pow(_PLANKS_J_, 2) / (2.0 * m * (λ * λ)) * _JOULES2eV_;
+ }
+
+ template<typename W>
+ constexpr auto QuantumPhysics::electronVelocity(const W λ)
+ {
+	 return _PLANKS_J_ / (_ELECTRON_MASS_ * λ);
+ }
+
+ template<typename M, typename W>
+ constexpr auto QuantumPhysics::objectVelocity(const M m, const W λ)
+ {
+	 return _PLANKS_J_ / (m * λ);
+ }
+
+ template<typename V>
+ constexpr auto QuantumPhysics::electronWavelength_movingAtPercentSpeedOfLight(const V percentOfLightSpeed)
+ {
+	auto decimalVal = percentOfLightSpeed / 100.0;
+	return _PLANKS_J_ / (_ELECTRON_MASS_ * decimalVal * _C_);
+ }
+
+ template<typename M, typename V>
+ constexpr auto QuantumPhysics::deBrogile_wavelength(const M m, const V v)
+ {
+	 return _PLANKS_J_ / (m * v);
+ }
+
+ template<typename M, typename Q, typename V>
+ constexpr auto QuantumPhysics::wavelengthParticleAcceleratedThroughVoltageOf(const M m, const Q q, const V v)
+ {
+	 return _PLANKS_J_ / (sqrt((2.0 * q * m * v)));
+ }
+
+ template<typename M, typename Q, typename V>
+ constexpr auto QuantumPhysics::voltageToHaveVelocityOf(const M m, const Q q, const V velocity)
+ {
+	 return (m * (velocity * velocity)) / (2.0 * q);
+ }
+
+ template<typename X, typename M>
+ constexpr auto QuantumPhysics::uncertaintyInVelocity(const X x, const M m)
+ {
+	 return _PLANKS_J_ / (4.0 * _PI * x * m);
+ }
+
+ template<typename M, typename V>
+ constexpr auto QuantumPhysics::uncertaintyInPosition(const V v, const M m)
+ {
+	 return _PLANKS_J_ / (4.0 * _PI * m * v);
  }
