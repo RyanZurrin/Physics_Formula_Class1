@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 /**
  * @struct PeriodicElements
@@ -6,8 +6,8 @@
  * @author Ryan Zurrin
  * @date   1/1/2021
  */
-#ifndef PERIODICELEMENTS_H
-#define PERIODICELEMENTS_H
+#ifndef PERIODIC_ELEMENTS_H
+#define PERIODIC_ELEMENTS_H
 
 
 static struct UnifiedAtomicMass
@@ -18,11 +18,20 @@ static struct UnifiedAtomicMass
 } u;
 
 
+/// <summary>
+/// The periodic table, also known as the periodic table of elements, is a
+/// tabular display of the chemical elements, which are arranged by atomic
+/// number, electron configuration, and recurring chemical properties.
+/// The structure of the table shows periodic trends.
+/// </summary>
 static struct Elements
 {
 	Elements() { //cout << "testing Element" << endl;
 		};
 
+	/// <summary>
+	///
+	/// </summary>
 	const struct NEUTRON
 	{
 		const ld atomic_weight = 1.008665;
@@ -30,6 +39,12 @@ static struct Elements
 		const int atomic_number = 0;
 	} n;
 
+	/// <summary>
+	/// Hydrogen is the chemical element with the symbol H and atomic number 1.
+	/// With a standard atomic weight of 1.008, hydrogen is the lightest element
+	/// in the periodic table. Hydrogen is the most abundant chemical substance
+	/// in the universe, constituting roughly 75% of all baryonic mass
+	/// </summary>
 	const struct HYDROGEN
 	{
 		const ld atomic_weight = 1.007825; // 1.007825 u
@@ -45,6 +60,12 @@ static struct Elements
 		const ld heat_fusion = .558; // .558 kJ/mol
 	} H;
 
+	/// <summary>
+	///	Helium is a chemical element with the symbol He and atomic number 2.
+	///	It is a colorless, odorless, tasteless, non-toxic, inert, monatomic gas,
+	///	the first in the noble gas group in the periodic table. Its boiling point
+	///	is the lowest among all the elements
+	/// </summary>
 	const struct HELIUM
 	{
 		const ld atomic_weight = 4.002602; // 4.002602 u
@@ -60,9 +81,14 @@ static struct Elements
 		const ld heat_fusion = .02; // .02 kJ/mol
 	} He;
 
+	/// <summary>
+	///	Lithium is a chemical element with the symbol Li and atomic number 3.
+	///	It is a soft, silvery-white alkali metal. Under standard conditions,
+	///	it is the lightest metal and the lightest solid element.
+	/// </summary>
 	const struct LITHIUM
 	{
-		const ld atomic_weight = 6.94; // 6.94 u
+		const ld atomic_weight = 6.941; // 6.94 u
 		const int atomic_number = 3; // 3
 		const ld density_STP = 535.0; // 535.0 kg/m^3
 		const ld melting_point = 180.54; // 180.54 C
@@ -75,7 +101,14 @@ static struct Elements
 		const ld heat_fusion = 3.0; // 3.0 kJ/mol
 	} Li;
 
-	const struct BERYLLUM
+	/// <summary>
+	/// Beryllium is a chemical element with the symbol Be and atomic number 4.
+	/// It is a relatively rare element in the universe, usually occurring as a
+	/// product of the spallation of larger atomic nuclei that have collided
+	/// with cosmic rays. Within the cores of stars, beryllium is depleted as
+	/// it is fused into heavier elements.
+	/// </summary>
+	const struct BERYLLIUM
 	{
 		const ld atomic_weight = 9.0121831; // 9.0121831 u
 		const int atomic_number = 4; //4
@@ -90,6 +123,13 @@ static struct Elements
 		const ld heat_fusion = 7.95; // 7.95 kJ/mol
 	} Be;
 
+	/// <summary>
+	/// Boron is a chemical element with the symbol B and atomic number 5.
+	/// Produced entirely by cosmic ray spallation and supernovae and not by
+	/// stellar nucleosynthesis, it is a low-abundance element in the Solar
+	/// System and in the Earth's crust. It constitutes about 0.001 percent
+	/// by weight of Earth's crust.
+	/// </summary>
 	const struct BORON
 	{
 		const ld atomic_weight = 10.81; // 10.81 u
@@ -105,6 +145,12 @@ static struct Elements
 		const ld heat_fusion = 50.0; // kJ/mol
 	} B;
 
+	/// <summary>
+	/// Carbon is a chemical element with the symbol C and atomic number 6.
+	/// It is nonmetallic and tetravalent—making four electrons available to
+	/// form covalent chemical bonds. It belongs to group 14 of the periodic
+	/// table. Carbon makes up only about 0.025 percent of Earth's crust.
+	/// </summary>
 	const struct CARBON
 	{
 		const ld atomic_weight = 12.011; // u
@@ -120,6 +166,11 @@ static struct Elements
 		const ld heat_fusion = 105; // kJ/mol
 	} C;
 
+	/// <summary>
+	/// Nitrogen is the chemical element with the symbol N and atomic number 7.
+	/// It was first discovered and isolated by Scottish physician Daniel
+	/// Rutherford in 1772.
+	/// </summary>
 	const struct NITROGEN
 	{
 		const ld atomic_weight = 14.007; // u
@@ -135,6 +186,12 @@ static struct Elements
 		const ld heat_fusion = .36; // kJ/mol
 	} N;
 
+	/// <summary>
+	/// Oxygen is the chemical element with the symbol O and atomic number 8.
+	/// It is a member of the chalcogen group in the periodic table, a highly
+	/// reactive nonmetal, and an oxidizing agent that readily forms oxides with
+	/// most elements as well as with other compounds.
+	/// </summary>
 	const struct OXYGEN
 	{
 		const ld atomic_weight = 15.999; // u
@@ -150,6 +207,13 @@ static struct Elements
 		const ld heat_fusion = .222; // kJ/mol
 	} O;
 
+	/// <summary>
+	/// Fluorine is a chemical element with the symbol F and atomic number 9.
+	/// It is the lightest halogen and exists at standard conditions as a highly
+	/// toxic, pale yellow diatomic gas. As the most electronegative element,
+	/// it is extremely reactive, as it reacts with all other elements, except
+	/// for argon, neon, and helium.
+	/// </summary>
 	const struct FLUORINE
 	{
 		const ld atomic_weight = 18.998403163; // u
@@ -165,6 +229,11 @@ static struct Elements
 		const ld heat_fusion = .26; // kJ/mol
 	} F;
 
+	/// <summary>
+	/// Neon is a chemical element with the symbol Ne and atomic number 10.
+	/// It is a noble gas. Neon is a colorless, odorless, inert monatomic gas
+	/// under standard conditions, with about two-thirds the density of air.
+	/// </summary>
 	const struct NEON
 	{
 		const ld atomic_weight = 20.1797; // u
@@ -180,6 +249,13 @@ static struct Elements
 		const ld heat_fusion = 0.34; // kJ/mol
 	} Ne;
 
+	/// <summary>
+	/// Sodium is a chemical element with the symbol Na and atomic number 11.
+	/// It is a soft, silvery-white, highly reactive metal. Sodium is an
+	/// alkali metal, being in group 1 of the periodic table. Its only stable
+	/// isotope is ²³Na. The free metal does not occur in nature, and must be
+	/// prepared from compounds.
+	/// </summary>
 	const struct SODIUM
 	{
 		const ld atomic_weight = 22.98976928; // u
@@ -189,12 +265,17 @@ static struct Elements
 		const ld boiling_point = 882.9; // C
 		const ld thermal_conductivity = 140.0; // W/mK
 		const ld electric_conductivity = 21.0; // MS/m
-		const ld resistivity = 4.699999999998 * pow(10, -8); // 4.7e-8 m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 4.69999999e-8; // 4.7e-8 m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 1230; // J/kgK
 		const ld heat_vaporization = 97.7; // kJ/mol
 		const ld heat_fusion = 2.60; // kJ/mol
 	} Na;
 
+	/// <summary>
+	/// Magnesium is a chemical element with the symbol Mg and atomic number 12.
+	/// It is a shiny gray solid which bears a close physical resemblance to
+	/// the other five elements in the second column of the periodic
+	/// </summary>
 	const struct MAGNESIUM
 	{
 		const ld atomic_weight = 24.305; // u
@@ -204,12 +285,19 @@ static struct Elements
 		const ld boiling_point = 1090; // C
 		const ld thermal_conductivity = 160.0; // W/mK
 		const ld electric_conductivity = 23.0; // MS/m
-		const ld resistivity = 4.399999999999 * pow(10, -8); // 4.4e-8 m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 4.39999999e-8; // 4.4e-8 m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 1020; // J/kgK
 		const ld heat_vaporization = 128; // kJ/mol
 		const ld heat_fusion = 8.7; // kJ/mol
 	} Mg;
 
+	/// <summary>
+	/// Aluminium is a chemical element with the symbol Al and atomic number 13.
+	/// Aluminium has a density lower than those of other common metals, at
+	/// approximately one third that of steel. It has a great affinity towards
+	/// oxygen, and forms a protective layer of oxide on the surface when
+	/// exposed to air.
+	/// </summary>
 	const struct ALUMINIUM
 	{
 		const ld atomic_weight = 26.9815385; // 26.9815385 u
@@ -219,12 +307,19 @@ static struct Elements
 		const ld boiling_point = 2519.0; // 2519C
 		const ld thermal_conductivity = 235; // 235 W/mK
 		const ld electric_conductivity = 38.0; // 38 MS/m
-		const ld resistivity = 2.6 * pow(10, -8); // 2.6e-8 m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 2.6e-8; // 2.6e-8 m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 904.0; // 904 J/kgK
 		const ld heat_vaporization = 293.0; // 293 kJ/mol
 		const ld heat_fusion = 10.7; // 10.7 kJ/mol
 	} Al;
 
+	/// <summary>
+	/// Silicon is a chemical element with the symbol Si and atomic number 14.
+	/// It is a hard, brittle crystalline solid with a blue-grey metallic lustre,
+	/// and is a tetravalent metalloid and semiconductor. It is a member of group
+	/// 14 in the periodic table: carbon is above it; and germanium, tin, lead
+	/// and flerovium, are below it
+	/// </summary>
 	const struct SILICON
 	{
 		const ld atomic_weight = 28.085; // 28.085 u
@@ -240,6 +335,12 @@ static struct Elements
 		const ld heat_fusion = 50.2; // 50.2 kJ/mol
 	} Si;
 
+	/// <summary>
+	/// Phosphorus is a chemical element with the symbol P and atomic number 15.
+	/// Elemental phosphorus exists in two major forms, white phosphorus and
+	/// red phosphorus, but because it is highly reactive, phosphorus is never
+	/// found as a free element on Earth.
+	/// </summary>
 	const struct PHOSPHORUS
 	{
 		const ld atomic_weight = 30.973761998; // 30.973761998 u
@@ -249,12 +350,18 @@ static struct Elements
 		const ld boiling_point = 280.5; // 280.5 C
 		const ld thermal_conductivity = .236; // .236 W/mK
 		const ld electric_conductivity = 10.0; // 10 MS/m
-		const ld resistivity = 1 * pow(10, -7); // 1e-7 m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 1e-7; // 1e-7 m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 769.7; // 769.7 J/kgK
 		const ld heat_vaporization = 12.4; // 12.4 kJ/mol
 		const ld heat_fusion = .64; // .64 kJ/mol
 	} P;
 
+	/// <summary>
+	/// Sulfur is a chemical element with the symbol S and atomic number 16.
+	/// It is abundant, multivalent and nonmetallic. Under normal conditions,
+	/// sulfur atoms form cyclic octatomic molecules with a chemical formula S₈.
+	/// Elemental sulfur is a bright yellow, crystalline solid at room temperature
+	/// </summary>
 	const struct SULFUR
 	{
 		const ld atomic_weight = 32.06; // 32.06 u
@@ -264,12 +371,18 @@ static struct Elements
 		const ld boiling_point = 444.72; // 444.72 C
 		const ld thermal_conductivity = .205; // .205 W/mK
 		const ld electric_conductivity = pow(1.0, -21); // 1e-21 MS/m
-		const ld resistivity = 1 * pow(10, 15); // 1e15 m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 1e15; // 1e15 m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 705.0; // 705 J/kgK
 		const ld heat_vaporization = 9.8; // 9.8 kJ/mol
 		const ld heat_fusion = 1.73; // 1.73 kJ/mol
 	} S;
 
+	/// <summary>
+	/// Chlorine is a chemical element with the symbol Cl and atomic number 17.
+	/// The second-lightest of the halogens, it appears between fluorine and
+	/// bromine in the periodic table and its properties are mostly intermediate
+	/// between them. Chlorine is a yellow-green gas at room temperature.
+	/// </summary>
 	const struct CHLORINE
 	{
 		const ld atomic_weight = 35.45; // 35.45 u
@@ -285,6 +398,11 @@ static struct Elements
 		const ld heat_fusion = 3.2; // 3.2 kJ/mol
 	} Cl;
 
+	/// <summary>
+	/// Argon is a chemical element with the symbol Ar and atomic number 18.
+	/// It is in group 18 of the periodic table and is a noble gas. Argon is
+	/// the third-most abundant gas in the Earth's atmosphere, at 0.934%
+	/// </summary>
 	const struct ARGON
 	{
 		const ld atomic_weight = 39.948; // 39.948 u
@@ -300,6 +418,12 @@ static struct Elements
 		const ld heat_fusion = 1.18; // 1.18 kJ/mol
 	} Ar;
 
+	/// <summary>
+	/// Potassium is a chemical element with the symbol K and atomic number 19.
+	/// Potassium is a silvery-white metal that is soft enough to be cut with a
+	/// knife with little force. Potassium metal reacts rapidly with atmospheric
+	/// oxygen to form flaky white potassium peroxide in only seconds of exposure.
+	/// </summary>
 	const struct POTASSIUM
 	{
 		const ld atomic_weight = 39.0983; // 39.0983 u
@@ -309,12 +433,19 @@ static struct Elements
 		const ld boiling_point = 758.9; // 758.9C
 		const ld thermal_conductivity = 100.0; // 100 W/mK
 		const ld electric_conductivity = 14.0; // 14 MS/m
-		const ld resistivity = 7.000000000002 * pow(10, -8); // 7.0e-8 m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 7.000000000002e-8; // 7.0e-8 m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 757; // 757 J/kgK
 		const ld heat_vaporization = 76.9; // 76.9 kJ/mol
 		const ld heat_fusion = 2.33; // 2.33kJ/mol
 	} K;
 
+	/// <summary>
+	/// Calcium is a chemical element with the symbol Ca and atomic number 20.
+	/// As an alkaline earth metal, calcium is a reactive metal that forms a
+	/// dark oxide-nitride layer when exposed to air. ... It is the fifth most
+	/// abundant element in Earth's crust, and the third most abundant metal,
+	/// after iron and aluminium
+	/// </summary>
 	const struct CALCIUM
 	{
 		const ld atomic_weight = 40.078; // 40.078 u
@@ -324,12 +455,18 @@ static struct Elements
 		const ld boiling_point = 1484; // 1484 C
 		const ld thermal_conductivity = 200.0; //200 W/mK
 		const ld electric_conductivity = 29; // 29 MS/m
-		const ld resistivity = 3.399999999999 * pow(10, -8); // 3.4e-8 m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 3.39999999e-8; // 3.4e-8 m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 631; // 631 J/kgK
 		const ld heat_vaporization = 155.0; // 155 kJ/mol
 		const ld heat_fusion = 8.54; // 8.54 kJ/mol
 	} Ca;
 
+	/// <summary>
+	/// Scandium is a chemical element with the symbol Sc and atomic number 21.
+	/// A silvery-white metallic d-block element, it has historically been
+	/// classified as a rare-earth element, together with yttrium and the
+	/// lanthanide.
+	/// </summary>
 	const struct SCANDIUM
 	{
 		const ld atomic_weight = 44.955908; // 44.955908 u
@@ -339,12 +476,18 @@ static struct Elements
 		const ld boiling_point = 2830.0; // 2830 C
 		const ld thermal_conductivity = 16; // 16W/mK
 		const ld electric_conductivity = 1.8; // 1.8 MS/m
-		const ld resistivity = 5.5 * pow(10, -7); // 5.5e-7 m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 5.5e-7; // 5.5e-7 m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 567.0; // 567 J/kgK
 		const ld heat_vaporization = 318.0; // 318 kJ/mol
 		const ld heat_fusion = 16.0; // 16 kJ/mol
 	} Sc;
 
+	/// <summary>
+	/// Titanium is a chemical element with the symbol Ti and atomic number 22.
+	/// Its atomic weight is 47.867 measured in daltons. It is a lustrous
+	/// transition metal with a silver color, low density, and high strength.
+	/// Titanium is resistant to corrosion in sea water, aqua regia, and chlorine.
+	/// </summary>
 	const struct TITANIUM
 	{
 		const ld atomic_weight = 47.867; // 47.867 u
@@ -354,12 +497,19 @@ static struct Elements
 		const ld boiling_point = 3287.0; // 3287 C
 		const ld thermal_conductivity = 22.0; // 22.0 W/mK
 		const ld electric_conductivity = 2.5; // 2.5 MS/m
-		const ld resistivity = 4 * pow(10, -7); // 4e-7 m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 4e-7; // 4e-7 m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 520.0; // 525 J/kgK
 		const ld heat_vaporization = 425.0; // 425 kJ/mol
 		const ld heat_fusion = 18.7; // 18.7 kJ/mol
 	} Ti;
 
+	/// <summary>
+	/// Vanadium is a chemical element with the symbol V and atomic number 23.
+	/// It is a hard, silvery-grey, malleable transition metal. The elemental
+	/// metal is rarely found in nature, but once isolated artificially, the
+	/// formation of an oxide layer somewhat stabilizes the free metal against
+	/// further oxidation.
+	/// </summary>
 	const struct VANADIUM
 	{
 		const ld atomic_weight = 50.9415; // 50.9415 u
@@ -369,12 +519,18 @@ static struct Elements
 		const ld boiling_point = 3407; // 3407 C
 		const ld thermal_conductivity = 31; // 31 W/mK
 		const ld electric_conductivity = 5; // MS/m
-		const ld resistivity = 2 * pow(10, -7); // 2e-7 m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 2e-7; // 2e-7 m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 489; // J/kgK
 		const ld heat_vaporization = 453; // kJ/mol
 		const ld heat_fusion = 22.8; // kJ/mol
 	} V;
 
+	/// <summary>
+	/// Chromium is a chemical element with the symbol Cr and atomic number 24.
+	/// It is the first element in group 6. It is a steely-grey, lustrous, hard,
+	/// and brittle transition metal. Chromium is the main additive in stainless
+	/// steel, to which it adds anti-corrosive properties.
+	/// </summary>
 	const struct CHROMIUM
 	{
 		const ld atomic_weight = 51.996; // u
@@ -384,12 +540,19 @@ static struct Elements
 		const ld boiling_point = 2671; // C
 		const ld thermal_conductivity = 94; // W/mK
 		const ld electric_conductivity = 7.9; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 1.3e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 448; // J/kgK
 		const ld heat_vaporization = 339; // kJ/mol
 		const ld heat_fusion = 20.5; // kJ/mol
 	} Cr;
 
+	/// <summary>
+	/// Manganese is a chemical element with the symbol Mn and atomic number 25.
+	/// It is not found as a free element in nature; it is often found in minerals
+	/// in combination with iron. Manganese is a transition metal with a
+	/// multifaceted array of industrial alloy uses, particularly in
+	/// stainless steels.
+	/// </summary>
 	const struct MANGANESE
 	{
 		const ld atomic_weight = 54.938; // u
@@ -399,12 +562,19 @@ static struct Elements
 		const ld boiling_point = 2061; // C
 		const ld thermal_conductivity = 7.8; // W/mK
 		const ld electric_conductivity = .62; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 1.6e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 479; // J/kgK
 		const ld heat_vaporization = 220; // kJ/mol
 		const ld heat_fusion = 13.2; // kJ/mol
 	} Mn;
 
+	/// <summary>
+	/// Iron is a chemical element with symbol Fe and atomic number 26.
+	/// It is a metal that belongs to the first transition series and group
+	/// 8 of the periodic table. It is, by mass, the most common element on
+	/// Earth, right in front of oxygen, forming much of Earth's outer and
+	/// inner core.
+	/// </summary>
 	const struct IRON
 	{
 		const ld atomic_weight = 55.845; // u
@@ -414,12 +584,19 @@ static struct Elements
 		const ld boiling_point = 2861; // C
 		const ld thermal_conductivity = 80; // W/mK
 		const ld electric_conductivity = 10; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 9.7e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 449; // J/kgK
 		const ld heat_vaporization = 347; // kJ/mol
 		const ld heat_fusion = 13.8; // kJ/mol
 	} Fe;
 
+	/// <summary>
+	/// Cobalt is a chemical element with the symbol Co and atomic number 27.
+	/// Like nickel, cobalt is found in the Earth's crust only in a chemically
+	/// combined form, save for small deposits found in alloys of natural meteoric
+	/// iron. The free element, produced by reductive smelting, is a hard,
+	/// lustrous, silver-gray metal.
+	/// </summary>
 	const struct COBALT
 	{
 		const ld atomic_weight = 58.933; // u
@@ -429,12 +606,17 @@ static struct Elements
 		const ld boiling_point = 2900; // C
 		const ld thermal_conductivity = 100; // W/mK
 		const ld electric_conductivity = 17; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 6e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 421; // J/kgK
 		const ld heat_vaporization = 375; // kJ/mol
 		const ld heat_fusion = 16.2; // kJ/mol
 	} Co;
 
+	/// <summary>
+	/// Nickel is a chemical element with the symbol Ni and atomic number 28.
+	/// It is a silvery-white lustrous metal with a slight golden tinge.
+	/// Nickel belongs to the transition metals and is hard and ductile.
+	/// </summary>
 	const struct NICKEL
 	{
 		const ld atomic_weight = 58.693; // u
@@ -444,12 +626,18 @@ static struct Elements
 		const ld boiling_point = 2913; // C
 		const ld thermal_conductivity = 91; // W/mK
 		const ld electric_conductivity = 14; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 7e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 445; // J/kgK
 		const ld heat_vaporization = 378; // kJ/mol
 		const ld heat_fusion = 17.2; // kJ/mol
 	} Ni;
 
+	/// <summary>
+	/// Copper is a chemical element with the symbol Cu and atomic number 29.
+	/// It is a soft, malleable, and ductile metal with very high thermal and
+	/// electrical conductivity. A freshly exposed surface of pure copper has
+	/// a pinkish-orange color.
+	/// </summary>
 	const struct COPPER
 	{
 		const ld atomic_weight = 63.546; // u
@@ -459,12 +647,18 @@ static struct Elements
 		const ld boiling_point = 2562; // C
 		const ld thermal_conductivity = 400; // W/mK
 		const ld electric_conductivity = 59; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 1.7e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 384.4; // J/kgK
 		const ld heat_vaporization = 300; // kJ/mol
 		const ld heat_fusion = 13.1; // kJ/mol
 	} Cu;
 
+	/// <summary>
+	/// Zinc is a chemical element with the symbol Zn and atomic number 30.
+	/// Zinc is a slightly brittle metal at room temperature and has a
+	/// silvery-greyish appearance when oxidation is removed. It is the first
+	/// element in group 12 of the periodic table.
+	/// </summary>
 	const struct ZINC
 	{
 		const ld atomic_weight = 65.38; // u
@@ -474,160 +668,221 @@ static struct Elements
 		const ld boiling_point = 906.9; // C
 		const ld thermal_conductivity = 120; // W/mK
 		const ld electric_conductivity = 17; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld resistivity = 5.9e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 388; // J/kgK
 		const ld heat_vaporization = 119; // kJ/mol
 		const ld heat_fusion = 7.35; // kJ/mol
 	} Zn;
 
+	/// <summary>
+	/// Gallium is a chemical element with the symbol Ga and atomic number 31.
+	/// Elemental gallium is a soft, silvery metal at standard temperature and
+	/// pressure; however in its liquid state it becomes silvery white. If too
+	/// much force is applied, the gallium may fracture conchoidally.
+	/// </summary>
 	const struct GALLIUM
 	{
 		const ld atomic_weight = 69.723; // u
 		const int atomic_number = 31;
-		const ld density_STP = 5904; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld density_STP = 5904.0; // kg/m^3
+		const ld melting_point = 29.760; // C
+		const ld boiling_point = 2204.0; // C
+		const ld thermal_conductivity = 29.0; // W/mK
+		const ld electric_conductivity = 7.1; // MS/m
+		const ld resistivity = 1.4e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 371.0; // J/kgK
+		const ld heat_vaporization = 256.0; // kJ/mol
+		const ld heat_fusion = 5.59; // kJ/mol
 	} Ga;
 
+	/// <summary>
+	/// Germanium is a chemical element with the symbol Ge and atomic number 32.
+	/// It is a lustrous, hard-brittle, grayish-white metalloid in the carbon
+	/// group, chemically similar to its group neighbors silicon and tin.
+	/// Pure germanium is a semiconductor with an appearance similar to
+	/// elemental silicon.
+	/// </summary>
 	const struct GERMANIUM
 	{
 		const ld atomic_weight = 72.630; // u
 		const int atomic_number = 32;
 		const ld density_STP = 5323; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 938.25; // C
+		const ld boiling_point = 2820; // C
+		const ld thermal_conductivity = 60.0; // W/mK
+		const ld electric_conductivity = .0020; // MS/m
+		const ld resistivity = .0005; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 321.4; // J/kgK
+		const ld heat_vaporization = 334.0; // kJ/mol
+		const ld heat_fusion = 31.8; // kJ/mol
 	} Ge;
 
+	/// <summary>
+	/// Arsenic is a chemical element with the symbol As and atomic number 33.
+	/// Arsenic occurs in many minerals, usually in combination with sulfur and
+	/// metals, but also as a pure elemental crystal. Arsenic is a metalloid.
+	/// </summary>
 	const struct ARSENIC
 	{
 		const ld atomic_weight = 74.922; // u
 		const int atomic_number = 33;
 		const ld density_STP = 5727; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 816.9; // C
+		const ld boiling_point = 614; // C
+		const ld thermal_conductivity = 50.0; // W/mK
+		const ld electric_conductivity = 3.3; // MS/m
+		const ld resistivity = 3e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 328.0; // J/kgK
+		const ld heat_vaporization = 32.4; // kJ/mol
+		const ld heat_fusion = 27.7; // kJ/mol
 	} As;
 
+	/// <summary>
+	/// Selenium is a chemical element with the symbol Se and atomic number 34.
+	/// It is a nonmetal with properties that are intermediate between the
+	/// elements above and below in the periodic table, sulfur and tellurium,
+	/// and also has similarities to arsenic
+	/// </summary>
 	const struct SELENIUM
 	{
 		const ld atomic_weight = 78.971; // u
 		const int atomic_number = 34;
 		const ld density_STP = 4819; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
+		const ld melting_point = 221; // C
+		const ld boiling_point = 685; // C
 		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld electric_conductivity = NULL; // MS/m
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 321.2; // J/kgK
+		const ld heat_vaporization = 26.0; // kJ/mol
+		const ld heat_fusion = 5.4; // kJ/mol
 	} Se;
 
+	/// <summary>
+	/// Bromine is a chemical element with the symbol Br and atomic number 35.
+	/// It is the third-lightest halogen, and is a fuming red-brown liquid at
+	/// room temperature that evaporates readily to form a similarly coloured
+	/// vapour. Its properties are intermediate between those of chlorine
+	/// and iodine.
+	/// </summary>
 	const struct BROMINE
 	{
 		const ld atomic_weight = 79.904; // u
 		const int atomic_number = 35;
 		const ld density_STP = 3120; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = -7.350; // C
+		const ld boiling_point = 58.9; // C
+		const ld thermal_conductivity = 0.12; // W/mK
+		const ld electric_conductivity = 1.0e-16; // MS/m
+		const ld resistivity = 1.0e10; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 947.3; // J/kgK
+		const ld heat_vaporization = 14.8; // kJ/mol
+		const ld heat_fusion = 5.8; // kJ/mol
 	} Br;
 
+	/// <summary>
+	/// Krypton is a chemical element with the symbol Kr and atomic number 36.
+	/// It is a colorless, odorless, tasteless noble gas that occurs in trace
+	/// amounts in the atmosphere and is often used with other rare gases in
+	/// fluorescent lamps. With rare exceptions, krypton is chemically inert
+	/// </summary>
 	const struct KRYPTON
 	{
 		const ld atomic_weight = 83.798; // u
 		const int atomic_number = 36;
 		const ld density_STP = 3.75; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = -157.36; // C
+		const ld boiling_point = -153.22; // C
+		const ld thermal_conductivity = 0.00943; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 248.05; // J/kgK
+		const ld heat_vaporization = 9.02; // kJ/mol
+		const ld heat_fusion = 1.64; // kJ/mol
 	} Kr;
 
+	/// <summary>
+	/// Rubidium is the chemical element with the symbol Rb and atomic number 37.
+	/// Rubidium is a very soft, silvery-white metal in the alkali metal group.
+	/// Rubidium metal shares similarities to potassium metal and caesium metal
+	/// in physical appearance, softness and conductivity.
+	/// </summary>
 	const struct RUBIDIUM
 	{
 		const ld atomic_weight = 85.468; // u
 		const int atomic_number = 37;
 		const ld density_STP = 1532; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 39.310; // C
+		const ld boiling_point = 688.0; // C
+		const ld thermal_conductivity = 58.0; // W/mK
+		const ld electric_conductivity = 8.30; // MS/m
+		const ld resistivity = 1.2e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 364; // J/kgK
+		const ld heat_vaporization = 72.0; // kJ/mol
+		const ld heat_fusion = 2.19; // kJ/mol
 	} Rb;
 
+	/// <summary>
+	/// Strontium is the chemical element with the symbol Sr and atomic number 38.
+	/// An alkaline earth metal, strontium is a soft silver-white yellowish metallic
+	/// element that is highly chemically reactive. The metal forms a dark oxide
+	/// layer when it is exposed to air.
+	/// </summary>
 	const struct STRONTIUM
 	{
 		const ld atomic_weight = 87.62; // u
 		const int atomic_number = 38;
 		const ld density_STP = 2630; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 776.9; // C
+		const ld boiling_point = 1382.0; // C
+		const ld thermal_conductivity = 35; // W/mK
+		const ld electric_conductivity = 7.7; // MS/m
+		const ld resistivity = 1.3e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 300.0; // J/kgK
+		const ld heat_vaporization = 137.0; // kJ/mol
+		const ld heat_fusion = 8.0; // kJ/mol
 	} Sr;
 
+	/// <summary>
+	/// Yttrium is a chemical element with the symbol Y and atomic number 39.
+	/// It is a silvery-metallic transition metal chemically similar to the
+	/// lanthanides and has often been classified as a "rare-earth element"
+	/// </summary>
 	const struct YTTRIUM
 	{
 		const ld atomic_weight = 88.906; // u
 		const int atomic_number = 39;
 		const ld density_STP = 4472; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 1526.0; // C
+		const ld boiling_point = 3345.0; // C
+		const ld thermal_conductivity = 17; // W/mK
+		const ld electric_conductivity = 1.80; // MS/m
+		const ld resistivity = 5.6e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 298.0; // J/kgK
+		const ld heat_vaporization = 380.0; // kJ/mol
+		const ld heat_fusion = 11.4; // kJ/mol
 	} Y;
 
+	/// <summary>
+	/// Zirconium is a chemical element with the symbol Zr and atomic number 40.
+	/// The name zirconium is taken from the name of the mineral zircon, the
+	/// most important source of zirconium. It is a lustrous, grey-white, strong
+	/// transition metal that closely resembles hafnium and, to a lesser
+	/// extent, titanium.
+	/// </summary>
 	const struct ZIRCONIUM
 	{
 		const ld atomic_weight = 91.224; // u
 		const int atomic_number = 40;
 		const ld density_STP = 6511; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 1855.0; // C
+		const ld boiling_point = 4409.0; // C
+		const ld thermal_conductivity = 23; // W/mK
+		const ld electric_conductivity = 2.4; // MS/m
+		const ld resistivity = 4.2e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 278.0; // J/kgK
+		const ld heat_vaporization = 580.0; // kJ/mol
+		const ld heat_fusion = 21.0; // kJ/mol
 	} Zr;
 
 	const struct NIOBIUM
@@ -1729,6 +1984,9 @@ const struct LANTHANUM
 		const ld heat_fusion = 0; // kJ/mol
 	} Nh;
 
+	/// <summary>
+	///
+	/// </summary>
 	const struct FLEROVIUM
 	{
 		const ld atomic_weight = 289; // u
@@ -1744,6 +2002,9 @@ const struct LANTHANUM
 		const ld heat_fusion = 0; // kJ/mol
 	} Fl;
 
+	/// <summary>
+	///
+	/// </summary>
 	const struct MOSCOVIUM
 	{
 		const ld atomic_weight = 290; // u
@@ -1759,6 +2020,9 @@ const struct LANTHANUM
 		const ld heat_fusion = 0; // kJ/mol
 	} Mc;
 
+	/// <summary>
+	///
+	/// </summary>
 	const struct LIVERMORIUM
 	{
 		const ld atomic_weight = 293; // u
@@ -1774,6 +2038,9 @@ const struct LANTHANUM
 		const ld heat_fusion = 0; // kJ/mol
 	} Lv;
 
+	/// <summary>
+	///
+	/// </summary>
 	const struct TENNESSINE
 	{
 		const ld atomic_weight = 294; // u
@@ -1789,6 +2056,9 @@ const struct LANTHANUM
 		const ld heat_fusion = 0; // kJ/mol
 	} Ts;
 
+	/// <summary>
+	///
+	/// </summary>
 	const struct OGANESSON
 	{
 		const ld atomic_weight = 294; // u
@@ -1813,12 +2083,11 @@ static int periodicElement_objectCount = 0;
 
 class PeriodicElements
 {
-private:
 	static void countIncrease() { periodicElement_objectCount += 1; }
 	static void countDecrease() { periodicElement_objectCount -= 1; }
 public:
 	PeriodicElements* _elementPtr;
-
+	Elements periodic_table;
 	PeriodicElements()
 	{
 		_elementPtr = nullptr;
