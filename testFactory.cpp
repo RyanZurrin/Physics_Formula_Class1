@@ -12,9 +12,7 @@ int main()
 	//add test code between starred areas
 	//*************************************************************************
 
-
-
-
+	
 
 
 	//setVal(QP::acceleratingVoltage(.0103e-9, _PROTON_CHARGE_));
