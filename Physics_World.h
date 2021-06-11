@@ -37,7 +37,7 @@
 #include "Magnetism.h"
 #include "MatrixND.h"
 #include "Momentum.h"
-#include "PeriodicElements.h"
+//#include "PeriodicElements.h"
 #include "RandomNumbers.h"
 #include "RotationalMotion.h"
 #include "Statics.h"
@@ -62,7 +62,7 @@ typedef UniformCircularMotion UCM;
 typedef Thermodynamics TD;
 typedef Temperature TEMP;
 typedef RotationalMotion RM;
-typedef PeriodicElements PE;
+//typedef PeriodicElements PE;
 typedef GeometricOptics GO;
 typedef FluidStatics FS;
 typedef FluidDynamics FD;
@@ -418,9 +418,9 @@ static struct Conversions
 	}heat;
 
 	template<typename T>
-	static auto atomicWeight_to_kilograms(const T u = _val_)
+	static auto atomicMass_to_kilograms(const T u = _val_)
 	{
-		return u * 1.6605402 * pow(10, -27);
+		return u * 1.66053904E-27;
 	}
 
 	template<typename T>

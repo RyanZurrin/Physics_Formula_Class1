@@ -22,7 +22,65 @@ static struct UnifiedAtomicMass
 /// The periodic table, also known as the periodic table of elements, is a
 /// tabular display of the chemical elements, which are arranged by atomic
 /// number, electron configuration, and recurring chemical properties.
-/// The structure of the table shows periodic trends.
+/// The structure of the table shows periodic trends.\n\n
+///
+/// atomic_weight: The atomic mass is the mass of an atom. Although the SI unit
+///		of mass is kilogram, the atomic mass is often expressed in the non-SI unit
+///		dalton where 1 dalton is defined as 1⁄12 of the mass of a single
+///		carbon-12 atom, at rest.\n\n
+///
+/// atomic_number: The atomic number or proton number (symbol Z) of a chemical
+///		element is the number of protons found in the nucleus of every atom of
+///		that element. The atomic number uniquely identifies a chemical element.
+///		It is identical to the charge number of the nucleus. In an uncharged atom,
+///		the atomic number is also equal to the number of electrons.\n\n
+///
+/// density_STP: Density is a measure of an element's mass per unit volume.\n\n
+///
+/// melting_point: Melting point, temperature at which the solid and liquid forms
+///		of a pure substance can exist in equilibrium. ... As heat is applied to a
+///		solid, its temperature will increase until the melting point is reached.
+///		More heat then will convert the solid into a liquid with no temperature change.\n\n
+///
+/// boiling_point: The boiling point of a substance is the temperature at which
+///		the vapor pressure of a liquid equals the pressure surrounding the liquid
+///		and the liquid changes into a vapor. ... The standard boiling point has
+///		been defined by IUPAC since 1982 as the temperature at which boiling
+///		occurs under a pressure of one bar.\n\n
+///
+/// thermal_conductivity: The heat transfer characteristics of a solid material
+///		are measured by a property called the thermal conductivity, k (or λ),
+///		measured in W/m.K. It is a measure of a substance's ability to transfer
+///		heat through a material by conduction.\n\n
+///
+/// electric_conductivity: in metals is a result of the movement of electrically
+///		charged particles. The atoms of metal elements are characterized by the
+///		presence of valence electrons, which are electrons in the outer shell of
+///		an atom that are free to move about.\n\n
+///
+/// resistivity: (also called specific electrical resistance or volume resistivity)
+///		is a fundamental property of a material that measures how strongly it resists
+///		electric current. Its inverse, called electrical conductivity, quantifies
+///		how well a material conducts electricity.\n\n
+///
+/// heat_specific: the quantity of heat required to raise the temperature of one
+///		gram of a substance by one Celsius degree. The units of specific heat are
+///		usually calories or joules per gram per Celsius degree.\n\n
+///
+/// heat_vaporization: The enthalpy of vaporization, also known as the heat of
+///		vaporization or heat of evaporation, is the amount of energy that must
+///		be added to a liquid substance to transform a quantity of that substance
+///		into a gas. The enthalpy of vaporization is a function of the pressure at
+///		which that transformation takes place.\n\n
+///
+///  heat_fusion: The enthalpy of fusion of a substance, also known as heat of
+///		fusion is the change in its enthalpy resulting from providing energy, typically
+///		 heat, to a specific quantity of the substance to change its state from a
+///		 solid to a liquid, at constant pressure.\n\n
+///
+/// ionization_1st: Ionization energy is the minimum amount of energy required
+///		to remove the most loosely bound electron of a neutral atom.
+///
 /// </summary>
 static struct Elements
 {
@@ -48,7 +106,7 @@ static struct Elements
 	const struct HYDROGEN
 	{
 		const ld atomic_weight = 1.007825; // 1.007825 u
-		const int atomic_number = 1; // 1
+		const int atomic_number = 1; // Z = 1
 		const ld density_STP = .0899; // .0899 kg/m^3
 		const ld melting_point = -259.1; // -259.1 C
 		const ld boiling_point = -252.9; // -252.9 C
@@ -58,6 +116,7 @@ static struct Elements
 		const ld heat_specific = 14300.0; // 14300.0 J/kgK
 		const ld heat_vaporization = .452; // 452 kJ/mol
 		const ld heat_fusion = .558; // .558 kJ/mol
+		const ld ionization_1st = 13.598;
 	} H;
 
 	/// <summary>
@@ -69,7 +128,7 @@ static struct Elements
 	const struct HELIUM
 	{
 		const ld atomic_weight = 4.002602; // 4.002602 u
-		const int atomic_number = 2; // 2
+		const int atomic_number = 2; // Z = 2
 		const ld density_STP = 0.1785; // 0.1785 kg/m^3
 		const ld melting_point = NULL; // C
 		const ld boiling_point = -269; // -269 C
@@ -79,6 +138,7 @@ static struct Elements
 		const ld heat_specific = 5193.1; // 5193.1 J/kgK
 		const ld heat_vaporization = .083; // .083 kJ/mol
 		const ld heat_fusion = .02; // .02 kJ/mol
+		const ld ionization_1st = 24.587; // eV
 	} He;
 
 	/// <summary>
@@ -89,7 +149,7 @@ static struct Elements
 	const struct LITHIUM
 	{
 		const ld atomic_weight = 6.941; // 6.94 u
-		const int atomic_number = 3; // 3
+		const int atomic_number = 3; // Z = 3
 		const ld density_STP = 535.0; // 535.0 kg/m^3
 		const ld melting_point = 180.54; // 180.54 C
 		const ld boiling_point = 1342.0; // 1342.0 C
@@ -99,6 +159,7 @@ static struct Elements
 		const ld heat_specific = 3570.0; // 3570.0 J/kgK
 		const ld heat_vaporization = 147.0; // 147.0 kJ/mol
 		const ld heat_fusion = 3.0; // 3.0 kJ/mol
+		const ld ionization_1st = 5.391; // eV
 	} Li;
 
 	/// <summary>
@@ -121,6 +182,7 @@ static struct Elements
 		const ld heat_specific = 1820.0; // 1820.0 J/kgK
 		const ld heat_vaporization = 297.0; // 297.0 kJ/mol
 		const ld heat_fusion = 7.95; // 7.95 kJ/mol
+		const ld ionization_1st = 9.323; // eV
 	} Be;
 
 	/// <summary>
@@ -143,6 +205,7 @@ static struct Elements
 		const ld heat_specific = 1030.0; // J/kgK
 		const ld heat_vaporization = 507.0; // kJ/mol
 		const ld heat_fusion = 50.0; // kJ/mol
+		const ld ionization_1st = 8.298; // eV
 	} B;
 
 	/// <summary>
@@ -164,6 +227,7 @@ static struct Elements
 		const ld heat_specific = 710.0; // J/kgK
 		const ld heat_vaporization = 715.0; // kJ/mol
 		const ld heat_fusion = 105; // kJ/mol
+		const ld ionization_1st = 11.261; // eV
 	} C;
 
 	/// <summary>
@@ -184,6 +248,7 @@ static struct Elements
 		const ld heat_specific = 1040; // J/kgK
 		const ld heat_vaporization = 2.79; // kJ/mol
 		const ld heat_fusion = .36; // kJ/mol
+		const ld ionization_1st = 14.534; // eV
 	} N;
 
 	/// <summary>
@@ -205,6 +270,7 @@ static struct Elements
 		const ld heat_specific = 919; // J/kgK
 		const ld heat_vaporization = 3.41; // kJ/mol
 		const ld heat_fusion = .222; // kJ/mol
+		const ld ionization_1st = 13.681; // eV
 	} O;
 
 	/// <summary>
@@ -227,6 +293,7 @@ static struct Elements
 		const ld heat_specific = 824; // J/kgK
 		const ld heat_vaporization = 3.27; // kJ/mol
 		const ld heat_fusion = .26; // kJ/mol
+		const ld ionization_1st = 17.422; // eV
 	} F;
 
 	/// <summary>
@@ -247,6 +314,7 @@ static struct Elements
 		const ld heat_specific = 1030; // J/kgK
 		const ld heat_vaporization = 1.75; // kJ/mol
 		const ld heat_fusion = 0.34; // kJ/mol
+		const ld ionization_1st = 21.565; // eV
 	} Ne;
 
 	/// <summary>
@@ -269,6 +337,7 @@ static struct Elements
 		const ld heat_specific = 1230; // J/kgK
 		const ld heat_vaporization = 97.7; // kJ/mol
 		const ld heat_fusion = 2.60; // kJ/mol
+		const ld ionization_1st = 5.139; // eV
 	} Na;
 
 	/// <summary>
@@ -289,6 +358,7 @@ static struct Elements
 		const ld heat_specific = 1020; // J/kgK
 		const ld heat_vaporization = 128; // kJ/mol
 		const ld heat_fusion = 8.7; // kJ/mol
+		const ld ionization_1st = 7.646; // eV
 	} Mg;
 
 	/// <summary>
@@ -311,6 +381,7 @@ static struct Elements
 		const ld heat_specific = 904.0; // 904 J/kgK
 		const ld heat_vaporization = 293.0; // 293 kJ/mol
 		const ld heat_fusion = 10.7; // 10.7 kJ/mol
+		const ld ionization_1st = 5.985; // eV
 	} Al;
 
 	/// <summary>
@@ -333,6 +404,7 @@ static struct Elements
 		const ld heat_specific = 710.0; // 710 J/kgK
 		const ld heat_vaporization = 359.0; // 359 kJ/mol
 		const ld heat_fusion = 50.2; // 50.2 kJ/mol
+		const ld ionization_1st = 8.151; // eV
 	} Si;
 
 	/// <summary>
@@ -354,6 +426,7 @@ static struct Elements
 		const ld heat_specific = 769.7; // 769.7 J/kgK
 		const ld heat_vaporization = 12.4; // 12.4 kJ/mol
 		const ld heat_fusion = .64; // .64 kJ/mol
+		const ld ionization_1st = 10.487; // eV
 	} P;
 
 	/// <summary>
@@ -375,6 +448,7 @@ static struct Elements
 		const ld heat_specific = 705.0; // 705 J/kgK
 		const ld heat_vaporization = 9.8; // 9.8 kJ/mol
 		const ld heat_fusion = 1.73; // 1.73 kJ/mol
+		const ld ionization_1st = 10.36; // eV
 	} S;
 
 	/// <summary>
@@ -396,6 +470,7 @@ static struct Elements
 		const ld heat_specific = 478.2; // 478.2 J/kgK
 		const ld heat_vaporization = 10.2; // 10.2 kJ/mol
 		const ld heat_fusion = 3.2; // 3.2 kJ/mol
+		const ld ionization_1st = 12.968; // eV
 	} Cl;
 
 	/// <summary>
@@ -416,6 +491,7 @@ static struct Elements
 		const ld heat_specific = 520.33; // 520.33 J/kgK
 		const ld heat_vaporization = 6.5; // 6.5 kJ/mol
 		const ld heat_fusion = 1.18; // 1.18 kJ/mol
+		const ld ionization_1st = 15.760; // eV
 	} Ar;
 
 	/// <summary>
@@ -437,6 +513,7 @@ static struct Elements
 		const ld heat_specific = 757; // 757 J/kgK
 		const ld heat_vaporization = 76.9; // 76.9 kJ/mol
 		const ld heat_fusion = 2.33; // 2.33kJ/mol
+		const ld ionization_1st = 4.341; // eV
 	} K;
 
 	/// <summary>
@@ -459,6 +536,7 @@ static struct Elements
 		const ld heat_specific = 631; // 631 J/kgK
 		const ld heat_vaporization = 155.0; // 155 kJ/mol
 		const ld heat_fusion = 8.54; // 8.54 kJ/mol
+		const ld ionization_1st = 6.113; // eV
 	} Ca;
 
 	/// <summary>
@@ -480,6 +558,7 @@ static struct Elements
 		const ld heat_specific = 567.0; // 567 J/kgK
 		const ld heat_vaporization = 318.0; // 318 kJ/mol
 		const ld heat_fusion = 16.0; // 16 kJ/mol
+		const ld ionization_1st = 6.562; // eV
 	} Sc;
 
 	/// <summary>
@@ -501,6 +580,7 @@ static struct Elements
 		const ld heat_specific = 520.0; // 525 J/kgK
 		const ld heat_vaporization = 425.0; // 425 kJ/mol
 		const ld heat_fusion = 18.7; // 18.7 kJ/mol
+		const ld ionization_1st = 6.828; // eV
 	} Ti;
 
 	/// <summary>
@@ -523,6 +603,7 @@ static struct Elements
 		const ld heat_specific = 489; // J/kgK
 		const ld heat_vaporization = 453; // kJ/mol
 		const ld heat_fusion = 22.8; // kJ/mol
+		const ld ionization_1st = 6.746; // eV
 	} V;
 
 	/// <summary>
@@ -544,6 +625,7 @@ static struct Elements
 		const ld heat_specific = 448; // J/kgK
 		const ld heat_vaporization = 339; // kJ/mol
 		const ld heat_fusion = 20.5; // kJ/mol
+		const ld ionization_1st = 6.767; // eV
 	} Cr;
 
 	/// <summary>
@@ -566,6 +648,7 @@ static struct Elements
 		const ld heat_specific = 479; // J/kgK
 		const ld heat_vaporization = 220; // kJ/mol
 		const ld heat_fusion = 13.2; // kJ/mol
+		const ld ionization_1st = 7.434; // eV
 	} Mn;
 
 	/// <summary>
@@ -588,6 +671,7 @@ static struct Elements
 		const ld heat_specific = 449; // J/kgK
 		const ld heat_vaporization = 347; // kJ/mol
 		const ld heat_fusion = 13.8; // kJ/mol
+		const ld ionization_1st = 7.903; // eV
 	} Fe;
 
 	/// <summary>
@@ -610,6 +694,7 @@ static struct Elements
 		const ld heat_specific = 421; // J/kgK
 		const ld heat_vaporization = 375; // kJ/mol
 		const ld heat_fusion = 16.2; // kJ/mol
+		const ld ionization_1st = 7.881; // eV
 	} Co;
 
 	/// <summary>
@@ -630,6 +715,7 @@ static struct Elements
 		const ld heat_specific = 445; // J/kgK
 		const ld heat_vaporization = 378; // kJ/mol
 		const ld heat_fusion = 17.2; // kJ/mol
+		const ld ionization_1st = 7.641; // eV
 	} Ni;
 
 	/// <summary>
@@ -651,6 +737,7 @@ static struct Elements
 		const ld heat_specific = 384.4; // J/kgK
 		const ld heat_vaporization = 300; // kJ/mol
 		const ld heat_fusion = 13.1; // kJ/mol
+		const ld ionization_1st = 7.727; // eV
 	} Cu;
 
 	/// <summary>
@@ -672,6 +759,7 @@ static struct Elements
 		const ld heat_specific = 388; // J/kgK
 		const ld heat_vaporization = 119; // kJ/mol
 		const ld heat_fusion = 7.35; // kJ/mol
+		const ld ionization_1st = 9.394; // eV
 	} Zn;
 
 	/// <summary>
@@ -693,6 +781,7 @@ static struct Elements
 		const ld heat_specific = 371.0; // J/kgK
 		const ld heat_vaporization = 256.0; // kJ/mol
 		const ld heat_fusion = 5.59; // kJ/mol
+		const ld ionization_1st = 5.999; // eV
 	} Ga;
 
 	/// <summary>
@@ -715,6 +804,7 @@ static struct Elements
 		const ld heat_specific = 321.4; // J/kgK
 		const ld heat_vaporization = 334.0; // kJ/mol
 		const ld heat_fusion = 31.8; // kJ/mol
+		const ld ionization_1st = 7.90; // eV
 	} Ge;
 
 	/// <summary>
@@ -735,6 +825,7 @@ static struct Elements
 		const ld heat_specific = 328.0; // J/kgK
 		const ld heat_vaporization = 32.4; // kJ/mol
 		const ld heat_fusion = 27.7; // kJ/mol
+		const ld ionization_1st = 9.815; // eV
 	} As;
 
 	/// <summary>
@@ -756,6 +847,7 @@ static struct Elements
 		const ld heat_specific = 321.2; // J/kgK
 		const ld heat_vaporization = 26.0; // kJ/mol
 		const ld heat_fusion = 5.4; // kJ/mol
+		const ld ionization_1st = 9.753; // eV
 	} Se;
 
 	/// <summary>
@@ -778,6 +870,7 @@ static struct Elements
 		const ld heat_specific = 947.3; // J/kgK
 		const ld heat_vaporization = 14.8; // kJ/mol
 		const ld heat_fusion = 5.8; // kJ/mol
+		const ld ionization_1st = 11.814; // eV
 	} Br;
 
 	/// <summary>
@@ -799,6 +892,7 @@ static struct Elements
 		const ld heat_specific = 248.05; // J/kgK
 		const ld heat_vaporization = 9.02; // kJ/mol
 		const ld heat_fusion = 1.64; // kJ/mol
+		const ld ionization_1st = 14.000; // eV
 	} Kr;
 
 	/// <summary>
@@ -820,6 +914,7 @@ static struct Elements
 		const ld heat_specific = 364; // J/kgK
 		const ld heat_vaporization = 72.0; // kJ/mol
 		const ld heat_fusion = 2.19; // kJ/mol
+		const ld ionization_1st = 4.177; // eV
 	} Rb;
 
 	/// <summary>
@@ -841,6 +936,7 @@ static struct Elements
 		const ld heat_specific = 300.0; // J/kgK
 		const ld heat_vaporization = 137.0; // kJ/mol
 		const ld heat_fusion = 8.0; // kJ/mol
+		const ld ionization_1st = 5.695; // eV
 	} Sr;
 
 	/// <summary>
@@ -861,6 +957,7 @@ static struct Elements
 		const ld heat_specific = 298.0; // J/kgK
 		const ld heat_vaporization = 380.0; // kJ/mol
 		const ld heat_fusion = 11.4; // kJ/mol
+		const ld ionization_1st = 6.22; // eV
 	} Y;
 
 	/// <summary>
@@ -883,156 +980,225 @@ static struct Elements
 		const ld heat_specific = 278.0; // J/kgK
 		const ld heat_vaporization = 580.0; // kJ/mol
 		const ld heat_fusion = 21.0; // kJ/mol
+		const ld ionization_1st = 6.634; // eV
 	} Zr;
 
+	/// <summary>
+	/// Niobium, also known as columbium,
+	/// is a chemical element with the symbol Nb and atomic number 41.
+	/// Niobium is a light grey, crystalline, and ductile transition metal.
+	/// Pure niobium has a Mohs hardness rating similar to that of pure titanium,
+	/// and it has similar ductility to iron.
+	/// </summary>
 	const struct NIOBIUM
 	{
 		const ld atomic_weight = 92.906; // u
 		const int atomic_number = 41;
 		const ld density_STP = 8570; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 2477.0; // C
+		const ld boiling_point = 4744.0; // C
+		const ld thermal_conductivity = 54; // W/mK
+		const ld electric_conductivity = 6.7; // MS/m
+		const ld resistivity = 1.5e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 265.0; // J/kgK
+		const ld heat_vaporization = 690.0; // kJ/mol
+		const ld heat_fusion = 26.8; // kJ/mol
+		const ld ionization_1st = 6.759; // eV
 	} Nb;
 
+	/// <summary>
+	/// Molybdenum is a chemical element with the symbol Mo and atomic number 42.
+	/// The name is from Neo-Latin molybdaenum, which is based on Ancient Greek
+	/// Μόλυβδος molybdos, meaning lead, since its ores were confused with lead ores.
+	/// </summary>
 	const struct MOLYBDENUM
 	{
 		const ld atomic_weight = 95.95; // u
 		const int atomic_number = 42;
 		const ld density_STP = 10280; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 2623.0; // C
+		const ld boiling_point = 4639.0; // C
+		const ld thermal_conductivity = 139.0; // W/mK
+		const ld electric_conductivity = 20.0; // MS/m
+		const ld resistivity = 5.0e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 251.0; // J/kgK
+		const ld heat_vaporization = 600.0; // kJ/mol
+		const ld heat_fusion = 36.0; // kJ/mol
+		const ld ionization_1st = 7.092; // eV
 	} Mo;
 
+	/// <summary>
+	/// Technetium is a chemical element with the symbol Tc and atomic number 43.
+	/// It is the lightest element whose isotopes are all radioactive, none of
+	/// which is stable other than the fully ionized state of ⁹⁷Tc. Nearly all
+	/// available technetium is produced as a synthetic element.
+	/// </summary>
 	const struct TECHNETIUM
 	{
 		const ld atomic_weight = (98); // u
 		const int atomic_number = 43;
 		const ld density_STP = 11500; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 2157.0; // C
+		const ld boiling_point = 4265.0; // C
+		const ld thermal_conductivity = 51.0; // W/mK
+		const ld electric_conductivity = 5.0; // MS/m
+		const ld resistivity = 2.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 63.0; // J/kgK
+		const ld heat_vaporization = 550.0; // kJ/mol
+		const ld heat_fusion = 23.0; // kJ/mol
+		const ld ionization_1st = 7.28; // eV
 	} Tc;
 
+	/// <summary>
+	/// Ruthenium is a chemical element with the symbol Ru and atomic number 44.
+	/// It is a rare transition metal belonging to the platinum group of the
+	/// periodic table. Like the other metals of the platinum group, ruthenium
+	/// is inert to most other chemicals.
+	/// </summary>
 	const struct RUTHENIUM
 	{
 		const ld atomic_weight = 101.07; // u
 		const int atomic_number = 44;
 		const ld density_STP = 12370; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 2334.0; // C
+		const ld boiling_point = 4150.0; // C
+		const ld thermal_conductivity = 120.0; // W/mK
+		const ld electric_conductivity = 14.0; // MS/m
+		const ld resistivity = 7.1e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 238.0; // J/kgK
+		const ld heat_vaporization = 580.0; // kJ/mol
+		const ld heat_fusion = 25.7; // kJ/mol
+		const ld ionization_1st = 7.361; // eV
 	} Ru;
 
+	/// <summary>
+	/// Rhodium is a chemical element with the symbol Rh and atomic number 45.
+	/// It is an extraordinarily rare, silvery-white, hard, corrosion-resistant,
+	/// and chemically inert transition metal. It is a noble metal and a member
+	/// of the platinum group. It has only one naturally occurring isotope, ¹⁰³Rh
+	/// </summary>
 	const struct RHODIUM
 	{
 		const ld atomic_weight = 102.91; // u
 		const int atomic_number = 45;
 		const ld density_STP = 12450; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 1964.0; // C
+		const ld boiling_point = 3695.0; // C
+		const ld thermal_conductivity = 150.0; // W/mK
+		const ld electric_conductivity = 23.0; // MS/m
+		const ld resistivity = 4.3e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 240.0; // J/kgK
+		const ld heat_vaporization = 495.0; // kJ/mol
+		const ld heat_fusion = 21.7; // kJ/mol
+		const ld ionization_1st = 7.459; // eV
 	} Rh;
 
+	/// <summary>
+	/// Palladium is a chemical element with the symbol Pd and atomic number 46.
+	/// It is a rare and lustrous silvery-white metal discovered in 1803 by the
+	/// English chemist William Hyde Wollaston.
+	/// </summary>
 	const struct PALLADIUM
 	{
 		const ld atomic_weight = 106.42; // u
 		const int atomic_number = 46;
 		const ld density_STP = 12023; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 1554.90; // C
+		const ld boiling_point = 2963.0; // C
+		const ld thermal_conductivity = 72.0; // W/mK
+		const ld electric_conductivity = 10.0; // MS/m
+		const ld resistivity = 1.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 240.0; // J/kgK
+		const ld heat_vaporization = 380.0; // kJ/mol
+		const ld heat_fusion = 16.7; // kJ/mol
+		const ld ionization_1st = 8.337; // eV
 	} Pd;
 
+	/// <summary>
+	/// Silver is a chemical element with the symbol Ag and atomic number 47.
+	/// A soft, white, lustrous transition metal, it exhibits the highest
+	/// electrical conductivity, thermal conductivity, and reflectivity of
+	/// any metal.
+	/// </summary>
 	const struct SILVER
 	{
 		const ld atomic_weight = 107.87; // u
 		const int atomic_number = 47;
 		const ld density_STP = 10490; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 961.780; // C
+		const ld boiling_point = 2162.0; // C
+		const ld thermal_conductivity = 430.0; // W/mK
+		const ld electric_conductivity = 62.0; // MS/m
+		const ld resistivity = 1.6e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 235.0; // J/kgK
+		const ld heat_vaporization = 255.0; // kJ/mol
+		const ld heat_fusion = 11.3; // kJ/mol
+		const ld ionization_1st = 7.576; // eV
 	} Ag;
 
+	/// <summary>
+	/// Cadmium is a chemical element with the symbol Cd and atomic number 48.
+	/// This soft, silvery-white metal is chemically similar to the two other
+	/// stable metals in group 12, zinc and mercury.
+	/// </summary>
 	const struct CADMIUM
 	{
 		const ld atomic_weight = 112.41; // u
 		const int atomic_number = 48;
 		const ld density_STP = 8650; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 321.07; // C
+		const ld boiling_point = 766.9; // C
+		const ld thermal_conductivity = 97.0; // W/mK
+		const ld electric_conductivity = 14.0; // MS/m
+		const ld resistivity = 7.0e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 230.0; // J/kgK
+		const ld heat_vaporization = 100.0; // kJ/mol
+		const ld heat_fusion = 6.3; // kJ/mol
+		const ld ionization_1st = 8.994; // eV
 	} Cd;
 
+	/// <summary>
+	/// Indium is a chemical element with the symbol In and atomic number 49.
+	/// Indium is the softest metal that is not an alkali metal. It is a
+	/// silvery-white metal that resembles tin in appearance. It is a
+	/// post-transition metal that makes up 0.21 parts per million of the
+	/// Earth's crust
+	/// </summary>
 	const struct INDIUM
 	{
 		const ld atomic_weight = 114.82; // u
 		const int atomic_number = 49;
 		const ld density_STP = 7310; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 156.60; // C
+		const ld boiling_point = 2072.0; // C
+		const ld thermal_conductivity = 82.0; // W/mK
+		const ld electric_conductivity = 12.0; // MS/m
+		const ld resistivity = 8.0e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 233.0; // J/kgK
+		const ld heat_vaporization = 230.0; // kJ/mol
+		const ld heat_fusion = 3.26; // kJ/mol
+		const ld ionization_1st = 5.786; // eV
 	} In;
 
+	/// <summary>
+	/// Tin is a chemical element with the symbol Sn and atomic number 50.
+	/// Tin is a silvery metal that characteristically has a faint yellow hue.
+	/// Tin, like indium, is soft enough to be cut without much force.
+	/// </summary>
 	const struct TIN
 	{
 		const ld atomic_weight = 118.71; // u
 		const int atomic_number = 50;
 		const ld density_STP = 7310; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld melting_point = 231.93; // C
+		const ld boiling_point = 2602.0; // C
+		const ld thermal_conductivity = 67.0; // W/mK
+		const ld electric_conductivity = 9.1; // MS/m
+		const ld resistivity = 1.1e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 217.0; // J/kgK
+		const ld heat_vaporization = 290.0; // kJ/mol
+		const ld heat_fusion = 7.0; // kJ/mol
+		const ld ionization_1st = 7.344; // eV
 	} Sn;
 
 	const struct ANTIMONY
@@ -1044,10 +1210,11 @@ static struct Elements
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; //m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 4.0e-7; //m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 207.0; // J/kgK
+		const ld heat_vaporization = 68.0; // kJ/mol
+		const ld heat_fusion = 19.7; // kJ/mol
+		const ld ionization_1st = 8.64; // eV
 	} Sb;
 
 	const struct TELURIUM
@@ -1059,10 +1226,11 @@ static struct Elements
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = .0001; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 201.0; // J/kgK
+		const ld heat_vaporization = 48.0; // kJ/mol
+		const ld heat_fusion = 17.5; // kJ/mol
+		const ld ionization_1st = 9.010; // eV
 	} Te;
 
 	const struct IODINE
@@ -1074,10 +1242,11 @@ static struct Elements
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.0e7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 429.0; // J/kgK
+		const ld heat_vaporization = 20.9; // kJ/mol
+		const ld heat_fusion = 7.76; // kJ/mol
+		const ld ionization_1st = 10.451; // eV
 	} I;
 
 	const struct XENON
@@ -1089,10 +1258,11 @@ static struct Elements
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 158.32; // J/kgK
+		const ld heat_vaporization = 12.64; // kJ/mol
+		const ld heat_fusion = 2.30; // kJ/mol
+		const ld ionization_1st = 12.130; // eV
 	} XE;
 
 	const struct CAESIUM
@@ -1104,10 +1274,11 @@ static struct Elements
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 2.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 242.0; // J/kgK
+		const ld heat_vaporization = 65.0; // kJ/mol
+		const ld heat_fusion = 2.09; // kJ/mol
+		const ld ionization_1st = 3.894; // eV
 	} Cs;
 
 	const struct BARIUM
@@ -1119,10 +1290,11 @@ static struct Elements
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 3.5e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 205.0; // J/kgK
+		const ld heat_vaporization = 140.0; // kJ/mol
+		const ld heat_fusion = 8.0; // kJ/mol
+		const ld ionization_1st = 5.212; // eV
 	} Ba;
 
 
@@ -1135,10 +1307,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 6.1e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 195.0; // J/kgK
+		const ld heat_vaporization = 400.0; // kJ/mol
+		const ld heat_fusion = 6.2; // kJ/mol
+		const ld ionization_1st = 5.577; // eV
 	} La;
 
 	const struct CERIUM
@@ -1150,10 +1323,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 7.4e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 192.0; // J/kgK
+		const ld heat_vaporization = 350.0; // kJ/mol
+		const ld heat_fusion = 5.5; // kJ/mol
+		const ld ionization_1st = 5.539; // eV
 	} Ce;
 
 	const struct PRASEODYMIUM
@@ -1165,10 +1339,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 7.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 193.0; // J/kgK
+		const ld heat_vaporization = 330.0; // kJ/mol
+		const ld heat_fusion = 6.9; // kJ/mol
+		const ld ionization_1st = 5.46; // eV
 	}Pr;
 
 	const struct NEODYMIUM
@@ -1180,10 +1355,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 6.4e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 190.0; // J/kgK
+		const ld heat_vaporization = 285.0; // kJ/mol
+		const ld heat_fusion = 7.1; // kJ/mol
+		const ld ionization_1st = 5.525; // eV
 	} Nd;
 
 	const struct PROMETHIUM
@@ -1195,10 +1371,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 7.5e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = 290.0; // kJ/mol
+		const ld heat_fusion = 7.7; // kJ/mol
+		const ld ionization_1st = 5.6; // eV
 	} Pm;
 
 	const struct SAMARIUM
@@ -1210,10 +1387,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 9.4e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 196.0; // J/kgK
+		const ld heat_vaporization = 175.0; // kJ/mol
+		const ld heat_fusion = 8.6; // kJ/mol
+		const ld ionization_1st = 5.643; // eV
 	} Sm;
 
 	const struct EUROPIUM
@@ -1225,10 +1403,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 9.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 182.0; // J/kgK
+		const ld heat_vaporization = 175.0; // kJ/mol
+		const ld heat_fusion = 9.2; // kJ/mol
+		const ld ionization_1st = 5.670; // eV
 	} Eu;
 
 	const struct GADOLINIUM
@@ -1240,10 +1419,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.3e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 240.0; // J/kgK
+		const ld heat_vaporization = 305.0; // kJ/mol
+		const ld heat_fusion = 10.0; // kJ/mol
+		const ld ionization_1st = 6.150; // eV
 	} Gd;
 
 	const struct TERBIUM
@@ -1255,10 +1435,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.2e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 182.0; // J/kgK
+		const ld heat_vaporization = 295.0; // kJ/mol
+		const ld heat_fusion = 10.8; // kJ/mol
+		const ld ionization_1st = 5.864; // eV
 	} Tb;
 
 	const struct DYSPROSIUM
@@ -1270,10 +1451,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 9.1e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 167.0; // J/kgK
+		const ld heat_vaporization = 280.0; // kJ/mol
+		const ld heat_fusion = 11.1; // kJ/mol
+		const ld ionization_1st = 5.934; // eV
 	} Dy;
 
 	const struct HOLMIUM
@@ -1285,10 +1467,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 9.4e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 165.0; // J/kgK
+		const ld heat_vaporization = 265.0; // kJ/mol
+		const ld heat_fusion = 17.0; // kJ/mol
+		const ld ionization_1st = 6.022; // eV
 	} Ho;
 
 	const struct ERBIUM
@@ -1300,10 +1483,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 8.6e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 168.0; // J/kgK
+		const ld heat_vaporization = 285.0; // kJ/mol
+		const ld heat_fusion = 19.9; // kJ/mol
+		const ld ionization_1st = 6.108; // eV
 	} Er;
 
 	const struct THULIUM
@@ -1315,10 +1499,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 7.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 160.0; // J/kgK
+		const ld heat_vaporization = 250.0; // kJ/mol
+		const ld heat_fusion = 16.8; // kJ/mol
+		const ld ionization_1st = 6.184; // eV
 	} Tm;
 
 	const struct YTTERBIUM
@@ -1330,10 +1515,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 2.8e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 154.0; // J/kgK
+		const ld heat_vaporization = 160.0; // kJ/mol
+		const ld heat_fusion = 7.7; // kJ/mol
+		const ld ionization_1st = 6.254; // eV
 	} Yb;
 
 	const struct LUTERTIUM
@@ -1345,10 +1531,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 5.6e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 154.0; // J/kgK
+		const ld heat_vaporization = 415.0; // kJ/mol
+		const ld heat_fusion = 22.0; // kJ/mol
+		const ld ionization_1st = 5.426; // eV
 	} Lu;
 
 
@@ -1361,10 +1548,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 3.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 144.0; // J/kgK
+		const ld heat_vaporization = 630.0; // kJ/mol
+		const ld heat_fusion = 25.5; // kJ/mol
+		const ld ionization_1st = 6.825; // eV
 	} Hf;
 
 
@@ -1377,10 +1565,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.3e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 140.0; // J/kgK
+		const ld heat_vaporization = 735.0; // kJ/mol
+		const ld heat_fusion = 36.0; // kJ/mol
+		const ld ionization_1st = 7.89; // eV
 	} Ta;
 	const struct TUNGSTEN
 	{
@@ -1391,10 +1580,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 5.0e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 132.0; // J/kgK
+		const ld heat_vaporization = 800.0; // kJ/mol
+		const ld heat_fusion = 35.0; // kJ/mol
+		const ld ionization_1st = 7.98; // eV
 	} W;
 
 	const struct RHENIUM
@@ -1406,10 +1596,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.8e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 137.0; // J/kgK
+		const ld heat_vaporization = 705.0; // kJ/mol
+		const ld heat_fusion = 33.0; // kJ/mol
+		const ld ionization_1st = 7.88; // eV
 	} Re;
 
 	const struct OSMIUM
@@ -1421,10 +1612,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 8.1e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 130.0; // J/kgK
+		const ld heat_vaporization = 630.0; // kJ/mol
+		const ld heat_fusion = 31.0; // kJ/mol
+		const ld ionization_1st = 8.71; // eV
 	} Os;
 
 	const struct IRIDIUM
@@ -1436,25 +1628,27 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 4.7e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 131.0; // J/kgK
+		const ld heat_vaporization = 560.0; // kJ/mol
+		const ld heat_fusion = 26.0; // kJ/mol
+		const ld ionization_1st = 9.12; // eV
 	} Ir;
 
 	const struct PLATINUM
 	{
 		const ld atomic_weight = 195.08; // u
-		const int atomic_number = 78;
+		const int atomic_number = 78;//Z
 		const ld density_STP = 21450; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.1e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 133.0; // J/kgK
+		const ld heat_vaporization = 490.0; // kJ/mol
+		const ld heat_fusion = 20.0; // kJ/mol
+		const ld ionization_1st = 9.02; // eV
 	} Pt;
 
 	const struct GOLD
@@ -1466,10 +1660,11 @@ const struct LANTHANUM
 		const ld boiling_point = 2856; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 2.2e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 129.1; // J/kgK
+		const ld heat_vaporization = 330.0; // kJ/mol
+		const ld heat_fusion = 12.5; // kJ/mol
+		const ld ionization_1st = 9.225; // eV
 	} Au;
 
 	const struct MERCURY
@@ -1481,10 +1676,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 9.6e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 139.5; // J/kgK
+		const ld heat_vaporization = 59.2; // kJ/mol
+		const ld heat_fusion = 2.29; // kJ/mol
+		const ld ionization_1st = 10.438; // eV
 	} Hg;
 
 	const struct THALLIUM
@@ -1496,10 +1692,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.5e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 129.0; // J/kg
+		const ld heat_vaporization = 165.0; // kJ/mol
+		const ld heat_fusion = 4.2; // kJ/mol
+		const ld ionization_1st = 6.109; // eV
 	} Tl;
 
 	const struct LEAD
@@ -1511,10 +1708,11 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 2.1e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 127.0; // J/kgK
+		const ld heat_vaporization = 178.0; // kJ/mol
+		const ld heat_fusion = 4.77; // kJ/mol
+		const ld ionization_1st = 7.417; // eV
 	} Pb;
 
 	const struct BISMUTH
@@ -1526,85 +1724,91 @@ const struct LANTHANUM
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.3e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 122.0; // J/kgK
+		const ld heat_vaporization = 160.0; // kJ/mol
+		const ld heat_fusion = 10.9; // kJ/mol
+		const ld ionization_1st = 7.29; // eV
 	} Bi;
 
 	const struct POLONIUM
 	{
 		const ld atomic_weight = (209); // u
 		const int atomic_number = 84;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 9196.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 4.3e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = 100.0; // kJ/mol
+		const ld heat_fusion = 13.0; // kJ/mol
+		const ld ionization_1st = 8.417; // eV
 	} Po;
 
 	const struct ASTATINE
 	{
 		const ld atomic_weight = (210); // u
 		const int atomic_number = 85;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = 40.0; // kJ/mol
+		const ld heat_fusion = 6.0; // kJ/mol
+		const ld ionization_1st = 9.22; // eV
 	} At;
 
 	const struct RADON
 	{
 		const ld atomic_weight = (222); // u
 		const int atomic_number = 86;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 9.73; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 93.65; // J/kgK
+		const ld heat_vaporization = 17.0; // kJ/mol
+		const ld heat_fusion = 3.0; // kJ/mol
+		const ld ionization_1st = 10.75; // eV
 	} Rn;
 
 	const struct FRANCIUM
 	{
 		const ld atomic_weight = (223); // u
 		const int atomic_number = 87;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = 65.0; // kJ/mol
+		const ld heat_fusion = 2.0; // kJ/mol
+		const ld ionization_1st = 3.94; // eV
 	} Fr;
 
 	const struct RADIUM
 	{
 		const ld atomic_weight = (226); // u
 		const int atomic_number = 88;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 5000.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.0e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 92.0; // J/kgK
+		const ld heat_vaporization = 125.0; // kJ/mol
+		const ld heat_fusion = 8.0; // kJ/mol
+		const ld ionization_1st = 5.279; // eV
 	} Ra;
 
 
@@ -1612,330 +1816,352 @@ const struct LANTHANUM
 	{
 		const ld atomic_weight = (227); // u
 		const int atomic_number = 89;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 10070.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 120.0; // J/kgK
+		const ld heat_vaporization = 400.0; // kJ/mol
+		const ld heat_fusion = 14.0; // kJ/mol
+		const ld ionization_1st = 5.17; // eV
 	} Ac;
 
 	const struct THORIUM
 	{
 		const ld atomic_weight = 232.04; // u
 		const int atomic_number = 90;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 11724.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.5e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 118.0; // J/kgK
+		const ld heat_vaporization = 530.0; // kJ/mol
+		const ld heat_fusion = 16.0; // kJ/mol
+		const ld ionization_1st = 6.08; // eV
 	} Th;
 
 	const struct PROTACTINIUM
 	{
 		const ld atomic_weight = 231.04; // u
 		const int atomic_number = 91;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 15370.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.8e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 99.1; // J/kgK
+		const ld heat_vaporization = 470.0; // kJ/mol
+		const ld heat_fusion = 15.0; // kJ/mol
+		const ld ionization_1st = 5.89; // eV
 	} Pa;
 
 	const struct URANIUM
 	{
 		const ld atomic_weight = 238.03; // u
 		const int atomic_number = 92;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 19050.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 2.8e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = 116.0; // J/kgK
+		const ld heat_vaporization = 420.0; // kJ/mol
+		const ld heat_fusion = 14.0; // kJ/mol
+		const ld ionization_1st = 6.194; // eV
 	} U;
 
 	const struct NEPTUNIUM
 	{
 		const ld atomic_weight = (237); // u
 		const int atomic_number = 93;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 20450.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.2e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = 335.0; // kJ/mol
+		const ld heat_fusion = 10.0; // kJ/mol
+		const ld ionization_1st = 6.265; // eV
 	} Np;
 
 	const struct PLUTONIUM
 	{
 		const ld atomic_weight = (244); // u
 		const int atomic_number = 94;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 19816.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = 1.5e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = 325.0; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 6.060; // eV
 	} Pu;
 
 	const struct AMERICIUM
 	{
 		const ld atomic_weight = (243); // u
 		const int atomic_number = 95;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 13670.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 5.99; // eV
 	} Am;
 
 	const struct CURIUM
 	{
 		const ld atomic_weight = (247); // u
 		const int atomic_number = 96;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 13510.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 6.02; // eV
 	} Cm;
 
 	const struct BERKELIUM
 	{
 		const ld atomic_weight = (247); // u
 		const int atomic_number = 97;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 14780.00; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 6.23; // eV
 	} Bk;
 
 	const struct CALIFORNIUM
 	{
 		const ld atomic_weight = (251); // u
 		const int atomic_number = 98;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = 15100.0; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 6.30; // eV
 	} Cf;
 
 	const struct EINSTEINIUM
 	{
 		const ld atomic_weight = (252); // u
 		const int atomic_number = 99;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 6.42; // eV
 	} Es;
 
 	const struct FERMIUM
 	{
 		const ld atomic_weight = (257); // u
 		const int atomic_number = 100;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 6.50; // eV
 	} Fm;
 
 	const struct MANDELEVIUM
 	{
 		const ld atomic_weight = (258); // u
 		const int atomic_number = 101;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 6.58; // eV
 	} Md;
 
 	const struct NOBELIUM
 	{
 		const ld atomic_weight = (259); // u
 		const int atomic_number = 102;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 6.65; // eV
 	} No;
 
 	const struct LAWRENCIUM
 	{
 		const ld atomic_weight = (266); // u
 		const int atomic_number = 103;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 4.87; // eV
 	} Lr;
 
 	const struct RUTHERFORDIUM
 	{
 		const ld atomic_weight = (267); // u
 		const int atomic_number = 104;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = 6.01; // eV
 	} Rf;
 
 	const struct DUBNIUM
 	{
 		const ld atomic_weight = (268); // u
 		const int atomic_number = 105;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Db;
 
 	const struct SEABORGIUM
 	{
 		const ld atomic_weight = (269); // u
 		const int atomic_number = 106;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Sg;
 
 	const struct BOHRIUM
 	{
 		const ld atomic_weight = (270); // u
 		const int atomic_number = 107;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Bh;
 
 	const struct HASSIUM
 	{
 		const ld atomic_weight = 277; // u
 		const int atomic_number = 108;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Hs;
 
 	const struct MEITNERIUM
 	{
 		const ld atomic_weight = 278; // u
 		const int atomic_number = 109;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Mt;
 
 	const struct DARMSTADTIUM
 	{
 		const ld atomic_weight = 281; // u
 		const int atomic_number = 110;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Ds;
 
 
@@ -1943,45 +2169,48 @@ const struct LANTHANUM
 	{
 		const ld atomic_weight = 282; // u
 		const int atomic_number = 111;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Rg;
 
 	const struct COPERNICIUM
 	{
 		const ld atomic_weight = 285; // u
 		const int atomic_number = 112;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Cn;
 
 	const struct NIHONIUM
 	{
 		const ld atomic_weight = 286; // u
 		const int atomic_number = 113;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Nh;
 
 	/// <summary>
@@ -1991,15 +2220,16 @@ const struct LANTHANUM
 	{
 		const ld atomic_weight = 289; // u
 		const int atomic_number = 114;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Fl;
 
 	/// <summary>
@@ -2009,15 +2239,16 @@ const struct LANTHANUM
 	{
 		const ld atomic_weight = 290; // u
 		const int atomic_number = 115;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Mc;
 
 	/// <summary>
@@ -2027,15 +2258,16 @@ const struct LANTHANUM
 	{
 		const ld atomic_weight = 293; // u
 		const int atomic_number = 116;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Lv;
 
 	/// <summary>
@@ -2045,15 +2277,16 @@ const struct LANTHANUM
 	{
 		const ld atomic_weight = 294; // u
 		const int atomic_number = 117;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Ts;
 
 	/// <summary>
@@ -2063,19 +2296,20 @@ const struct LANTHANUM
 	{
 		const ld atomic_weight = 294; // u
 		const int atomic_number = 118;
-		const ld density_STP = 0; // kg/m^3
+		const ld density_STP = NULL; // kg/m^3
 		const ld melting_point = -0; // C
 		const ld boiling_point = -0; // C
 		const ld thermal_conductivity = 0; // W/mK
 		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
+		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
+		const ld heat_specific = NULL; // J/kgK
+		const ld heat_vaporization = NULL; // kJ/mol
+		const ld heat_fusion = NULL; // kJ/mol
+		const ld ionization_1st = NULL; // eV
 	} Og;
 
 
-}elements;
+}elem;
 
 
 static int periodicElement_objectCount = 0;

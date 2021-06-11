@@ -17,7 +17,7 @@ typedef unsigned long _ul_;
 using namespace std;
 
 
-constexpr auto _PI_ = 3.14159265359;
+constexpr auto _PI_ = 3.141592653589793238462643383;
 constexpr auto DEGREE = 180/_PI_;
 constexpr auto RADIAN = _PI_/180;
 constexpr auto _Ga_ = 9.81;
