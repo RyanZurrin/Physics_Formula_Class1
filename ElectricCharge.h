@@ -31,23 +31,23 @@ constexpr auto _ε0_ = 8.854187819013e-12; // 8.8542e-12
 /// <summary>
 /// Coulombs constant 8.988 * pow(10.0, 9)Nm^2)/C^2
 /// </summary>
-constexpr auto _k_ = 8.988e9; //8.988 * pow(10.0, 9)Nm^2)/C^2
+constexpr auto _k_ = 8.9875517923e9; //8.988 * pow(10.0, 9)Nm^2)/C^2
 constexpr auto _K_ = 1.0 / (4.0 * _π_ * _ε0_);
 /// <summary>
 /// The electron = -1.6 * 10^-19 C
 /// </summary>
-constexpr auto _ELECTRON_CHARGE_ = -(1.602e-19); //-1.6e-19
+constexpr auto _ELECTRON_CHARGE_ = -(1.602176634e-19); //-1.6e-19
 
 /// <summary>
 /// The proton = 1.6 * 10^-19C
 /// </summary>
-constexpr auto _PROTON_CHARGE_ = 1.602e-19; // 1.6e-19
+constexpr auto _PROTON_CHARGE_ = 1.602176634e-19; // 1.6e-19
 constexpr auto _COULOMB_       = 1.0 / (_ELECTRON_CHARGE_);
 
-constexpr auto _ELECTRON_MASS_ = 9.11e-31;  //9.11e-31
-constexpr auto _PROTON_MASS_   = 1.673e-27; //1.673e-27
+constexpr auto _ELECTRON_MASS_ = 9.1093837015e-31;  //9.11e-31
+constexpr auto _PROTON_MASS_   = 1.67262e-27; //1.673e-27
 
-constexpr auto _PLANKS_J_ = 6.62606957e-34;
+constexpr auto _PLANKS_J_ = 6.62607004e-34;
 constexpr auto _PLANKS_EM_ = 4.14e-15;
 constexpr auto _PLANKS_C_ = _PLANKS_EM_ * 2.99792e8;
 

@@ -12,15 +12,11 @@ int main()
 	//add test code between starred areas
 	//*************************************************************************
 
-	
-
-
 	//setVal(QP::acceleratingVoltage(.0103e-9, _PROTON_CHARGE_));
 	//show_val("f", "Hz");
 
-	setVal(Heat::timeToHeatObject(4.0, c.human_body_average_S[0], 2.0, 200.0));
-	show_val("photons", "per second");
-
+	setVal(AP::electromagneticRadiation_wavelengthNeededToPumpLaser(20.61));
+	show_val("density", "kg/m^3");
 
 	//*************************************************************************
 	//Stopping timer and displaying the programs execution time
