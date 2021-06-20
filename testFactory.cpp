@@ -14,10 +14,14 @@ int main()
 
 	//setVal(QP::acceleratingVoltage(.0103e-9, _PROTON_CHARGE_));
 	//show_val("f", "Hz");
-
-	setVal(AP::electromagneticRadiation_wavelengthNeededToPumpLaser(20.61));
+	Vector2D vec(2, 5);
+	vec.displayAllData();
+	Vector3D vec3(3, 5, 9);
+	vec3.displayAllData();
+	setVal(AP::magnitudeAngularMomentum(1.0));
 	show_val("density", "kg/m^3");
-
+	auto d = Drag::drag_force(5.9, 55.9, 2.3, 33.3);
+	std::cout << "d: " << d << endl;
 	//*************************************************************************
 	//Stopping timer and displaying the programs execution time
 	//_________________________________________________________________________

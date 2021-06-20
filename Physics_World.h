@@ -787,47 +787,47 @@ public:
 
 		cout << endl;
 	}
-	AtomicPhysics* atomic;
-	LinearRegression* linear_regression;
-	LogisticRegression* logistic_regression;
-	ETL* etl;
-	MatrixND<ld>* matrixNd;
-	VectorND<ld>* vectorNd;
-	TriangleSolver* triangle;
-	Kinematics* kinematics;
-	Friction* friction;
-	Drag* drag;
-	Elasticity* elasticity;
-	UniformCircularMotion* uniformCircularMotion;
-	Vector2D* vector2d;
-	Vector3D* vector3d;
-	Energy* energy;
-	Momentum* momentum;
-	Torque* torque;
-	Statics* statics;
-	RotationalMotion* rotationalMotion;
-	Temperature* temperature;
-	Heat* heat;
-	Thermodynamics* thermodynamic;
-	DynamicsAndForces* dynamics_and_forces;
-	FluidStatics* fluid_statics;
-	FluidDynamics* fluid_dynamics;
-	Waves* waves;
-	Hearing* hearing;
-	ElectricCharge* electric_charge;
-	ElectricPotential* electric_potential;
-	ElectricCurrent* electric_current;
-	PeriodicElements* periodic_elements;
-	Circuits* circuits;
-	Magnetism* magnetism;
-	ElectroMagneticInduction* emi;
-	ElectromagneticWaves* emWaves;
-	GeometricOptics* geometric_optics;
-	WaveOptics* wave_optics;
-	VisionOpticalInstruments* vision_optical;
-	SpecialRelativity* relativity;
-	QuantumPhysics* quantum;
-	Physics_World * _ptr_;
+
+	unique_ptr<AtomicPhysics> atomic;
+	unique_ptr<LinearRegression> linear_regression;
+	unique_ptr<LogisticRegression> logistic_regression;
+	unique_ptr<ETL> etl;
+	unique_ptr<MatrixND<ld>> matrixNd;
+	unique_ptr<VectorND<ld>> vectorNd;
+	unique_ptr<TriangleSolver> triangle;
+	unique_ptr<Kinematics> kinematics;
+	unique_ptr<Friction> friction;
+	unique_ptr<Drag> drag;
+	unique_ptr<Elasticity> elasticity;
+	unique_ptr<UniformCircularMotion> uniformCircularMotion;
+	unique_ptr<Vector2D> vector2d;
+	unique_ptr<Vector3D> vector3d;
+	unique_ptr<Energy> energy;
+	unique_ptr<Momentum> momentum;
+	unique_ptr<Torque> torque;
+	unique_ptr<Statics> statics;
+	unique_ptr<RotationalMotion> rotationalMotion;
+	unique_ptr<Temperature> temperature;
+	unique_ptr<Heat> heat;
+	unique_ptr<Thermodynamics> thermodynamic;
+	unique_ptr<DynamicsAndForces> dynamics_and_forces;
+	unique_ptr <FluidStatics> fluid_statics;
+	unique_ptr<FluidDynamics> fluid_dynamics;
+	unique_ptr<Waves> waves;
+	unique_ptr<Hearing> hearing;
+	unique_ptr<ElectricCharge> electric_charge;
+	unique_ptr<ElectricPotential> electric_potential;
+	unique_ptr<ElectricCurrent> electric_current;
+	unique_ptr<PeriodicElements> periodic_elements;
+	unique_ptr<Circuits> circuits;
+	unique_ptr<Magnetism> magnetism;
+	unique_ptr<EMI> emi;
+	unique_ptr<EMW> emWaves;
+	unique_ptr<GO> geometric_optics;
+	unique_ptr<WO> wave_optics;
+	unique_ptr<VOI> vision_optical;
+	unique_ptr<SR> relativity;
+	unique_ptr<QP> quantum;
 
 
 	Physics_World();
@@ -836,47 +836,46 @@ public:
 	Physics_World(const Physics_World&); //copy constructor
 	Physics_World& operator=(const Physics_World&); //copy assignment operator
 	Physics_World(Physics_World&& o) noexcept :
-		atomic(o.atomic),
-		linear_regression(o.linear_regression),
-		logistic_regression(o.logistic_regression),
-		etl(o.etl),
-		matrixNd(o.matrixNd),
-		vectorNd(o.vectorNd),
-		triangle(o.triangle),
-		kinematics(o.kinematics),
-		friction(o.friction),
-		drag(o.drag),
-		elasticity(o.elasticity),
-		uniformCircularMotion(o.uniformCircularMotion),
-		vector2d(o.vector2d),
-		vector3d(o.vector3d),
-		energy(o.energy),
-		momentum(o.momentum),
-		torque(o.torque),
-		statics(o.statics),
-		rotationalMotion(o.rotationalMotion),
-		temperature(o.temperature),
-		heat(o.heat),
-		thermodynamic(o.thermodynamic),
-		dynamics_and_forces(o.dynamics_and_forces),
-		fluid_statics(o.fluid_statics),
-		fluid_dynamics(o.fluid_dynamics),
-		waves(o.waves),
-		hearing(o.hearing),
-		electric_charge(o.electric_charge),
-		electric_potential(o.electric_potential),
-		electric_current(o.electric_current),
-		periodic_elements(o.periodic_elements),
-		circuits(o.circuits),
-		magnetism(o.magnetism),
-		emi(o.emi),
-		emWaves(o.emWaves),
-		geometric_optics(o.geometric_optics),
-		wave_optics(o.wave_optics),
-		vision_optical(o.vision_optical),
-		relativity(o.relativity),
-		quantum(o.quantum),
-		_ptr_(o._ptr_){} // move constructor
+		atomic(std::move(o.atomic)),
+		linear_regression(std::move(o.linear_regression)),
+		logistic_regression(std::move(o.logistic_regression)),
+		etl(std::move(o.etl)),
+		matrixNd(std::move(o.matrixNd)),
+		vectorNd(std::move(o.vectorNd)),
+		triangle(std::move(o.triangle)),
+		kinematics(std::move(o.kinematics)),
+		friction(std::move(o.friction)),
+		drag(std::move(o.drag)),
+		elasticity(std::move(o.elasticity)),
+		uniformCircularMotion(std::move(o.uniformCircularMotion)),
+		vector2d(std::move(o.vector2d)),
+		vector3d(std::move(o.vector3d)),
+		energy(std::move(o.energy)),
+		momentum(std::move(o.momentum)),
+		torque(std::move(o.torque)),
+		statics(std::move(o.statics)),
+		rotationalMotion(std::move(o.rotationalMotion)),
+		temperature(std::move(o.temperature)),
+		heat(std::move(o.heat)),
+		thermodynamic(std::move(o.thermodynamic)),
+		dynamics_and_forces(std::move(o.dynamics_and_forces)),
+		fluid_statics(std::move(o.fluid_statics)),
+		fluid_dynamics(std::move(o.fluid_dynamics)),
+		waves(std::move(o.waves)),
+		hearing(std::move(o.hearing)),
+		electric_charge(std::move(o.electric_charge)),
+		electric_potential(std::move(o.electric_potential)),
+		electric_current(std::move(o.electric_current)),
+		periodic_elements(std::move(o.periodic_elements)),
+		circuits(std::move(o.circuits)),
+		magnetism(std::move(o.magnetism)),
+		emi(std::move(o.emi)),
+		emWaves(std::move(o.emWaves)),
+		geometric_optics(std::move(o.geometric_optics)),
+		wave_optics(std::move(o.wave_optics)),
+		vision_optical(std::move(o.vision_optical)),
+		relativity(std::move(o.relativity)),
+		quantum(std::move(o.quantum)){} // move constructor
 
 	/**========================================================================
 	 * overloaded operators
@@ -961,47 +960,46 @@ public:
  */
 inline Physics_World::Physics_World()
 {
-	_ptr_ = nullptr;
-	atomic = new AtomicPhysics;
-	linear_regression = new LinearRegression;
-	logistic_regression = new LogisticRegression;
-	etl = new ETL;
-	matrixNd = new MatrixND<ld>;
-	vectorNd = new VectorND<ld>;
-	triangle = new TriangleSolver;
-	kinematics = new Kinematics;
-	drag = new Drag;
-	elasticity = new Elasticity;
-	friction = new Friction;
-	uniformCircularMotion = new UniformCircularMotion;
-	vector2d = new Vector2D;
-	vector3d = new Vector3D;
-	energy = new Energy;
-	momentum = new Momentum;
-	torque = new Torque;
-	statics = new Statics;
-	rotationalMotion = new RotationalMotion;
-	temperature = new Temperature;
-	heat = new Heat;
-	thermodynamic = new Thermodynamics;
-	dynamics_and_forces = new DynamicsAndForces;
-	fluid_statics = new FluidStatics;
-	fluid_dynamics = new FluidDynamics;
-	waves = new Waves;
-	hearing = new Hearing;
-	electric_charge = new ElectricCharge;
-	electric_potential = new ElectricPotential;
-	electric_current = new ElectricCurrent;
-	periodic_elements = new PeriodicElements;
-	circuits = new Circuits;
-	magnetism = new Magnetism;
-	emi = new ElectroMagneticInduction;
-	emWaves = new ElectromagneticWaves;
-	geometric_optics = new GeometricOptics;
-	wave_optics = new WaveOptics;
-	vision_optical = new VisionOpticalInstruments;
-	relativity = new SpecialRelativity;
-	quantum = new QuantumPhysics;
+	atomic = std::make_unique<AtomicPhysics>();
+	linear_regression = std::make_unique<LinearRegression>();
+	logistic_regression = std::make_unique<LogisticRegression>();
+	etl = std::make_unique<ETL>();
+	matrixNd = std::make_unique<MatrixND<ld>>();
+	vectorNd = std::make_unique<VectorND<ld>>();
+	triangle = std::make_unique<TriangleSolver>();
+	kinematics = std::make_unique<Kinematics>();
+	drag = std::make_unique<Drag>();
+	elasticity = std::make_unique<Elasticity>();
+	friction = std::make_unique<Friction>();
+	uniformCircularMotion = std::make_unique<UCM>();
+	vector2d = std::make_unique<Vector2D>();
+	vector3d = std::make_unique<Vector3D>();
+	energy = std::make_unique<Energy>();
+	momentum = std::make_unique<Momentum>();
+	torque = std::make_unique<Torque>();
+	statics = std::make_unique<Statics>();
+	rotationalMotion = std::make_unique<RM>();
+	temperature = std::make_unique<Temperature>();
+	heat = std::make_unique<Heat>();
+	thermodynamic = std::make_unique<Thermodynamics>();
+	dynamics_and_forces = std::make_unique<DAF>();
+	fluid_statics = std::make_unique<FS>();
+	fluid_dynamics = std::make_unique<FD>();
+	waves = std::make_unique<Waves>();
+	hearing = std::make_unique<Hearing>();
+	electric_charge = std::make_unique<ELCHRG>();
+	electric_potential = std::make_unique<EP>();
+	electric_current = std::make_unique<EC>();
+	periodic_elements = std::make_unique<PE>();
+	circuits =std::make_unique<Circuits>();
+	magnetism = std::make_unique<Magnetism>();
+	emi = std::make_unique<EMI>();
+	emWaves = std::make_unique<EMW>();
+	geometric_optics = std::make_unique<GO>();
+	wave_optics = std::make_unique<WO>();
+	vision_optical = std::make_unique<VOI>();
+	relativity = std::make_unique<SR>();
+	quantum = std::make_unique<QP>();
 
 	countIncrease();
 	//countShow();
@@ -1011,48 +1009,7 @@ inline Physics_World::Physics_World()
  */
 inline Physics_World::Physics_World(const Physics_World& p)
 {
-	_ptr_ = p._ptr_;
-	atomic = p.atomic;
-	linear_regression = p.linear_regression;
-	logistic_regression = p.logistic_regression;
-	etl = p.etl;
-	matrixNd = p.matrixNd;
-	vectorNd = p.vectorNd;
-	//vector_values = p.vector_values;
-	triangle = p.triangle;
-	kinematics = p.kinematics;
-	drag = p.drag;
-	elasticity = p.elasticity;
-	friction = p.friction;
-	vector2d = p.vector2d;
-	vector3d = p.vector3d;
-	uniformCircularMotion = p.uniformCircularMotion;
-	momentum = p.momentum;
-	energy = p.energy;
-	torque = p.torque;
-	statics = p.statics;
-	rotationalMotion = p.rotationalMotion;
-	temperature = p.temperature;
-	heat = p.heat;
-	thermodynamic = p.thermodynamic;
-	dynamics_and_forces = p.dynamics_and_forces;
-	fluid_statics = p.fluid_statics;
-	fluid_dynamics = p.fluid_dynamics;
-	waves = p.waves;
-	hearing = p.hearing;
-	electric_charge = p.electric_charge;
-	electric_potential = p.electric_potential;
-	electric_current = p.electric_current;
-	periodic_elements = p.periodic_elements;
-	circuits = p.circuits;
-	magnetism = p.magnetism;
-	emi = p.emi;
-	emWaves = p.emWaves;
-	geometric_optics = p.geometric_optics;
-	wave_optics = p.wave_optics;
-	vision_optical = p.vision_optical;
-	relativity = p.relativity;
-	quantum = p.quantum;
+
 	countIncrease();
 }
 /**
@@ -1062,48 +1019,6 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 {
 	if(this != &r)
 	{
-		_ptr_ = r._ptr_;
-		atomic = r.atomic;
-		linear_regression = r.linear_regression;
-		logistic_regression = r.logistic_regression;
-		etl = r.etl;
-		matrixNd = r.matrixNd;
-		vectorNd = r.vectorNd;
-		triangle = r.triangle;
-		//vector_values = r.vector_values;
-		kinematics = r.kinematics;
-		drag = r.drag;
-		elasticity = r.elasticity;
-		friction = r.friction;
-		vector2d = r.vector2d;
-		vector3d = r.vector3d;
-		uniformCircularMotion = r.uniformCircularMotion;
-		energy = r.energy;
-		momentum = r.momentum;
-		torque = r.torque;
-		statics = r.statics;
-		rotationalMotion = r.rotationalMotion;
-		temperature = r.temperature;
-		heat = r.heat;
-		thermodynamic = r.thermodynamic;
-		dynamics_and_forces = r.dynamics_and_forces;
-		fluid_statics = r.fluid_statics;
-		fluid_dynamics = r.fluid_dynamics;
-		waves = r.waves;
-		hearing = r.hearing;
-		electric_charge = r.electric_charge;
-		electric_potential = r.electric_potential;
-		electric_current = r.electric_current;
-		periodic_elements = r.periodic_elements;
-		circuits = r.circuits;
-		magnetism = r.magnetism;
-		emi = r.emi;
-		emWaves = r.emWaves;
-		geometric_optics = r.geometric_optics;
-		wave_optics = r.wave_optics;
-		vision_optical = r.vision_optical;
-		relativity = r.relativity;
-		quantum = r.quantum;
 		countIncrease();
 	}
 	return *this;
@@ -1111,47 +1026,46 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 
 inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 {
-	_ptr_ = nullptr;
-	atomic = new AtomicPhysics;
-	linear_regression = new LinearRegression;
-	logistic_regression = new LogisticRegression;
-	etl = new ETL;
-	matrixNd = new MatrixND<ld>;
-	vectorNd = new VectorND<ld>;
-	triangle = new TriangleSolver;
-	kinematics = new Kinematics;
-	drag = new Drag;
-	elasticity = new Elasticity;
-	friction = new Friction;
-	uniformCircularMotion = new UniformCircularMotion;
-	vector2d = new Vector2D;
-	vector3d = new Vector3D;
-	energy = new Energy;
-	momentum = new Momentum;
-	torque = new Torque;
-	statics = new Statics;
-	rotationalMotion = new RotationalMotion;
-	temperature = new Temperature;
-	heat = new Heat;
-	thermodynamic = new Thermodynamics;
-	dynamics_and_forces = new DynamicsAndForces;
-	fluid_statics = new FluidStatics;
-	fluid_dynamics = new FluidDynamics;
-	waves = new Waves;
-	hearing = new Hearing;
-	electric_charge = new ElectricCharge;
-	electric_potential = new ElectricPotential;
-	electric_current = new ElectricCurrent;
-	periodic_elements = new PeriodicElements;
-	circuits = new Circuits;
-	magnetism = new Magnetism;
-	emi = new ElectroMagneticInduction;
-	emWaves = new ElectromagneticWaves;
-	geometric_optics = new GeometricOptics;
-	wave_optics = new WaveOptics;
-	vision_optical = new VisionOpticalInstruments;
-	relativity = new SpecialRelativity;
-	quantum = new QuantumPhysics;
+	atomic = std::make_unique<AtomicPhysics>();
+	linear_regression = std::make_unique<LinearRegression>();
+	logistic_regression = std::make_unique<LogisticRegression>();
+	etl = std::make_unique<ETL>();
+	matrixNd = std::make_unique<MatrixND<ld>>();
+	vectorNd = std::make_unique<VectorND<ld>>();
+	triangle = std::make_unique<TriangleSolver>();
+	kinematics = std::make_unique<Kinematics>();
+	drag = std::make_unique<Drag>();
+	elasticity = std::make_unique<Elasticity>();
+	friction = std::make_unique<Friction>();
+	uniformCircularMotion = std::make_unique<UCM>();
+	vector2d = std::make_unique<Vector2D>();
+	vector3d = std::make_unique<Vector3D>();
+	energy = std::make_unique<Energy>();
+	momentum = std::make_unique<Momentum>();
+	torque = std::make_unique<Torque>();
+	statics = std::make_unique<Statics>();
+	rotationalMotion = std::make_unique<RM>();
+	temperature = std::make_unique<Temperature>();
+	heat = std::make_unique<Heat>();
+	thermodynamic = std::make_unique<Thermodynamics>();
+	dynamics_and_forces = std::make_unique<DAF>();
+	fluid_statics = std::make_unique<FS>();
+	fluid_dynamics = std::make_unique<FD>();
+	waves = std::make_unique<Waves>();
+	hearing = std::make_unique<Hearing>();
+	electric_charge = std::make_unique<ELCHRG>();
+	electric_potential = std::make_unique<EP>();
+	electric_current = std::make_unique<EC>();
+	periodic_elements = std::make_unique<PE>();
+	circuits =std::make_unique<Circuits>();
+	magnetism = std::make_unique<Magnetism>();
+	emi = std::make_unique<EMI>();
+	emWaves = std::make_unique<EMW>();
+	geometric_optics = std::make_unique<GO>();
+	wave_optics = std::make_unique<WO>();
+	vision_optical = std::make_unique<VOI>();
+	relativity = std::make_unique<SR>();
+	quantum = std::make_unique<QP>();
 
 	this->vector3d->set_coordinates(t1, t2, t3);
 
@@ -1160,93 +1074,51 @@ inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 
 inline Physics_World::Physics_World(const ld t1, const ld t2)
 {
-	atomic = new AtomicPhysics;
-	linear_regression = new LinearRegression;
-	logistic_regression = new LogisticRegression;
-	etl = new ETL;
-	matrixNd = new MatrixND<ld>;
-	vectorNd = new VectorND<ld>;
-	triangle = new TriangleSolver;
-	drag = new Drag;
-	kinematics = new Kinematics;
-	elasticity = new Elasticity;
-	friction = new Friction;
-	uniformCircularMotion = new UniformCircularMotion;
-	vector2d = new Vector2D;
-	vector3d = new Vector3D;
-	energy = new Energy;
-	momentum = new Momentum;
-	torque = new Torque;
-	statics = new Statics;
-	rotationalMotion = new RotationalMotion;
-	temperature = new Temperature;
-	heat = new Heat;
-	thermodynamic = new Thermodynamics;
-	dynamics_and_forces = new DynamicsAndForces;
-	fluid_statics = new FluidStatics;
-	fluid_dynamics = new FluidDynamics;
-	waves = new Waves;
-	hearing = new Hearing;
-	electric_charge = new ElectricCharge;
-	electric_potential = new ElectricPotential;
-	electric_current = new ElectricCurrent;
-	periodic_elements = new PeriodicElements;
-	circuits = new Circuits;
-	magnetism = new Magnetism;
-	emi = new ElectroMagneticInduction;
-	emWaves = new ElectromagneticWaves;
-	geometric_optics = new GeometricOptics;
-	wave_optics = new WaveOptics;
-	vision_optical = new VisionOpticalInstruments;
-	relativity = new SpecialRelativity;
-	quantum = new QuantumPhysics;
-	_ptr_ = nullptr;
+	atomic  = std::make_unique<AtomicPhysics>();
+	linear_regression = std::make_unique<LinearRegression>();
+	logistic_regression = std::make_unique<LogisticRegression>();
+	etl = std::make_unique<ETL>();
+	matrixNd = std::make_unique<MatrixND<ld>>();
+	vectorNd = std::make_unique<VectorND<ld>>();
+	triangle = std::make_unique<TriangleSolver>();
+	kinematics = std::make_unique<Kinematics>();
+	drag = std::make_unique<Drag>();
+	elasticity = std::make_unique<Elasticity>();
+	friction = std::make_unique<Friction>();
+	uniformCircularMotion = std::make_unique<UCM>();
+	vector2d = std::make_unique<Vector2D>();
+	vector3d = std::make_unique<Vector3D>();
+	energy = std::make_unique<Energy>();
+	momentum = std::make_unique<Momentum>();
+	torque = std::make_unique<Torque>();
+	statics = std::make_unique<Statics>();
+	rotationalMotion = std::make_unique<RM>();
+	temperature = std::make_unique<Temperature>();
+	heat = std::make_unique<Heat>();
+	thermodynamic = std::make_unique<Thermodynamics>();
+	dynamics_and_forces = std::make_unique<DAF>();
+	fluid_statics = std::make_unique<FS>();
+	fluid_dynamics = std::make_unique<FD>();
+	waves = std::make_unique<Waves>();
+	hearing = std::make_unique<Hearing>();
+	electric_charge = std::make_unique<ELCHRG>();
+	electric_potential = std::make_unique<EP>();
+	electric_current = std::make_unique<EC>();
+	periodic_elements = std::make_unique<PE>();
+	circuits =std::make_unique<Circuits>();
+	magnetism = std::make_unique<Magnetism>();
+	emi = std::make_unique<EMI>();
+	emWaves = std::make_unique<EMW>();
+	geometric_optics = std::make_unique<GO>();
+	wave_optics = std::make_unique<WO>();
+	vision_optical = std::make_unique<VOI>();
+	relativity = std::make_unique<SR>();
+	quantum = std::make_unique<QP>();
 	this->vector2d->set_coordinates(t1, t2);
 }
 
 inline Physics_World::~Physics_World()
 {
-	delete atomic;
-	delete linear_regression;
-	delete logistic_regression;
-	delete etl;
-	delete matrixNd;
-	delete vectorNd;
-	delete triangle;
-	delete kinematics;
-	delete elasticity;
-	delete friction;
-	delete vector2d;
-	delete vector3d;
-	delete drag;
-	delete uniformCircularMotion;
-	delete energy;
-	delete momentum;
-	delete _ptr_;
-	delete torque;
-	delete statics;
-	delete rotationalMotion;
-	delete temperature;
-	delete heat;
-	delete thermodynamic;
-	delete dynamics_and_forces;
-	delete fluid_statics;
-	delete fluid_dynamics;
-	delete waves;
-	delete hearing;
-	delete electric_charge;
-	delete electric_potential;
-	delete electric_current;
-	delete periodic_elements;
-	delete circuits;
-	delete magnetism;
-	delete emi;
-	delete emWaves;
-	delete geometric_optics;
-	delete wave_optics;
-	delete vision_optical;
-	delete relativity;
-	delete quantum;
 	countDecrease();
 	//countShow();
 }
