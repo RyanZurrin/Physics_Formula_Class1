@@ -305,9 +305,15 @@ public:
 	/// <param name="energy">The energy supplied.</param>
 	/// <returns>wavelength</returns>
 	template<typename E>
-	static constexpr auto electromagneticRadiation_wavelengthNeededToPumpLaser(const E energy);
+	static constexpr auto wavelengthNeededToPumpLaserTo_evState(const E energy);
 
-
+	/// <summary>
+	/// Calculate the magnitude of the angular momentum for an l=1(l) electron.
+	/// </summary>
+	/// <param name="l">The l.</param>
+	/// <returns>magnitude of angular momentum</returns>
+	template<typename L>
+	static constexpr auto magnitudeAngularMomentum(const L l);
 
 
 
@@ -413,7 +419,13 @@ constexpr auto AtomicPhysics::energyK_betaTransition(const E0 e_0, const Z z)
 }
 
 template<typename E>
-constexpr auto AtomicPhysics::electromagneticRadiation_wavelengthNeededToPumpLaser(const E energy)
+constexpr auto AtomicPhysics::wavelengthNeededToPumpLaserTo_evState(const E energy)
 {
 	return _PLANKS_C_ / energy;
+}
+
+template<typename L>
+constexpr auto AtomicPhysics::magnitudeAngularMomentum(const L l)
+{
+	return sqrt(l * (l + 1.0)) * (_PLANKS_J_ / (2.0 * _PI_));
 }
