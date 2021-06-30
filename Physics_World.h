@@ -1121,4 +1121,5 @@ inline Physics_World::Physics_World(const ld t1, const ld t2)
 inline Physics_World::~Physics_World()
 {
 	countDecrease();
+	//countShow();
 }
