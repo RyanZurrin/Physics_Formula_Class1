@@ -9,6 +9,7 @@
 #define PHYSICS_WORLD_H
 
 #include <gsl/gsl_integration.h>
+#include "Testing.h"
 #include <gsl/gsl_linalg.h>
 #include <Eigen/Eigen>
 #include "StringHelper.h"
@@ -1120,5 +1121,4 @@ inline Physics_World::Physics_World(const ld t1, const ld t2)
 inline Physics_World::~Physics_World()
 {
 	countDecrease();
-	//countShow();
 }

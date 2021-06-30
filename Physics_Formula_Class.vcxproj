@@ -48,6 +48,7 @@
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="Temperature.h" />
     <ClInclude Include="TemplateClass.h" />
+    <ClInclude Include="Testing.h" />
     <ClInclude Include="Thermodynamics.h" />
     <ClInclude Include="TriangleSolver.h" />
     <ClInclude Include="UniformCircularMotion.h" />
