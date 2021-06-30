@@ -12,16 +12,18 @@ int main()
 	//add test code between starred areas
 	//*************************************************************************
 
-	//setVal(QP::acceleratingVoltage(.0103e-9, _PROTON_CHARGE_));
-	//show_val("f", "Hz");
-	Vector2D vec(2, 5);
-	vec.displayAllData();
-	Vector3D vec3(3, 5, 9);
-	vec3.displayAllData();
-	setVal(AP::magnitudeAngularMomentum(1.0));
-	show_val("density", "kg/m^3");
-	auto d = Drag::drag_force(5.9, 55.9, 2.3, 33.3);
-	std::cout << "d: " << d << endl;
+	auto s1 = add(1, 2, 3, 4, 5);
+	auto s2 = add("hello"s, " "s, "world"s, "!"s);
+	std::cout << s1 << endl;
+	std::cout << s2 << endl;
+	cout << add_to_one(1, 2, 3, 4, 5) << endl;
+	auto t1 = make_even_tuple(1, 2, 3, 4);
+	auto m = min(3.9, 1.0, -2.2, 6.4, -5.9, 1.2, 4.3);
+	std::cout << "min: " << m << std::endl;
+
+	//setVal(AP::magnitudeAngularMomentum(1.0));
+	//show_val("density", "kg/m^3");
+
 	//*************************************************************************
 	//Stopping timer and displaying the programs execution time
 	//_________________________________________________________________________
