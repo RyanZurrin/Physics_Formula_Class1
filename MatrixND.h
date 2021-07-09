@@ -170,12 +170,12 @@ template<typename MatrixType>
 template<typename MatrixType>
 void print_matrix(MatrixType m, int rows, int cols)
 {
-	std::cout << setprecision(4) << std::endl;
+	std::cout << right << setprecision(4) << std::endl;
 	for (size_t r = 0; r < rows; r++)
 	{
 		for (size_t c = 0; c < cols; c++)
 		{
-			std::cout << m[r][c] << '\t';
+			std::cout<<setw(7)<<right << m[r][c] << '\t';
 		}
 		std::cout << "\n";
 	}

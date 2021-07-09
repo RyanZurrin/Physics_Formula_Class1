@@ -5,7 +5,6 @@
 
 #include "ElectricCharge.h"
 #include "PeriodicElements.h"
-typedef PeriodicElements PE;
 // speed of light in a vacuum is 299792458 m/s
 constexpr auto _LIGHT_SPEED_ = 2.99792458e8;//2.9979*10^8
 
@@ -86,7 +85,6 @@ class AtomicPhysics
 	static auto countIncrease() { atomicPhysics_objectCount += 1; }
 	static auto countDecrease() { atomicPhysics_objectCount -= 1; }
 public:
-	PeriodicElements particles;
 	AtomicPhysics()
 	{
 

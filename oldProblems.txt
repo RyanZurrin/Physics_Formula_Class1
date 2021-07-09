@@ -579,3 +579,38 @@ ____________________________________________________________________________
 	Eigen::Matrix<ld, 3, 3> D = A * (B + C);
 	std::cout << "Resultant: \n" << D << std::endl;
 	___________________________________________________________________________
+
+	to rref:
+
+int main()
+{
+  double M[3][4] = { {  1, 2, -1,  -4 },
+					 {  2, 3, -1, -11 },
+					 { -2, 0, -3,  22 } };
+
+  to_reduced_row_echelon_form(M);
+  for (int i = 0; i < 3; ++i)
+  {
+	for (int j = 0; j < 4; ++j)
+	  std::cout << M[i][j] << '\t';
+	std::cout << "\n";
+  }
+
+  return EXIT_SUCCESS;
+   _____________________determinatnt and inverse of  a 2x2 matrix
+}
+	double A[3][3] = { {6, 1, 1},{4, -2,  5}, {2, 8, 7} };
+	print_matrix(A, 3, 3);
+	to_reduced_row_echelon_form(A);
+	print_matrix(A, 3, 3);
+
+	Matrix<double, 2, 2> T;
+	T << 1, 2, 3, 4;
+	auto det = T.determinant();
+	std::cout<< "determinant: " << T.determinant();
+	Matrix<double, 2, 2> P;
+	P << 4, -2, -3, 1;
+	Matrix<double, 2,2 > result = (1.0/det)*P;
+	std::cout << '\n' << result;
+
+	___________________________________________________________________________

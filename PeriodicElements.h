@@ -1,13 +1,11 @@
 ﻿#pragma once
 
 /**
- * @struct PeriodicElements
- * @details driver class for solving complex physics problems
+ * @struct Elements
+ * @details structure holding data on all the periodic elements
  * @author Ryan Zurrin
  * @date   1/1/2021
  */
-#ifndef PERIODIC_ELEMENTS_H
-#define PERIODIC_ELEMENTS_H
 
 
 static struct UnifiedAtomicMass
@@ -23,64 +21,51 @@ static struct UnifiedAtomicMass
 /// tabular display of the chemical elements, which are arranged by atomic
 /// number, electron configuration, and recurring chemical properties.
 /// The structure of the table shows periodic trends.\n\n
-///
 /// atomic_weight: The atomic mass is the mass of an atom. Although the SI unit
-///		of mass is kilogram, the atomic mass is often expressed in the non-SI unit
-///		dalton where 1 dalton is defined as 1⁄12 of the mass of a single
-///		carbon-12 atom, at rest.\n\n
-///
+/// of mass is kilogram, the atomic mass is often expressed in the non-SI unit
+/// dalton where 1 dalton is defined as 1⁄12 of the mass of a single
+/// carbon-12 atom, at rest.\n\n
 /// atomic_number: The atomic number or proton number (symbol Z) of a chemical
-///		element is the number of protons found in the nucleus of every atom of
-///		that element. The atomic number uniquely identifies a chemical element.
-///		It is identical to the charge number of the nucleus. In an uncharged atom,
-///		the atomic number is also equal to the number of electrons.\n\n
-///
+/// element is the number of protons found in the nucleus of every atom of
+/// that element. The atomic number uniquely identifies a chemical element.
+/// It is identical to the charge number of the nucleus. In an uncharged atom,
+/// the atomic number is also equal to the number of electrons.\n\n
 /// density_STP: Density is a measure of an element's mass per unit volume.\n\n
-///
 /// melting_point: Melting point, temperature at which the solid and liquid forms
-///		of a pure substance can exist in equilibrium. ... As heat is applied to a
-///		solid, its temperature will increase until the melting point is reached.
-///		More heat then will convert the solid into a liquid with no temperature change.\n\n
-///
+/// of a pure substance can exist in equilibrium. ... As heat is applied to a
+/// solid, its temperature will increase until the melting point is reached.
+/// More heat then will convert the solid into a liquid with no temperature change.\n\n
 /// boiling_point: The boiling point of a substance is the temperature at which
-///		the vapor pressure of a liquid equals the pressure surrounding the liquid
-///		and the liquid changes into a vapor. ... The standard boiling point has
-///		been defined by IUPAC since 1982 as the temperature at which boiling
-///		occurs under a pressure of one bar.\n\n
-///
+/// the vapor pressure of a liquid equals the pressure surrounding the liquid
+/// and the liquid changes into a vapor. ... The standard boiling point has
+/// been defined by IUPAC since 1982 as the temperature at which boiling
+/// occurs under a pressure of one bar.\n\n
 /// thermal_conductivity: The heat transfer characteristics of a solid material
-///		are measured by a property called the thermal conductivity, k (or λ),
-///		measured in W/m.K. It is a measure of a substance's ability to transfer
-///		heat through a material by conduction.\n\n
-///
+/// are measured by a property called the thermal conductivity, k (or λ),
+/// measured in W/m.K. It is a measure of a substance's ability to transfer
+/// heat through a material by conduction.\n\n
 /// electric_conductivity: in metals is a result of the movement of electrically
-///		charged particles. The atoms of metal elements are characterized by the
-///		presence of valence electrons, which are electrons in the outer shell of
-///		an atom that are free to move about.\n\n
-///
+/// charged particles. The atoms of metal elements are characterized by the
+/// presence of valence electrons, which are electrons in the outer shell of
+/// an atom that are free to move about.\n\n
 /// resistivity: (also called specific electrical resistance or volume resistivity)
-///		is a fundamental property of a material that measures how strongly it resists
-///		electric current. Its inverse, called electrical conductivity, quantifies
-///		how well a material conducts electricity.\n\n
-///
+/// is a fundamental property of a material that measures how strongly it resists
+/// electric current. Its inverse, called electrical conductivity, quantifies
+/// how well a material conducts electricity.\n\n
 /// heat_specific: the quantity of heat required to raise the temperature of one
-///		gram of a substance by one Celsius degree. The units of specific heat are
-///		usually calories or joules per gram per Celsius degree.\n\n
-///
+/// gram of a substance by one Celsius degree. The units of specific heat are
+/// usually calories or joules per gram per Celsius degree.\n\n
 /// heat_vaporization: The enthalpy of vaporization, also known as the heat of
-///		vaporization or heat of evaporation, is the amount of energy that must
-///		be added to a liquid substance to transform a quantity of that substance
-///		into a gas. The enthalpy of vaporization is a function of the pressure at
-///		which that transformation takes place.\n\n
-///
-///  heat_fusion: The enthalpy of fusion of a substance, also known as heat of
-///		fusion is the change in its enthalpy resulting from providing energy, typically
-///		 heat, to a specific quantity of the substance to change its state from a
-///		 solid to a liquid, at constant pressure.\n\n
-///
+/// vaporization or heat of evaporation, is the amount of energy that must
+/// be added to a liquid substance to transform a quantity of that substance
+/// into a gas. The enthalpy of vaporization is a function of the pressure at
+/// which that transformation takes place.\n\n
+/// heat_fusion: The enthalpy of fusion of a substance, also known as heat of
+/// fusion is the change in its enthalpy resulting from providing energy, typically
+/// heat, to a specific quantity of the substance to change its state from a
+/// solid to a liquid, at constant pressure.\n\n
 /// ionization_1st: Ionization energy is the minimum amount of energy required
-///		to remove the most loosely bound electron of a neutral atom.
-///
+/// to remove the most loosely bound electron of a neutral atom.
 /// </summary>
 static struct Elements
 {
@@ -743,7 +728,7 @@ static struct Elements
 	/// <summary>
 	/// Zinc is a chemical element with the symbol Zn and atomic number 30.
 	/// Zinc is a slightly brittle metal at room temperature and has a
-	/// silvery-greyish appearance when oxidation is removed. It is the first
+	/// silvery-grayish appearance when oxidation is removed. It is the first
 	/// element in group 12 of the periodic table.
 	/// </summary>
 	const struct ZINC
@@ -1201,15 +1186,22 @@ static struct Elements
 		const ld ionization_1st = 7.344; // eV
 	} Sn;
 
+	/// <summary>
+	/// Antimony is a chemical element with the symbol Sb and atomic number 51.
+	/// A lustrous gray metalloid, it is found in nature mainly as the sulfide
+	/// mineral stibnite. Antimony compounds have been known since ancient times
+	/// and were powdered for use as medicine and cosmetics, often known by the
+	/// Arabic name kohl.
+	/// </summary>
 	const struct ANTIMONY
 	{
 		const ld atomic_weight = 121.76; // u
 		const int atomic_number = 51;
 		const ld density_STP = 6697; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 630.63; // C
+		const ld boiling_point = 1587.0; // C
+		const ld thermal_conductivity = 24.0; // W/mK
+		const ld electric_conductivity = 2.5; // MS/m
 		const ld resistivity = 4.0e-7; //m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 207.0; // J/kgK
 		const ld heat_vaporization = 68.0; // kJ/mol
@@ -1217,15 +1209,21 @@ static struct Elements
 		const ld ionization_1st = 8.64; // eV
 	} Sb;
 
-	const struct TELURIUM
+	/// <summary>
+	/// Tellurium is a chemical element with the symbol Te and atomic number 52.
+	/// It is a brittle, mildly toxic, rare, silver-white metalloid. Tellurium
+	/// is chemically related to selenium and sulfur, all three of which are
+	/// chalcogens. It is occasionally found in native form as elemental crystals
+	/// </summary>
+	const struct TELLURIUM
 	{
 		const ld atomic_weight = 127.60; // u
 		const int atomic_number = 52;
 		const ld density_STP = 62420; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 449.51; // C
+		const ld boiling_point = 987.9; // C
+		const ld thermal_conductivity = 3.0; // W/mK
+		const ld electric_conductivity = 0.010; // MS/m
 		const ld resistivity = .0001; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 201.0; // J/kgK
 		const ld heat_vaporization = 48.0; // kJ/mol
@@ -1233,15 +1231,22 @@ static struct Elements
 		const ld ionization_1st = 9.010; // eV
 	} Te;
 
+	/// <summary>
+	/// Iodine is a chemical element with the symbol I and atomic number 53.
+	/// The heaviest of the stable halogens, it exists as a semi-lustrous,
+	/// non-metallic solid at standard conditions that melts to form a deep
+	/// violet liquid at 114 degrees Celsius, and boils to a violet gas at
+	/// 184 degrees Celsius.
+	/// </summary>
 	const struct IODINE
 	{
 		const ld atomic_weight = 126.90; // u
 		const int atomic_number = 53;
 		const ld density_STP = 4940; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 113.7; // C
+		const ld boiling_point = 184.3; // C
+		const ld thermal_conductivity = 0.449; // W/mK
+		const ld electric_conductivity = 1.0e-13; // MS/m
 		const ld resistivity = 1.0e7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 429.0; // J/kgK
 		const ld heat_vaporization = 20.9; // kJ/mol
@@ -1249,15 +1254,20 @@ static struct Elements
 		const ld ionization_1st = 10.451; // eV
 	} I;
 
+	/// <summary>
+	/// Xenon is a chemical element with the symbol Xe and atomic number 54.
+	/// It is a colorless, dense, odorless noble gas found in Earth's atmosphere
+	/// in trace amounts.
+	/// </summary>
 	const struct XENON
 	{
 		const ld atomic_weight = 131.29; // u
 		const int atomic_number = 54;
 		const ld density_STP = 5.9; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = -111.8; // C
+		const ld boiling_point = -108.0; // C
+		const ld thermal_conductivity = .00565; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 158.32; // J/kgK
 		const ld heat_vaporization = 12.64; // kJ/mol
@@ -1265,15 +1275,21 @@ static struct Elements
 		const ld ionization_1st = 12.130; // eV
 	} XE;
 
+	/// <summary>
+	/// Caesium is a chemical element with the symbol Cs and atomic number 55.
+	/// It is a soft, silvery-golden alkali metal with a melting point of 28.5 °C,
+	/// which makes it one of only five elemental metals that are liquid at or
+	/// near room temperature
+	/// </summary>
 	const struct CAESIUM
 	{
 		const ld atomic_weight = 132.91; // u
 		const int atomic_number = 55;
 		const ld density_STP = 1879; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 28.440; // C
+		const ld boiling_point = 671.0; // C
+		const ld thermal_conductivity = 36.0; // W/mK
+		const ld electric_conductivity = 5.0; // MS/m
 		const ld resistivity = 2.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 242.0; // J/kgK
 		const ld heat_vaporization = 65.0; // kJ/mol
@@ -1281,15 +1297,21 @@ static struct Elements
 		const ld ionization_1st = 3.894; // eV
 	} Cs;
 
+	/// <summary>
+	/// Barium is a chemical element with the symbol Ba and atomic number 56.
+	/// It is the fifth element in group 2 and is a soft, silvery alkaline earth
+	/// metal. Because of its high chemical reactivity, barium is never found in
+	/// nature as a free element.
+	/// </summary>
 	const struct BARIUM
 	{
 		const ld atomic_weight = 137.33; // u
 		const int atomic_number = 56;
 		const ld density_STP = 3510; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 730.0; // C
+		const ld boiling_point = 1870.0; // C
+		const ld thermal_conductivity = 18.0; // W/mK
+		const ld electric_conductivity = 2.9; // MS/m
 		const ld resistivity = 3.5e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 205.0; // J/kgK
 		const ld heat_vaporization = 140.0; // kJ/mol
@@ -1298,15 +1320,20 @@ static struct Elements
 	} Ba;
 
 
-const struct LANTHANUM
+	/// <summary>
+	///	Lanthanum is a chemical element with the symbol La and atomic number 57.
+	///	It is a soft, ductile, silvery-white metal that tarnishes slowly when
+	///	exposed to air.
+	/// </summary>
+	const struct LANTHANUM
 	{
 		const ld atomic_weight = 138.91; // u
 		const int atomic_number = 57;
 		const ld density_STP = 6146; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 919.9; // C
+		const ld boiling_point = 3463.0; // C
+		const ld thermal_conductivity = 13.0; // W/mK
+		const ld electric_conductivity = 1.6; // MS/m
 		const ld resistivity = 6.1e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 195.0; // J/kgK
 		const ld heat_vaporization = 400.0; // kJ/mol
@@ -1314,15 +1341,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.577; // eV
 	} La;
 
+	/// <summary>
+	///	Cerium is a chemical element with the symbol Ce and atomic number 58.
+	///	Cerium is a soft, ductile, and silvery-white metal that tarnishes when
+	///	exposed to air, and it is soft enough to be cut with a steel kitchen knife.
+	/// </summary>
 	const struct CERIUM
 	{
 		const ld atomic_weight = 140.12; // u
 		const int atomic_number = 58;
 		const ld density_STP = 6689; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 797.9; // C
+		const ld boiling_point = 3360.0; // C
+		const ld thermal_conductivity = 11.0; // W/mK
+		const ld electric_conductivity = 1.4; // MS/m
 		const ld resistivity = 7.4e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 192.0; // J/kgK
 		const ld heat_vaporization = 350.0; // kJ/mol
@@ -1330,15 +1362,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.539; // eV
 	} Ce;
 
+	/// <summary>
+	///	Praseodymium is a chemical element with the symbol Pr and atomic number 59.
+	///	It is the third member of the lanthanide series and is traditionally
+	///	considered to be one of the rare-earth metals.
+	/// </summary>
 	const struct PRASEODYMIUM
 	{
 		const ld atomic_weight = 140.91; // u
 		const int atomic_number = 59;
 		const ld density_STP = 6640; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 930.9; // C
+		const ld boiling_point = 3290.0; // C
+		const ld thermal_conductivity = 13.0; // W/mK
+		const ld electric_conductivity = 1.4; // MS/m
 		const ld resistivity = 7.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 193.0; // J/kgK
 		const ld heat_vaporization = 330.0; // kJ/mol
@@ -1346,15 +1383,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.46; // eV
 	}Pr;
 
+	/// <summary>
+	///	Neodymium is a chemical element with the symbol Nd and atomic number 60.
+	///	Neodymium belongs to the lanthanide series and is a rare-earth element.
+	///	It is a hard, slightly malleable silvery metal that quickly tarnishes
+	///	in air and moisture
+	/// </summary>
 	const struct NEODYMIUM
 	{
 		const ld atomic_weight = 144.24; // u
 		const int atomic_number = 60;
 		const ld density_STP = 7010; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1021.0; // C
+		const ld boiling_point = 3100.0; // C
+		const ld thermal_conductivity = 17.0; // W/mK
+		const ld electric_conductivity = 1.6; // MS/m
 		const ld resistivity = 6.4e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 190.0; // J/kgK
 		const ld heat_vaporization = 285.0; // kJ/mol
@@ -1362,15 +1405,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.525; // eV
 	} Nd;
 
+	/// <summary>
+	///	Promethium is a chemical element with the symbol Pm and atomic number 61.
+	///	All of its isotopes are radioactive; it is extremely rare, with only
+	///	about 500–600 grams naturally occurring in Earth's crust at any
+	///	given time.
+	/// </summary>
 	const struct PROMETHIUM
 	{
 		const ld atomic_weight = (145); // u
 		const int atomic_number = 61;
 		const ld density_STP = 7264; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1100.0; // C
+		const ld boiling_point = 3000.0; // C
+		const ld thermal_conductivity = 15.0; // W/mK
+		const ld electric_conductivity = 1.3; // MS/m
 		const ld resistivity = 7.5e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = 290.0; // kJ/mol
@@ -1378,15 +1427,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.6; // eV
 	} Pm;
 
+	/// <summary>
+	///	Samarium is a chemical element with the symbol Sm and atomic number 62.
+	///	It is a moderately hard silvery metal that slowly oxidizes in air.
+	///	Being a typical member of the lanthanide series, samarium usually assumes
+	///	the oxidation state +3.
+	/// </summary>
 	const struct SAMARIUM
 	{
 		const ld atomic_weight = 150.36; // u
 		const int atomic_number = 62;
 		const ld density_STP = 7353; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1072.0; // C
+		const ld boiling_point = 1803.0; // C
+		const ld thermal_conductivity = 13.0; // W/mK
+		const ld electric_conductivity = 1.1; // MS/m
 		const ld resistivity = 9.4e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 196.0; // J/kgK
 		const ld heat_vaporization = 175.0; // kJ/mol
@@ -1394,15 +1449,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.643; // eV
 	} Sm;
 
+	/// <summary>
+	///	Europium is a chemical element with the symbol Eu and atomic number 63.
+	///	Europium is the most reactive lanthanide by far, having to be stored
+	///	under an inert fluid to protect it from atmospheric oxygen or moisture.
+	/// </summary>
 	const struct EUROPIUM
 	{
 		const ld atomic_weight = 151.96; // u
 		const int atomic_number = 63;
 		const ld density_STP = 5244; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 821.9; // C
+		const ld boiling_point = 1500.0; // C
+		const ld thermal_conductivity = 14.0; // W/mK
+		const ld electric_conductivity = 1.1; // MS/m
 		const ld resistivity = 9.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 182.0; // J/kgK
 		const ld heat_vaporization = 175.0; // kJ/mol
@@ -1410,15 +1470,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.670; // eV
 	} Eu;
 
+	/// <summary>
+	///	Gadolinium is a chemical element with the symbol Gd and atomic number 64.
+	///	Gadolinium is a silvery-white metal when oxidation is removed. It is
+	///	only slightly malleable and is a ductile rare-earth element. Gadolinium
+	///	reacts with atmospheric oxygen or moisture slowly to form a black coating.
+	/// </summary>
 	const struct GADOLINIUM
 	{
 		const ld atomic_weight = 157.25; // u
 		const int atomic_number = 64;
 		const ld density_STP = 7901; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1313.0; // C
+		const ld boiling_point = 3250.0; // C
+		const ld thermal_conductivity = 11.0; // W/mK
+		const ld electric_conductivity = .77; // MS/m
 		const ld resistivity = 1.3e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 240.0; // J/kgK
 		const ld heat_vaporization = 305.0; // kJ/mol
@@ -1426,15 +1492,22 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.150; // eV
 	} Gd;
 
+	/// <summary>
+	///	Terbium is a chemical element with the symbol Tb and atomic number 65.
+	///	It is a silvery-white, rare earth metal that is malleable, ductile,
+	///	and soft enough to be cut with a knife. The ninth member of the
+	///	lanthanide series, terbium is a fairly electro-positive metal that reacts
+	///	with water, evolving hydrogen gas.
+	/// </summary>
 	const struct TERBIUM
 	{
 		const ld atomic_weight = 158.93; // u
 		const int atomic_number = 65;
 		const ld density_STP = 8219; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1356.0; // C
+		const ld boiling_point = 3230.0; // C
+		const ld thermal_conductivity = 11.0; // W/mK
+		const ld electric_conductivity = .83; // MS/m
 		const ld resistivity = 1.2e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 182.0; // J/kgK
 		const ld heat_vaporization = 295.0; // kJ/mol
@@ -1442,15 +1515,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.864; // eV
 	} Tb;
 
+	/// <summary>
+	///	Dysprosium is the chemical element with the symbol Dy and atomic number 66.
+	///	It is a rare-earth element with a metallic silver luster. Dysprosium is
+	///	never found in nature as a free element, though it is found in various
+	///	minerals, such as xenotime.
+	/// </summary>
 	const struct DYSPROSIUM
 	{
 		const ld atomic_weight = 162.50; // u
 		const int atomic_number = 66;
 		const ld density_STP = 8551; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1412.0; // C
+		const ld boiling_point = 2567.0; // C
+		const ld thermal_conductivity = 11.0; // W/mK
+		const ld electric_conductivity = 1.1; // MS/m
 		const ld resistivity = 9.1e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 167.0; // J/kgK
 		const ld heat_vaporization = 280.0; // kJ/mol
@@ -1458,15 +1537,22 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.934; // eV
 	} Dy;
 
+	/// <summary>
+	/// Holmium is a chemical element with the symbol Ho and atomic number 67.
+	/// Part of the lanthanide series, holmium is a rare-earth element. Holmium
+	/// was discovered through isolation by Swedish chemist Per Theodor Cleve
+	/// and independently by Jacques-Louis Soret and Marc Delafontaine who
+	/// observed it spectroscopically in 1878.
+	/// </summary>
 	const struct HOLMIUM
 	{
 		const ld atomic_weight = 164.93; // u
 		const int atomic_number = 67;
 		const ld density_STP = 8795; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1474.0; // C
+		const ld boiling_point = 2700.0; // C
+		const ld thermal_conductivity = 16.0; // W/mK
+		const ld electric_conductivity = 1.1; // MS/m
 		const ld resistivity = 9.4e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 165.0; // J/kgK
 		const ld heat_vaporization = 265.0; // kJ/mol
@@ -1474,15 +1560,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.022; // eV
 	} Ho;
 
+	/// <summary>
+	/// Erbium is a chemical element with the symbol Er and atomic number 68.
+	/// A silvery-white solid metal when artificially isolated, natural erbium
+	/// is always found in chemical combination with other elements.
+	/// </summary>
 	const struct ERBIUM
 	{
 		const ld atomic_weight = 167.26; // u
 		const int atomic_number = 68;
 		const ld density_STP = 9066; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1497.0; // C
+		const ld boiling_point = 2868.0; // C
+		const ld thermal_conductivity = 15.0; // W/mK
+		const ld electric_conductivity = 1.2; // MS/m
 		const ld resistivity = 8.6e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 168.0; // J/kgK
 		const ld heat_vaporization = 285.0; // kJ/mol
@@ -1490,15 +1581,19 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.108; // eV
 	} Er;
 
+	/// <summary>
+	///	Thulium is a chemical element with the symbol Tm and atomic number 69.
+	///	It is the thirteenth and third-last element in the lanthanide series.
+	/// </summary>
 	const struct THULIUM
 	{
 		const ld atomic_weight = 168.93; // u
 		const int atomic_number = 69;
 		const ld density_STP = 9320; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1545.0; // C
+		const ld boiling_point = 1950.0; // C
+		const ld thermal_conductivity = 17.0; // W/mK
+		const ld electric_conductivity = 1.4; // MS/m
 		const ld resistivity = 7.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 160.0; // J/kgK
 		const ld heat_vaporization = 250.0; // kJ/mol
@@ -1506,15 +1601,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.184; // eV
 	} Tm;
 
+	/// <summary>
+	///	Ytterbium is a chemical element with the symbol Yb and atomic number 70.
+	///	It is the fourteenth and penultimate element in the lanthanide series,
+	///	which is the basis of the relative stability of its +2 oxidation state.
+	/// </summary>
 	const struct YTTERBIUM
 	{
 		const ld atomic_weight = 173.05; // u
 		const int atomic_number = 70;
 		const ld density_STP = 6570; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 818.9; // C
+		const ld boiling_point = 1196.0; // C
+		const ld thermal_conductivity = 39.0; // W/mK
+		const ld electric_conductivity = 3.6; // MS/m
 		const ld resistivity = 2.8e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 154.0; // J/kgK
 		const ld heat_vaporization = 160.0; // kJ/mol
@@ -1522,15 +1622,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.254; // eV
 	} Yb;
 
+	/// <summary>
+	///	Lutetium is a chemical element with the symbol Lu and atomic number 71.
+	///	It is a silvery white metal, which resists corrosion in dry air,
+	///	but not in moist air. Lutetium is the last element in the lanthanide series,
+	///	and it is traditionally counted among the rare earths.
+	/// </summary>
 	const struct LUTERTIUM
 	{
 		const ld atomic_weight = 174.97; // u
 		const int atomic_number = 71;
 		const ld density_STP = 9841; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1663.0; // C
+		const ld boiling_point = 3402.0; // C
+		const ld thermal_conductivity = 16.0; // W/mK
+		const ld electric_conductivity = 1.8; // MS/m
 		const ld resistivity = 5.6e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 154.0; // J/kgK
 		const ld heat_vaporization = 415.0; // kJ/mol
@@ -1539,15 +1645,20 @@ const struct LANTHANUM
 	} Lu;
 
 
+	/// <summary>
+	///	Hafnium is a chemical element with the symbol Hf and atomic number 72.
+	///	A lustrous, silvery gray, tetravalent transition metal, hafnium chemically
+	///	resembles zirconium and is found in many zirconium minerals.
+	/// </summary>
 	const struct HAFNIUM
 	{
 		const ld atomic_weight = 178.49; // u
 		const int atomic_number = 72;
 		const ld density_STP = 13310; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 2233.0; // C
+		const ld boiling_point = 4603.0; // C
+		const ld thermal_conductivity = 23.0; // W/mK
+		const ld electric_conductivity = 3.3; // MS/m
 		const ld resistivity = 3.0e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 144.0; // J/kgK
 		const ld heat_vaporization = 630.0; // kJ/mol
@@ -1556,30 +1667,42 @@ const struct LANTHANUM
 	} Hf;
 
 
+	/// <summary>
+	///	Tantalum is a chemical element with the symbol Ta and atomic number 73.
+	///	Previously known as tantalium, it is named after Tantalus, a villain
+	///	from Greek mythology. Tantalum is a rare, hard, blue-gray, lustrous
+	///	transition metal that is highly corrosion-resistant.
+	/// </summary>
 	const struct TANTALUM
 	{
 		const ld atomic_weight = 180.95; // u
 		const int atomic_number = 73;
 		const ld density_STP = 16650; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 3017.0; // C
+		const ld boiling_point = 5458.0; // C
+		const ld thermal_conductivity = 57.0; // W/mK
+		const ld electric_conductivity = 7.7; // MS/m
 		const ld resistivity = 1.3e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 140.0; // J/kgK
 		const ld heat_vaporization = 735.0; // kJ/mol
 		const ld heat_fusion = 36.0; // kJ/mol
 		const ld ionization_1st = 7.89; // eV
 	} Ta;
+	/// <summary>
+	///	Tungsten, or wolfram, is a chemical element with the symbol W and atomic number 74.
+	///	Tungsten is a rare metal found naturally on Earth almost exclusively as
+	///	compounds with other elements. It was identified as a new element in 1781
+	///	and first isolated as a metal in 1783.
+	/// </summary>
 	const struct TUNGSTEN
 	{
 		const ld atomic_weight = 183.84; // u
 		const int atomic_number = 74;
 		const ld density_STP = 19250; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 3422.0; // C
+		const ld boiling_point = 5555.0; // C
+		const ld thermal_conductivity = 170.0; // W/mK
+		const ld electric_conductivity = 20.0; // MS/m
 		const ld resistivity = 5.0e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 132.0; // J/kgK
 		const ld heat_vaporization = 800.0; // kJ/mol
@@ -1587,15 +1710,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 7.98; // eV
 	} W;
 
+	/// <summary>
+	///	Rhenium is a chemical element with the symbol Re and atomic number 75.
+	///	It is a silvery-gray, heavy, third-row transition metal in group 7 of
+	///	the periodic table. With an estimated average concentration of 1 part
+	///	per billion, rhenium is one of the rarest elements in the Earth's crust.
+	/// </summary>
 	const struct RHENIUM
 	{
 		const ld atomic_weight = 186.21; // u
 		const int atomic_number = 75;
 		const ld density_STP = 21020; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 3186.0; // C
+		const ld boiling_point = 5596.0; // C
+		const ld thermal_conductivity = 48.0; // W/mK
+		const ld electric_conductivity = 5.6; // MS/m
 		const ld resistivity = 1.8e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 137.0; // J/kgK
 		const ld heat_vaporization = 705.0; // kJ/mol
@@ -1603,15 +1732,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 7.88; // eV
 	} Re;
 
+	/// <summary>
+	///	Osmium is a chemical element with the symbol Os and atomic number 76.
+	///	It is a hard, brittle, bluish-white transition metal in the platinum
+	///	group that is found as a trace element in alloys, mostly in platinum ores.
+	/// </summary>
 	const struct OSMIUM
 	{
 		const ld atomic_weight = 190.23; // u
 		const int atomic_number = 76;
 		const ld density_STP = 22590; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 3033.0; // C
+		const ld boiling_point = 5012.0; // C
+		const ld thermal_conductivity = 88.0; // W/mK
+		const ld electric_conductivity = 12.0; // MS/m
 		const ld resistivity = 8.1e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 130.0; // J/kgK
 		const ld heat_vaporization = 630.0; // kJ/mol
@@ -1619,15 +1753,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 8.71; // eV
 	} Os;
 
+	/// <summary>
+	///	Iridium is a chemical element with the symbol Ir and atomic number 77.
+	///	A very hard, brittle, silvery-white transition metal of the platinum group,
+	///	iridium is considered to be the second-densest metal with a density of
+	///	22.56 g/cm³ as defined by experimental X-ray crystallography.
+	/// </summary>
 	const struct IRIDIUM
 	{
 		const ld atomic_weight = 192.22; // u
 		const int atomic_number = 77;
 		const ld density_STP = 22560; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 2466.0; // C
+		const ld boiling_point = 4428.0; // C
+		const ld thermal_conductivity = 150.0; // W/mK
+		const ld electric_conductivity = 21.0; // MS/m
 		const ld resistivity = 4.7e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 131.0; // J/kgK
 		const ld heat_vaporization = 560.0; // kJ/mol
@@ -1635,15 +1775,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 9.12; // eV
 	} Ir;
 
+	/// <summary>
+	///	Platinum is a chemical element with the symbol Pt and atomic number 78.
+	///	It is a dense, malleable, ductile, highly nonreactive, precious,
+	///	silverish-white transition metal. Its name is derived from the Spanish
+	///	term platino, meaning "little silver".
+	/// </summary>
 	const struct PLATINUM
 	{
 		const ld atomic_weight = 195.08; // u
 		const int atomic_number = 78;//Z
 		const ld density_STP = 21450; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1768.3; // C
+		const ld boiling_point = 3825.0; // C
+		const ld thermal_conductivity = 72.0; // W/mK
+		const ld electric_conductivity = 9.4; // MS/m
 		const ld resistivity = 1.1e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 133.0; // J/kgK
 		const ld heat_vaporization = 490.0; // kJ/mol
@@ -1651,6 +1797,13 @@ const struct LANTHANUM
 		const ld ionization_1st = 9.02; // eV
 	} Pt;
 
+	/// <summary>
+	///	Gold is a chemical element with the symbol Au and atomic number 79,
+	///	making it one of the higher atomic number elements that occur naturally.
+	///	In a pure form, it is a bright, slightly reddish yellow, dense, soft,
+	///	malleable, and ductile metal. Chemically, gold is a transition metal
+	///	and a group 11 element.
+	/// </summary>
 	const struct GOLD
 	{
 		const ld atomic_weight = 196.97; // u
@@ -1658,8 +1811,8 @@ const struct LANTHANUM
 		const ld density_STP = 19300; // kg/m^3
 		const ld melting_point = 1064.18; // C
 		const ld boiling_point = 2856; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld thermal_conductivity = 320.0; // W/mK
+		const ld electric_conductivity = 45.0; // MS/m
 		const ld resistivity = 2.2e-8; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 129.1; // J/kgK
 		const ld heat_vaporization = 330.0; // kJ/mol
@@ -1667,15 +1820,19 @@ const struct LANTHANUM
 		const ld ionization_1st = 9.225; // eV
 	} Au;
 
+	/// <summary>
+	///	Mercury is a chemical element with the symbol Hg and atomic number 80.
+	///	It is commonly known as quicksilver and was formerly named hydrargyrum.
+	/// </summary>
 	const struct MERCURY
 	{
 		const ld atomic_weight = 200.59; // u
 		const int atomic_number = 80;
 		const ld density_STP = 13534; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = -38.830; // C
+		const ld boiling_point = 356.73; // C
+		const ld thermal_conductivity = 8.3; // W/mK
+		const ld electric_conductivity = 1.0; // MS/m
 		const ld resistivity = 9.6e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 139.5; // J/kgK
 		const ld heat_vaporization = 59.2; // kJ/mol
@@ -1683,15 +1840,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 10.438; // eV
 	} Hg;
 
+	/// <summary>
+	///	Thallium is a chemical element with the symbol Tl and atomic number 81.
+	///	It is a gray post-transition metal that is not found free in nature.
+	///	When isolated, thallium resembles tin, but discolors when exposed to air.
+	/// </summary>
 	const struct THALLIUM
 	{
 		const ld atomic_weight = 204.38; // u
 		const int atomic_number = 81;
 		const ld density_STP = 11850; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 304.0; // C
+		const ld boiling_point = 1473.0; // C
+		const ld thermal_conductivity = 46.0; // W/mK
+		const ld electric_conductivity = 6.7; // MS/m
 		const ld resistivity = 1.5e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 129.0; // J/kg
 		const ld heat_vaporization = 165.0; // kJ/mol
@@ -1699,15 +1861,22 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.109; // eV
 	} Tl;
 
+	/// <summary>
+	///	Lead is a chemical element with the symbol Pb and atomic number 82.
+	///	It is a heavy metal that is denser than most common materials. Lead is
+	///	soft and malleable, and also has a relatively low melting point. When
+	///	freshly cut, lead is silvery with a hint of blue; it tarnishes to a dull
+	///	gray color when exposed to air.
+	/// </summary>
 	const struct LEAD
 	{
 		const ld atomic_weight = 207.2; // u
 		const int atomic_number = 82;
 		const ld density_STP = 11340; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 327.46; // C
+		const ld boiling_point = 1749.0; // C
+		const ld thermal_conductivity = 35.0; // W/mK
+		const ld electric_conductivity = 4.8; // MS/m
 		const ld resistivity = 2.1e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 127.0; // J/kgK
 		const ld heat_vaporization = 178.0; // kJ/mol
@@ -1715,15 +1884,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 7.417; // eV
 	} Pb;
 
+	/// <summary>
+	///	Bismuth is a chemical element with the symbol Bi and atomic number 83.
+	///	It is a pentavalent post-transition metal and one of the pnictogens with
+	///	chemical properties resembling its lighter group 15 siblings arsenic
+	///	and antimony.
+	/// </summary>
 	const struct BISMUTH
 	{
 		const ld atomic_weight = 208.98; // u
 		const int atomic_number = 83;
 		const ld density_STP = 9780; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 271.3; // C
+		const ld boiling_point = 1564.0; // C
+		const ld thermal_conductivity = 8.0; // W/mK
+		const ld electric_conductivity = .77; // MS/m
 		const ld resistivity = 1.3e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 122.0; // J/kgK
 		const ld heat_vaporization = 160.0; // kJ/mol
@@ -1731,15 +1906,22 @@ const struct LANTHANUM
 		const ld ionization_1st = 7.29; // eV
 	} Bi;
 
+	/// <summary>
+	///	Polonium is a chemical element with the symbol Po and atomic number 84.
+	///	A rare and highly radioactive metal with no stable isotopes, polonium
+	///	is chemically similar to selenium and tellurium, though its metallic
+	///	character resembles that of its horizontal neighbors in the periodic
+	///	table: thallium, lead, and bismuth.
+	/// </summary>
 	const struct POLONIUM
 	{
 		const ld atomic_weight = (209); // u
 		const int atomic_number = 84;
 		const ld density_STP = 9196.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 255.0; // C
+		const ld boiling_point = 961.9; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = 2.3; // MS/m
 		const ld resistivity = 4.3e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = 100.0; // kJ/mol
@@ -1747,15 +1929,22 @@ const struct LANTHANUM
 		const ld ionization_1st = 8.417; // eV
 	} Po;
 
+	/// <summary>
+	///	Astatine is a chemical element with the symbol At and atomic number 85.
+	///	It is the rarest naturally occurring element in the Earth's crust,
+	///	occurring only as the decay product of various heavier elements.
+	///	All of astatine's isotopes are short-lived; the most stable is
+	///	astatine-210, with a half-life of 8.1 hours.
+	/// </summary>
 	const struct ASTATINE
 	{
 		const ld atomic_weight = (210); // u
 		const int atomic_number = 85;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 302.0; // C
+		const ld boiling_point = 350.0; // C
+		const ld thermal_conductivity = 2.0; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = 40.0; // kJ/mol
@@ -1763,15 +1952,19 @@ const struct LANTHANUM
 		const ld ionization_1st = 9.22; // eV
 	} At;
 
+	/// <summary>
+	///	Radon is a chemical element with the symbol Rn and atomic number 86.
+	///	It is a radioactive, colorless, odorless, tasteless noble gas.
+	/// </summary>
 	const struct RADON
 	{
 		const ld atomic_weight = (222); // u
 		const int atomic_number = 86;
 		const ld density_STP = 9.73; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = -71.1; // C
+		const ld boiling_point = -61.85; // C
+		const ld thermal_conductivity = .00361; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 93.65; // J/kgK
 		const ld heat_vaporization = 17.0; // kJ/mol
@@ -1779,15 +1972,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 10.75; // eV
 	} Rn;
 
+	/// <summary>
+	///	Francium is a chemical element with the symbol Fr and atomic number 87.
+	///	Prior to its discovery, it was referred to as eka-caesium. It is extremely
+	///	radioactive; its most stable isotope, francium-223, has a half-life
+	///	of only 22 minutes.
+	/// </summary>
 	const struct FRANCIUM
 	{
 		const ld atomic_weight = (223); // u
 		const int atomic_number = 87;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 20.9; // C
+		const ld boiling_point = 650.0; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = 65.0; // kJ/mol
@@ -1795,15 +1994,22 @@ const struct LANTHANUM
 		const ld ionization_1st = 3.94; // eV
 	} Fr;
 
+	/// <summary>
+	///	Radium is a chemical element with the symbol Ra and atomic number 88.
+	///	It is the sixth element in group 2 of the periodic table, also known
+	///	as the alkaline earth metals. Pure radium is silvery-white, but it
+	///	readily reacts with nitrogen on exposure to air, forming a black
+	///	surface layer of radium nitride.
+	/// </summary>
 	const struct RADIUM
 	{
 		const ld atomic_weight = (226); // u
 		const int atomic_number = 88;
 		const ld density_STP = 5000.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 700.0; // C
+		const ld boiling_point = 1737.0; // C
+		const ld thermal_conductivity = 19.0; // W/mK
+		const ld electric_conductivity = 1.0; // MS/m
 		const ld resistivity = 1.0e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 92.0; // J/kgK
 		const ld heat_vaporization = 125.0; // kJ/mol
@@ -1812,15 +2018,21 @@ const struct LANTHANUM
 	} Ra;
 
 
+	/// <summary>
+	///	Actinium is a chemical element with the symbol Ac and atomic number 89.
+	///	It was first isolated by Friedrich Oskar Giesel in 1902, who gave it
+	///	the name emanium; the element got its name by being wrongly identified
+	///	with a substance André-Louis Debierne found and called actinium.
+	/// </summary>
 	const struct ACTINIUM
 	{
 		const ld atomic_weight = (227); // u
 		const int atomic_number = 89;
 		const ld density_STP = 10070.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1050.0; // C
+		const ld boiling_point = 3200.0; // C
+		const ld thermal_conductivity = 12.0; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 120.0; // J/kgK
 		const ld heat_vaporization = 400.0; // kJ/mol
@@ -1828,15 +2040,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.17; // eV
 	} Ac;
 
+	/// <summary>
+	///	Thorium is a weakly radioactive metallic chemical element with the symbol Th and atomic number 90.
+	///	Thorium is silvery and tarnishes black when it is exposed to air, forming
+	///	thorium dioxide; it is moderately soft, malleable, and has a high melting point.
+	/// </summary>
 	const struct THORIUM
 	{
 		const ld atomic_weight = 232.04; // u
 		const int atomic_number = 90;
 		const ld density_STP = 11724.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1750.0; // C
+		const ld boiling_point = 4820.0; // C
+		const ld thermal_conductivity = 54.0; // W/mK
+		const ld electric_conductivity = 6.7; // MS/m
 		const ld resistivity = 1.5e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 118.0; // J/kgK
 		const ld heat_vaporization = 530.0; // kJ/mol
@@ -1844,15 +2061,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.08; // eV
 	} Th;
 
+	/// <summary>
+	///	Protactinium is a chemical element with the symbol Pa and atomic number 91.
+	///	It is a dense, silvery-gray actinide metal which readily reacts with oxygen,
+	///	water vapor and inorganic acids.
+	/// </summary>
 	const struct PROTACTINIUM
 	{
 		const ld atomic_weight = 231.04; // u
 		const int atomic_number = 91;
 		const ld density_STP = 15370.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1572.0; // C
+		const ld boiling_point = 4000.0; // C
+		const ld thermal_conductivity = 47.0; // W/mK
+		const ld electric_conductivity = 5.6; // MS/m
 		const ld resistivity = 1.8e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 99.1; // J/kgK
 		const ld heat_vaporization = 470.0; // kJ/mol
@@ -1860,15 +2082,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.89; // eV
 	} Pa;
 
+	/// <summary>
+	///	Uranium is a chemical element with the symbol U and atomic number 92.
+	///	It is a silvery-grey metal in the actinide series of the periodic table.
+	///	A uranium atom has 92 protons and 92 electrons, of which 6 are
+	///	valence electrons.
+	/// </summary>
 	const struct URANIUM
 	{
 		const ld atomic_weight = 238.03; // u
 		const int atomic_number = 92;
 		const ld density_STP = 19050.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1135.0; // C
+		const ld boiling_point = 3900.0; // C
+		const ld thermal_conductivity = 27.0; // W/mK
+		const ld electric_conductivity = 3.6; // MS/m
 		const ld resistivity = 2.8e-7; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = 116.0; // J/kgK
 		const ld heat_vaporization = 420.0; // kJ/mol
@@ -1876,15 +2104,22 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.194; // eV
 	} U;
 
+	/// <summary>
+	///	Neptunium is a chemical element with the symbol Np and atomic number 93.
+	///	A radioactive actinide metal, neptunium is the first transuranic element.
+	///	Its position in the periodic table just after uranium, named after the
+	///	planet Uranus, led to it being named after Neptune, the next planet
+	///	beyond Uranus.
+	/// </summary>
 	const struct NEPTUNIUM
 	{
 		const ld atomic_weight = (237); // u
 		const int atomic_number = 93;
 		const ld density_STP = 20450.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 644.0; // C
+		const ld boiling_point = 4000.0; // C
+		const ld thermal_conductivity = 6.0; // W/mK
+		const ld electric_conductivity = .83; // MS/m
 		const ld resistivity = 1.2e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = 335.0; // kJ/mol
@@ -1892,15 +2127,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.265; // eV
 	} Np;
 
+	/// <summary>
+	///	Plutonium is a radioactive chemical element with the symbol Pu and atomic number 94.
+	///	It is an actinide metal of silvery-gray appearance that tarnishes when exposed to air,
+	///	and forms a dull coating when oxidized. The element normally exhibits six allotropes
+	///	and four oxidation states.
+	/// </summary>
 	const struct PLUTONIUM
 	{
 		const ld atomic_weight = (244); // u
 		const int atomic_number = 94;
 		const ld density_STP = 19816.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 640.0; // C
+		const ld boiling_point = 3230.0; // C
+		const ld thermal_conductivity = 6.0; // W/mK
+		const ld electric_conductivity = .67; // MS/m
 		const ld resistivity = 1.5e-6; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = 325.0; // kJ/mol
@@ -1908,15 +2149,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.060; // eV
 	} Pu;
 
+	/// <summary>
+	///	Americium is a synthetic radioactive chemical element with the symbol Am and atomic number 95.
+	///	It is a transuranic member of the actinide series, in the periodic table located under
+	///	the lanthanide element europium, and thus by analogy was named after the Americas.
+	/// </summary>
 	const struct AMERICIUM
 	{
 		const ld atomic_weight = (243); // u
 		const int atomic_number = 95;
 		const ld density_STP = 13670.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1176.0; // C
+		const ld boiling_point = 2011.0; // C
+		const ld thermal_conductivity = 10.0; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -1924,15 +2170,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 5.99; // eV
 	} Am;
 
+	/// <summary>
+	///	Curium is a transuranic radioactive chemical element with the symbol Cm and atomic number 96.
+	///	This element of the actinide series was named after Marie and Pierre Curie, both known
+	///	for their research on radioactivity.
+	/// </summary>
 	const struct CURIUM
 	{
 		const ld atomic_weight = (247); // u
 		const int atomic_number = 96;
 		const ld density_STP = 13510.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1345.0; // C
+		const ld boiling_point = 3110.0; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -1940,15 +2191,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.02; // eV
 	} Cm;
 
+	/// <summary>
+	///	Berkelium is a transuranic radioactive chemical element with the symbol Bk and atomic number 97.
+	///	It is a member of the actinide and transuranium element series. It is named
+	///	after the city of Berkeley, California, the location of the Lawrence Berkeley
+	///	National Laboratory where it was discovered in December 1949.
+	/// </summary>
 	const struct BERKELIUM
 	{
 		const ld atomic_weight = (247); // u
 		const int atomic_number = 97;
 		const ld density_STP = 14780.00; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1050.0; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = 10.0; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -1956,15 +2213,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.23; // eV
 	} Bk;
 
+	/// <summary>
+	///	Californium is a radioactive chemical element with the symbol Cf and atomic number 98.
+	///	The element was first synthesized in 1950 at the Lawrence Berkeley National Laboratory,
+	///	by bombarding curium with alpha particles.
+	/// </summary>
 	const struct CALIFORNIUM
 	{
 		const ld atomic_weight = (251); // u
 		const int atomic_number = 98;
 		const ld density_STP = 15100.0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 899.9; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -1972,15 +2234,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.30; // eV
 	} Cf;
 
+	/// <summary>
+	///	Einsteinium is a synthetic element with the symbol Es and atomic number 99.
+	///	Einsteinium is a member of the actinide series and it is the seventh transuranic
+	///	element. It is named to honor Albert Einstein. Einsteinium was discovered
+	///	as a component of the debris of the first hydrogen bomb explosion in 1952.
+	/// </summary>
 	const struct EINSTEINIUM
 	{
 		const ld atomic_weight = (252); // u
 		const int atomic_number = 99;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 859.9; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -1988,15 +2256,22 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.42; // eV
 	} Es;
 
+	/// <summary>
+	///	Fermium is a synthetic element with the symbol Fm and atomic number 100.
+	///	It is an actinide and the heaviest element that can be formed by neutron
+	///	bombardment of lighter elements, and hence the last element that can be
+	///	prepared in macroscopic quantities, although pure fermium metal has not
+	///	yet been prepared.
+	/// </summary>
 	const struct FERMIUM
 	{
 		const ld atomic_weight = (257); // u
 		const int atomic_number = 100;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1500.0; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2004,15 +2279,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.50; // eV
 	} Fm;
 
+	/// <summary>
+	///	Mendelevium is a synthetic element with the symbol Md and atomic number 101.
+	///	A metallic radioactive transuranic element in the actinide series, it is the
+	///	first element by atomic number that currently cannot be produced in
+	///	macroscopic quantities through neutron bombardment of lighter elements.
+	/// </summary>
 	const struct MANDELEVIUM
 	{
 		const ld atomic_weight = (258); // u
 		const int atomic_number = 101;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 830.0; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2020,15 +2301,21 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.58; // eV
 	} Md;
 
+	/// <summary>
+	///	Nobelium is a synthetic chemical element with the symbol No and atomic number 102.
+	///	It is named in honor of Alfred Nobel, the inventor of dynamite and benefactor
+	///	of science. A radioactive metal, it is the tenth transuranic element and is
+	///	the penultimate member of the actinide series.
+	/// </summary>
 	const struct NOBELIUM
 	{
 		const ld atomic_weight = (259); // u
 		const int atomic_number = 102;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 830.0; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2036,15 +2323,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.65; // eV
 	} No;
 
+	/// <summary>
+	///	Lawrencium is a synthetic chemical element with the symbol Lr and atomic number 103.
+	///	It is named in honor of Ernest Lawrence, inventor of the cyclotron, a
+	///	device that was used to discover many artificial radioactive elements.
+	/// </summary>
 	const struct LAWRENCIUM
 	{
 		const ld atomic_weight = (266); // u
 		const int atomic_number = 103;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = 1600.0; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2052,15 +2344,20 @@ const struct LANTHANUM
 		const ld ionization_1st = 4.87; // eV
 	} Lr;
 
+	/// <summary>
+	///	Rutherfordium is a synthetic chemical element with the symbol Rf and atomic number 104,
+	///	named after New Zealand physicist Ernest Rutherford. As a synthetic element,
+	///	it is not found in nature and can only be created in a laboratory.
+	/// </summary>
 	const struct RUTHERFORDIUM
 	{
 		const ld atomic_weight = (267); // u
 		const int atomic_number = 104;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2068,15 +2365,22 @@ const struct LANTHANUM
 		const ld ionization_1st = 6.01; // eV
 	} Rf;
 
+	/// <summary>
+	///	Dubnium is a synthetic chemical element with the symbol Db and atomic number 105.
+	///	Dubnium is highly radioactive: the most stable known isotope, dubnium-268,
+	///	has a half-life of about 28 hours. This greatly limits extended research
+	///	on dubnium. Dubnium does not occur naturally on Earth and is produced
+	///	artificially.
+	/// </summary>
 	const struct DUBNIUM
 	{
 		const ld atomic_weight = (268); // u
 		const int atomic_number = 105;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2084,15 +2388,20 @@ const struct LANTHANUM
 		const ld ionization_1st = NULL; // eV
 	} Db;
 
+	/// <summary>
+	///	Seaborgium is a synthetic chemical element with the symbol Sg and atomic number 106.
+	///	It is named after the American nuclear chemist Glenn T. Seaborg. As a synthetic
+	///	element, it can be created in a laboratory but is not found in nature.
+	/// </summary>
 	const struct SEABORGIUM
 	{
 		const ld atomic_weight = (269); // u
 		const int atomic_number = 106;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2100,15 +2409,20 @@ const struct LANTHANUM
 		const ld ionization_1st = NULL; // eV
 	} Sg;
 
+	/// <summary>
+	///	Bohrium is a synthetic chemical element with the symbol Bh and atomic number 107.
+	///	It is named after Danish physicist Niels Bohr. As a synthetic element,
+	///	it can be created in a laboratory but is not found in nature.
+	/// </summary>
 	const struct BOHRIUM
 	{
 		const ld atomic_weight = (270); // u
 		const int atomic_number = 107;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2116,15 +2430,20 @@ const struct LANTHANUM
 		const ld ionization_1st = NULL; // eV
 	} Bh;
 
+	/// <summary>
+	///	Hassium is a chemical element with the symbol Hs and the atomic number 108.
+	///	Hassium is highly radioactive; its most stable known isotopes have half-lives
+	///	of approximately ten seconds.
+	/// </summary>
 	const struct HASSIUM
 	{
 		const ld atomic_weight = 277; // u
 		const int atomic_number = 108;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2132,15 +2451,21 @@ const struct LANTHANUM
 		const ld ionization_1st = NULL; // eV
 	} Hs;
 
+	/// <summary>
+	///	Meitnerium is a synthetic chemical element with the symbol Mt and atomic number 109.
+	///	It is an extremely radioactive synthetic element. The most stable known isotope,
+	///	meitnerium-278, has a half-life of 4.5 seconds, although the unconfirmed
+	///	meitnerium-282 may have a longer half-life of 67 seconds.
+	/// </summary>
 	const struct MEITNERIUM
 	{
 		const ld atomic_weight = 278; // u
 		const int atomic_number = 109;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2148,15 +2473,20 @@ const struct LANTHANUM
 		const ld ionization_1st = NULL; // eV
 	} Mt;
 
+	/// <summary>
+	///	Darmstadtium is a chemical element with the symbol Ds and atomic number 110.
+	///	It is an extremely radioactive synthetic element. The most stable known
+	///	isotope, darmstadtium-281, has a half-life of approximately 12.7 seconds.
+	/// </summary>
 	const struct DARMSTADTIUM
 	{
 		const ld atomic_weight = 281; // u
 		const int atomic_number = 110;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2165,15 +2495,20 @@ const struct LANTHANUM
 	} Ds;
 
 
+	/// <summary>
+	///	Roentgenium is a chemical element with the symbol Rg and atomic number 111.
+	///	It is an extremely radioactive synthetic element that can be created in a
+	///	laboratory but is not found in nature.
+	/// </summary>
 	const struct ROENTGENUIM
 	{
 		const ld atomic_weight = 282; // u
 		const int atomic_number = 111;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2181,15 +2516,20 @@ const struct LANTHANUM
 		const ld ionization_1st = NULL; // eV
 	} Rg;
 
+	/// <summary>
+	///	Copernicium is a synthetic chemical element with the symbol Cn and atomic number 112.
+	///	Its known isotopes are extremely radioactive, and have only been created in a laboratory.
+	///	The most stable known isotope, copernicium-285, has a half-life of approximately 28 seconds.
+	/// </summary>
 	const struct COPERNICIUM
 	{
 		const ld atomic_weight = 285; // u
 		const int atomic_number = 112;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2197,15 +2537,22 @@ const struct LANTHANUM
 		const ld ionization_1st = NULL; // eV
 	} Cn;
 
+	/// <summary>
+	///	Nihonium is a synthetic chemical element with the symbol Nh and atomic number 113.
+	///	It is extremely radioactive; its most stable known isotope, nihonium-286,
+	///	has a half-life of about 10 seconds. In the periodic table, nihonium is
+	///	a transactinide element in the p-block. It is a member of period 7
+	///	and group 13.
+	/// </summary>
 	const struct NIHONIUM
 	{
 		const ld atomic_weight = 286; // u
 		const int atomic_number = 113;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2214,17 +2561,20 @@ const struct LANTHANUM
 	} Nh;
 
 	/// <summary>
-	///
+	///	Flerovium is a superheavy artificial chemical element with the symbol Fl and atomic number 114.
+	///	It is an extremely radioactive synthetic element. The element is named
+	///	after the Flerov Laboratory of Nuclear Reactions of the Joint Institute
+	///	for Nuclear Research in Dubna, Russia, where the element was discovered in 1998.
 	/// </summary>
 	const struct FLEROVIUM
 	{
 		const ld atomic_weight = 289; // u
 		const int atomic_number = 114;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2233,17 +2583,19 @@ const struct LANTHANUM
 	} Fl;
 
 	/// <summary>
-	///
+	///	Moscovium is a synthetic chemical element with the symbol Mc and atomic number 115.
+	///	It was first synthesized in 2003 by a joint team of Russian and American scientists
+	///	at the Joint Institute for Nuclear Research in Dubna, Russia.
 	/// </summary>
 	const struct MOSCOVIUM
 	{
 		const ld atomic_weight = 290; // u
 		const int atomic_number = 115;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2252,17 +2604,19 @@ const struct LANTHANUM
 	} Mc;
 
 	/// <summary>
-	///
+	///	Livermorium is a synthetic chemical element with the symbol Lv and has an atomic number of 116.
+	///	It is an extremely radioactive element that has only been created in the
+	///	laboratory and has not been observed in nature.
 	/// </summary>
 	const struct LIVERMORIUM
 	{
 		const ld atomic_weight = 293; // u
 		const int atomic_number = 116;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2271,17 +2625,19 @@ const struct LANTHANUM
 	} Lv;
 
 	/// <summary>
-	///
+	///	Tennessine is a synthetic chemical element with the symbol Ts and atomic number 117.
+	///	It is the second-heaviest known element and the penultimate element of the
+	///	7th period of the periodic table.
 	/// </summary>
 	const struct TENNESSINE
 	{
 		const ld atomic_weight = 294; // u
 		const int atomic_number = 117;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2290,17 +2646,19 @@ const struct LANTHANUM
 	} Ts;
 
 	/// <summary>
-	///
+	///	Oganesson is a synthetic chemical element with the symbol Og and atomic number 118.
+	///	It was first synthesized in 2002 at the Joint Institute for Nuclear Research in Dubna,
+	///	near Moscow, Russia, by a joint team of Russian and American scientists.
 	/// </summary>
 	const struct OGANESSON
 	{
 		const ld atomic_weight = 294; // u
 		const int atomic_number = 118;
 		const ld density_STP = NULL; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
+		const ld melting_point = NULL; // C
+		const ld boiling_point = NULL; // C
+		const ld thermal_conductivity = NULL; // W/mK
+		const ld electric_conductivity = NULL; // MS/m
 		const ld resistivity = NULL; // m Ohm (m * kg*m^2*s^-3*A^-2)
 		const ld heat_specific = NULL; // J/kgK
 		const ld heat_vaporization = NULL; // kJ/mol
@@ -2309,86 +2667,24 @@ const struct LANTHANUM
 	} Og;
 
 
-}elem;
 
 
-static int periodicElement_objectCount = 0;
+}elements;
 
-
-class PeriodicElements
+template<typename ELEM>
+static void printElementData(ELEM el)
 {
-	static void countIncrease() { periodicElement_objectCount += 1; }
-	static void countDecrease() { periodicElement_objectCount -= 1; }
-public:
-	PeriodicElements* _elementPtr;
-	Elements periodic_table;
-	PeriodicElements()
-	{
-		_elementPtr = nullptr;
-		countIncrease();
-	}
-
-	/**
-	 * @brief copy constructor
-	 */
-	PeriodicElements(const PeriodicElements& t)
-	{
-		_elementPtr = t._elementPtr;
-		countIncrease();
-	}
-
-	/**
-	 * #brief move constructor
-	 */
-	PeriodicElements(PeriodicElements&& t) noexcept
-	{
-		_elementPtr = t._elementPtr;
-		countIncrease();
-	}
-
-	/**
-	 * @brief copy assignment operator
-	 */
-	PeriodicElements& operator=(const PeriodicElements& t)
-	{
-		if (this != &t)
-		{
-			_elementPtr = t._elementPtr;
-			countIncrease();
-		}
-		return *this;
-	}
-
-	static void show_objectCount()
-	{
-		std::cout << "\n periodic element object count: " << periodicElement_objectCount << std::endl;
-	}
-
-	static int get_objectCount() { return periodicElement_objectCount; }
-
-
-	~PeriodicElements()
-	{
-		delete _elementPtr;
-	}
-};
-#endif
-
-
-/**
-	const struct TEMPLATEELEMENT
-	{
-		const ld atomic_weight = 0; // u
-		const int atomic_number = 19;
-		const ld density_STP = 0; // kg/m^3
-		const ld melting_point = -0; // C
-		const ld boiling_point = -0; // C
-		const ld thermal_conductivity = 0; // W/mK
-		const ld electric_conductivity = 0; // MS/m
-		const ld resistivity = 0; // m Ohm (m * kg*m^2*s^-3*A^-2)
-		const ld heat_specific = 0; // J/kgK
-		const ld heat_vaporization = 0; // kJ/mol
-		const ld heat_fusion = 0; // kJ/mol
-	}Tmp;
-
- */
+	printf("\nelement:               (%s)\n", typeid(el).name()+17);
+	std::cout << setw(23) << left << "atomic #: " << el.atomic_number << " Z" << std::endl;
+	std::cout << setw(23) << left << "atomic Weight: " << el.atomic_weight << " u" << std::endl;
+	std::cout << setw(23) << left << "density STP: " << el.density_STP << " kg/m^3" << std::endl;
+	std::cout << setw(23) << left << "melting point: " << el.melting_point << " C" << std::endl;
+	std::cout << setw(23) << left << "boiling point: " << el.boiling_point << " C" << std::endl;
+	std::cout << setw(23) << left << "thermal conductivity: " << el.thermal_conductivity << " W/mK" << std::endl;
+	std::cout << setw(23) << left << "electric conductivity: " << el.electric_conductivity << " MS/m" << std::endl;
+	std::cout << setw(23) << left << "resistivity: " << el.resistivity << " Ohm*m" << std::endl;
+	std::cout << setw(23) << left << "specific heat: " << el.heat_specific << " J/kgK" << std::endl;
+	std::cout << setw(23) << left << "vaporization heat: " << el.heat_vaporization << " kJ/mol" << std::endl;
+	std::cout << setw(23) << left << "fusion heat: " << el.heat_fusion << " kJ/mol" << std::endl;
+	std::cout << setw(23) << left << "first ionization: " << el.ionization_1st << " kJ/mol" << std::endl;
+}

@@ -68,6 +68,7 @@
     <ClInclude Include="Waves.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="PeriodicElements.cpp" />
     <ClCompile Include="RandomNumbers.cpp" />
     <ClCompile Include="testFactory.cpp" />
   </ItemGroup>

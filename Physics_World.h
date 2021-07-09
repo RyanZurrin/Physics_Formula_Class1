@@ -38,7 +38,7 @@
 #include "Magnetism.h"
 #include "MatrixND.h"
 #include "Momentum.h"
-//#include "PeriodicElements.h"
+#include "PeriodicElements.h"
 #include "RandomNumbers.h"
 #include "RotationalMotion.h"
 #include "Statics.h"
@@ -819,7 +819,6 @@ public:
 	unique_ptr<ElectricCharge> electric_charge;
 	unique_ptr<ElectricPotential> electric_potential;
 	unique_ptr<ElectricCurrent> electric_current;
-	unique_ptr<PeriodicElements> periodic_elements;
 	unique_ptr<Circuits> circuits;
 	unique_ptr<Magnetism> magnetism;
 	unique_ptr<EMI> emi;
@@ -867,7 +866,6 @@ public:
 		electric_charge(std::move(o.electric_charge)),
 		electric_potential(std::move(o.electric_potential)),
 		electric_current(std::move(o.electric_current)),
-		periodic_elements(std::move(o.periodic_elements)),
 		circuits(std::move(o.circuits)),
 		magnetism(std::move(o.magnetism)),
 		emi(std::move(o.emi)),
@@ -991,7 +989,6 @@ inline Physics_World::Physics_World()
 	electric_charge = std::make_unique<ELCHRG>();
 	electric_potential = std::make_unique<EP>();
 	electric_current = std::make_unique<EC>();
-	periodic_elements = std::make_unique<PE>();
 	circuits =std::make_unique<Circuits>();
 	magnetism = std::make_unique<Magnetism>();
 	emi = std::make_unique<EMI>();
@@ -1057,7 +1054,6 @@ inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 	electric_charge = std::make_unique<ELCHRG>();
 	electric_potential = std::make_unique<EP>();
 	electric_current = std::make_unique<EC>();
-	periodic_elements = std::make_unique<PE>();
 	circuits =std::make_unique<Circuits>();
 	magnetism = std::make_unique<Magnetism>();
 	emi = std::make_unique<EMI>();
@@ -1105,7 +1101,6 @@ inline Physics_World::Physics_World(const ld t1, const ld t2)
 	electric_charge = std::make_unique<ELCHRG>();
 	electric_potential = std::make_unique<EP>();
 	electric_current = std::make_unique<EC>();
-	periodic_elements = std::make_unique<PE>();
 	circuits =std::make_unique<Circuits>();
 	magnetism = std::make_unique<Magnetism>();
 	emi = std::make_unique<EMI>();
