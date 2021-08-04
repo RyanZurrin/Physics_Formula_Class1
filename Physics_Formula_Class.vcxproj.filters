@@ -156,6 +156,9 @@
     <ClInclude Include="Testing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TransitiveClosure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testFactory.cpp">
@@ -176,6 +179,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="LogisticalRegression.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="drunkRace.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

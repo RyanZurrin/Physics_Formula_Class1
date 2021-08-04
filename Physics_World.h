@@ -45,6 +45,7 @@
 #include "Temperature.h"
 #include "Thermodynamics.h"
 #include "Torque.h"
+#include "TransitiveClosure.h"
 #include "TriangleSolver.h"
 #include "UniformCircularMotion.h"
 #include "Vector3D.h"

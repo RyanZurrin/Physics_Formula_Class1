@@ -50,6 +50,7 @@
     <ClInclude Include="TemplateClass.h" />
     <ClInclude Include="Testing.h" />
     <ClInclude Include="Thermodynamics.h" />
+    <ClInclude Include="TransitiveClosure.h" />
     <ClInclude Include="TriangleSolver.h" />
     <ClInclude Include="UniformCircularMotion.h" />
     <ClInclude Include="Drag.h" />
@@ -73,6 +74,7 @@
     <ClCompile Include="testFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="drunkRace.txt" />
     <Text Include="linearRegression.txt" />
     <Text Include="LogisticalRegression.txt" />
     <Text Include="oldProblems.txt" />
@@ -158,7 +160,7 @@
     <ClCompile>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>D:\c++_physics_functions\Physics_Formula_Class\reactphysics3d;%(AdditionalIncludeDirectories);C:\Program Files %28x86%29\ReactPhysics3D\include</AdditionalIncludeDirectories>
@@ -182,7 +184,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -196,7 +198,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>H:\Includes\boost\boost_1_76_0\boost_1_76_0;H:\Includes\eigen-3.4-rc1\eigen-3.4-rc1;C:\Program Files %28x86%29\ReactPhysics3D\include;%(AdditionalIncludeDirectories);C:\Program Files %28x86%29\ReactPhysics3D\include</AdditionalIncludeDirectories>
@@ -217,7 +219,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>H:\Includes\boost\boost_1_76_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
