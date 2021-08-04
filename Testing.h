@@ -1,7 +1,9 @@
 #pragma once
+#pragma warning(suppress : 4996)
+
 #include <iostream>
-
-
+#include <any>
+#include <chrono>
 template <typename T>
 auto add(T value)
 {
@@ -75,4 +77,44 @@ template <typename... Ts>
 constexpr auto min(Ts&&... args)
 {
 	return (wrapper<Ts>{args} < ...).value;
+}
+
+
+inline void log(std::any const & value)
+{
+	if (value.has_value())
+	{
+		auto const& tv = value.type();
+		if (tv == typeid(int))
+		{
+			std::cout << std::any_cast<int>(value) << '\n';
+		}
+		else if (tv == typeid(std::string))
+		{
+			std::cout << std::any_cast<std::string>(value) << '\n';
+		}
+		else if (tv == typeid(double))
+		{
+			std::cout << std::fixed << std::setprecision(2) << std::any_cast<double>(value) << '\n';
+		}
+		else if (tv == typeid(char))
+		{
+			std::cout << std::any_cast<char>(value) << '\n';
+		}
+		else if (tv == typeid(std::chrono::time_point<std::chrono::system_clock>))
+		{
+			auto t = std::any_cast<std::chrono::time_point<std::chrono::system_clock>>(value);
+			auto now = std::chrono::system_clock::to_time_t(t);
+			std::cout << std::put_time(std::localtime(&now), "%F %T")
+				<< '\n';
+		}
+		else
+		{
+			std::cout << "Unexpected value type: " << '\n';
+		}
+	}
+	else
+	{
+		std::cout << "(empty)" << '\n';
+	}
 }
