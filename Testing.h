@@ -4,6 +4,9 @@
 #include <iostream>
 #include <any>
 #include <chrono>
+#include <iomanip>
+#include <set>
+
 template <typename T>
 auto add(T value)
 {
@@ -118,3 +121,95 @@ inline void log(std::any const & value)
 		std::cout << "(empty)" << '\n';
 	}
 }
+
+inline bool isPrime(int n)
+{
+	if (n == 1)
+		return false;
+	auto ret = true;
+	for(int i = 2; i <= static_cast<int>(floor(sqrt(n))); i++)
+	{
+		if(n % i == 0)
+		{
+			ret = false;
+			break;
+		}
+	}
+	return ret || (n==2);
+}
+
+template<typename T, size_t size>
+auto ascendingSort(T (&arr)[size])
+{
+
+	//std::cout << "n = 1 op: size is " << size << std::endl;
+	for(int i = 1; i < size; i++)
+	{
+		//std::cout << "1st for loop = 3 op * n\n";
+		for(int j = 0; j < size - i; j++)
+		{
+			//std::cout << "2nd for loop = 4 op * n\n";
+			if (arr[j] > arr[j+1])
+			{
+				//std::cout << "if statement\n";
+				auto temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
+		}
+	}
+	//std::cout << "return 1 op\n";
+	return arr;
+}
+
+template<typename T>
+auto fastExponentiation(T x, T y)
+{
+	unsigned long long p = 1;
+	T s = x, r = y;
+
+	while(r > 0)
+	{
+		if (r % 2 == 1)
+		{
+			p = p * s;
+		}
+		s = s * s;
+		r = r / 2.0;
+	}
+	return p;
+}
+
+template<typename T, size_t size>
+auto y_minus_x(T (&arr)[size],T x, T y)
+{
+	auto n = size;
+	auto k = 0;
+	for(size_t i = 1; i < n; i++)
+	{
+		if (arr[i] + x == y)
+		{
+			k = k + 1;
+		}
+		else if (arr[i] + x > y)
+		{
+			break;
+		}
+
+	}
+	return k;
+}
+
+inline auto double_sum(int ilow, int iMax, int jlow, int jMax)
+{
+	auto total = 0;
+	for(int iLow = ilow;iLow <= iMax; iLow++){
+		//std::cout << "outter i: " << iLow << std::endl;
+		for(int jLow = jlow;jLow <= jMax; jLow++){
+			//std::cout <<"inner j: " << jLow << " total: "<< total << std::endl;
+			total = total + (iLow*iLow)+(jLow*jLow);
+		}
+	}
+	return total;
+}
+

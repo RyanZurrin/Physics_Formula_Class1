@@ -895,7 +895,7 @@ public:
 		sum.vector2d->mode = this->vector2d->mode;
 		return sum;
 	}
-	Physics_World operator+(_ld_ n)const
+	Physics_World operator+(ld n)const
 	{
 		double x, y, z;
 		x = static_cast<ld>(vector3d->return_x() + n);

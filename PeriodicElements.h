@@ -2686,5 +2686,5 @@ static void printElementData(ELEM el)
 	std::cout << setw(23) << left << "specific heat: " << el.heat_specific << " J/kgK" << std::endl;
 	std::cout << setw(23) << left << "vaporization heat: " << el.heat_vaporization << " kJ/mol" << std::endl;
 	std::cout << setw(23) << left << "fusion heat: " << el.heat_fusion << " kJ/mol" << std::endl;
-	std::cout << setw(23) << left << "first ionization: " << el.ionization_1st << " kJ/mol" << std::endl;
+	std::cout << setw(23) << left << "first ionization: " << el.ionization_1st << " eV" << std::endl;
 }
