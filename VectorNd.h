@@ -534,7 +534,7 @@ template<typename T>
  }
 
  template<typename T>
- inline VectorND<T> VectorND<T>::operator-() const
+ VectorND<T> VectorND<T>::operator-() const
  {
 	VectorND<T> temp;
 	for (size_t i = 0; i < length; i++)
@@ -551,7 +551,7 @@ template<typename T>
  }
 
  template<typename T>
- inline VectorND<T> VectorND<T>::operator--()
+ VectorND<T> VectorND<T>::operator--()
  {
 	VectorND<T> temp;
 	for (size_t i = 0; i < length; i++)
@@ -568,7 +568,7 @@ template<typename T>
  }
 
  template<typename T>
- inline VectorND<T> VectorND<T>::operator--(int)
+ VectorND<T> VectorND<T>::operator--(int)
  {
 	VectorND<T> temp;
 	for (int i = 0; i < length; i++)
@@ -585,7 +585,7 @@ template<typename T>
  }
 
  template<typename T>
- inline VectorND<T>& VectorND<T>::operator-=(const VectorND& vec)
+ VectorND<T>& VectorND<T>::operator-=(const VectorND& vec)
  {
 	for (int i = 0; i < length; i++)
 	{
@@ -617,7 +617,7 @@ template<typename T>
  }
 
  template<typename T>
- inline VectorND<T>& VectorND<T>::operator=(const VectorND& v)
+ VectorND<T>& VectorND<T>::operator=(const VectorND& v)
  {
 	 this->length = v.length;
 	 this->capacity = v.capacity;
@@ -635,7 +635,7 @@ template<typename T>
  }
 
  template<typename T>
- inline VectorND<T>& VectorND<T>::operator=(const VectorND<T>* v)
+ VectorND<T>& VectorND<T>::operator=(const VectorND<T>* v)
  {
 	 this->capacity = v->capacity;
 	 this->length = v->length;
@@ -653,7 +653,7 @@ template<typename T>
  }
 
  template<typename T>
- inline VectorND<T>& VectorND<T>::operator=(VectorND<T>&& right) noexcept
+ VectorND<T>& VectorND<T>::operator=(VectorND<T>&& right) noexcept
  {
 	 if (this != &right)
 	 {
@@ -667,7 +667,7 @@ template<typename T>
  }
 
  template<typename T>
- inline VectorND<T> VectorND<T>::operator*(T s)
+ VectorND<T> VectorND<T>::operator*(T s)
  {
 	 VectorND<T> temp;
 	 for (auto i = 0; i < length; i++)
@@ -686,7 +686,7 @@ template<typename T>
 
 
  template<typename T>
- inline VectorND<T>::~VectorND()
+ VectorND<T>::~VectorND()
 {
 	 countDecrease();
 }
