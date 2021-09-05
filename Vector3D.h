@@ -8,7 +8,7 @@ static int vec3d_objectCount = 0;
 
 class Vector3D : public Vector2D
 {
-	ld z, xAngle, yAngle, zAngle,radius, inclination, azimuth;
+	long double z, xAngle, yAngle, zAngle,radius, inclination, azimuth;
 	void		setRadius();
 	void		setInclination();
 	void		setAzimuth();
@@ -20,34 +20,42 @@ class Vector3D : public Vector2D
 	static void countDecrease() { vec3d_objectCount -= 1; }
 public:
 	Vector3D(string id = ""); //constructor
-	Vector3D(ld, ld, ld, string id = "");  //initializing object with values.
+	Vector3D(long double, long double, long double, string id = "");  //initializing object with values.
 	Vector3D(const Vector3D &vec, string id = "");    //copy constructor
-	void		setX(ld);
-	void		setY(ld);
-	void		setZ(ld);
-	void		set_coordinates(ld, ld, ld);
+	void		setX(long double);
+	void		setY(long double);
+	void		setZ(long double);
+	void		set_coordinates(long double, long double, long double);
 	void		displayAllData(std::string label = "")const override;
 	void		showRectCord(std::string label = "")const override;
 	void		showSphericalCoordinates(std::string label = "")const;
 	void		showAllAngles(std::string label = "")const;
 	void		display(std::string label = "")const override;    //display value of vector
-	ld			return_z()const; //return z
-	ld			return_xAngle()const; //return x angle
-	ld			return_yAngle()const; //return y angle
-	ld			return_zAngle()const; //return z angle
+	long double			return_z()const; //return z
+	long double			return_xAngle()const; //return x angle
+	long double			return_yAngle()const; //return y angle
+	long double			return_zAngle()const; //return z angle
 	static int  return_objectCount(){return vec3d_objectCount;}
 	unsigned long		return_mag()const override;
-	ld			return_angle()const override;
-	ld		return_arcLength()const override;
+	long double			return_angle()const override;
+	long double			return_arcLength()const override;
 	char		return_mode()const override;
-	ld			projection(Vector3D& v)const;
-	ld			angle_between_vectors(Vector3D& v)const;
+
+	/// <summary>
+	/// gives the projection of v onto this
+	/// </summary>
+	/// <param name="v">The vector being projected.</param>
+	/// <returns>3D vector of v onto this</returns>
+	Vector3D	projection(Vector3D& v)const;
+
+	long double			angle_between_vectors(Vector3D& v)const;
 	unsigned long		square() const override; //gives square of the vector
-	ld			dot_product(const Vector3D &vec) const; //scalar dot_product
-	ld			distance(const Vector3D &vec)const;    //gives distance between two vectors
+	long double			dot_product(const Vector3D &vec) const; //scalar dot_product
+	long double			distance(const Vector3D &vec)const;    //gives distance between two vectors
 	unsigned long		find_magnitude()const override;  //magnitude of the vector
 	Vector3D	cross_product(const Vector3D &vec)const;    //cross_product
 	Vector3D	normalize_vector();   //normalized vector
+	bool isOrthogonalWith(Vector3D& v)const;
 	static void show_objectCount() { std::cout << "\n vector3D object count: "
 							<< vec3d_objectCount << std::endl; }
 	static int	get_objectCount() { return vec3d_objectCount; }
@@ -61,13 +69,13 @@ public:
 	Vector3D operator+(Vector3D &vec)const;
 	Vector3D &operator+=(const Vector3D &vec);  ////assigning new result to the vector
 	Vector3D operator-(const Vector3D &vec)const;    //subtraction
-	Vector3D operator-(const ld number)const;
+	Vector3D operator-(const long double number)const;
 	Vector3D operator-()const;
 	Vector3D operator--();
 	Vector3D operator--(int);
 	Vector3D &operator-=(const Vector3D &vec);  //assigning new result to the vector
-	Vector3D operator*(ld value)const;    //multiplication
-	Vector3D &operator*=(ld value);  //assigning new result to the vector.
+	Vector3D operator*(long double value)const;    //multiplication
+	Vector3D &operator*=(long double value);  //assigning new result to the vector.
 	Vector3D &operator=(const Vector3D &vec);
 	friend ostream& operator<<(ostream&, const Vector3D&);
 	friend istream& operator>>(istream&, Vector3D&);
@@ -102,7 +110,7 @@ inline Vector3D::Vector3D(string id) //constructor
   }
   //cout<< object_counter << ": " <<"in the 3dVector default constructor"<<endl;
 }
-inline Vector3D::Vector3D(ld x1,ld y1,ld z1,string id) //initializing object with values.
+inline Vector3D::Vector3D(long double x1,long double y1,long double z1,string id) //initializing object with values.
 {
   ID = id;
   x=x1;
@@ -121,7 +129,6 @@ inline Vector3D::Vector3D(ld x1,ld y1,ld z1,string id) //initializing object wit
 	//cout<< object_counter << ": " <<"in the x,y,z constructor" << endl;;
 }
 inline Vector3D::Vector3D(const Vector3D &vec, string id)
-	: Vector2D(vec)
 {
   x=vec.x;
   y=vec.y;
@@ -138,23 +145,23 @@ inline Vector3D::Vector3D(const Vector3D &vec, string id)
   }
 
 }
-inline void Vector3D::setX(ld _x)
+inline void Vector3D::setX(long double _x)
 {
 	x = _x;
 	updateVector();
 }
-inline void Vector3D::setY(ld _y)
+inline void Vector3D::setY(long double _y)
 {
 	y = _y;
 	updateVector();
 }
-inline void Vector3D::setZ(ld _z)
+inline void Vector3D::setZ(long double _z)
 {
 	z = _z;
 	updateVector();
 }
 
-inline void Vector3D::set_coordinates(ld x1, ld y1, ld z1)
+inline void Vector3D::set_coordinates(long double x1, long double y1, long double z1)
 {
 	x = x1;
 	y = y1;
@@ -275,7 +282,7 @@ inline Vector3D Vector3D::operator-(const Vector3D &vec)const
 {
 	return Vector3D(x-vec.x,y-vec.y,z-vec.z);
 }
-inline Vector3D Vector3D::operator-(const ld n) const
+inline Vector3D Vector3D::operator-(const long double n) const
 {
 	return Vector3D(x-n, y-n, z-n);
 }
@@ -301,11 +308,11 @@ inline Vector3D &Vector3D::operator-=(const Vector3D &vec)
 }
 
 //scalar multiplication
-inline Vector3D Vector3D::operator*(ld value)const
+inline Vector3D Vector3D::operator*(long double value)const
 {
 	return Vector3D(x*value,y*value,z*value);
 }
-inline Vector3D &Vector3D::operator*=(ld value)
+inline Vector3D &Vector3D::operator*=(long double value)
 {
 	x*=value;
 	y*=value;
@@ -338,7 +345,7 @@ inline ostream& operator<<(ostream& os, const Vector3D & v)
 
 inline istream& operator>>(istream& is, Vector3D& v)
 {
-	ld x_, y_, z_;
+	long double x_, y_, z_;
 	is >> x_ >> y_ >> z_;
 	v.setX(x_); v.setY(y_); v.setZ(z_);
 	return is;
@@ -346,16 +353,16 @@ inline istream& operator>>(istream& is, Vector3D& v)
 
 
 //Dot product
-inline ld Vector3D::dot_product(const Vector3D &vec) const
+inline long double Vector3D::dot_product(const Vector3D &vec) const
 {
 	return x * vec.x + vec.y * y + vec.z * z;
 }
 //cross product
 inline Vector3D Vector3D::cross_product(const Vector3D &vec)const
 {
-	ld ni=y*vec.z-z*vec.y;
-	ld nj=z*vec.x-x*vec.z;
-	ld nk=x*vec.y-y*vec.x;
+	long double ni=y*vec.z-z*vec.y;
+	long double nj=z*vec.x-x*vec.z;
+	long double nk=x*vec.y-y*vec.x;
 	return Vector3D(ni,nj,nk);
 }
 inline unsigned long Vector3D::find_magnitude()const
@@ -377,6 +384,11 @@ inline Vector3D Vector3D::normalize_vector()
 	calculate_spherical();
 	set_allAngles();
 	return *this;
+}
+
+inline bool Vector3D::isOrthogonalWith(Vector3D& v)const
+{
+	return this->dot_product(v) == 0;
 }
 
 inline bool Vector3D::operator==(const Vector3D& v) const
@@ -416,9 +428,9 @@ inline bool Vector3D::operator<=(const Vector3D& v) const
 }
 
 
-inline ld Vector3D::distance(const Vector3D &vec)const
+inline long double Vector3D::distance(const Vector3D &vec)const
 {
-	ld x1, x2, y1, y2, z1, z2;
+	long double x1, x2, y1, y2, z1, z2;
 	x1 = this->x;
 	x2 = vec.x;
 	y1 = this->y;
@@ -428,19 +440,19 @@ inline ld Vector3D::distance(const Vector3D &vec)const
 	return sqrt((pow(x2 - x1, 2) + pow(y2 - y1, 2) + pow(z2 - z1, 2)));
 }
 
-inline ld Vector3D::return_z()const
+inline long double Vector3D::return_z()const
 {
 	return z;
 }
-inline ld Vector3D::return_xAngle()const
+inline long double Vector3D::return_xAngle()const
 {
 	return atan2(sqrt(y * y + z * z), x) * DEGREE;
 }
-inline ld Vector3D::return_yAngle()const
+inline long double Vector3D::return_yAngle()const
 {
 	return atan2(sqrt(x * x + z * z), y) * DEGREE;
 }
-inline ld Vector3D::return_zAngle()const
+inline long double Vector3D::return_zAngle()const
 {
 	return atan2(sqrt(x * x  + y * y), z) * DEGREE;
 }
@@ -448,13 +460,13 @@ inline unsigned long Vector3D::return_mag() const
 {
 	return static_cast<unsigned long>(sqrt(x * x + y * y + z * z));
 }
-inline ld Vector3D::return_angle() const
+inline long double Vector3D::return_angle() const
 {
 	std::cout << "there is no one angle in a 3d vector class so this"
 			  << " returns the sum of the three angles instead\n";
 	return return_xAngle()+return_yAngle()+ return_zAngle();
 }
-inline ld Vector3D::return_arcLength() const
+inline long double Vector3D::return_arcLength() const
 {
 	return unsigned long();
 }
@@ -462,15 +474,25 @@ inline char Vector3D::return_mode() const
 {
 	return 0;
 }
-inline ld Vector3D::projection(Vector3D& v) const
+
+inline Vector3D Vector3D::projection(Vector3D& v) const
 {
-	const auto Θ = this->angle_between_vectors(v);
-	return this->magnitude * cos(Θ * RADIAN);
+	const Vector3D temp(this->x, this->y, this->z);
+	const auto dotProd   = this->dot_product(v);
+	cout << "dotProd: " << dotProd << endl;
+	const auto dpdevisor = this->dot_product(temp);
+	cout << "dpdevisor: " << dpdevisor << endl;
+	const auto scalar    = dotProd / dpdevisor;
+	cout << "scalar: " << scalar << endl;
+	Vector3D resultant   = temp * scalar;
+	return resultant;
+	//const auto Θ = this->angle_between_vectors(v);
+	//return this->magnitude * cos(Θ * RADIAN);
 }
-inline ld Vector3D::angle_between_vectors(Vector3D& v)const
+inline long double Vector3D::angle_between_vectors(Vector3D& v)const
 {
-	return acos(this->dot_product(v) / (static_cast<ld>(this->magnitude) *
-		static_cast<ld>( v.magnitude))) *	static_cast<ld>( DEGREE);
+	return acos((x*v.x+y*v.y+z*v.z) / (sqrt(x*x+y*y+z*z)*
+		sqrt(v.x*v.x+v.y*v.y+v.z*v.z))) * DEGREE;
 }
 inline void Vector3D::display(std::string label)const
 {

@@ -85,6 +85,7 @@ public:
 	long double		 distance(const Vector2D&)const;    //gives distance between two Vector2Ds
 	long double		 cross_product(const Vector2D&)const;    //cross_product
 	Vector2D	 normalize_Vector2D();   //normalized Vector2D
+	bool isOrthogonalWith(Vector2D& v)const;
 	static void  show_objectCount() { std::cout << "\n vector2D object count: "
 							<< vecNd_objCounter << std::endl; }
 	static int	 get_objectCount() { return vecNd_objCounter; }
@@ -410,8 +411,8 @@ inline long double Vector2D::projection(Vector2D& v) const
 }
 inline long double Vector2D::angle_between_vectors(Vector2D& v) const
 {
-	return acos(this->dot_product(v) / (static_cast<long double>(this->magnitude) *
-		static_cast<long double>( v.magnitude))) *	static_cast<long double>( DEGREE);
+	return acos((x*v.x+y*v.y) / (sqrt(x*x+y*y)*
+		sqrt(v.x*v.x+v.y*v.y))) * DEGREE;
 }
 inline unsigned long Vector2D::square()const
 {
@@ -447,6 +448,10 @@ inline Vector2D Vector2D::normalize_Vector2D()
 	adjust_angle();
 	calculate_arcLength();
 	return *this;
+}
+inline bool Vector2D::isOrthogonalWith(Vector2D& v) const
+{
+	return this->dot_product(v) == 0;
 }
 inline unsigned long Vector2D::find_magnitude()const
 {

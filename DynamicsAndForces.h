@@ -61,102 +61,102 @@ public:
 
 	static void show_dynamicsAndForces_objectCount() { std::cout << "\ndynamics and forces object count: " << dynamicsAndForces_objectCount << std::endl; }
 	static int get_dynamicsAndForces_objectCount() { return dynamicsAndForces_objectCount; }
-	void setDynamicForceVal(ld val) { _dynamicForceVal = val; }
+	void setDynamicForceVal(long double val) { _dynamicForceVal = val; }
 
 	/**
-	 * method: netForce(const ld totalForces, const ld totalFriction)
+	 * method: netForce(const long double totalForces, const long double totalFriction)
 	 * arguments: 1)total forces  2)total friction
 	 * purpose:	calculates the forces total including frictions
-	 * returns: ld net force
+	 * returns: long double net force
 	 */
-	static ld netForce(const ld totalForces, const ld totalFriction)
+	static long double netForce(const long double totalForces, const long double totalFriction)
 	{
 		return totalForces - totalFriction;
 	}
 
 	/**
-	 * method: gravitational_force_on_mass(ld mass) const
+	 * method: gravitational_force_on_mass(long double mass) const
 	 * arguments: mass
 	 * purpose:	applies the force of gravity on a mass to give the weight
-	 * returns: ld weight
+	 * returns: long double weight
 	 */
-	static ld weight(const ld mass)
+	static long double weight(const long double mass)
 	{
 		return mass * GA;
 	}
 
 	/**
-	 * method: newtons_second_law_for_force(ld mass, ld acceleration)
-	 * arguments: ld mass, ld acceleration
+	 * method: newtons_second_law_for_force(long double mass, long double acceleration)
+	 * arguments: long double mass, long double acceleration
 	 * purpose:	uses Newtons second law of motion to calculate the force of a something
-	 * returns: ld, force
+	 * returns: long double, force
 	 */
-	static ld newtons_second_law_for_force(const ld mass, const ld acceleration)
+	static long double newtons_second_law_for_force(const long double mass, const long double acceleration)
 	{
 		return mass * acceleration;
 	}
 
 	/**
-	 * method: newtons_second_law_for_acceleration(ld netForce, ld mass) const
+	 * method: newtons_second_law_for_acceleration(long double netForce, long double mass) const
 	 * arguments: netForce, mass
 	 * purpose:	calculates the acceleration due to a force
-	 * returns: ld, acceleration
+	 * returns: long double, acceleration
 	 */
-	static ld newtons_second_law_for_acceleration(const ld netForce, const ld mass)
+	static long double newtons_second_law_for_acceleration(const long double netForce, const long double mass)
 	{
 		return netForce / mass;
 	}
 
 	/**
-	 * method: newtons_second_law_for_mass(ld netForce, ld acceleration) const
+	 * method: newtons_second_law_for_mass(long double netForce, long double acceleration) const
 	 * arguments: netForce, acceleration
 	 * purpose:calculates the mass of an object from the force and acceleration
-	 * returns: ld, mass
+	 * returns: long double, mass
 	 */
-	static ld newtons_second_law_for_mass(ld netForce, ld acceleration)
+	static long double newtons_second_law_for_mass(long double netForce, long double acceleration)
 	{
 		return netForce / acceleration;
 	}
 
 	/**
-	 * method: drag_force(const ld appliedForce, const ld mass, const ld acceleration)
+	 * method: drag_force(const long double appliedForce, const long double mass, const long double acceleration)
 	 * arguments: 1)appliedForce 2)mass 3)acceleration
 	 * purpose:calculates the drag or resistance
-	 * returns: ld, drag
+	 * returns: long double, drag
 	 */
-	static ld drag_force(const ld appliedForce, const ld mass, const ld acceleration)
+	static long double drag_force(const long double appliedForce, const long double mass, const long double acceleration)
 	{
 		return appliedForce - (mass * acceleration);
 	}
 
 	/**
-	 * method: normal_force(const ld mass, const ld acceleration = GA)
+	 * method: normal_force(const long double mass, const long double acceleration = GA)
 	 * arguments: 1)mass 2)acceleration
 	 * purpose: calculates the normal force, weight
-	 * returns: ld, normal force
+	 * returns: long double, normal force
 	 */
-	static ld normalForce(const ld mass, const ld acceleration = GA)
+	static long double normalForce(const long double mass, const long double acceleration = GA)
 	{
 		return mass * acceleration;
 	}
 
 	/**
-	 * method: normal_force_angle(const ld mass, const ld angleTheta)
+	 * method: normal_force_angle(const long double mass, const long double angleTheta)
 	 * arguments: 1)mass 2)acceleration
 	 * purpose: calculates the normal force on an angle
-	 * returns: ld, normal force
+	 * returns: long double, normal force
 	 */
-	static ld normalForce_angleDOWN(const ld mass, const ld angleTheta)
+	static long double normalForce_angleDOWN(const long double mass, const long double angleTheta)
 	{
 		return mass * GA * cos(angleTheta * RADIAN);
 	}
 	/**
-	 * method: normal_force_angleUp(const ld mass, const ld angleTheta)
+	 * method: normal_force_angleUp(const long double mass, const long double angleTheta)
 	 * arguments: 1)mass 2)acceleration
 	 * purpose: calculates the normal force on an angle
-	 * returns: ld, normal force
+	 * returns: long double, normal force
 	 */
-	static ld normalForce_angleUP(const ld mass, const ld angleTheta)
+	static long double normalForce_angleUP(const long double mass, const long double angleTheta)
 	{
 		return mass * GA * sin(angleTheta * RADIAN);
 	}
@@ -165,9 +165,9 @@ public:
 	 * @brief calculates the normal force on an angle
 	 * @param angleTheta angle in degrees
 	 * @param kC kineticCoefficient
-	 * @returns ld, normal force
+	 * @returns long double, normal force
 	 */
-	static ld acceleration_slope_simpleFriction(const ld angleTheta, const ld kC)
+	static long double acceleration_slope_simpleFriction(const long double angleTheta, const long double kC)
 	{
 		return GA * (sin(angleTheta * RADIAN) - (kC * cos(angleTheta * RADIAN)));
 	}
@@ -178,7 +178,7 @@ public:
 	 * @param bottom is the bottom part of the ratio
 	 * @returns the ratio between two numbers
 	 */
-	static ld ratio(const ld top, const ld bottom)
+	static long double ratio(const long double top, const long double bottom)
 	{
 		return top / bottom;
 	}
@@ -188,7 +188,7 @@ public:
 	 * @param mass in kg of object causing tension
 	 * @returns tension in Newtons
 	 */
-	static ld tensionOnSingleStrand(const ld mass)
+	static long double tensionOnSingleStrand(const long double mass)
 	{
 		return mass * GA;
 	}
@@ -199,7 +199,7 @@ public:
 	 * @param a acceleration m/s
 	 * @returns tension in Newtons
 	 */
-	static ld tensionOnSingleStrandWithAccelerationUpward(const ld mass, const ld a)
+	static long double tensionOnSingleStrandWithAccelerationUpward(const long double mass, const long double a)
 	{
 		return (mass * GA) + (mass * a);
 	}
@@ -211,11 +211,11 @@ public:
 	 * @param a acceleration m/s
 	 * @returns tension in Newtons
 	 */
-	static ld tensionOnSingleStrandWithFrictionWhileAccelerating(const ld mass, const ld fCoeff, const ld a)
+	static long double tensionOnSingleStrandWithFrictionWhileAccelerating(const long double mass, const long double fCoeff, const long double a)
 	{
-		const ld Nf = mass * GA;
-		const ld friction = fCoeff * Nf;
-		const ld accF = mass * a;
+		const long double Nf = mass * GA;
+		const long double friction = fCoeff * Nf;
+		const long double accF = mass * a;
 		return friction + accF;
 	}
 
@@ -225,7 +225,7 @@ public:
 	 * @param mass2 in kg of object2
 	 * @returns tension in Newtons
 	 */
-	static ld tensionOnMultipleStrandsIdealPully(const ld mass1, const ld mass2)
+	static long double tensionOnMultipleStrandsIdealPully(const long double mass1, const long double mass2)
 	{
 		return ((2.0*GA)*(mass1*mass2))/(mass1 + mass2);
 	}
@@ -238,9 +238,9 @@ public:
 	 * @param theta2 angle side 2 in degrees
 	 * @returns tension in Newtons
 	 */
-	static vector<ld> tensionOnMultipleStrandsHangingObject(const ld mass, const ld theta1, const ld theta2)
+	static vector<long double> tensionOnMultipleStrandsHangingObject(const long double mass, const long double theta1, const long double theta2)
 	{
-		vector<ld> result = { 0.0, 0.0, 0.0 };
+		vector<long double> result = { 0.0, 0.0, 0.0 };
 		result[0] = cos(theta1 * RADIAN) * (mass * GA);
 		result[1] = cos(theta2 * RADIAN) * (mass * GA);
 		result[2] = result[0] + result[1];
@@ -252,7 +252,7 @@ public:
 	 * @param mass2 in kg of object2
 	 * @returns tension in Newtons
 	 */
-	static ld tensionOnCableMultipleStrandsMiddle(const ld mass, const ld theta)
+	static long double tensionOnCableMultipleStrandsMiddle(const long double mass, const long double theta)
 	{
 		return (mass * GA)/(2.0*sin(theta*RADIAN));
 	}
@@ -267,7 +267,7 @@ public:
 	}
 
 private:
-	ld _dynamicForceVal;
+	long double _dynamicForceVal;
 	static void countIncrease() { dynamicsAndForces_objectCount += 1; }
 	static void countDecrease() { dynamicsAndForces_objectCount -= 1; }
 
