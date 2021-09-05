@@ -80,7 +80,6 @@ typedef AtomicPhysics AP;
 
 using namespace Eigen;
 //class Physics_World;
-typedef long double ld;
 
 static auto physics_objectCount = 0;
 
@@ -118,7 +117,7 @@ void print_type_properties()
 //
 
 
-static ld _val_;// = 0.0;
+static long double _val_;// = 0.0;
 
 
 
@@ -154,7 +153,7 @@ static auto show_val = []<class T>(const T label = "", const T units = "") {
 /// </summary>
 /// <param name="v">The v.</param>
 /*
-static void printVectorValues(vector<ld>& v)
+static void printVectorValues(vector<long double>& v)
 {
 	cout << "vector: ";
 	for (int i = 0; i < v.size(); i++)
@@ -320,7 +319,7 @@ void printMapByValue(std::multimap<K,V> m, const V val)
 /// </summary>
 /// <param name="arr">The array.</param>
 /// <param name="n">= sizeof( arr ) / sizeof( *arr )</param>
-void static printArr(const ld arr[], const int n)
+void static printArr(const long double arr[], const int n)
 {
 	cout << "array values: ";
 	for (int i = 0; i < n; i++)
@@ -348,7 +347,7 @@ static auto sphereArea = []<class T>(const T r)
 /// </summary>
 /// <param name="r">The radius.</param>
 /// <returns>the volume of sphere(m^3)</returns>
-static auto sphereVolume = []<class T>(const ld r)
+static auto sphereVolume = []<class T>(const long double r)
 {
 	return (4.0 / 3.0) * (_PI_ * (r * r * r));
 };
@@ -720,46 +719,46 @@ static struct Conversions
 /// </summary>
 static struct Densities
 {
-	const ld aluminum_S = 2.7; // 2700 kg/m^3
-	const ld brass_S = 8.44; // 8440 kg/m^3
-	const ld copperAverage_S = 8.8; // 8800 kg/m^3
-	const ld gold_S = 19.32; // 19320 kg/m^3
-	const ld ironOrSteele_S = 7.8; // 7800 kg/m^3
-	const ld lead_S = 11.3; // 11300 kg/m^3
-	const ld polystyrene_S = .10; // 100 kg/m^3
-	const ld tungsten = 19.30; // 19300 kg/m^3
-	const ld uranium = 18.7; // 18700 kg/m^3
-	const ld concrete_light_S = 2.30; // 2300 kg/m^3
-	const ld concrete_med_S = 2.7; // 2700 kg/m^3
-	const ld concrete_heavyDuty_S = 3.0; // 3000 kg/m^3
-	const ld cork_S = .24; // 240 kg/m^3
-	const ld glassAverage_S = 2.6; // 2600 kg/m^3
-	const ld granite = 2.7; // 2700 kg/m^3
-	const ld earthsCrust_S = 3.3; // 3300 kg/m^3
-	const ld woodSoft_S = .3; // 300 kg/m^3
-	const ld woodMed_S = .6 ; // 600 kg/m^3
-	const ld woodHard_S = .9; // 900 kg/m^3
-	const ld ice_0deg_S = .917; // 917 kg/m^3
-	const ld boneSoft_S = 1.7; // 1700 kg/m^3
-	const ld boneHard_S = 2.0; // 2000 kg/m^3
-	const ld water_L = 1.0; // 1000 kg/m^3
-	const ld blood_L = 1.05; // 1050 kg/m^3
-	const ld seaWater_L = 1.025; // 1025 kg/m^3
-	const ld mercury_L = 13.6; // 13600 kg/m^3
-	const ld ethylAlcohol_L = .79; // 790 kg/m^3
-	const ld petrol_L = .68; // 680 kg/m^3
-	const ld glycerin_L = 1.26; // 1260 kg/m^3
-	const ld oliveOil_L = .92; // 920 kg/m^3
-	const ld air_G = 1.29 * pow(10, -3); // 1.29 kg/m^3
-	const ld carbon_dioxide_G = 1.98 * pow(10, -3); // 1.98 kg/m^3
-	const ld carbon_monoxide_G = 1.25 * pow(10, -3); // 1.25 kg/m^3
-	const ld hydrogen_G = 0.090 * pow(10, -3); // 0.090 kg/m^3
-	const ld helium_G = 0.18 * pow(10, -3); // 0.18 kg/m^3
-	const ld methane_G = 0.72 * pow(10, -3); // 0.72 kg/m^3
-	const ld nitrogen_G = 1.25 * pow(10, -3); // 1.25 kg/m^3
-	const ld nitrous_oxide_G = 1.98 * pow(10, -3); // 1.98 kg/m^3
-	const ld oxygen_G = 1.43 * pow(10, -3); // 1.43 kg/m^3
-	const ld steam_G = 0.60 * pow(10, -3); // 0.60 kg/m^3
+	const long double aluminum_S = 2.7; // 2700 kg/m^3
+	const long double brass_S = 8.44; // 8440 kg/m^3
+	const long double copperAverage_S = 8.8; // 8800 kg/m^3
+	const long double gold_S = 19.32; // 19320 kg/m^3
+	const long double ironOrSteele_S = 7.8; // 7800 kg/m^3
+	const long double lead_S = 11.3; // 11300 kg/m^3
+	const long double polystyrene_S = .10; // 100 kg/m^3
+	const long double tungsten = 19.30; // 19300 kg/m^3
+	const long double uranium = 18.7; // 18700 kg/m^3
+	const long double concrete_light_S = 2.30; // 2300 kg/m^3
+	const long double concrete_med_S = 2.7; // 2700 kg/m^3
+	const long double concrete_heavyDuty_S = 3.0; // 3000 kg/m^3
+	const long double cork_S = .24; // 240 kg/m^3
+	const long double glassAverage_S = 2.6; // 2600 kg/m^3
+	const long double granite = 2.7; // 2700 kg/m^3
+	const long double earthsCrust_S = 3.3; // 3300 kg/m^3
+	const long double woodSoft_S = .3; // 300 kg/m^3
+	const long double woodMed_S = .6 ; // 600 kg/m^3
+	const long double woodHard_S = .9; // 900 kg/m^3
+	const long double ice_0deg_S = .917; // 917 kg/m^3
+	const long double boneSoft_S = 1.7; // 1700 kg/m^3
+	const long double boneHard_S = 2.0; // 2000 kg/m^3
+	const long double water_L = 1.0; // 1000 kg/m^3
+	const long double blood_L = 1.05; // 1050 kg/m^3
+	const long double seaWater_L = 1.025; // 1025 kg/m^3
+	const long double mercury_L = 13.6; // 13600 kg/m^3
+	const long double ethylAlcohol_L = .79; // 790 kg/m^3
+	const long double petrol_L = .68; // 680 kg/m^3
+	const long double glycerin_L = 1.26; // 1260 kg/m^3
+	const long double oliveOil_L = .92; // 920 kg/m^3
+	const long double air_G = 1.29 * pow(10, -3); // 1.29 kg/m^3
+	const long double carbon_dioxide_G = 1.98 * pow(10, -3); // 1.98 kg/m^3
+	const long double carbon_monoxide_G = 1.25 * pow(10, -3); // 1.25 kg/m^3
+	const long double hydrogen_G = 0.090 * pow(10, -3); // 0.090 kg/m^3
+	const long double helium_G = 0.18 * pow(10, -3); // 0.18 kg/m^3
+	const long double methane_G = 0.72 * pow(10, -3); // 0.72 kg/m^3
+	const long double nitrogen_G = 1.25 * pow(10, -3); // 1.25 kg/m^3
+	const long double nitrous_oxide_G = 1.98 * pow(10, -3); // 1.98 kg/m^3
+	const long double oxygen_G = 1.43 * pow(10, -3); // 1.43 kg/m^3
+	const long double steam_G = 0.60 * pow(10, -3); // 0.60 kg/m^3
 }p;
 
 
@@ -794,8 +793,8 @@ public:
 	unique_ptr<LinearRegression> linear_regression;
 	unique_ptr<LogisticRegression> logistic_regression;
 	unique_ptr<ETL> etl;
-	unique_ptr<MatrixND<ld>> matrixNd;
-	unique_ptr<VectorND<ld>> vectorNd;
+	unique_ptr<MatrixND<long double>> matrixNd;
+	unique_ptr<VectorND<long double>> vectorNd;
 	unique_ptr<TriangleSolver> triangle;
 	unique_ptr<Kinematics> kinematics;
 	unique_ptr<Friction> friction;
@@ -832,8 +831,8 @@ public:
 
 
 	Physics_World();
-	Physics_World(ld t1, ld t2, ld t3);
-	Physics_World(ld t1, ld t2);
+	Physics_World(long double t1, long double t2, long double t3);
+	Physics_World(long double t1, long double t2);
 	Physics_World(const Physics_World&); //copy constructor
 	Physics_World& operator=(const Physics_World&); //copy assignment operator
 	Physics_World(Physics_World&& o) noexcept :
@@ -883,28 +882,28 @@ public:
 	Physics_World operator+(const Physics_World& r)const
 	{
 		double x, y, z;
-		x = static_cast<ld>(vector3d->return_x() + r.vector3d->return_x());
-		y = static_cast<ld>(vector3d->return_y() + r.vector3d->return_y());
-		z = static_cast<ld>(vector3d->return_z() + r.vector3d->return_z());
+		x = static_cast<long double>(vector3d->return_x() + r.vector3d->return_x());
+		y = static_cast<long double>(vector3d->return_y() + r.vector3d->return_y());
+		z = static_cast<long double>(vector3d->return_z() + r.vector3d->return_z());
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
-		x = static_cast<ld>(vector2d->return_x() + r.vector2d->return_x());
-		y = static_cast<ld>(vector2d->return_y() + r.vector2d->return_y());
+		x = static_cast<long double>(vector2d->return_x() + r.vector2d->return_x());
+		y = static_cast<long double>(vector2d->return_y() + r.vector2d->return_y());
 		sum.vector2d->set_coordinates(x, y);
 		sum.vector3d->mode = r.vector3d->mode;
 		sum.vector2d->mode = this->vector2d->mode;
 		return sum;
 	}
-	Physics_World operator+(ld n)const
+	Physics_World operator+(long double n)const
 	{
 		double x, y, z;
-		x = static_cast<ld>(vector3d->return_x() + n);
-		y = static_cast<ld>(vector3d->return_y() + n);
-		z = static_cast<ld>(vector3d->return_z() + n);
+		x = static_cast<long double>(vector3d->return_x() + n);
+		y = static_cast<long double>(vector3d->return_y() + n);
+		z = static_cast<long double>(vector3d->return_z() + n);
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
-		x = static_cast<ld>(vector2d->return_x() + n);
-		y = static_cast<ld>(vector2d->return_y() + n);
+		x = static_cast<long double>(vector2d->return_x() + n);
+		y = static_cast<long double>(vector2d->return_y() + n);
 		sum.vector2d->set_coordinates(x, y);
 		sum.vector3d->mode = this->vector3d->mode;
 		sum.vector2d->mode = this->vector2d->mode;
@@ -915,13 +914,13 @@ public:
 	Physics_World& operator+=(const Physics_World& r)
 	{
 		double x, y, z;
-		x = static_cast<ld>(vector3d->return_x() + r.vector3d->return_x());
-		y = static_cast<ld>(vector3d->return_y() + r.vector3d->return_y());
-		z = static_cast<ld>(vector3d->return_z() + r.vector3d->return_z());
+		x = static_cast<long double>(vector3d->return_x() + r.vector3d->return_x());
+		y = static_cast<long double>(vector3d->return_y() + r.vector3d->return_y());
+		z = static_cast<long double>(vector3d->return_z() + r.vector3d->return_z());
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
-		x = static_cast<ld>(vector2d->return_x() + r.vector2d->return_x());
-		y = static_cast<ld>(vector2d->return_y() + r.vector2d->return_y());
+		x = static_cast<long double>(vector2d->return_x() + r.vector2d->return_x());
+		y = static_cast<long double>(vector2d->return_y() + r.vector2d->return_y());
 		sum.vector2d->set_coordinates(x, y);
 		sum.vector3d->mode = r.vector3d->mode;
 		sum.vector2d->mode = this->vector2d->mode;
@@ -931,13 +930,13 @@ public:
 	Physics_World operator+()const
 	{
 		double x, y, z;
-		x = static_cast<ld>(vector3d->return_x() + 1.0);
-		y = static_cast<ld>(vector3d->return_y() + 1.0);
-		z = static_cast<ld>(vector3d->return_z() + 1.0);
+		x = static_cast<long double>(vector3d->return_x() + 1.0);
+		y = static_cast<long double>(vector3d->return_y() + 1.0);
+		z = static_cast<long double>(vector3d->return_z() + 1.0);
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
-		x = static_cast<ld>(vector2d->return_x() + 1.0);
-		y = static_cast<ld>( vector2d->return_y() + 1.0);
+		x = static_cast<long double>(vector2d->return_x() + 1.0);
+		y = static_cast<long double>( vector2d->return_y() + 1.0);
 		vector2d->set_coordinates(x, y);
 		vector3d->mode = this->vector3d->mode;
 		vector2d->mode = this->vector2d->mode;
@@ -964,8 +963,8 @@ inline Physics_World::Physics_World()
 	linear_regression = std::make_unique<LinearRegression>();
 	logistic_regression = std::make_unique<LogisticRegression>();
 	etl = std::make_unique<ETL>();
-	matrixNd = std::make_unique<MatrixND<ld>>();
-	vectorNd = std::make_unique<VectorND<ld>>();
+	matrixNd = std::make_unique<MatrixND<long double>>();
+	vectorNd = std::make_unique<VectorND<long double>>();
 	triangle = std::make_unique<TriangleSolver>();
 	kinematics = std::make_unique<Kinematics>();
 	drag = std::make_unique<Drag>();
@@ -1023,14 +1022,14 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 	return *this;
 }
 
-inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
+inline Physics_World::Physics_World(const long double t1, const long double t2, const long double t3)
 {
 	atomic = std::make_unique<AtomicPhysics>();
 	linear_regression = std::make_unique<LinearRegression>();
 	logistic_regression = std::make_unique<LogisticRegression>();
 	etl = std::make_unique<ETL>();
-	matrixNd = std::make_unique<MatrixND<ld>>();
-	vectorNd = std::make_unique<VectorND<ld>>();
+	matrixNd = std::make_unique<MatrixND<long double>>();
+	vectorNd = std::make_unique<VectorND<long double>>();
 	triangle = std::make_unique<TriangleSolver>();
 	kinematics = std::make_unique<Kinematics>();
 	drag = std::make_unique<Drag>();
@@ -1070,14 +1069,14 @@ inline Physics_World::Physics_World(const ld t1, const ld t2, const ld t3)
 	countIncrease();
 }
 
-inline Physics_World::Physics_World(const ld t1, const ld t2)
+inline Physics_World::Physics_World(const long double t1, const long double t2)
 {
 	atomic  = std::make_unique<AtomicPhysics>();
 	linear_regression = std::make_unique<LinearRegression>();
 	logistic_regression = std::make_unique<LogisticRegression>();
 	etl = std::make_unique<ETL>();
-	matrixNd = std::make_unique<MatrixND<ld>>();
-	vectorNd = std::make_unique<VectorND<ld>>();
+	matrixNd = std::make_unique<MatrixND<long double>>();
+	vectorNd = std::make_unique<VectorND<long double>>();
 	triangle = std::make_unique<TriangleSolver>();
 	kinematics = std::make_unique<Kinematics>();
 	drag = std::make_unique<Drag>();

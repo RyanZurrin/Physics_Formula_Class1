@@ -54,13 +54,13 @@ static struct HydrogenSpectralSeries
 	{
 		FURTHER = further;
 	}
-	const ld LYMAN		= 1.0;
-	const ld BALMER		= 2.0;
-	const ld PASCHEN	= 3.0;
-	const ld BRACKETT	= 4.0;
-	const ld PFUND		= 5.0;
-	const ld HUMPHREYS	= 6.0;
-	ld FURTHER = 7.0; // FURTHER  >6
+	const long double LYMAN		= 1.0;
+	const long double BALMER		= 2.0;
+	const long double PASCHEN	= 3.0;
+	const long double BRACKETT	= 4.0;
+	const long double PFUND		= 5.0;
+	const long double HUMPHREYS	= 6.0;
+	long double FURTHER = 7.0; // FURTHER  >6
 
 }n_f;
 
@@ -81,7 +81,7 @@ static struct HydrogenSpectralSeries
 class AtomicPhysics
 {
 
-	ld atomPhysicsVar;
+	long double atomPhysicsVar;
 	static auto countIncrease() { atomicPhysics_objectCount += 1; }
 	static auto countDecrease() { atomicPhysics_objectCount -= 1; }
 public:
@@ -134,7 +134,7 @@ public:
 							<< atomicPhysics_objectCount << std::endl; }
 	static int get_objectCount() { return atomicPhysics_objectCount; }
 
-	auto setTemplateVar(ld var) { atomPhysicsVar = var; }
+	auto setTemplateVar(long double var) { atomPhysicsVar = var; }
 	[[nodiscard]] auto getTemplateVar() const { return atomPhysicsVar; }
 
 

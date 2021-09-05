@@ -6,62 +6,60 @@
 #define ELASTICITY_H
 #include <iostream>
 #include <vector>
-#include "Vector2d.h"
 
-typedef long double ld;
 //static object counter for Elasticity class
 static int elasticity_objectCount = 0;
 
 static struct Elastic_Moduli  // all units are multiplied by(10^9 N/m^2)
 {
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> aluminum = { 70 * pow(10, 9),	25 * pow(10, 9),	75 * pow(10, 9) };
+	vector<long double> aluminum = { 70 * pow(10, 9),	25 * pow(10, 9),	75 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> bone_tension = { 16 * pow(10, 9),	80 * pow(10, 9),	8 * pow(10, 9) };
+	vector<long double> bone_tension = { 16 * pow(10, 9),	80 * pow(10, 9),	8 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> bone_compression = { 9 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	vector<long double> bone_compression = { 9 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> brass = { 90 * pow(10, 9),	35 * pow(10, 9),	75 * pow(10, 9) };
+	vector<long double> brass = { 90 * pow(10, 9),	35 * pow(10, 9),	75 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> brick = { 15 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	vector<long double> brick = { 15 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> concrete = { 20 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	vector<long double> concrete = { 20 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> glass = { 70 * pow(10, 9),	20 * pow(10, 9),	30 * pow(10, 9) };
+	vector<long double> glass = { 70 * pow(10, 9),	20 * pow(10, 9),	30 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> granite = { 45 * pow(10, 9),	20 * pow(10, 9),	45 * pow(10, 9) };
+	vector<long double> granite = { 45 * pow(10, 9),	20 * pow(10, 9),	45 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> hair_human = { 10 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	vector<long double> hair_human = { 10 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> hardwood = { 25 * pow(10, 9),	10 * pow(10, 9),	0 * pow(10, 9) };
+	vector<long double> hardwood = { 25 * pow(10, 9),	10 * pow(10, 9),	0 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> cast_iron = { 100 * pow(10, 9),	40 * pow(10, 9),	90 * pow(10, 9) };
+	vector<long double> cast_iron = { 100 * pow(10, 9),	40 * pow(10, 9),	90 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> lead = { 16 * pow(10, 9),	5 * pow(10, 9),	50 * pow(10, 9) };
+	vector<long double> lead = { 16 * pow(10, 9),	5 * pow(10, 9),	50 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> marble = { 60 * pow(10, 9),	20 * pow(10, 9),	70 * pow(10, 9) };
+	vector<long double> marble = { 60 * pow(10, 9),	20 * pow(10, 9),	70 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> nylon = { 5 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	vector<long double> nylon = { 5 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> polystyrene = { 3 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	vector<long double> polystyrene = { 3 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> silk = { 6 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	vector<long double> silk = { 6 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> spider_thread = { 3 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	vector<long double> spider_thread = { 3 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> steel = { 210 * pow(10, 9),	80 * pow(10, 9),	130 * pow(10, 9) };
+	vector<long double> steel = { 210 * pow(10, 9),	80 * pow(10, 9),	130 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> tendon = { 1 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
+	vector<long double> tendon = { 1 * pow(10, 9),	0 * pow(10, 9),	0 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> acetone = { 0 * pow(10, 9),	0 * pow(10, 9),	0.7 * pow(10, 9) };
+	vector<long double> acetone = { 0 * pow(10, 9),	0 * pow(10, 9),	0.7 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> ethanol = { 0 * pow(10, 9),	0 * pow(10, 9),	0.9 * pow(10, 9) };
+	vector<long double> ethanol = { 0 * pow(10, 9),	0 * pow(10, 9),	0.9 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> glycerin = { 0 * pow(10, 9),	0 * pow(10, 9),	4.5 * pow(10, 9) };
+	vector<long double> glycerin = { 0 * pow(10, 9),	0 * pow(10, 9),	4.5 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> mercury = { 0 * pow(10, 9),	0 * pow(10, 9),	25 * pow(10, 9) };
+	vector<long double> mercury = { 0 * pow(10, 9),	0 * pow(10, 9),	25 * pow(10, 9) };
 	///<young's modulus, Shear modulus, Bulk modulus>
-	vector<ld> water = { 0 * pow(10, 9),	0 * pow(10, 9),	2.2 * pow(10, 9) };
+	vector<long double> water = { 0 * pow(10, 9),	0 * pow(10, 9),	2.2 * pow(10, 9) };
 
 }moduli;
 
@@ -71,7 +69,7 @@ class Elasticity
 public:
 	static void countShow() { std::cout << "elasticity count: " << elasticity_objectCount << std::endl; }
 
-	void setElasticityVal(ld val) { _elasticityVal = val; }
+	void setElasticityVal(long double val) { _elasticityVal = val; }
 
 	Elasticity* _ptrElastic;
 
@@ -91,7 +89,7 @@ public:
 		countIncrease();
 		//countShow();
 	}
-	Elasticity(ld val)
+	Elasticity(long double val)
 	{
 		_ptrElastic =  nullptr;
 		_elasticityVal = 0.0;
@@ -123,12 +121,12 @@ public:
 
 
 	/**
-	 * method: cross_sectional(const ld radius)
+	 * method: cross_sectional(const long double radius)
 	 * arguments: radius
 	 * purpose:	calculates the cross sectional, which is used in many elasticity problems
-	 * returns: ld, cross sectional
+	 * returns: long double, cross sectional
 	 */
-	static ld cross_sectional_area(const ld radius)
+	static long double cross_sectional_area(const long double radius)
 	{ return _PI_ * (radius * radius); }
 
 	 /**
@@ -139,34 +137,34 @@ public:
 	 * @param original	 *
 	 * @returns the deformation
 	 */
-	static ld deformations(const ld appliedForce, const ld modulus, const ld diameter, const ld original)
+	static long double deformations(const long double appliedForce, const long double modulus, const long double diameter, const long double original)
 	{ return (1 / modulus) * (appliedForce / (_PI_ * (diameter * diameter)) * original); }
 
 	/**
-	* method: stress_usingY(const ld YoungsModulus, const ld strain)
+	* method: stress_usingY(const long double YoungsModulus, const long double strain)
 	* arguments: 1)YoungsModulus 2)strain
 	* purpose:	calculates the stress which is defined as the ratio of force to area
-	* returns: ld, stress
+	* returns: long double, stress
 	*/
-	static ld stress_usingY(const ld youngsModulus, const ld strain)
+	static long double stress_usingY(const long double youngsModulus, const long double strain)
 	{ return youngsModulus * strain; }
 
 	/**
-	* method:  stress_usingF(const ld force, const ld area)
+	* method:  stress_usingF(const long double force, const long double area)
 	* arguments: 1)force 2)area = PI*r^2
 	* purpose:	calculates the stress which is defined as the ratio of force to area
-	* returns: ld, stress
+	* returns: long double, stress
 	*/
-	static ld stress_usingF(const ld force, const ld area)
+	static long double stress_usingF(const long double force, const long double area)
 	{ return force / area;	}
 
 	/**
-	* method: strain(const ld change_in_length, const ld total_length)
+	* method: strain(const long double change_in_length, const long double total_length)
 	* arguments: 1)change_in_length 2)total_length
 	* purpose:	calculates the strain which is defined as the ratio of the change in length to length
-	* returns: ld, strain
+	* returns: long double, strain
 	*/
-	static ld strain(const ld change_in_length, const ld total_length)
+	static long double strain(const long double change_in_length, const long double total_length)
 	{ return change_in_length / total_length; }
 
 
@@ -176,28 +174,28 @@ public:
 	/// <param name="k">The force constant.</param>
 	/// <param name="x">The deformation from starting point.</param>
 	/// <returns>force applied</returns>
-	static ld hookes_law(const ld k, const ld x)
+	static long double hookes_law(const long double k, const long double x)
 	{ return k * x; }
 
 
 	/**
-	* method: deforming_force(const ld modulus, const ld crossSectionalArea, const ld originalLength, const ld amountDeformed)
+	* method: deforming_force(const long double modulus, const long double crossSectionalArea, const long double originalLength, const long double amountDeformed)
 	* arguments: 1)modulus 2)crossSectionalArea 3)originalLength 4)amountDeformed
 	* purpose:	calculates the force required to bend or deform a something depending on the material
-	* returns: ld, deforming force
+	* returns: long double, deforming force
 	*/
-	static ld deforming_force(const ld modulus, const ld crossSectionalArea, const ld originalLength, const ld amountDeformed)
+	static long double deforming_force(const long double modulus, const long double crossSectionalArea, const long double originalLength, const long double amountDeformed)
 	{ return ((modulus) * (crossSectionalArea) / (originalLength)) * amountDeformed; }
 
 	/**
 	 * Returns the total displacement to the side of an object due to a sheering force.
 	 * @param length total length of the object
-	 * @param diameter
+	 * @param diameter of object
 	 * @param forceN in newtons
 	 * @param sheerModuli for the material being measured
 	 * @returns displacement of a material to side due to sheering force
 	 */
-	static ld displacement_side_sheer_force(const ld length, const ld diameter, const ld forceN, const ld sheerModuli)
+	static long double displacement_side_sheer_force(const long double length, const long double diameter, const long double forceN, const long double sheerModuli)
 	{
 		return (1 / sheerModuli) * (4 / (_PI_ * (diameter * diameter))) * forceN * length;
 	}
@@ -210,7 +208,7 @@ public:
 	 * @param force is the amount of force being applied
 	 * @returns the compression amount in meters
 	 */
-	static ld compression(const ld length, const ld crossSectionalArea, const ld youngsModulus, const ld force)
+	static long double compression(const long double length, const long double crossSectionalArea, const long double youngsModulus, const long double force)
 	{
 		return (force * length) / (youngsModulus * crossSectionalArea);
 	}
@@ -218,10 +216,10 @@ public:
 	/**
 	 * @brief Returns the maximum force something will take before it fails
 	 * @param compressiveStrength is dependant on the material used
-	 * @param crosssSectionalArea is the area of a cross section of the object
+	 * @param crossSectionalArea is the area of a cross section of the object
 	 * @returns the max force before failure will occur
 	 */
-	static ld max_support_force(const ld compressiveStrength, const ld crossSectionalArea)
+	static long double max_support_force(const long double compressiveStrength, const long double crossSectionalArea)
 	{
 		return compressiveStrength * crossSectionalArea;
 	}
@@ -237,6 +235,6 @@ private:
 
 	static void countIncrease() { elasticity_objectCount += 1; }
 	static void countDecrease() { elasticity_objectCount -= 1; }
-	ld _elasticityVal;
+	long double _elasticityVal;
 };
 #endif

@@ -14,27 +14,15 @@ int main()
 	//add test code between starred areas
 	//*************************************************************************
 
-	std::cout<< "exp: " << fastExponentiation(4, 11)%7 << std::endl;
+	Vector3D u(1.0/2.0, -1.0/4.0, -1.0/2.0);
+	Vector3D v(2.0, 2.0, -2.0);
+	cout << u.distance(v) << endl;
+	cout << v.angle_between_vectors(u) << endl;
 
-
-
-	int arr[](1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 8, 9, 10);
-	std::cout << y_minus_x(arr, 3, 10);
-
-	cout << "ds: " << double_sum(5, 120, 11, 77) << endl;
-
-		std::cout << "\n\nafter if statement" << std::endl;
-	auto p = rgXRaw.EMAIL;
-	auto valid = is_valid_format("marius@domain.com"s, p);
-
-	reg_test("C:/fileformat/file", rgXRaw.ROOT_PATH);
-	reg_test("/files/users/me.txt"s, rgXRaw.ROOT_PATH);
-	reg_test("file.txt"s, rgXRaw.ROOT_PATH);
-	reg_test("D:/files/test/help.txt"s, rgXRaw.ROOT_PATH);
-	reg_test("01-23-45-67-AH"s, rgXRaw.MAC);
-	reg_test("fffe:3465:efab:23fe:2235:6565:aaab:0001"s, rgXRaw.IPV6);
-
-
+	cout << u.dot_product(v) << endl;
+	cout << "orthogonal: " << u.isOrthogonalWith(v);
+	cout << "\nproj v on u: " << u.projection(v) << endl;
+	cout << "\nproj u on v: " << v.projection(u) << endl;
 
 	//*************************************************************************
 	//Stopping timer and displaying the programs execution time
