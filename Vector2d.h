@@ -1,7 +1,11 @@
 ﻿#pragma once
-//author:	Ryan Zurrin
-//file:		Vector2D2d.h
-// Specification file for a  Vector2D class
+/**
+ * @class Vector2D
+ * @details class for operating with 2D vectors
+ * @author Ryan Zurrin
+ * dateBuilt  11/22/2020
+ * lastEdit 9/5/2021
+ */
 #ifndef Vector2D_H
 #define Vector2D_H
 
@@ -10,7 +14,6 @@
 #include <cmath>
 #include <complex>
 #include <cassert>
-#include "VectorNd.h"
 
 using namespace std;
 
@@ -46,7 +49,6 @@ class Vector2D
 
 public:
 	char mode;  //sets mode to Polar w/ 'p' or Rectangular w/ 'r'
-
 	Vector2D(string id = ""); //default constructor
 	Vector2D(char, string id = "");//mode select, defaults to 0, in rectangular, constructor
 	Vector2D(long double, long double, char _mode = 'r', string id = ""); //constructor takes both coordinates and mode
@@ -77,7 +79,7 @@ public:
 	void		 set_mag(unsigned long);
 	void		 set_mode(char);
 	Vector2D	 projection(Vector2D& v);
-	long double		 projection(Vector2D&)const;
+	Vector2D	 projection(Vector2D&)const;
 	long double		 angle_between_vectors(Vector2D&)const;
 	virtual unsigned long square()const;              //gives square olong double the Vector2D
 	virtual unsigned long find_magnitude()const;             //magnitude olong double the Vector2D
@@ -86,9 +88,10 @@ public:
 	long double		 cross_product(const Vector2D&)const;    //cross_product
 	Vector2D	 normalize_Vector2D();   //normalized Vector2D
 	bool isOrthogonalWith(Vector2D& v)const;
+	void typeOfAngleBetween(const Vector2D& v)const;
 	static void  show_objectCount() { std::cout << "\n vector2D object count: "
-							<< vecNd_objCounter << std::endl; }
-	static int	 get_objectCount() { return vecNd_objCounter; }
+							<< vec2d_object_counter << std::endl; }
+	static int	 get_objectCount() { return vec2d_object_counter; }
 	bool operator>(const Vector2D &)const;
 	bool operator>=(const Vector2D&)const;
 	bool operator<(const Vector2D &)const;
@@ -403,11 +406,14 @@ inline Vector2D Vector2D::projection(Vector2D& v)
 	const long double xx = dot_product(v) / v.dot_product(v);
 	return Vector2D(xx*v.x , xx*v.y, this->mode);
 }
-inline long double Vector2D::projection(Vector2D& v) const
+inline Vector2D Vector2D::projection(Vector2D& v) const
 {
-	const auto Θ = this->angle_between_vectors(v);
-
-	return this->magnitude * cos(Θ * RADIAN);
+	const Vector2D temp(this->x, this->y);
+	const auto dotProd   = this->dot_product(v);
+	const auto dpdevisor = this->dot_product(temp);
+	const auto scalar    = dotProd / dpdevisor;
+	Vector2D resultant   = temp * scalar;
+	return resultant;
 }
 inline long double Vector2D::angle_between_vectors(Vector2D& v) const
 {
@@ -460,7 +466,7 @@ inline unsigned long Vector2D::find_magnitude()const
 /*
 void Vector2D::setPolarCurve()
 {
-	cout << "\nEnter the Polar Curve to convert to cartiesian equation\n>";
+	cout << "\nEnter the Polar Curve to convert to Cartesian equation\n>";
 	cin >> Curve.r;
   Curve.x = sqrt(pow(Curve.r, 2) + pow(Curve.y, 2));
   Curve.theta = atan(y / x);
@@ -716,4 +722,18 @@ inline Vector2D::~Vector2D()
 	countDecrease();
 }
 
-
+inline void Vector2D::typeOfAngleBetween(const Vector2D& v)const
+{
+	if(dot_product(v) < 0)
+	{
+		std::cout << "vectors are obtuse\n";
+	}
+	else if(dot_product(v) > 0)
+	{
+		std::cout << "vectors are acute\n";
+	}
+	else if(dot_product(v) == 0)
+	{
+		std::cout << "vectors are right";
+	}
+}
