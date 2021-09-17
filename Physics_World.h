@@ -33,6 +33,7 @@
 #include "Hearing.h"
 #include "Heat.h"
 #include "Kinematics.h"
+#include "LinearAlgebra.h"
 #include "LinearRegression.h"
 #include "LogisticRegression.h"
 #include "Magnetism.h"

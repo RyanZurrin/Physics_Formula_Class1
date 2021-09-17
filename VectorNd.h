@@ -1,12 +1,4 @@
 ﻿#pragma once
-#ifndef VECTOR_ND_H
-#define VECTOR_ND_H
-#include <cstdarg>
-#include <Eigen/Eigen>
-#define ull unsigned long long
-#define ll  long double
-//α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
-//Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ, γ
 /**
  * @class VectorND
  * @details class of static methods that relate to chapter 29 of the open stax
@@ -15,6 +7,17 @@
  * dateBuilt  5/22/2021
  * lastEdit 5/26/2021
  */
+
+#ifndef VECTOR_ND_H
+#define VECTOR_ND_H
+#include <cstdarg>
+#include <Eigen/Eigen>
+#define ull unsigned long long
+#define ll  long double
+
+//α=224,ß=225,π=227,Σ=228,σ=229,µ=230,τ=231,Φ=232,Θ=233
+//Ω=234,δ=235,∞=236,φ=237,ε=238,∩=239,≡=240,Γ=226,γ, σ, ϑ, Å, Ώ, λ, γ
+
 
 static int vecNd_objCounter = 0;
 using namespace std;
@@ -188,6 +191,14 @@ public:
 		}
 		return temp;
 	}
+
+	[[nodiscard]] double dot_product(const VectorND& v)const;
+	[[nodiscard]] VectorND<T> cross_product(const VectorND& v)const;
+	[[nodiscard]] double distance(const VectorND& v)const;
+	[[nodiscard]] double angle_between_vectors(VectorND& v)const;
+	bool isOrthogonalWith(VectorND& v)const;
+	void typeOfAngleBetween(const VectorND& v)const;
+
 private:
 	T* arr;
 
@@ -200,7 +211,7 @@ private:
 	ull length;
 
 	//Variable to store the magnitude of all the elements
-	ll magnitude;
+	ull magnitude;
 
 	//Variable to store the vector name
 	string ID;
@@ -208,7 +219,7 @@ private:
 
 	Eigen::VectorX<T> vec;
 
-	ll calculateMagnitude();
+	ull calculateMagnitude();
 
 	bool isEqual(VectorND rhs);
 
@@ -344,8 +355,8 @@ void VectorND<T>::display_eigen(std::string label) const
 template <typename T>
 void VectorND<T>::show_magnitude(std::string label) const
 {
-	std::cout<< "\n" << ((label == "") ? ID : label)<<":";
-	std::cout << " Magnitude: " << magnitude;
+	std::cout<< "\n" << ((label.empty()) ? ID : label)<<":";
+	std::cout << " Magnitude: " << magnitude << endl;
 }
 
 // Template class to return the size of
@@ -386,14 +397,14 @@ typename VectorND<T>::iterator
 }
 
 template <typename T>
-ll VectorND<T>::calculateMagnitude()
+ull VectorND<T>::calculateMagnitude()
 {
-	ll total = static_cast<unsigned long long>(0.0);
+	ull total = static_cast<unsigned long long>(0.0);
 	for (size_t i = 0; i < length; i++)
 	{
-		total = total + arr[i] * arr[i];
+		total = total + static_cast<unsigned long long>(arr[i] * arr[i]);
 	}
-	total = sqrt(total);
+	total = static_cast<unsigned long long>(sqrt(total));
 	return total;
 }
 
@@ -681,6 +692,73 @@ template<typename T>
 	}
 	magnitude = calculateMagnitude();
 	return	temp;
+ }
+
+ template<typename T>
+ inline double VectorND<T>::dot_product(const VectorND& v) const
+ {
+	auto total = 0;
+	for (int i = 0; i < length; i++)
+	{
+		total += arr[i] * v.arr[i];
+	}
+	return total;
+ }
+
+ template<typename T>
+ inline VectorND<T> VectorND<T>::cross_product(const VectorND& v) const
+ {
+	 if (length != 3)
+	 {
+		 std::cout << "cross product can only be used on vectors of length 3.";
+		 return this;
+	 }
+	 long double ni = arr[1] * arr[2] - arr[2] * arr[1];
+	 long double nj = arr[2] * arr[0] - arr[0] * arr[2];
+	 long double nk = arr[0] * arr[1] - arr[1] * arr[0];
+	 return VectorND(ni, nj, nk);
+ }
+
+ template<typename T>
+ inline double VectorND<T>::distance(const VectorND& v) const
+ {
+	 double sum = 0.0;
+	 for (int i = 0; i < v.length; i++) {
+		 sum += pow(arr[i] - v.arr[i], 2);
+	 }
+	 return sqrt(sum);
+ }
+
+ template<typename T>
+ inline double VectorND<T>::angle_between_vectors(VectorND& v) const
+ {
+	auto dotProd = dot_product(v);
+	auto divisor = magnitude * v.magnitude;
+	auto temp = dotProd / divisor;
+	return acos(temp)*DEGREE;
+ }
+
+ template<typename T>
+ inline bool VectorND<T>::isOrthogonalWith(VectorND& v) const
+ {
+	 return dot_product(v) == 0.0;
+ }
+
+ template<typename T>
+ inline void VectorND<T>::typeOfAngleBetween(const VectorND& v) const
+ {
+	 if (dot_product(v) < 0)
+	 {
+		 std::cout << "vectors are obtuse\n";
+	 }
+	 else if (dot_product(v) > 0)
+	 {
+		 std::cout << "vectors are acute\n";
+	 }
+	 else if (dot_product(v) == 0)
+	 {
+		 std::cout << "vectors are right\n";
+	 }
  }
 
 

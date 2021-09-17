@@ -1,10 +1,18 @@
-﻿// Part of a final project in c++ II, this program as a whole
-// will calculate the properties of 2D and 3D objects and vectors
-// author:   Ryan Zurrin
+﻿#pragma once
+
+/**
+ * @class Vector3D
+ * @details class for operating with 3D vectors
+ * @author Ryan Zurrin
+ * dateBuilt  11/22/2020
+ * lastEdit 9/5/2021
+ */
 #ifndef VECTOR3D_H
 #define VECTOR3D_H
 #include "Vector2D.h"
 static int vec3d_objectCount = 0;
+
+
 
 class Vector3D : public Vector2D
 {
@@ -31,15 +39,15 @@ public:
 	void		showSphericalCoordinates(std::string label = "")const;
 	void		showAllAngles(std::string label = "")const;
 	void		display(std::string label = "")const override;    //display value of vector
-	long double			return_z()const; //return z
-	long double			return_xAngle()const; //return x angle
-	long double			return_yAngle()const; //return y angle
-	long double			return_zAngle()const; //return z angle
-	static int  return_objectCount(){return vec3d_objectCount;}
-	unsigned long		return_mag()const override;
-	long double			return_angle()const override;
-	long double			return_arcLength()const override;
-	char		return_mode()const override;
+	static int	return_objectCount(){return vec3d_objectCount;}
+	[[nodiscard]] long double	return_z()const; //return z
+	[[nodiscard]] long double	return_xAngle()const; //return x angle
+	[[nodiscard]] long double	return_yAngle()const; //return y angle
+	[[nodiscard]] long double	return_zAngle()const; //return z angle
+	[[nodiscard]] unsigned long	return_mag()const override;
+	[[nodiscard]] long double	return_angle()const override;
+	[[nodiscard]] long double	return_arcLength()const override;
+	[[nodiscard]] char			return_mode()const override;
 
 	/// <summary>
 	/// gives the projection of v onto this
@@ -48,14 +56,15 @@ public:
 	/// <returns>3D vector of v onto this</returns>
 	Vector3D	projection(Vector3D& v)const;
 
-	long double			angle_between_vectors(Vector3D& v)const;
-	unsigned long		square() const override; //gives square of the vector
-	long double			dot_product(const Vector3D &vec) const; //scalar dot_product
-	long double			distance(const Vector3D &vec)const;    //gives distance between two vectors
-	unsigned long		find_magnitude()const override;  //magnitude of the vector
-	Vector3D	cross_product(const Vector3D &vec)const;    //cross_product
+	long double	angle_between_vectors(Vector3D& v)const;
+	[[nodiscard]] unsigned long	square() const override; //gives square of the vector
+	[[nodiscard]] long double	dot_product(const Vector3D &vec) const; //scalar dot_product
+	[[nodiscard]] long double	distance(const Vector3D &vec)const;    //gives distance between two vectors
+	[[nodiscard]] unsigned long	find_magnitude()const override;  //magnitude of the vector
+	[[nodiscard]] Vector3D		cross_product(const Vector3D &vec)const;    //cross_product
 	Vector3D	normalize_vector();   //normalized vector
 	bool isOrthogonalWith(Vector3D& v)const;
+	void typeOfAngleBetween(const Vector3D& v)const;
 	static void show_objectCount() { std::cout << "\n vector3D object count: "
 							<< vec3d_objectCount << std::endl; }
 	static int	get_objectCount() { return vec3d_objectCount; }
@@ -388,7 +397,24 @@ inline Vector3D Vector3D::normalize_vector()
 
 inline bool Vector3D::isOrthogonalWith(Vector3D& v)const
 {
-	return this->dot_product(v) == 0;
+	return this->dot_product(v) == 0.0;
+}
+
+inline void Vector3D::typeOfAngleBetween(const Vector3D& v) const
+{
+	if (dot_product(v) < 0)
+	{
+		std::cout << "vectors are obtuse\n";
+	}
+	else if (dot_product(v) > 0)
+	{
+		std::cout << "vectors are acute\n";
+	}
+	else if (dot_product(v) == 0)
+	{
+		std::cout << "vectors are right";
+	}
+
 }
 
 inline bool Vector3D::operator==(const Vector3D& v) const
@@ -479,11 +505,8 @@ inline Vector3D Vector3D::projection(Vector3D& v) const
 {
 	const Vector3D temp(this->x, this->y, this->z);
 	const auto dotProd   = this->dot_product(v);
-	cout << "dotProd: " << dotProd << endl;
 	const auto dpdevisor = this->dot_product(temp);
-	cout << "dpdevisor: " << dpdevisor << endl;
 	const auto scalar    = dotProd / dpdevisor;
-	cout << "scalar: " << scalar << endl;
 	Vector3D resultant   = temp * scalar;
 	return resultant;
 	//const auto Θ = this->angle_between_vectors(v);
