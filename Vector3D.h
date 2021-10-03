@@ -57,6 +57,20 @@ public:
 	Vector3D	projection(Vector3D& v)const;
 
 	long double	angle_between_vectors(Vector3D& v)const;
+	/// <summary>
+	/// The distance from a point(vector head) to a plane is equal to length of the perpendicular
+	/// lowered from a point on a plane. If Ax + By + Cz + D = 0 is a plane equation,
+	/// then distance from point M(Mx, My, Mz) to plane can be found using the
+	/// following formula d =  	(|A·Mx + B·My + C·Mz + D))/(√A2 + B2 + C2)
+	/// </summary>
+	/// <param name="a">a.</param>
+	/// <param name="b">The b.</param>
+	/// <param name="c">The c.</param>
+	/// <param name="d">The d.</param>
+	/// <returns>distance from the vector head to plane with given equations
+	/// coefficients</returns>
+	template<typename T>
+	long double distance_to_plane(T a, T b, T c, T d);
 	[[nodiscard]] unsigned long	square() const override; //gives square of the vector
 	[[nodiscard]] long double	dot_product(const Vector3D &vec) const; //scalar dot_product
 	[[nodiscard]] long double	distance(const Vector3D &vec)const;    //gives distance between two vectors
@@ -526,4 +540,12 @@ inline void Vector3D::display(std::string label)const
 inline Vector3D::~Vector3D()
 {
 	countDecrease();
+}
+
+template<typename T>
+inline long double Vector3D::distance_to_plane(T a, T b, T c, T d)
+{
+	auto top = abs(((a * x) + (b * y) + (c * z) + d));
+	auto bot = sqrt((a * a) + (b * b) + (c * c));
+	return top/bot;
 }

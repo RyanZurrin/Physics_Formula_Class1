@@ -81,6 +81,19 @@ public:
 	Vector2D	 projection(Vector2D& v);
 	Vector2D	 projection(Vector2D&)const;
 	long double		 angle_between_vectors(Vector2D&)const;
+	/// <summary>
+	/// Distance from a point(vector head) to a line is equal to length of the
+	/// perpendicular distance from the point to the line. If Ax + By + C = 0,
+	/// 2D line equation, then distance between point V(x, y) and line can be
+	/// found using the following formula d =  	(|a·x + b·y + c|)/(√a^2 + b^2)
+	/// </summary>
+	/// <param name="a">coefficient a in ax + by + c = 0.</param>
+	/// <param name="b">coefficient b in ax + by + c = 0.</param>
+	/// <param name="c">coefficient c in ax + by + c = 0.</param>
+	/// <returns>distance from the vector head to line with given equations
+	/// coefficients</returns>
+	template<typename T>
+	long double		 distance_to_line(T a, T b, T c);
 	virtual unsigned long square()const;              //gives square olong double the Vector2D
 	virtual unsigned long find_magnitude()const;             //magnitude olong double the Vector2D
 	long double		 dot_product(const Vector2D&)const; //scalar dot_product
@@ -736,4 +749,12 @@ inline void Vector2D::typeOfAngleBetween(const Vector2D& v)const
 	{
 		std::cout << "vectors are right";
 	}
+}
+
+template<typename T>
+inline long double Vector2D::distance_to_line(T a, T b, T c)
+{
+	auto top = abs(((a * x) + (b * y) + c));
+	auto bot = sqrt((a * a) + (b * b));
+	return top / bot;
 }

@@ -65,7 +65,6 @@ typedef UniformCircularMotion UCM;
 typedef Thermodynamics TD;
 typedef Temperature TEMP;
 typedef RotationalMotion RM;
-//typedef PeriodicElements PE;
 typedef GeometricOptics GO;
 typedef FluidStatics FS;
 typedef FluidDynamics FD;
