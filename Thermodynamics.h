@@ -300,8 +300,8 @@ public:
 	/**
 	 * @brief calculates the change in entropy for a reversible process {(S)rev}
 	 * (S)rev = Q/T
-	 * @param Q
-	 * @param T
+	 * @param Q is the heat transfer necessary to change forms of an object
+	 * @param T is the temperature it takes in kelvin to change an objects forms
 	 * @returns entropy
 	 */
 	static ld entropy_ChangeIn(const ld Q, const ld T)

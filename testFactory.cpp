@@ -14,23 +14,34 @@ int main()
 	//add test code between starred areas
 	//*************************************************************************
 
-	Eigen::Vector4i u(1, 2, -1, 2);
-	Eigen::Vector4i v(-3, 1, 0, 2);
-	Eigen::Vector4i w(0, 1, 1, -1);
-	Eigen::Vector4i z = 2 * u + v - 2 * w;
-	std::cout << "z: " << z << endl;
-	Eigen::MatrixXcd a = Eigen::MatrixXcd::Random(3,3);
-	cout << a;
-	Eigen::MatrixXcd b = a.transpose();
-	cout << "\n" << b;
 
-	VectorND<int> v1(1, 0, 0, 0);
-	v1.show_magnitude();
-	VectorND<int> u1(0, 1, 0, 0);
-	v1.typeOfAngleBetween(u1);
-	u1.show_magnitude();
-	std::cout << "\ndistance: " << v1.distance(u1);
-	std::cout << "\nangle between: " << v1.angle_between_vectors(u1);
+	double A[3][4] = {
+		{1.0, 1.0, -1.0, 2.0},
+		{3.0, 1.0, 4.0, 11.0},
+		{2.0, 3.0, -5.0, 2.0}
+	};
+	to_reduced_row_echelon_form(A);
+
+	print_matrix(A, 3, 4);
+	Vector3D t(-1, 2, 1);
+	std::cout << "distance: " << t.distance_to_plane(1, 2, -2, -13) << endl;
+
+	Vector2D g(2, 4);
+	std::cout << "distance: " << g.distance_to_line(1, 2, -3) << endl;
+
+	Eigen::Matrix<double, 3, 3> det;
+	det << 1, 2, 4, 2, -1, 3, 4, 0, 1;
+	std::cout << det << endl;
+	std::cout << "\ndeterminant: " << det.determinant() << endl;;
+
+	Eigen::Matrix<double, 4, 4> dett;
+	dett << 1, 2, 3, 4, 1, 0, 2, 0, 0, 1, 2, 3, 2, 3, 0, 0;
+	std::cout << dett << endl;
+	std::cout << "\ndeterminant: " << det.determinant() << endl;
+
+	std::cout << "\ninverse:\n" << det.inverse() << endl;
+
+
 
 
 	//*************************************************************************
