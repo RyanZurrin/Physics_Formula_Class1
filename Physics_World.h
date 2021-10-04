@@ -12,6 +12,7 @@
 #include "Testing.h"
 #include <gsl/gsl_linalg.h>
 #include <Eigen/Eigen>
+#include <armadillo>
 #include "StringHelper.h"
 #include "RegexHelper.h"
 #include "AtomicPhysics.h"
