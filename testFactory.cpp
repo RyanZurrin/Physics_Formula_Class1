@@ -34,6 +34,8 @@ int main()
 	A.save("A_mat.txt", arma::arma_ascii);
 	B.save("B_mat.txt", arma::arma_ascii);
 
+	elements.displayElementImg(elements.getFileName(29));
+
 
 
 

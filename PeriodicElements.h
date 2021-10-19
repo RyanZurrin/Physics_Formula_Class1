@@ -6,6 +6,11 @@
  * @author Ryan Zurrin
  * @date   1/1/2021
  */
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+const int   screenSize_X = 640;
+const int   screenSize_Y = 480;
+
 
 
 static struct UnifiedAtomicMass
@@ -2665,6 +2670,96 @@ static struct Elements
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
 	} Og;
+
+	void loadImage(const char* pathname, sf::Texture& texture, sf::Sprite& sprite)
+	{
+		texture.loadFromFile(pathname);     // load it from the file
+		sprite.setTexture(texture);         // put that texture in our sprite
+		// the rectangle of the texture to use for this sprite
+		sprite.setTextureRect( sf::IntRect(0,0,screenSize_X,screenSize_Y) );
+	}
+
+	void displayElementImg(const char elementName[])
+	{
+
+		// Create our window
+		sf::RenderWindow window(
+			sf::VideoMode(screenSize_X,screenSize_Y),       // size of the client area we want
+			"Display an Image"                              // The text to appear on the window title
+			);
+
+		// load our image
+		sf::Texture     texture;        // the texture which will contain our pixel data
+		sf::Sprite      sprite;         // the sprite which will actually draw it
+		loadImage(elementName,texture,sprite);
+
+		// Set FPS so this draws at 60 FPS (note:  I didn't do this for the WinAPI version because it'd be too hard for such
+		//  a small example)
+		window.setFramerateLimit( 60 );
+
+		bool program_running = true;        // true until the user wants to quit
+		while(program_running)
+		{
+			// Do the event pump -- same idea as with Windows... look for events and process them
+			sf::Event evt;
+			while( window.pollEvent(evt) )      // while there are any events to process...
+			{
+				// process them. But we're only interested in the closed event
+				if(evt.type == sf::Event::EventType::Closed)        // is this a close event?
+					program_running = false;                        // indicate that we want the window to close
+			}
+
+			// now that events are processed... draw our image
+			window.draw(sprite);        // just draw it to the back buffer
+			window.display();           // and display it so the back buffer moves to the front
+		}
+
+
+	}
+
+	const char* getFileName(int atomicNumber)
+	{
+		switch (atomicNumber)
+		{
+			case 1:		return "img\\hydrogen.bmp";
+			case 2:		return "img\\helium.bmp";
+			case 3:		return "img\\lithium.bmp";
+			case 4:		return "img\\beryllium.bmp";
+			case 5:		return "img\\boron.bmp";
+			case 6:		return "img\\carbon.bmp";
+			case 7:		return "img\\nitrogen.bmp";
+			case 8:		return "img\\oxygen.bmp";
+			case 9:		return "img\\fluorine.bmp";
+			case 10:	return "img\\neon.bmp";
+			case 11:	return "img\\sodium.bmp";
+			case 12:	return "img\\magnesium.bmp";
+			case 13:	return "img\\aluminium.bmp";
+			case 14:	return "img\\silicon.bmp";
+			case 15:	return "img\\phosphorus.bmp";
+			case 16:	return "img\\sulfur.bmp";
+			case 17:	return "img\\chlorine.bmp";
+			case 18:	return "img\\argon.bmp";
+			case 19:	return "img\\potassium.bmp";
+			case 20:	return "img\\calcium.bmp";
+			case 21:	return "img\\scandium.bmp";
+			case 22:	return "img\\titanium.bmp";
+			case 23:	return "img\\vanadium.bmp";
+			case 24:	return "img\\chromium.bmp";
+			case 25:	return "img\\manganese.bmp";
+			case 26:	return "img\\iron.bmp";
+			case 27:	return "img\\cobalt.bmp";
+			case 28:	return "img\\nickel.bmp";
+			case 29:	return "img\\copper.bmp";
+			case 30:	return "img\\zinc.bmp";
+			case 31:	return "img\\gallium.bmp";
+			case 32:	return "img\\germanium.bmp";
+			case 33:	return "img\\arsenic.bmp";
+			case 34:	return "img\\selenium.bmp";
+			case 35:	return "img\\bromine.bmp";
+			case 36:	return "img\\krypton.bmp";
+		}
+		return "no file";
+	}
 
 
 
