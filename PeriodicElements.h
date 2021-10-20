@@ -107,6 +107,10 @@ static struct Elements
 		const long double heat_vaporization = .452; // 452 kJ/mol
 		const long double heat_fusion = .558; // .558 kJ/mol
 		const long double ionization_1st = 13.598;
+		static void display()
+		{
+			displayElementImg(getFileName(1));
+		}
 	} H;
 
 	/// <summary>
@@ -129,6 +133,10 @@ static struct Elements
 		const long double heat_vaporization = .083; // .083 kJ/mol
 		const long double heat_fusion = .02; // .02 kJ/mol
 		const long double ionization_1st = 24.587; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(2));
+		}
 	} He;
 
 	/// <summary>
@@ -150,6 +158,10 @@ static struct Elements
 		const long double heat_vaporization = 147.0; // 147.0 kJ/mol
 		const long double heat_fusion = 3.0; // 3.0 kJ/mol
 		const long double ionization_1st = 5.391; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(3));
+		}
 	} Li;
 
 	/// <summary>
@@ -173,6 +185,10 @@ static struct Elements
 		const long double heat_vaporization = 297.0; // 297.0 kJ/mol
 		const long double heat_fusion = 7.95; // 7.95 kJ/mol
 		const long double ionization_1st = 9.323; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(4));
+		}
 	} Be;
 
 	/// <summary>
@@ -196,6 +212,10 @@ static struct Elements
 		const long double heat_vaporization = 507.0; // kJ/mol
 		const long double heat_fusion = 50.0; // kJ/mol
 		const long double ionization_1st = 8.298; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(5));
+		}
 	} B;
 
 	/// <summary>
@@ -218,6 +238,10 @@ static struct Elements
 		const long double heat_vaporization = 715.0; // kJ/mol
 		const long double heat_fusion = 105; // kJ/mol
 		const long double ionization_1st = 11.261; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(6));
+		}
 	} C;
 
 	/// <summary>
@@ -239,6 +263,10 @@ static struct Elements
 		const long double heat_vaporization = 2.79; // kJ/mol
 		const long double heat_fusion = .36; // kJ/mol
 		const long double ionization_1st = 14.534; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(7));
+		}
 	} N;
 
 	/// <summary>
@@ -261,6 +289,10 @@ static struct Elements
 		const long double heat_vaporization = 3.41; // kJ/mol
 		const long double heat_fusion = .222; // kJ/mol
 		const long double ionization_1st = 13.681; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(8));
+		}
 	} O;
 
 	/// <summary>
@@ -284,6 +316,10 @@ static struct Elements
 		const long double heat_vaporization = 3.27; // kJ/mol
 		const long double heat_fusion = .26; // kJ/mol
 		const long double ionization_1st = 17.422; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(9));
+		}
 	} F;
 
 	/// <summary>
@@ -305,6 +341,10 @@ static struct Elements
 		const long double heat_vaporization = 1.75; // kJ/mol
 		const long double heat_fusion = 0.34; // kJ/mol
 		const long double ionization_1st = 21.565; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(10));
+		}
 	} Ne;
 
 	/// <summary>
@@ -328,6 +368,10 @@ static struct Elements
 		const long double heat_vaporization = 97.7; // kJ/mol
 		const long double heat_fusion = 2.60; // kJ/mol
 		const long double ionization_1st = 5.139; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(11));
+		}
 	} Na;
 
 	/// <summary>
@@ -349,6 +393,10 @@ static struct Elements
 		const long double heat_vaporization = 128; // kJ/mol
 		const long double heat_fusion = 8.7; // kJ/mol
 		const long double ionization_1st = 7.646; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(12));
+		}
 	} Mg;
 
 	/// <summary>
@@ -372,6 +420,10 @@ static struct Elements
 		const long double heat_vaporization = 293.0; // 293 kJ/mol
 		const long double heat_fusion = 10.7; // 10.7 kJ/mol
 		const long double ionization_1st = 5.985; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(13));
+		}
 	} Al;
 
 	/// <summary>
@@ -395,6 +447,10 @@ static struct Elements
 		const long double heat_vaporization = 359.0; // 359 kJ/mol
 		const long double heat_fusion = 50.2; // 50.2 kJ/mol
 		const long double ionization_1st = 8.151; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(14));
+		}
 	} Si;
 
 	/// <summary>
@@ -417,6 +473,10 @@ static struct Elements
 		const long double heat_vaporization = 12.4; // 12.4 kJ/mol
 		const long double heat_fusion = .64; // .64 kJ/mol
 		const long double ionization_1st = 10.487; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(15));
+		}
 	} P;
 
 	/// <summary>
@@ -439,6 +499,10 @@ static struct Elements
 		const long double heat_vaporization = 9.8; // 9.8 kJ/mol
 		const long double heat_fusion = 1.73; // 1.73 kJ/mol
 		const long double ionization_1st = 10.36; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(16));
+		}
 	} S;
 
 	/// <summary>
@@ -461,6 +525,10 @@ static struct Elements
 		const long double heat_vaporization = 10.2; // 10.2 kJ/mol
 		const long double heat_fusion = 3.2; // 3.2 kJ/mol
 		const long double ionization_1st = 12.968; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(17));
+		}
 	} Cl;
 
 	/// <summary>
@@ -482,6 +550,10 @@ static struct Elements
 		const long double heat_vaporization = 6.5; // 6.5 kJ/mol
 		const long double heat_fusion = 1.18; // 1.18 kJ/mol
 		const long double ionization_1st = 15.760; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(18));
+		}
 	} Ar;
 
 	/// <summary>
@@ -504,6 +576,10 @@ static struct Elements
 		const long double heat_vaporization = 76.9; // 76.9 kJ/mol
 		const long double heat_fusion = 2.33; // 2.33kJ/mol
 		const long double ionization_1st = 4.341; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(19));
+		}
 	} K;
 
 	/// <summary>
@@ -527,6 +603,10 @@ static struct Elements
 		const long double heat_vaporization = 155.0; // 155 kJ/mol
 		const long double heat_fusion = 8.54; // 8.54 kJ/mol
 		const long double ionization_1st = 6.113; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(20));
+		}
 	} Ca;
 
 	/// <summary>
@@ -549,6 +629,10 @@ static struct Elements
 		const long double heat_vaporization = 318.0; // 318 kJ/mol
 		const long double heat_fusion = 16.0; // 16 kJ/mol
 		const long double ionization_1st = 6.562; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(21));
+		}
 	} Sc;
 
 	/// <summary>
@@ -571,6 +655,10 @@ static struct Elements
 		const long double heat_vaporization = 425.0; // 425 kJ/mol
 		const long double heat_fusion = 18.7; // 18.7 kJ/mol
 		const long double ionization_1st = 6.828; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(22));
+		}
 	} Ti;
 
 	/// <summary>
@@ -594,6 +682,10 @@ static struct Elements
 		const long double heat_vaporization = 453; // kJ/mol
 		const long double heat_fusion = 22.8; // kJ/mol
 		const long double ionization_1st = 6.746; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(23));
+		}
 	} V;
 
 	/// <summary>
@@ -616,6 +708,10 @@ static struct Elements
 		const long double heat_vaporization = 339; // kJ/mol
 		const long double heat_fusion = 20.5; // kJ/mol
 		const long double ionization_1st = 6.767; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(24));
+		}
 	} Cr;
 
 	/// <summary>
@@ -639,6 +735,10 @@ static struct Elements
 		const long double heat_vaporization = 220; // kJ/mol
 		const long double heat_fusion = 13.2; // kJ/mol
 		const long double ionization_1st = 7.434; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(25));
+		}
 	} Mn;
 
 	/// <summary>
@@ -662,6 +762,10 @@ static struct Elements
 		const long double heat_vaporization = 347; // kJ/mol
 		const long double heat_fusion = 13.8; // kJ/mol
 		const long double ionization_1st = 7.903; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(26));
+		}
 	} Fe;
 
 	/// <summary>
@@ -685,6 +789,10 @@ static struct Elements
 		const long double heat_vaporization = 375; // kJ/mol
 		const long double heat_fusion = 16.2; // kJ/mol
 		const long double ionization_1st = 7.881; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(27));
+		}
 	} Co;
 
 	/// <summary>
@@ -706,6 +814,10 @@ static struct Elements
 		const long double heat_vaporization = 378; // kJ/mol
 		const long double heat_fusion = 17.2; // kJ/mol
 		const long double ionization_1st = 7.641; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(28));
+		}
 	} Ni;
 
 	/// <summary>
@@ -728,6 +840,10 @@ static struct Elements
 		const long double heat_vaporization = 300; // kJ/mol
 		const long double heat_fusion = 13.1; // kJ/mol
 		const long double ionization_1st = 7.727; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(29));
+		}
 	} Cu;
 
 	/// <summary>
@@ -750,6 +866,10 @@ static struct Elements
 		const long double heat_vaporization = 119; // kJ/mol
 		const long double heat_fusion = 7.35; // kJ/mol
 		const long double ionization_1st = 9.394; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(30));
+		}
 	} Zn;
 
 	/// <summary>
@@ -772,6 +892,10 @@ static struct Elements
 		const long double heat_vaporization = 256.0; // kJ/mol
 		const long double heat_fusion = 5.59; // kJ/mol
 		const long double ionization_1st = 5.999; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(31));
+		}
 	} Ga;
 
 	/// <summary>
@@ -795,6 +919,10 @@ static struct Elements
 		const long double heat_vaporization = 334.0; // kJ/mol
 		const long double heat_fusion = 31.8; // kJ/mol
 		const long double ionization_1st = 7.90; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(32));
+		}
 	} Ge;
 
 	/// <summary>
@@ -816,6 +944,10 @@ static struct Elements
 		const long double heat_vaporization = 32.4; // kJ/mol
 		const long double heat_fusion = 27.7; // kJ/mol
 		const long double ionization_1st = 9.815; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(33));
+		}
 	} As;
 
 	/// <summary>
@@ -838,6 +970,10 @@ static struct Elements
 		const long double heat_vaporization = 26.0; // kJ/mol
 		const long double heat_fusion = 5.4; // kJ/mol
 		const long double ionization_1st = 9.753; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(34));
+		}
 	} Se;
 
 	/// <summary>
@@ -861,6 +997,10 @@ static struct Elements
 		const long double heat_vaporization = 14.8; // kJ/mol
 		const long double heat_fusion = 5.8; // kJ/mol
 		const long double ionization_1st = 11.814; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(35));
+		}
 	} Br;
 
 	/// <summary>
@@ -883,6 +1023,10 @@ static struct Elements
 		const long double heat_vaporization = 9.02; // kJ/mol
 		const long double heat_fusion = 1.64; // kJ/mol
 		const long double ionization_1st = 14.000; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(36));
+		}
 	} Kr;
 
 	/// <summary>
@@ -905,6 +1049,10 @@ static struct Elements
 		const long double heat_vaporization = 72.0; // kJ/mol
 		const long double heat_fusion = 2.19; // kJ/mol
 		const long double ionization_1st = 4.177; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(37));
+		}
 	} Rb;
 
 	/// <summary>
@@ -927,6 +1075,10 @@ static struct Elements
 		const long double heat_vaporization = 137.0; // kJ/mol
 		const long double heat_fusion = 8.0; // kJ/mol
 		const long double ionization_1st = 5.695; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(38));
+		}
 	} Sr;
 
 	/// <summary>
@@ -948,6 +1100,10 @@ static struct Elements
 		const long double heat_vaporization = 380.0; // kJ/mol
 		const long double heat_fusion = 11.4; // kJ/mol
 		const long double ionization_1st = 6.22; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(39));
+		}
 	} Y;
 
 	/// <summary>
@@ -971,6 +1127,10 @@ static struct Elements
 		const long double heat_vaporization = 580.0; // kJ/mol
 		const long double heat_fusion = 21.0; // kJ/mol
 		const long double ionization_1st = 6.634; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(40));
+		}
 	} Zr;
 
 	/// <summary>
@@ -994,6 +1154,10 @@ static struct Elements
 		const long double heat_vaporization = 690.0; // kJ/mol
 		const long double heat_fusion = 26.8; // kJ/mol
 		const long double ionization_1st = 6.759; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(41));
+		}
 	} Nb;
 
 	/// <summary>
@@ -1015,6 +1179,10 @@ static struct Elements
 		const long double heat_vaporization = 600.0; // kJ/mol
 		const long double heat_fusion = 36.0; // kJ/mol
 		const long double ionization_1st = 7.092; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(42));
+		}
 	} Mo;
 
 	/// <summary>
@@ -1037,6 +1205,10 @@ static struct Elements
 		const long double heat_vaporization = 550.0; // kJ/mol
 		const long double heat_fusion = 23.0; // kJ/mol
 		const long double ionization_1st = 7.28; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(43));
+		}
 	} Tc;
 
 	/// <summary>
@@ -1059,6 +1231,10 @@ static struct Elements
 		const long double heat_vaporization = 580.0; // kJ/mol
 		const long double heat_fusion = 25.7; // kJ/mol
 		const long double ionization_1st = 7.361; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(44));
+		}
 	} Ru;
 
 	/// <summary>
@@ -1081,6 +1257,10 @@ static struct Elements
 		const long double heat_vaporization = 495.0; // kJ/mol
 		const long double heat_fusion = 21.7; // kJ/mol
 		const long double ionization_1st = 7.459; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(45));
+		}
 	} Rh;
 
 	/// <summary>
@@ -1102,6 +1282,10 @@ static struct Elements
 		const long double heat_vaporization = 380.0; // kJ/mol
 		const long double heat_fusion = 16.7; // kJ/mol
 		const long double ionization_1st = 8.337; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(46));
+		}
 	} Pd;
 
 	/// <summary>
@@ -1124,6 +1308,10 @@ static struct Elements
 		const long double heat_vaporization = 255.0; // kJ/mol
 		const long double heat_fusion = 11.3; // kJ/mol
 		const long double ionization_1st = 7.576; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(47));
+		}
 	} Ag;
 
 	/// <summary>
@@ -1145,6 +1333,10 @@ static struct Elements
 		const long double heat_vaporization = 100.0; // kJ/mol
 		const long double heat_fusion = 6.3; // kJ/mol
 		const long double ionization_1st = 8.994; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(48));
+		}
 	} Cd;
 
 	/// <summary>
@@ -1168,6 +1360,10 @@ static struct Elements
 		const long double heat_vaporization = 230.0; // kJ/mol
 		const long double heat_fusion = 3.26; // kJ/mol
 		const long double ionization_1st = 5.786; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(49));
+		}
 	} In;
 
 	/// <summary>
@@ -1189,6 +1385,10 @@ static struct Elements
 		const long double heat_vaporization = 290.0; // kJ/mol
 		const long double heat_fusion = 7.0; // kJ/mol
 		const long double ionization_1st = 7.344; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(50));
+		}
 	} Sn;
 
 	/// <summary>
@@ -1212,6 +1412,10 @@ static struct Elements
 		const long double heat_vaporization = 68.0; // kJ/mol
 		const long double heat_fusion = 19.7; // kJ/mol
 		const long double ionization_1st = 8.64; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(51));
+		}
 	} Sb;
 
 	/// <summary>
@@ -1234,6 +1438,10 @@ static struct Elements
 		const long double heat_vaporization = 48.0; // kJ/mol
 		const long double heat_fusion = 17.5; // kJ/mol
 		const long double ionization_1st = 9.010; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(52));
+		}
 	} Te;
 
 	/// <summary>
@@ -1257,6 +1465,10 @@ static struct Elements
 		const long double heat_vaporization = 20.9; // kJ/mol
 		const long double heat_fusion = 7.76; // kJ/mol
 		const long double ionization_1st = 10.451; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(53));
+		}
 	} I;
 
 	/// <summary>
@@ -1278,6 +1490,10 @@ static struct Elements
 		const long double heat_vaporization = 12.64; // kJ/mol
 		const long double heat_fusion = 2.30; // kJ/mol
 		const long double ionization_1st = 12.130; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(54));
+		}
 	} XE;
 
 	/// <summary>
@@ -1300,6 +1516,10 @@ static struct Elements
 		const long double heat_vaporization = 65.0; // kJ/mol
 		const long double heat_fusion = 2.09; // kJ/mol
 		const long double ionization_1st = 3.894; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(55));
+		}
 	} Cs;
 
 	/// <summary>
@@ -1322,6 +1542,10 @@ static struct Elements
 		const long double heat_vaporization = 140.0; // kJ/mol
 		const long double heat_fusion = 8.0; // kJ/mol
 		const long double ionization_1st = 5.212; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(56));
+		}
 	} Ba;
 
 
@@ -1344,6 +1568,10 @@ static struct Elements
 		const long double heat_vaporization = 400.0; // kJ/mol
 		const long double heat_fusion = 6.2; // kJ/mol
 		const long double ionization_1st = 5.577; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(57));
+		}
 	} La;
 
 	/// <summary>
@@ -1365,6 +1593,10 @@ static struct Elements
 		const long double heat_vaporization = 350.0; // kJ/mol
 		const long double heat_fusion = 5.5; // kJ/mol
 		const long double ionization_1st = 5.539; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(58));
+		}
 	} Ce;
 
 	/// <summary>
@@ -1386,6 +1618,10 @@ static struct Elements
 		const long double heat_vaporization = 330.0; // kJ/mol
 		const long double heat_fusion = 6.9; // kJ/mol
 		const long double ionization_1st = 5.46; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(59));
+		}
 	}Pr;
 
 	/// <summary>
@@ -1408,6 +1644,10 @@ static struct Elements
 		const long double heat_vaporization = 285.0; // kJ/mol
 		const long double heat_fusion = 7.1; // kJ/mol
 		const long double ionization_1st = 5.525; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(60));
+		}
 	} Nd;
 
 	/// <summary>
@@ -1430,6 +1670,10 @@ static struct Elements
 		const long double heat_vaporization = 290.0; // kJ/mol
 		const long double heat_fusion = 7.7; // kJ/mol
 		const long double ionization_1st = 5.6; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(61));
+		}
 	} Pm;
 
 	/// <summary>
@@ -1452,6 +1696,10 @@ static struct Elements
 		const long double heat_vaporization = 175.0; // kJ/mol
 		const long double heat_fusion = 8.6; // kJ/mol
 		const long double ionization_1st = 5.643; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(62));
+		}
 	} Sm;
 
 	/// <summary>
@@ -1473,6 +1721,10 @@ static struct Elements
 		const long double heat_vaporization = 175.0; // kJ/mol
 		const long double heat_fusion = 9.2; // kJ/mol
 		const long double ionization_1st = 5.670; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(63));
+		}
 	} Eu;
 
 	/// <summary>
@@ -1495,6 +1747,10 @@ static struct Elements
 		const long double heat_vaporization = 305.0; // kJ/mol
 		const long double heat_fusion = 10.0; // kJ/mol
 		const long double ionization_1st = 6.150; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(64));
+		}
 	} Gd;
 
 	/// <summary>
@@ -1518,6 +1774,10 @@ static struct Elements
 		const long double heat_vaporization = 295.0; // kJ/mol
 		const long double heat_fusion = 10.8; // kJ/mol
 		const long double ionization_1st = 5.864; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(65));
+		}
 	} Tb;
 
 	/// <summary>
@@ -1540,6 +1800,10 @@ static struct Elements
 		const long double heat_vaporization = 280.0; // kJ/mol
 		const long double heat_fusion = 11.1; // kJ/mol
 		const long double ionization_1st = 5.934; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(66));
+		}
 	} Dy;
 
 	/// <summary>
@@ -1563,6 +1827,10 @@ static struct Elements
 		const long double heat_vaporization = 265.0; // kJ/mol
 		const long double heat_fusion = 17.0; // kJ/mol
 		const long double ionization_1st = 6.022; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(67));
+		}
 	} Ho;
 
 	/// <summary>
@@ -1584,6 +1852,10 @@ static struct Elements
 		const long double heat_vaporization = 285.0; // kJ/mol
 		const long double heat_fusion = 19.9; // kJ/mol
 		const long double ionization_1st = 6.108; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(68));
+		}
 	} Er;
 
 	/// <summary>
@@ -1604,6 +1876,10 @@ static struct Elements
 		const long double heat_vaporization = 250.0; // kJ/mol
 		const long double heat_fusion = 16.8; // kJ/mol
 		const long double ionization_1st = 6.184; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(69));
+		}
 	} Tm;
 
 	/// <summary>
@@ -1625,6 +1901,10 @@ static struct Elements
 		const long double heat_vaporization = 160.0; // kJ/mol
 		const long double heat_fusion = 7.7; // kJ/mol
 		const long double ionization_1st = 6.254; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(70));
+		}
 	} Yb;
 
 	/// <summary>
@@ -1647,6 +1927,10 @@ static struct Elements
 		const long double heat_vaporization = 415.0; // kJ/mol
 		const long double heat_fusion = 22.0; // kJ/mol
 		const long double ionization_1st = 5.426; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(71));
+		}
 	} Lu;
 
 
@@ -1669,6 +1953,10 @@ static struct Elements
 		const long double heat_vaporization = 630.0; // kJ/mol
 		const long double heat_fusion = 25.5; // kJ/mol
 		const long double ionization_1st = 6.825; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(72));
+		}
 	} Hf;
 
 
@@ -1692,6 +1980,10 @@ static struct Elements
 		const long double heat_vaporization = 735.0; // kJ/mol
 		const long double heat_fusion = 36.0; // kJ/mol
 		const long double ionization_1st = 7.89; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(73));
+		}
 	} Ta;
 	/// <summary>
 	///	Tungsten, or wolfram, is a chemical element with the symbol W and atomic number 74.
@@ -1713,6 +2005,10 @@ static struct Elements
 		const long double heat_vaporization = 800.0; // kJ/mol
 		const long double heat_fusion = 35.0; // kJ/mol
 		const long double ionization_1st = 7.98; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(74));
+		}
 	} W;
 
 	/// <summary>
@@ -1735,6 +2031,10 @@ static struct Elements
 		const long double heat_vaporization = 705.0; // kJ/mol
 		const long double heat_fusion = 33.0; // kJ/mol
 		const long double ionization_1st = 7.88; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(75));
+		}
 	} Re;
 
 	/// <summary>
@@ -1756,6 +2056,10 @@ static struct Elements
 		const long double heat_vaporization = 630.0; // kJ/mol
 		const long double heat_fusion = 31.0; // kJ/mol
 		const long double ionization_1st = 8.71; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(76));
+		}
 	} Os;
 
 	/// <summary>
@@ -1778,6 +2082,10 @@ static struct Elements
 		const long double heat_vaporization = 560.0; // kJ/mol
 		const long double heat_fusion = 26.0; // kJ/mol
 		const long double ionization_1st = 9.12; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(77));
+		}
 	} Ir;
 
 	/// <summary>
@@ -1800,6 +2108,10 @@ static struct Elements
 		const long double heat_vaporization = 490.0; // kJ/mol
 		const long double heat_fusion = 20.0; // kJ/mol
 		const long double ionization_1st = 9.02; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(78));
+		}
 	} Pt;
 
 	/// <summary>
@@ -1823,6 +2135,10 @@ static struct Elements
 		const long double heat_vaporization = 330.0; // kJ/mol
 		const long double heat_fusion = 12.5; // kJ/mol
 		const long double ionization_1st = 9.225; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(79));
+		}
 	} Au;
 
 	/// <summary>
@@ -1843,6 +2159,10 @@ static struct Elements
 		const long double heat_vaporization = 59.2; // kJ/mol
 		const long double heat_fusion = 2.29; // kJ/mol
 		const long double ionization_1st = 10.438; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(80));
+		}
 	} Hg;
 
 	/// <summary>
@@ -1864,6 +2184,10 @@ static struct Elements
 		const long double heat_vaporization = 165.0; // kJ/mol
 		const long double heat_fusion = 4.2; // kJ/mol
 		const long double ionization_1st = 6.109; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(81));
+		}
 	} Tl;
 
 	/// <summary>
@@ -1887,6 +2211,10 @@ static struct Elements
 		const long double heat_vaporization = 178.0; // kJ/mol
 		const long double heat_fusion = 4.77; // kJ/mol
 		const long double ionization_1st = 7.417; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(82));
+		}
 	} Pb;
 
 	/// <summary>
@@ -1909,6 +2237,10 @@ static struct Elements
 		const long double heat_vaporization = 160.0; // kJ/mol
 		const long double heat_fusion = 10.9; // kJ/mol
 		const long double ionization_1st = 7.29; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(83));
+		}
 	} Bi;
 
 	/// <summary>
@@ -1932,6 +2264,10 @@ static struct Elements
 		const long double heat_vaporization = 100.0; // kJ/mol
 		const long double heat_fusion = 13.0; // kJ/mol
 		const long double ionization_1st = 8.417; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(84));
+		}
 	} Po;
 
 	/// <summary>
@@ -1955,6 +2291,10 @@ static struct Elements
 		const long double heat_vaporization = 40.0; // kJ/mol
 		const long double heat_fusion = 6.0; // kJ/mol
 		const long double ionization_1st = 9.22; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(85));
+		}
 	} At;
 
 	/// <summary>
@@ -1975,6 +2315,10 @@ static struct Elements
 		const long double heat_vaporization = 17.0; // kJ/mol
 		const long double heat_fusion = 3.0; // kJ/mol
 		const long double ionization_1st = 10.75; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(86));
+		}
 	} Rn;
 
 	/// <summary>
@@ -1997,6 +2341,10 @@ static struct Elements
 		const long double heat_vaporization = 65.0; // kJ/mol
 		const long double heat_fusion = 2.0; // kJ/mol
 		const long double ionization_1st = 3.94; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(87));
+		}
 	} Fr;
 
 	/// <summary>
@@ -2020,6 +2368,10 @@ static struct Elements
 		const long double heat_vaporization = 125.0; // kJ/mol
 		const long double heat_fusion = 8.0; // kJ/mol
 		const long double ionization_1st = 5.279; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(88));
+		}
 	} Ra;
 
 
@@ -2043,6 +2395,10 @@ static struct Elements
 		const long double heat_vaporization = 400.0; // kJ/mol
 		const long double heat_fusion = 14.0; // kJ/mol
 		const long double ionization_1st = 5.17; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(89));
+		}
 	} Ac;
 
 	/// <summary>
@@ -2064,6 +2420,10 @@ static struct Elements
 		const long double heat_vaporization = 530.0; // kJ/mol
 		const long double heat_fusion = 16.0; // kJ/mol
 		const long double ionization_1st = 6.08; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(90));
+		}
 	} Th;
 
 	/// <summary>
@@ -2085,6 +2445,10 @@ static struct Elements
 		const long double heat_vaporization = 470.0; // kJ/mol
 		const long double heat_fusion = 15.0; // kJ/mol
 		const long double ionization_1st = 5.89; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(91));
+		}
 	} Pa;
 
 	/// <summary>
@@ -2107,6 +2471,10 @@ static struct Elements
 		const long double heat_vaporization = 420.0; // kJ/mol
 		const long double heat_fusion = 14.0; // kJ/mol
 		const long double ionization_1st = 6.194; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(192));
+		}
 	} U;
 
 	/// <summary>
@@ -2130,6 +2498,10 @@ static struct Elements
 		const long double heat_vaporization = 335.0; // kJ/mol
 		const long double heat_fusion = 10.0; // kJ/mol
 		const long double ionization_1st = 6.265; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(93));
+		}
 	} Np;
 
 	/// <summary>
@@ -2152,6 +2524,10 @@ static struct Elements
 		const long double heat_vaporization = 325.0; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 6.060; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(94));
+		}
 	} Pu;
 
 	/// <summary>
@@ -2173,6 +2549,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 5.99; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(95));
+		}
 	} Am;
 
 	/// <summary>
@@ -2194,6 +2574,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 6.02; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(96));
+		}
 	} Cm;
 
 	/// <summary>
@@ -2216,6 +2600,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 6.23; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(97));
+		}
 	} Bk;
 
 	/// <summary>
@@ -2237,6 +2625,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 6.30; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(98));
+		}
 	} Cf;
 
 	/// <summary>
@@ -2259,6 +2651,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 6.42; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(99));
+		}
 	} Es;
 
 	/// <summary>
@@ -2282,6 +2678,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 6.50; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(100));
+		}
 	} Fm;
 
 	/// <summary>
@@ -2304,6 +2704,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 6.58; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(101));
+		}
 	} Md;
 
 	/// <summary>
@@ -2326,6 +2730,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 6.65; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(102));
+		}
 	} No;
 
 	/// <summary>
@@ -2347,6 +2755,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 4.87; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(103));
+		}
 	} Lr;
 
 	/// <summary>
@@ -2368,6 +2780,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = 6.01; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(104));
+		}
 	} Rf;
 
 	/// <summary>
@@ -2391,6 +2807,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(105));
+		}
 	} Db;
 
 	/// <summary>
@@ -2412,6 +2832,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(106));
+		}
 	} Sg;
 
 	/// <summary>
@@ -2433,6 +2857,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(107));
+		}
 	} Bh;
 
 	/// <summary>
@@ -2454,6 +2882,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(108));
+		}
 	} Hs;
 
 	/// <summary>
@@ -2476,6 +2908,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(109));
+		}
 	} Mt;
 
 	/// <summary>
@@ -2497,6 +2933,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(110));
+		}
 	} Ds;
 
 
@@ -2519,6 +2959,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(111));
+		}
 	} Rg;
 
 	/// <summary>
@@ -2540,6 +2984,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(112));
+		}
 	} Cn;
 
 	/// <summary>
@@ -2563,6 +3011,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(113));
+		}
 	} Nh;
 
 	/// <summary>
@@ -2585,6 +3037,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(114));
+		}
 	} Fl;
 
 	/// <summary>
@@ -2606,6 +3062,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(115));
+		}
 	} Mc;
 
 	/// <summary>
@@ -2627,6 +3087,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(116));
+		}
 	} Lv;
 
 	/// <summary>
@@ -2648,6 +3112,10 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(117));
+		}
 	} Ts;
 
 	/// <summary>
@@ -2669,9 +3137,13 @@ static struct Elements
 		const long double heat_vaporization = NULL; // kJ/mol
 		const long double heat_fusion = NULL; // kJ/mol
 		const long double ionization_1st = NULL; // eV
+		static void display()
+		{
+			displayElementImg(getFileName(118));
+		}
 	} Og;
 
-	void loadImage(const char* pathname, sf::Texture& texture, sf::Sprite& sprite)
+	static void loadImage(const char* pathname, sf::Texture& texture, sf::Sprite& sprite)
 	{
 		texture.loadFromFile(pathname);     // load it from the file
 		sprite.setTexture(texture);         // put that texture in our sprite
@@ -2679,7 +3151,7 @@ static struct Elements
 		sprite.setTextureRect( sf::IntRect(0,0,screenSize_X,screenSize_Y) );
 	}
 
-	void displayElementImg(const char elementName[])
+	static void displayElementImg(const char elementName[])
 	{
 
 		// Create our window
@@ -2717,7 +3189,7 @@ static struct Elements
 
 	}
 
-	const char* getFileName(int atomicNumber)
+	static const char* getFileName(int atomicNumber)
 	{
 		switch (atomicNumber)
 		{
@@ -2757,6 +3229,88 @@ static struct Elements
 			case 34:	return "img\\selenium.bmp";
 			case 35:	return "img\\bromine.bmp";
 			case 36:	return "img\\krypton.bmp";
+			case 37:	return "img\\rubidium.bmp";
+			case 38:	return "img\\strontium.bmp";
+			case 39:	return "img\\yttrium.bmp";
+			case 40:	return "img\\zirconium.bmp";
+			case 41:	return "img\\niobium.bmp";
+			case 42:	return "img\\molybdenum.bmp";
+			case 43:	return "img\\technetium.bmp";
+			case 44:	return "img\\ruthenium.bmp";
+			case 45:	return "img\\rhodium.bmp";
+			case 46:	return "img\\palladium.bmp";
+			case 47:	return "img\\silver.bmp";
+			case 48:	return "img\\cadmium.bmp";
+			case 49:	return "img\\indium.bmp";
+			case 50:	return "img\\tin.bmp";
+			case 51:	return "img\\antimony.bmp";
+			case 52:	return "img\\tellurium.bmp";
+			case 53:	return "img\\iodine.bmp";
+			case 54:	return "img\\xenon.bmp";
+			case 55:	return "img\\ceasium.bmp";
+			case 56:	return "img\\barium.bmp";
+			case 57:	return "img\\lanthanum.bmp";
+			case 58:	return "img\\cerium.bmp";
+			case 59:	return "img\\praseodymium.bmp";
+			case 60:	return "img\\neodymium.bmp";
+			case 61:	return "img\\promethium.bmp";
+			case 62:	return "img\\samarium.bmp";
+			case 63:	return "img\\europium.bmp";
+			case 64:	return "img\\gadolinium.bmp";
+			case 65:	return "img\\terbium.bmp";
+			case 66:	return "img\\dysprosium.bmp";
+			case 67:	return "img\\holmium.bmp";
+			case 68:	return "img\\erbium.bmp";
+			case 69:	return "img\\thulium.bmp";
+			case 70:	return "img\\ytterbium.bmp";
+			case 71:	return "img\\lutetium.bmp";
+			case 72:	return "img\\hafnium.bmp";
+			case 73:	return "img\\tantalum.bmp";
+			case 74:	return "img\\tungsten.bmp";
+			case 75:	return "img\\rhenium.bmp";
+			case 76:	return "img\\osmium.bmp";
+			case 77:	return "img\\iridium.bmp";
+			case 78:	return "img\\platinum.bmp";
+			case 79:	return "img\\gold.bmp";
+			case 80:	return "img\\mercury.bmp";
+			case 81:	return "img\\thallium.bmp";
+			case 82:	return "img\\lead.bmp";
+			case 83:	return "img\\bismuth.bmp";
+			case 84:	return "img\\polonium.bmp";
+			case 85:	return "img\\astatine.bmp";
+			case 86:	return "img\\radon.bmp";
+			case 87:	return "img\\francium.bmp";
+			case 88:	return "img\\radium.bmp";
+			case 89:	return "img\\actinium.bmp";
+			case 90:	return "img\\thorium.bmp";
+			case 91:	return "img\\protactinium.bmp";
+			case 92:	return "img\\uranium.bmp";
+			case 93:	return "img\\neptunium.bmp";
+			case 94:	return "img\\plutonium.bmp";
+			case 95:	return "img\\americium.bmp";
+			case 96:	return "img\\curium.bmp";
+			case 97:	return "img\\berkelium.bmp";
+			case 98:	return "img\\califomium.bmp";
+			case 99:	return "img\\einsteinium.bmp";
+			case 100:	return "img\\fermium.bmp";
+			case 101:	return "img\\mendelevium.bmp";
+			case 102:	return "img\\nobelium.bmp";
+			case 103:	return "img\\lawrencium.bmp";
+			case 104:	return "img\\rutherfordium.bmp";
+			case 105:	return "img\\dubnium.bmp";
+			case 106:	return "img\\seaborgium.bmp";
+			case 107:	return "img\\bohrium.bmp";
+			case 108:	return "img\\hassium.bmp";
+			case 109:	return "img\\meitnerium.bmp";
+			case 110:	return "img\\darmstadtium.bmp";
+			case 111:	return "img\\roentgenium.bmp";
+			case 112:	return "img\\copernicium.bmp";
+			case 113:	return "img\\nihonium.bmp";
+			case 114:	return "img\\flerovium.bmp";
+			case 115:	return "img\\moscovium.bmp";
+			case 116:	return "img\\livermorium.bmp";
+			case 117:	return "img\\tennessine.bmp";
+			case 118:	return "img\\oganesson.bmp";
 		}
 		return "no file";
 	}
