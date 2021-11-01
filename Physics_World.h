@@ -7,7 +7,7 @@
  */
 #ifndef PHYSICS_WORLD_H
 #define PHYSICS_WORLD_H
-
+#include <iostream>
 #include <gsl/gsl_integration.h>
 #include "Testing.h"
 #include <gsl/gsl_linalg.h>
@@ -720,46 +720,49 @@ static struct Conversions
 /// </summary>
 static struct Densities
 {
-	const long double aluminum_S = 2.7; // 2700 kg/m^3
-	const long double brass_S = 8.44; // 8440 kg/m^3
-	const long double copperAverage_S = 8.8; // 8800 kg/m^3
-	const long double gold_S = 19.32; // 19320 kg/m^3
-	const long double ironOrSteele_S = 7.8; // 7800 kg/m^3
-	const long double lead_S = 11.3; // 11300 kg/m^3
-	const long double polystyrene_S = .10; // 100 kg/m^3
-	const long double tungsten = 19.30; // 19300 kg/m^3
-	const long double uranium = 18.7; // 18700 kg/m^3
-	const long double concrete_light_S = 2.30; // 2300 kg/m^3
-	const long double concrete_med_S = 2.7; // 2700 kg/m^3
-	const long double concrete_heavyDuty_S = 3.0; // 3000 kg/m^3
-	const long double cork_S = .24; // 240 kg/m^3
-	const long double glassAverage_S = 2.6; // 2600 kg/m^3
-	const long double granite = 2.7; // 2700 kg/m^3
-	const long double earthsCrust_S = 3.3; // 3300 kg/m^3
-	const long double woodSoft_S = .3; // 300 kg/m^3
-	const long double woodMed_S = .6 ; // 600 kg/m^3
-	const long double woodHard_S = .9; // 900 kg/m^3
-	const long double ice_0deg_S = .917; // 917 kg/m^3
-	const long double boneSoft_S = 1.7; // 1700 kg/m^3
-	const long double boneHard_S = 2.0; // 2000 kg/m^3
-	const long double water_L = 1.0; // 1000 kg/m^3
-	const long double blood_L = 1.05; // 1050 kg/m^3
-	const long double seaWater_L = 1.025; // 1025 kg/m^3
-	const long double mercury_L = 13.6; // 13600 kg/m^3
-	const long double ethylAlcohol_L = .79; // 790 kg/m^3
-	const long double petrol_L = .68; // 680 kg/m^3
-	const long double glycerin_L = 1.26; // 1260 kg/m^3
-	const long double oliveOil_L = .92; // 920 kg/m^3
-	const long double air_G = 1.29 * pow(10, -3); // 1.29 kg/m^3
-	const long double carbon_dioxide_G = 1.98 * pow(10, -3); // 1.98 kg/m^3
-	const long double carbon_monoxide_G = 1.25 * pow(10, -3); // 1.25 kg/m^3
-	const long double hydrogen_G = 0.090 * pow(10, -3); // 0.090 kg/m^3
-	const long double helium_G = 0.18 * pow(10, -3); // 0.18 kg/m^3
-	const long double methane_G = 0.72 * pow(10, -3); // 0.72 kg/m^3
-	const long double nitrogen_G = 1.25 * pow(10, -3); // 1.25 kg/m^3
-	const long double nitrous_oxide_G = 1.98 * pow(10, -3); // 1.98 kg/m^3
-	const long double oxygen_G = 1.43 * pow(10, -3); // 1.43 kg/m^3
-	const long double steam_G = 0.60 * pow(10, -3); // 0.60 kg/m^3
+
+	const long double aluminum_S = 2.7e3; // 2700 kg/m^3
+	const long double brass_S = 8.44e3; // 8440 kg/m^3
+	const long double copperAverage_S = 8.8e3; // 8800 kg/m^3
+	const long double gold_S = 19.32e3; // 19320 kg/m^3
+	const long double ironOrSteele_S = 7.8e3; // 7800 kg/m^3
+	const long double lead_S = 11.3e3; // 11300 kg/m^3
+	const long double polystyrene_S = .10e3; // 100 kg/m^3
+	const long double tungsten = 19.30e3; // 19300 kg/m^3
+	const long double uranium = 18.7e3; // 18700 kg/m^3
+	const long double concrete_light_S = 2.30e3; // 2300 kg/m^3
+	const long double concrete_med_S = 2.7e3; // 2700 kg/m^3
+	const long double concrete_heavyDuty_S = 3.0e3; // 3000 kg/m^3
+	const long double cork_S = .24e3; // 240 kg/m^3
+	const long double glassAverage_S = 2.6e3; // 2600 kg/m^3
+	const long double granite = 2.7e3; // 2700 kg/m^3
+	const long double earthsCrust_S = 3.3e3; // 3300 kg/m^3
+	const long double woodSoft_S = .3e3; // 300 kg/m^3
+	const long double woodMed_S = .6e3 ; // 600 kg/m^3
+	const long double woodHard_S = .9e3; // 900 kg/m^3
+	const long double ice_0deg_S = .917e3; // 917 kg/m^3
+	const long double boneSoft_S = 1.7e3; // 1700 kg/m^3
+	const long double boneHard_S = 2.0e3; // 2000 kg/m^3
+	const long double water_L = 1.0e3; // 1000 kg/m^3
+	const long double blood_L = 1.05e3; // 1050 kg/m^3
+	const long double seaWater_L = 1.025e3; // 1025 kg/m^3
+	const long double mercury_L = 13.6e3; // 13600 kg/m^3
+	const long double ethylAlcohol_L = .79e3; // 790 kg/m^3
+	const long double petrol_L = .68e3; // 680 kg/m^3
+	const long double glycerin_L = 1.26e3; // 1260 kg/m^3
+	const long double oliveOil_L = .92e3; // 920 kg/m^3
+	const long double air_G = 1.293e3; // 1.29 kg/m^3
+	const long double carbon_dioxide_G = 1.98e3; // 1.98 kg/m^3
+	const long double carbon_monoxide_G3e = 1.25e3; // 1.25 kg/m^3
+	const long double hydrogen_G = 0.090e3; // 0.090 kg/m^3
+	const long double helium_G = 0.18e3; // 0.18 kg/m^3
+	const long double methane_G = 0.72e3; // 0.72 kg/m^3
+	const long double nitrogen_G = 1.25e3; // 1.25 kg/m^3
+	const long double nitrous_oxide_G = 1.98e3; // 1.98 kg/m^3
+	const long double oxygen_G = 1.43e3; // 1.43 kg/m^3
+	const long double steam_G = 0.60e3; // 0.60 kg/m^3
+	const long double interstellar_space_G = 10.0e-20; // 10.0 x 10^-20 kg/m^3
+	const long double black_hole = 10e19; // 10 x 10^19 kg/m^3
 }p;
 
 

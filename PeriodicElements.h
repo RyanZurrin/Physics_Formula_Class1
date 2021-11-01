@@ -109,8 +109,8 @@ static struct Elements
 		const long double ionization_1st = 13.598;
 		static void display()
 		{
-			displayElementImg(getFileName(1));
-		}
+			displayElementImg(getFileName(1));		}
+
 	} H;
 
 	/// <summary>
@@ -3314,9 +3314,6 @@ static struct Elements
 		}
 		return "no file";
 	}
-
-
-
 
 }elements;
 

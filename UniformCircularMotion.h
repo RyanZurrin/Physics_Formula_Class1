@@ -367,7 +367,7 @@ public:
 	 * @brief Prints the masses from the mass array
 	 * @param obj is reference to a array holding twwo masses
 	 */
-	template <typename T, size_t size>
+	template <typename T, std::size_t size>
 	void static show_array(const T(&array)[size])
 	{
 		for (size_t i = 0; i < size; i++)
