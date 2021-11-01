@@ -31,15 +31,12 @@ int main()
 	arma::Mat<double>B = arma::diagmat(A);
 	std::cout << "B:\n" << B << "\n";
 
-	A.save("A_mat.txt", arma::arma_ascii);
-	B.save("B_mat.txt", arma::arma_ascii);
-
 
 
 	Elements::HYDROGEN::display();
 	Elements::COPPER::display();
 	Elements::GOLD::display();
-
+	printElementData(elements.H);
 
 	//*************************************************************************
 	//Stopping timer and displaying the programs execution time

@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "GeometricOptics.h"
+#include <cmath>
+#include <iostream>
 
 #ifndef WAVE_OPTICS_H
 #define WAVE_OPTICS_H
@@ -859,7 +861,7 @@ inline auto WaveOptics::constructivelyReflectedWavelength(const ld t, const ld n
 
 inline auto WaveOptics::mostConstructivelyReflectedWavelength(const ld t, const ld n, const ld m)
 {
-	return (4.0 * sqrt(2.0) * t * n) / (2.0 * m - 1.0);
+	return (4.0 * sqrt( (2.0) * t * n) / (2.0 * m - 1.0));
 }
 
 inline auto WaveOptics::waveAmplitude(const ld E, const ld Θ)

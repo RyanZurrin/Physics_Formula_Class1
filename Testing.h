@@ -5,6 +5,7 @@
 #include <any>
 #include <chrono>
 #include <iomanip>
+#include <cmath>
 #include <set>
 
 template <typename T>
@@ -138,7 +139,7 @@ inline bool isPrime(int n)
 	return ret || (n==2);
 }
 
-template<typename T, size_t size>
+template<typename T, std::size_t size>
 auto ascendingSort(T (&arr)[size])
 {
 
@@ -180,7 +181,7 @@ auto fastExponentiation(T x, T y)
 	return p;
 }
 
-template<typename T, size_t size>
+template<typename T, std::size_t size>
 auto y_minus_x(T (&arr)[size],T x, T y)
 {
 	auto n = size;

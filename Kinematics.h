@@ -418,6 +418,44 @@ public:
 	}
 
 	/// <summary>
+	/// Time of projectile in flight.
+	/// </summary>
+	/// <param name="angle">The angle.</param>
+	/// <param name="initialHeight">The initial height.</param>
+	/// <param name="velocity">The velocity.</param>
+	/// <returns>time in seconds projectile was in flight</returns>
+	static ld time_of_projectiles_flight(ld angle, ld initialHeight, ld velocity)
+	{
+		ld vy = velocity * sin(angle * RADIAN);
+		return (vy + (sqrt((vy * vy) + 2.0 * GA * initialHeight))) / GA;
+	}
+
+	/// <summary>
+	/// calculates the range of a projectiles flight.
+	/// </summary>
+	/// <param name="angle">The angle.</param>
+	/// <param name="initialHeight">The initial height.</param>
+	/// <param name="velocity">The velocity.</param>
+	/// <returns></returns>
+	static ld range_of_projectile_flight(ld angle, ld initialHeight, ld velocity)
+	{
+		return velocity * cos(angle * RADIAN) * time_of_projectiles_flight(angle, initialHeight, velocity);
+	}
+
+	/// <summary>
+	/// calculates the maximum height of a projectile.
+	/// </summary>
+	/// <param name="angle">The angle.</param>
+	/// <param name="initialHeight">The initial height.</param>
+	/// <param name="velocity">The velocity.</param>
+	/// <returns></returns>
+	static ld maximum_height_of_projectile(ld angle, ld initialHeight, ld velocity)
+	{
+		ld vy = velocity * sin(angle * RADIAN);
+		return initialHeight + ((vy * vy) / (2.0 * GA));
+	}
+
+	/// <summary>
 	/// calculates the air time from an initial velocity of 0
 	/// </summary>
 	/// <param name="displacement">The total displacement.</param>
