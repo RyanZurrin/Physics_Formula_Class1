@@ -17,6 +17,8 @@
 #include "RegexHelper.h"
 #include "AtomicPhysics.h"
 #include "Circuits.h"
+#include "Cylinder.h"
+#include "Cube.h"
 #include "Drag.h"
 #include "DynamicsAndForces.h"
 #include "Elasticity.h"
@@ -42,6 +44,8 @@
 #include "Momentum.h"
 #include "PeriodicElements.h"
 #include "RandomNumbers.h"
+#include "Rectangle.h"
+#include "RectangularPrism.h"
 #include "RotationalMotion.h"
 #include "Statics.h"
 #include "Temperature.h"
@@ -56,6 +60,7 @@
 #include "WaveOptics.h"
 #include "Waves.h"
 #include "SpecialRelativity.h"
+#include "Square.h"
 #include "QuantumPhysics.h"
 typedef TriangleSolver TS;
 typedef QuantumPhysics QP;
@@ -832,6 +837,11 @@ public:
 	unique_ptr<VOI> vision_optical;
 	unique_ptr<SR> relativity;
 	unique_ptr<QP> quantum;
+	unique_ptr<Square> square;
+	unique_ptr<Cube> cube;
+	unique_ptr<Rectangle> rectangle;
+	unique_ptr<RectangularPrism> rectangular_prism;
+	unique_ptr<Cylinder> cylinder;
 
 
 	Physics_World();
@@ -878,7 +888,12 @@ public:
 		wave_optics(std::move(o.wave_optics)),
 		vision_optical(std::move(o.vision_optical)),
 		relativity(std::move(o.relativity)),
-		quantum(std::move(o.quantum)){} // move constructor
+		quantum(std::move(o.quantum)),
+		square(std::move(o.square)),
+		cube(std::move(o.cube)),
+		rectangle(std::move(o.rectangle)),
+		rectangular_prism(std::move(o.rectangular_prism)),
+		cylinder(std::move(o.cylinder)){} // move constructor
 
 	/**========================================================================
 	 * overloaded operators
@@ -886,13 +901,13 @@ public:
 	Physics_World operator+(const Physics_World& r)const
 	{
 		double x, y, z;
-		x = static_cast<long double>(vector3d->return_x() + r.vector3d->return_x());
-		y = static_cast<long double>(vector3d->return_y() + r.vector3d->return_y());
-		z = static_cast<long double>(vector3d->return_z() + r.vector3d->return_z());
+		x = vector3d->return_x() + r.vector3d->return_x();
+		y = vector3d->return_y() + r.vector3d->return_y();
+		z = vector3d->return_z() + r.vector3d->return_z();
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
-		x = static_cast<long double>(vector2d->return_x() + r.vector2d->return_x());
-		y = static_cast<long double>(vector2d->return_y() + r.vector2d->return_y());
+		x = vector2d->return_x() + r.vector2d->return_x();
+		y = vector2d->return_y() + r.vector2d->return_y();
 		sum.vector2d->set_coordinates(x, y);
 		sum.vector3d->mode = r.vector3d->mode;
 		sum.vector2d->mode = this->vector2d->mode;
@@ -901,13 +916,13 @@ public:
 	Physics_World operator+(long double n)const
 	{
 		double x, y, z;
-		x = static_cast<long double>(vector3d->return_x() + n);
-		y = static_cast<long double>(vector3d->return_y() + n);
-		z = static_cast<long double>(vector3d->return_z() + n);
+		x = vector3d->return_x() + n;
+		y = vector3d->return_y() + n;
+		z = vector3d->return_z() + n;
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
-		x = static_cast<long double>(vector2d->return_x() + n);
-		y = static_cast<long double>(vector2d->return_y() + n);
+		x = vector2d->return_x() + n;
+		y = vector2d->return_y() + n;
 		sum.vector2d->set_coordinates(x, y);
 		sum.vector3d->mode = this->vector3d->mode;
 		sum.vector2d->mode = this->vector2d->mode;
@@ -918,13 +933,13 @@ public:
 	Physics_World& operator+=(const Physics_World& r)
 	{
 		double x, y, z;
-		x = static_cast<long double>(vector3d->return_x() + r.vector3d->return_x());
-		y = static_cast<long double>(vector3d->return_y() + r.vector3d->return_y());
-		z = static_cast<long double>(vector3d->return_z() + r.vector3d->return_z());
+		x = vector3d->return_x() + r.vector3d->return_x();
+		y = vector3d->return_y() + r.vector3d->return_y();
+		z = vector3d->return_z() + r.vector3d->return_z();
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
-		x = static_cast<long double>(vector2d->return_x() + r.vector2d->return_x());
-		y = static_cast<long double>(vector2d->return_y() + r.vector2d->return_y());
+		x = vector2d->return_x() + r.vector2d->return_x();
+		y = vector2d->return_y() + r.vector2d->return_y();
 		sum.vector2d->set_coordinates(x, y);
 		sum.vector3d->mode = r.vector3d->mode;
 		sum.vector2d->mode = this->vector2d->mode;
@@ -934,13 +949,13 @@ public:
 	Physics_World operator+()const
 	{
 		double x, y, z;
-		x = static_cast<long double>(vector3d->return_x() + 1.0);
-		y = static_cast<long double>(vector3d->return_y() + 1.0);
-		z = static_cast<long double>(vector3d->return_z() + 1.0);
+		x = vector3d->return_x() + 1.0;
+		y = vector3d->return_y() + 1.0;
+		z = vector3d->return_z() + 1.0;
 		Physics_World sum;
 		sum.vector3d->set_coordinates(x, y, z);
-		x = static_cast<long double>(vector2d->return_x() + 1.0);
-		y = static_cast<long double>( vector2d->return_y() + 1.0);
+		x = vector2d->return_x() + 1.0;
+		y = vector2d->return_y() + 1.0;
 		vector2d->set_coordinates(x, y);
 		vector3d->mode = this->vector3d->mode;
 		vector2d->mode = this->vector2d->mode;
@@ -1002,6 +1017,11 @@ inline Physics_World::Physics_World()
 	vision_optical = std::make_unique<VOI>();
 	relativity = std::make_unique<SR>();
 	quantum = std::make_unique<QP>();
+	square = std::make_unique<Square>();
+	cube = std::make_unique<Cube>();
+	rectangle = std::make_unique<Rectangle>();
+	rectangular_prism = std::make_unique<RectangularPrism>();
+	cylinder = std::make_unique<Cylinder>();
 
 	countIncrease();
 	//countShow();
@@ -1067,7 +1087,11 @@ inline Physics_World::Physics_World(const long double t1, const long double t2, 
 	vision_optical = std::make_unique<VOI>();
 	relativity = std::make_unique<SR>();
 	quantum = std::make_unique<QP>();
-
+	square = std::make_unique<Square>();
+	cube = std::make_unique<Cube>();
+	rectangle = std::make_unique<Rectangle>();
+	rectangular_prism = std::make_unique<RectangularPrism>();
+	cylinder = std::make_unique<Cylinder>();
 	this->vector3d->set_coordinates(t1, t2, t3);
 
 	countIncrease();
@@ -1114,6 +1138,11 @@ inline Physics_World::Physics_World(const long double t1, const long double t2)
 	vision_optical = std::make_unique<VOI>();
 	relativity = std::make_unique<SR>();
 	quantum = std::make_unique<QP>();
+	square = std::make_unique<Square>();
+	cube = std::make_unique<Cube>();
+	rectangle = std::make_unique<Rectangle>();
+	rectangular_prism = std::make_unique<RectangularPrism>();
+	cylinder = std::make_unique<Cylinder>();
 	this->vector2d->set_coordinates(t1, t2);
 }
 
