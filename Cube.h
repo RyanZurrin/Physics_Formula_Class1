@@ -101,8 +101,10 @@ public:
 	[[nodiscard]] auto getSide() const { return side; }
 	[[nodiscard]] auto getSurfaceArea() const { return surfaceArea; }
 	[[nodiscard]] auto getVolume() const { return volume; }
+	[[nodiscard]] auto getWeight(ld densityKgM) const;
 
 	void printCubeInfo()const;
+	
 };
 
 #endif
@@ -139,6 +141,11 @@ inline auto Cube::setVolume(ld v)
 	volume = v;
 	side = calculateSide();
 	surfaceArea = calculateSurfaceArea();
+}
+
+inline auto Cube::getWeight(ld densityKgM) const
+{
+	return densityKgM * volume;
 }
 
 inline void Cube::printCubeInfo() const

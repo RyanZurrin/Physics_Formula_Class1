@@ -17,7 +17,9 @@
 #include "RegexHelper.h"
 #include "AtomicPhysics.h"
 #include "Circuits.h"
+#include "Cone.h"
 #include "Cylinder.h"
+#include "Circle.h"
 #include "Cube.h"
 #include "Drag.h"
 #include "DynamicsAndForces.h"
@@ -42,11 +44,14 @@
 #include "Magnetism.h"
 #include "MatrixND.h"
 #include "Momentum.h"
+#include "Parallelogram.h"
 #include "PeriodicElements.h"
+#include "Pyramid.h"
 #include "RandomNumbers.h"
 #include "Rectangle.h"
 #include "RectangularPrism.h"
 #include "RotationalMotion.h"
+#include "Sphere.h"
 #include "Statics.h"
 #include "Temperature.h"
 #include "Thermodynamics.h"
@@ -658,6 +663,11 @@ static struct Conversions
 		return nm / pow(1, -9);
 	}
 	template<typename T>
+	static auto kilogram_to_pound(const T kg = _val_)
+	{
+		return kg * 2.20462;
+	}
+	template<typename T>
 	static auto pound_to_kilogram(const T lbs = _val_)
 	{
 		return lbs / 2.205;
@@ -725,10 +735,9 @@ static struct Conversions
 /// </summary>
 static struct Densities
 {
-
 	const long double aluminum_S = 2.7e3; // 2700 kg/m^3
 	const long double brass_S = 8.44e3; // 8440 kg/m^3
-	const long double copperAverage_S = 8.8e3; // 8800 kg/m^3
+	const long double copperAverage_S = 8.84e3; // 8800 kg/m^3
 	const long double gold_S = 19.32e3; // 19320 kg/m^3
 	const long double ironOrSteele_S = 7.8e3; // 7800 kg/m^3
 	const long double lead_S = 11.3e3; // 11300 kg/m^3
@@ -842,6 +851,11 @@ public:
 	unique_ptr<Rectangle> rectangle;
 	unique_ptr<RectangularPrism> rectangular_prism;
 	unique_ptr<Cylinder> cylinder;
+	unique_ptr<Cone> cone;
+	unique_ptr<Sphere> sphere;
+	unique_ptr<Pyramid> pyramid;
+	unique_ptr<Circle> circle;
+	unique_ptr<Parallelogram> parallelogram;
 
 
 	Physics_World();
@@ -893,7 +907,12 @@ public:
 		cube(std::move(o.cube)),
 		rectangle(std::move(o.rectangle)),
 		rectangular_prism(std::move(o.rectangular_prism)),
-		cylinder(std::move(o.cylinder)){} // move constructor
+		cylinder(std::move(o.cylinder)),
+		cone(std::move(o.cone)),
+		sphere(std::move(o.sphere)),
+		pyramid(std::move(o.pyramid)),
+		circle(std::move(o.circle)),
+		parallelogram(std::move(o.parallelogram)){} // move constructor
 
 	/**========================================================================
 	 * overloaded operators
@@ -1022,7 +1041,11 @@ inline Physics_World::Physics_World()
 	rectangle = std::make_unique<Rectangle>();
 	rectangular_prism = std::make_unique<RectangularPrism>();
 	cylinder = std::make_unique<Cylinder>();
-
+	cone = std::make_unique<Cone>();
+	sphere = std::make_unique<Sphere>();
+	pyramid = std::make_unique<Pyramid>();
+	circle = std::make_unique<Circle>();
+	parallelogram = std::make_unique<Parallelogram>();
 	countIncrease();
 	//countShow();
 }
@@ -1092,6 +1115,11 @@ inline Physics_World::Physics_World(const long double t1, const long double t2, 
 	rectangle = std::make_unique<Rectangle>();
 	rectangular_prism = std::make_unique<RectangularPrism>();
 	cylinder = std::make_unique<Cylinder>();
+	cone = std::make_unique<Cone>();
+	sphere = std::make_unique<Sphere>();
+	pyramid = std::make_unique<Pyramid>();
+	circle = std::make_unique<Circle>();
+	parallelogram = std::make_unique<Parallelogram>();
 	this->vector3d->set_coordinates(t1, t2, t3);
 
 	countIncrease();
@@ -1143,6 +1171,11 @@ inline Physics_World::Physics_World(const long double t1, const long double t2)
 	rectangle = std::make_unique<Rectangle>();
 	rectangular_prism = std::make_unique<RectangularPrism>();
 	cylinder = std::make_unique<Cylinder>();
+	cone = std::make_unique<Cone>();
+	sphere = std::make_unique<Sphere>();
+	pyramid = std::make_unique<Pyramid>();
+	circle = std::make_unique<Circle>();
+	parallelogram = std::make_unique<Parallelogram>();
 	this->vector2d->set_coordinates(t1, t2);
 }
 
