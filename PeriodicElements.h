@@ -804,7 +804,7 @@ static struct Elements
 	{
 		const long double atomic_weight = 58.693; // u
 		const int atomic_number = 28;
-		const long double density_STP = 8908; // kg/m^3
+		const long double density_STP = 8908.0; // kg/m^3
 		const long double melting_point = 1455; // C
 		const long double boiling_point = 2913; // C
 		const long double thermal_conductivity = 91; // W/mK
@@ -830,7 +830,7 @@ static struct Elements
 	{
 		const long double atomic_weight = 63.546; // u
 		const int atomic_number = 29;
-		const long double density_STP = 8960; // kg/m^3
+		const long double density_STP = 8940.0; // kg/m^3
 		const long double melting_point = 1084; // C
 		const long double boiling_point = 2562; // C
 		const long double thermal_conductivity = 400; // W/mK

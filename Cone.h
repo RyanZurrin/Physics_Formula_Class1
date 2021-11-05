@@ -1,32 +1,32 @@
 /**
- * @class Cylinder
- * @details class to represent a Cylinder object
+ * @class Cone
+ * @details class to represent a Cone object
  * @author Ryan Zurrin
  * @dateBuilt  11/4/2021
  * @lastEdit 11/4/2021
  */
 
-#ifndef CYLINDER_H
-#define CYLINDER_H
+#ifndef CONE_H
+#define CONE_H
 #include <iostream>
-#define PI_ 3.14159265358979323846
+#define _PI_ 3.14159265358979323846
 
-static int cylinderObjectCount = 0;
+static int coneObjectCount = 0;
 typedef long double ld;
 
-class Cylinder
+class Cone
 {
 	ld height;
 	ld radius;
 	ld volume;
 	ld surfaceArea;
-	static auto countIncrease() { cylinderObjectCount += 1; }
-	static auto countDecrease() { cylinderObjectCount -= 1; }
+	static auto countIncrease() { coneObjectCount += 1; }
+	static auto countDecrease() { coneObjectCount -= 1; }
 	ld calculateVolume()const;
 	ld calculateSurfaceArea()const;
 public:
 
-	Cylinder()
+	Cone()
 	{
 		height = 0.0;
 		radius = 0.0;
@@ -35,7 +35,7 @@ public:
 		countIncrease();
 	}
 
-	Cylinder(ld height, ld radius)
+	Cone(ld height, ld radius)
 	{
 		this->height = height;
 		this->radius = radius;
@@ -47,7 +47,7 @@ public:
 	/**
 	 * @brief copy constructor
 	 */
-	Cylinder(const Cylinder& s)
+	Cone(const Cone& s)
 	{
 		height = s.height;
 		radius = s.radius;
@@ -58,7 +58,7 @@ public:
 	/**
 	 * #brief move constructor
 	 */
-	Cylinder(Cylinder&& s) noexcept
+	Cone(Cone&& s) noexcept
 	{
 		height = s.height;
 		radius = s.radius;
@@ -69,7 +69,7 @@ public:
 	/**
 	 * @brief copy assignment operator
 	 */
-	Cylinder& operator=(Cylinder&& s) noexcept
+	Cone& operator=(Cone&& s) noexcept
 	{
 		if (this != &s)
 		{
@@ -82,7 +82,7 @@ public:
 		return *this;
 	}
 
-	Cylinder& operator=(Cylinder other)
+	Cone& operator=(Cone other)
 	{
 		std::swap(height, other.height);
 		std::swap(radius, other.radius);
@@ -92,13 +92,13 @@ public:
 	}
 
 	static void show_objectCount() {
-		std::cout << "\n cylinder object count: "
-			<< cylinderObjectCount << std::endl;
+		std::cout << "\n cone object count: "
+			<< coneObjectCount << std::endl;
 	}
-	static int get_objectCount() { return cylinderObjectCount; }
+	static int get_objectCount() { return coneObjectCount; }
 
 
-	~Cylinder() = default;
+	~Cone() = default;
 
 	auto setHeight(ld h);
 	auto setRadius(ld r);
@@ -109,40 +109,40 @@ public:
 	[[nodiscard]] auto getSurfaceArea() const { return surfaceArea; }
 	[[nodiscard]] auto getWeight(ld densityKgM) const;
 
-	void printCylinderInfo()const;
+	void printConeInfo()const;
 };
 
 #endif
-inline ld Cylinder::calculateVolume() const
+inline ld Cone::calculateVolume() const
 {
-	return PI_ * (radius*radius) * height;
+	return (1.0/3.0)*_PI_*(radius*radius)*height;
 }
 
-inline ld Cylinder::calculateSurfaceArea() const
+inline ld Cone::calculateSurfaceArea() const
 {
-	return 2.0 * PI_ * (radius * radius) + 2.0 * PI_ * radius * height;
+	return _PI_*radius*(sqrt((radius*radius) + (height*height)))+ _PI_*(radius*radius);
 }
 
-inline auto Cylinder::setHeight(ld h)
+inline auto Cone::setHeight(ld h)
 {
 	height = h;
 	volume = calculateVolume();
 	surfaceArea = calculateSurfaceArea();
 }
 
-inline auto Cylinder::setRadius(ld r)
+inline auto Cone::setRadius(ld r)
 {
 	radius = r;
 	volume = calculateVolume();
 	surfaceArea = calculateSurfaceArea();
 }
 
-inline auto Cylinder::getWeight(ld densityKgM) const
+inline auto Cone::getWeight(ld densityKgM) const
 {
 	return densityKgM * volume;
 }
 
-inline void Cylinder::printCylinderInfo() const
+inline void Cone::printConeInfo() const
 {
 	std::cout << "height:		" << height << std::endl;
 	std::cout << "radius:		" << radius << std::endl;

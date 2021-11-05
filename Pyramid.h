@@ -1,32 +1,32 @@
 /**
- * @class RectangularPrism
- * @details rectangularPrism class that represents a rectangular prism object
+ * @class Pyramid
+ * @details class that represents a Pyramid object
  * @author Ryan Zurrin
  * @dateBuilt  11/4/2021
  * @lastEdit 11/4/2021
  */
 
-#ifndef RECTANGULAR_PRISM_H
-#define RECTANGULAR_PRISM_H
+#ifndef PYRAMID_H
+#define PYRAMID_H
 #include <iostream>
 
-static int rectangularPrismObjectCount = 0;
+static int pyramidObjectCount = 0;
 typedef long double ld;
 
-class RectangularPrism
+class Pyramid
 {
 	ld lenght;
 	ld width;
 	ld height;
 	ld volume;
 	ld surfaceArea;
-	static auto countIncrease() { rectangularPrismObjectCount += 1; }
-	static auto countDecrease() { rectangularPrismObjectCount -= 1; }
+	static auto countIncrease() { pyramidObjectCount += 1; }
+	static auto countDecrease() { pyramidObjectCount -= 1; }
 	ld calculateVolume()const;
 	ld calculateSurfaceArea()const;
 public:
 
-	RectangularPrism()
+	Pyramid()
 	{
 		lenght = 0.0;
 		width = 0.0;
@@ -36,7 +36,7 @@ public:
 		countIncrease();
 	}
 
-	RectangularPrism(ld length, ld width, ld height)
+	Pyramid(ld length, ld width, ld height)
 	{
 		this->lenght = length;
 		this->width = width;
@@ -49,7 +49,7 @@ public:
 	/**
 	 * @brief copy constructor
 	 */
-	RectangularPrism(const RectangularPrism& s)
+	Pyramid(const Pyramid& s)
 	{
 		lenght = s.lenght;
 		width = s.width;
@@ -61,7 +61,7 @@ public:
 	/**
 	 * #brief move constructor
 	 */
-	RectangularPrism(RectangularPrism&& s) noexcept
+	Pyramid(Pyramid&& s) noexcept
 	{
 		lenght = s.lenght;
 		width = s.width;
@@ -73,7 +73,7 @@ public:
 	/**
 	 * @brief copy assignment operator
 	 */
-	RectangularPrism& operator=(RectangularPrism&& s) noexcept
+	Pyramid& operator=(Pyramid&& s) noexcept
 	{
 		if (this != &s)
 		{
@@ -87,7 +87,7 @@ public:
 		return *this;
 	}
 
-	RectangularPrism& operator=(RectangularPrism other)
+	Pyramid& operator=(Pyramid other)
 	{
 		std::swap(lenght, other.lenght);
 		std::swap(width, other.width);
@@ -99,12 +99,12 @@ public:
 
 	static void show_objectCount() {
 		std::cout << "\n rectangle object count: "
-			<< rectangularPrismObjectCount << std::endl;
+			<< pyramidObjectCount << std::endl;
 	}
-	static int get_objectCount() { return rectangularPrismObjectCount; }
+	static int get_objectCount() { return pyramidObjectCount; }
 
 
-	~RectangularPrism() = default;
+	~Pyramid() = default;
 
 	auto setWidth(ld w);
 	auto setLength(ld l);
@@ -117,49 +117,49 @@ public:
 	[[nodiscard]] auto getSurfaceArea() const { return surfaceArea; }
 	[[nodiscard]] auto getWeight(ld densityKgM) const;
 
-	void printRectangularPrismInfo()const;
+	void printPyramidInfo()const;
 };
 
 #endif
 
-inline ld RectangularPrism::calculateVolume() const
+inline ld Pyramid::calculateVolume() const
 {
-	return lenght * width * height;
+	return 1.0/3.0*(lenght*width)*height;
 }
 
-inline ld RectangularPrism::calculateSurfaceArea() const
+inline ld Pyramid::calculateSurfaceArea() const
 {
-	return 2.0 * (lenght * width) + 2.0 * (lenght * height) + 2.0 * (width * height);
+	return lenght * width + lenght * (sqrt(pow((width / 2.0), 2) + height * height)) +
+		width * (sqrt(pow((lenght / 2.0), 2) + height * height));
 }
 
-inline auto RectangularPrism::setWidth(ld w)
+inline auto Pyramid::setWidth(ld w)
 {
 	width = w;
-	surfaceArea = calculateSurfaceArea();
 	volume = calculateVolume();
-	
+	surfaceArea = calculateSurfaceArea();
 }
 
-inline auto RectangularPrism::setLength(ld l)
+inline auto Pyramid::setLength(ld l)
 {
 	lenght = l;
-	surfaceArea = calculateSurfaceArea();
 	volume = calculateVolume();
+	surfaceArea = calculateSurfaceArea();
 }
 
-inline auto RectangularPrism::setHeight(ld h)
+inline auto Pyramid::setHeight(ld h)
 {
 	height = h;
-	surfaceArea = calculateSurfaceArea();
 	volume = calculateVolume();
+	surfaceArea = calculateSurfaceArea();
 }
 
-inline auto RectangularPrism::getWeight(ld densityKgM) const
+inline auto Pyramid::getWeight(ld densityKgM) const
 {
 	return densityKgM * volume;
 }
 
-inline void RectangularPrism::printRectangularPrismInfo() const
+inline void Pyramid::printPyramidInfo() const
 {
 	std::cout << "length:		" << lenght << std::endl;
 	std::cout << "width:		" << width << std::endl;
