@@ -177,13 +177,7 @@ public:
 	static ld velocity_vStart_plus_vEndD2(const ld velocityStart, const ld velocityEnd)
 	{ return (velocityStart + velocityEnd) / 2;	}
 
-	/**
-	 *@brief calculates the final velocity using the kinematic equation Vf = Vi + a*t
-	 *@param initialVelocity is the initial velocity, many times this is zero
-	 *@param acceleration is the acceleration of object
-	 *@param time is amount of time taken
-	 *@returns the final velocity
-	 */
+
 	static ld velocity_final_from_kinematic_time(const ld initialVelocity, const ld acceleration, const ld time)
 	{	return initialVelocity + acceleration * time; }
 

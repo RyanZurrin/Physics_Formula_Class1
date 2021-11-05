@@ -13,30 +13,25 @@ int main()
 	//_________________________________________________________________________
 	//add test code between starred areas
 	//*************************************************************************
+	Square test(5.0);
+	test.printSquareInfo();
 
+	Cube box(2.0);
+	box.printCubeInfo();
 
-	arma::arma_rng::set_seed_random();
+	Rectangle rec(3, 8);
+	rec.printRectangleInfo();
 
-	arma::Mat<double> A = arma::randu(4, 4);
-	std::cout << "A:\n" << A << endl;
+	RectangularPrism block(4.0, 2.3, 5.0);
+	block.printRectangularPrismInfo();
 
-	std::cout << "A * A.t() =\n";
-	std::cout << A * A.t() << endl;
+	block.setHeight(15.5);
+	block.printRectangularPrismInfo();
 
-	A.row(0) = A.row(1) + A.row(3);
-	A.col(3).zeros();
-	std::cout << "add rows 1 and 3, store result in row 0, also fill 4th column with zeros:\n";
-	std::cout << "A:\n" << A << "\n";
+	Cylinder cyl(12.0, 4.0);
+	cyl.printCylinderInfo();
 
-	arma::Mat<double>B = arma::diagmat(A);
-	std::cout << "B:\n" << B << "\n";
-
-
-
-	Elements::HYDROGEN::display();
-	Elements::COPPER::display();
-	Elements::GOLD::display();
-	printElementData(elements.H);
+	cout << Kinematics::range_of_projectile_flight(0, 80.0, 30.0) << endl;
 
 	//*************************************************************************
 	//Stopping timer and displaying the programs execution time

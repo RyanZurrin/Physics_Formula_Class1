@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="AtomicPhysics.h" />
     <ClInclude Include="Circuits.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="Cylinder.h" />
     <ClInclude Include="DynamicsAndForces.h" />
     <ClInclude Include="ElectricCharge.h" />
     <ClInclude Include="ElectricCurrent.h" />
@@ -43,9 +45,12 @@
     <ClInclude Include="Physics_World.h" />
     <ClInclude Include="QuantumPhysics.h" />
     <ClInclude Include="RandomNumbers.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="RectangularPrism.h" />
     <ClInclude Include="RegexHelper.h" />
     <ClInclude Include="RunTimer.h" />
     <ClInclude Include="SpecialRelativity.h" />
+    <ClInclude Include="Square.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="Temperature.h" />
     <ClInclude Include="TemplateClass.h" />
@@ -72,6 +77,7 @@
   <ItemGroup>
     <ClCompile Include="PeriodicElements.cpp" />
     <ClCompile Include="RandomNumbers.cpp" />
+    <ClCompile Include="Square.cpp" />
     <ClCompile Include="testFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
