@@ -53,11 +53,11 @@ public:
 	Vector2D(char, string id = "");//mode select, defaults to 0, in rectangular, constructor
 	Vector2D(long double, long double, char _mode = 'r', string id = ""); //constructor takes both coordinates and mode
 	Vector2D(const Vector2D &, string id = "");	//copy constructor
-	virtual void displayAllData(std::string label = "")const; //virtual so any derived classes must redefine
-	virtual void display(std::string label = "")const;
-	virtual void showRectCord(std::string label = "")const;
-	void		 showPolarCord(std::string label = "")const;
-	void		 showRevolutionAngle(std::string label = "")const;
+	virtual void displayAllData(const std::string& label = "")const; //virtual so any derived classes must redefine
+	virtual void display(const std::string& label = "")const;
+	virtual void showRectCord(const std::string& label = "")const;
+	void		 showPolarCord(const std::string& label = "")const;
+	void		 showRevolutionAngle(const std::string&  label = "")const;
 	void		 show_x()const;
 	void		 show_y()const;
 	void		 show_mag()const;
@@ -244,16 +244,16 @@ inline Vector2D::Vector2D(const Vector2D &v, string id)
 	  ID = id;
 	}
 }
-inline void Vector2D::displayAllData(std::string label)const
+inline void Vector2D::displayAllData(const std::string& label)const
 {
-  std::cout << ((label == "") ? ID : label) << ":";
+  std::cout << ((label.empty()) ? ID : label) << ":";
   showRectCord(label);
   showPolarCord(label);
   showRevolutionAngle(label);
   show_arcLength();
   std::cout << std::endl;
 }
-inline void Vector2D::display(std::string label)const
+inline void Vector2D::display(const std::string& label)const
 {
   if (mode == 'r' || mode == 'R') {
    showRectCord(label);
@@ -263,10 +263,10 @@ inline void Vector2D::display(std::string label)const
   }
 }
 
-inline void Vector2D::showRectCord(std::string label)const
+inline void Vector2D::showRectCord(const std::string& label)const
 {
 	cout << setprecision(6);
-	cout<< "\n" <<((label == "") ? ID : label) << ":(x,y) = ";
+	cout<< "\n" <<((label.empty()) ? ID : label) << ":(x,y) = ";
 	if(x < 0 && x > -1 ){
 		cout << setiosflags(ios::fixed);
 		cout << fixed << "(" << x << ","
@@ -284,21 +284,21 @@ inline void Vector2D::showRectCord(std::string label)const
 		cout << y << ")";
 	}
 }
-inline void Vector2D::showPolarCord(std::string label)const
+inline void Vector2D::showPolarCord(const std::string& label)const
 {
-	cout<< "\n" << ((label == "") ? ID : label) << setprecision(6);
+	cout<< "\n" << ((label.empty()) ? ID : label) << setprecision(6);
 	if(magnitude >= 0 && angle >= 0){
-		cout << ":<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";
+		cout << ":<r,\xE9> = <" << magnitude << "," << angle << ">";
 	}
 	else{
 		cout << setiosflags(ios::fixed);
-		cout << ":<r,\xE9> = <" << magnitude << "," << angle * RADIAN << ">";
+		cout << ":<r,\xE9> = <" << magnitude << "," << angle << ">";
 		cout << resetiosflags(ios::fixed) << endl;
 	}
 }
-inline void Vector2D::showRevolutionAngle(std::string label)const
+inline void Vector2D::showRevolutionAngle(const std::string& label)const
 {
-	cout<< "\n" << ((label == "") ? ID : label) << ":rev\xE9\xF8 = "
+	cout<< "\n" << ((label.empty()) ? ID : label) << ":rev\xE9\xF8 = "
 		<< revolutionAngle_inDegrees <<"\xF8";
 }
 inline void Vector2D::show_x() const
@@ -594,50 +594,39 @@ inline Vector2D& Vector2D::operator+=(const Vector2D& v)
 }
 inline Vector2D Vector2D::operator+(const Vector2D& v)const
 {
-  //cout << "in  Vector2D::operator+(const Vector2D& v)const"<<endl;
-  Vector2D resultant(x + v.x, y + v.y, this->mode);
-  return resultant;
+	return Vector2D(x + v.x, y + v.y);
 }
 inline Vector2D Vector2D::operator+()const
 {
-	//cout << "in  Vector2D::operator+()const"<<endl;
-	Vector2D resultant(x+x, y+y, this->mode);
-  return resultant;
+	return Vector2D(x+x, y+y);
 }
 inline Vector2D Vector2D::operator++()
 {
-	Vector2D resultant(++x, ++y, this->mode);
-  return resultant;
+	return Vector2D(++x, ++y);
 }
 inline Vector2D Vector2D::operator++(int)
 {
-  Vector2D resultant(x++, y++, mode);
-  return resultant;
+	return Vector2D(x++, y++);
 }
 inline Vector2D Vector2D::operator-(const Vector2D& v) const
 {
-  Vector2D resultant(x-v.x, y-v.y, mode);
-  return resultant;
+	return Vector2D(x-v.x, y-v.y);
 }
 inline Vector2D Vector2D::operator-(const long double n)const
 {
-	Vector2D resultant(x - n, y - n, this->mode);
-	return resultant;
+	return Vector2D(x - n, y - n);
 }
 inline Vector2D Vector2D::operator-()const
 {
-	Vector2D resultant(-x, -y, this->mode);
-  return resultant;
+	return Vector2D(-x, -y);
 }
 inline Vector2D Vector2D::operator--()
 {
-  Vector2D resultant(--x, --y, this->mode);
-  return resultant;
+	return Vector2D(--x, --y);
 }
 inline Vector2D Vector2D::operator--(int)
 {
-  Vector2D resultant(x--, y--, this->mode);
-  return resultant;
+	return Vector2D(x--, y--);
 }
 inline Vector2D operator-(long double s, Vector2D& v)
 {

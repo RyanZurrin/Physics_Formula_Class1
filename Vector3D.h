@@ -34,11 +34,11 @@ public:
 	void		setY(long double);
 	void		setZ(long double);
 	void		set_coordinates(long double, long double, long double);
-	void		displayAllData(std::string label = "")const override;
-	void		showRectCord(std::string label = "")const override;
-	void		showSphericalCoordinates(std::string label = "")const;
-	void		showAllAngles(std::string label = "")const;
-	void		display(std::string label = "")const override;    //display value of vector
+	void		displayAllData(const std::string& label = "")const override;
+	void		showRectCord(const std::string& label = "")const override;
+	void		showSphericalCoordinates(const std::string& label = "")const;
+	void		showAllAngles(const std::string& label = "")const;
+	void		display(const std::string& label = "")const override;    //display value of vector
 	static int	return_objectCount(){return vec3d_objectCount;}
 	[[nodiscard]] long double	return_z()const; //return z
 	[[nodiscard]] long double	return_xAngle()const; //return x angle
@@ -191,20 +191,20 @@ inline void Vector3D::set_coordinates(long double x1, long double y1, long doubl
 	z = z1;
 	updateVector();
 }
-inline void Vector3D::displayAllData(std::string label)const
+inline void Vector3D::displayAllData(const std::string& label)const
 {
-	std::cout << ((label == "") ? ID : label);
+	std::cout << ((label.empty()) ? ID : label);
 	showRectCord();
 	showSphericalCoordinates();
 	showAllAngles();
 	cout<< "mag: " << magnitude << endl;
 
 }
-inline void Vector3D::showRectCord(std::string label) const
+inline void Vector3D::showRectCord(const std::string& label) const
 {
 	cout << setprecision(6);
 
-	cout<< "\n" <<((label == "") ? ID : label) << ":(x,y,z) = ";
+	cout<< "\n" <<((label.empty()) ? ID : label) << ":(x,y,z) = ";
 	if (x < 0 && x > -1) {
 		cout << setiosflags(ios::fixed);
 		cout << fixed << "(" << x << ","
@@ -231,15 +231,15 @@ inline void Vector3D::showRectCord(std::string label) const
 	}
 	std::cout << std::endl;
 }
-inline void Vector3D::showSphericalCoordinates(std::string label)const
+inline void Vector3D::showSphericalCoordinates(const std::string& label)const
 {
-	cout<<((label == "") ? ID : label) << setprecision(6)
+	cout<<((label.empty()) ? ID : label) << setprecision(6)
 		<< ":<r,\xE9,\xE8> = <" << radius
 		<< ", " << inclination << ", " << azimuth << ">"<<std::endl;
 }
-inline void Vector3D::showAllAngles(std::string label) const
+inline void Vector3D::showAllAngles(const std::string& label) const
 {
-	cout <<((label == "") ? ID : label) << ":(\xE9x,\xE9y,\xE9z) = ("
+	cout <<((label.empty()) ? ID : label) << ":(\xE9x,\xE9y,\xE9z) = ("
 		 << xAngle << ", " << yAngle
 		 << ", " << zAngle << ")" <<std::endl;
 }
@@ -531,9 +531,9 @@ inline long double Vector3D::angle_between_vectors(Vector3D& v)const
 	return acos((x*v.x+y*v.y+z*v.z) / (sqrt(x*x+y*y+z*z)*
 		sqrt(v.x*v.x+v.y*v.y+v.z*v.z))) * DEGREE;
 }
-inline void Vector3D::display(std::string label)const
+inline void Vector3D::display(const std::string& label)const
 {
-	std::cout << ((label == "") ? ID : label)
+	std::cout << ((label.empty()) ? ID : label)
 			  <<":<x,y,z,> = "<<"<"<<x<<", "<<y<<", "<<z<<">"<<endl;
 }
 
