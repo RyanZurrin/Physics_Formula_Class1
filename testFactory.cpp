@@ -13,27 +13,18 @@ int main()
 	//_________________________________________________________________________
 	//add test code between starred areas
 	//*************************************************************************
-	Vector2D x(5, 102.0, 'p');
-	Vector2D y(4, 75.0, 'p');
-	Vector2D z = x + y;
-	x.displayAllData();
-	y.displayAllData();
-	z.displayAllData("resultant");
-	std::cout << "dot product of x and y is " << dot_product(x, y) << endl;
-
-	Eigen::MatrixX<double> test { {1,2,3},{4,5,6},{7,8,9} };
-	Eigen::MatrixX<double> test2{ {9,8,7},{6,5,4},{3,2,1} };
-
-	Eigen::MatrixX<double> ns{ {1,1,3,-1},{1,2,4,-3},{2,3,7,-4} };
-	std::cout << test << endl;
-	std::cout << test2 << endl;
-	std::cout << test * test << endl;
-	std::cout << "det Test: " << test.determinant();
-	std::cout << "test2 " << test2.base();
-	FullPivLU<MatrixXd> lu(ns);
-	MatrixXd A_null_space = lu.kernel();
-	std::cout << "nullspace\n" << A_null_space << endl;
-
+	Eigen::MatrixXf m(4, 4);
+	m << 2, 0, 3, -1,
+		 1, 0, 2, 2,
+		 0, -1, 1, 4,
+		 2, 0, 1, -3;
+	std::cout << "here is matrix m:\n" << m << endl;
+	m.row(0) -= 2 * m.row(1);
+	std::cout << "here is matrix m after R1 - 2R2:\n" << m << endl;
+	m.row(3) -= 2 * m.row(1);
+	std::cout << "here is matrix m after R4 - 2R2:\n" << m << endl;
+	std::cout << "det m = " << m.determinant();
+	
 	//*************************************************************************
 	//Stopping timer and displaying the programs execution time
 	//_________________________________________________________________________
