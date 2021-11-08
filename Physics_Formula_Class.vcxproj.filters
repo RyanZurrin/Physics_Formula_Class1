@@ -192,6 +192,12 @@
     <ClInclude Include="Parallelogram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionPackage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Asteroid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testFactory.cpp">

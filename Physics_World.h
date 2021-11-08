@@ -53,6 +53,8 @@
 #include "RotationalMotion.h"
 #include "Sphere.h"
 #include "Statics.h"
+#include <symengine/ntheory.h>
+#include <symengine/expression.h>
 #include "Temperature.h"
 #include "Thermodynamics.h"
 #include "Torque.h"
