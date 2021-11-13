@@ -13,46 +13,30 @@ int main(int argc, char* argv[])
 	//_________________________________________________________________________
 	//add test code between starred areas
 	//*************************************************************************
-	/*
-	Eigen::MatrixXf m(4, 4);
-	m << 2, 0, 3, -1,
-		 1, 0, 2, 2,
-		 0, -1, 1, 4,
-		 2, 0, 1, -3;
-	std::cout << "here is matrix m:\n" << m << endl;
-	m.row(0) -= 2 * m.row(1);
-	std::cout << "here is matrix m after R1 - 2R2:\n" << m << endl;
-	m.row(3) -= 2 * m.row(1);
-	std::cout << "here is matrix m after R4 - 2R2:\n" << m << endl;
-	std::cout << "det m = " << m.determinant() << endl;
-	*/
-	RCP<const Basic> x = symbol("x");
-	RCP<const Basic> y = symbol("y");
-	RCP<const Basic> z = symbol("z");
-	RCP<const Basic> w = symbol("w");
-	RCP<const Basic> i100 = integer(100);
 
-	RCP<const Basic> e, r;
+	std::cout << Kinematics::trajectory_equation(6.0, 60.0, 0.0);
 
-	e = pow(add(add(pow(x, y), pow(y, x)), pow(z, x)), i100);
-
-	std::cout << "Expanding: " << *e << std::endl;
-
-	auto t1 = std::chrono::high_resolution_clock::now();
-	r = expand(e);
-	auto t2 = std::chrono::high_resolution_clock::now();
-	//std::cout << *r << std::endl;
-	std::cout
-		<< std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count()
-		<< "ms" << std::endl;
-	std::cout << "number of terms: "
-		<< rcp_dynamic_cast<const Add>(r)->get_dict().size() << std::endl;
-
+	MatrixND<int> test(3, 3, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+	test.print();
+	MatrixND<int> transposed = test.transpose();
+	transposed.print();
+	MatrixND<int> test2(3, 3, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+	test2.print();
+	MatrixND<int> result = test.mult(test2);
+	result.print();
+	std::cout <<	"dot: " << test.dot(test2);
+	MatrixND<int> test3(3, 2, 1, 2, 3, 4, 5, 6);
+	test3.print();
+	MatrixND<int> test4(2, 3, 9, 8, 7, 6, 5, 4);
+	test4.print();
+	MatrixND<int> result2 = test3.mult(test4);
+	result2.print();
+	
 	//*************************************************************************
 	//Stopping timer and displaying the programs execution time
 	//_________________________________________________________________________
 	timer.stop();
-	timer.displayRunTime("s");
+	timer.displayRunTime("ms");
 	//_________________________________________________________________________
 	return EXIT_SUCCESS;
 

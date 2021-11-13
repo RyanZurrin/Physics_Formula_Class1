@@ -19,6 +19,11 @@
 #include <symengine/functions.h>
 #include <symengine/ntheory.h>
 #include <symengine/expression.h>
+#include <symengine/cwrapper.h>
+#include <symengine/printers.h>
+#include <symengine/matrix.h>
+#include <symengine/eval.h>
+#include <symengine/parser.h>
 #include <iostream>
 #include <gsl/gsl_integration.h>
 #include "Testing.h"
@@ -99,10 +104,14 @@ typedef ElectricCharge ELCHRG;
 typedef DynamicsAndForces DAF;
 typedef RandomNumbers RN;
 typedef AtomicPhysics AP;
-
+#define xstr(s) str(s)
+#define str(s) #s
 
 using namespace Eigen;
 //class Physics_World;
+using SymEngine::DenseMatrix;
+using SymEngine::CSRMatrix;
+using SymEngine::function_symbol;
 using SymEngine::factorial;
 using SymEngine::gcd;
 using SymEngine::bernoulli;
@@ -118,9 +127,36 @@ using SymEngine::map_vec_uint;
 using SymEngine::map_integer_uint;
 using SymEngine::Integer;
 using SymEngine::integer;
+using SymEngine::Rational;
+using SymEngine::rational_class;
+using SymEngine::Complex;
+using SymEngine::ComplexDouble;
+using SymEngine::RealDouble;
+using SymEngine::Ptr;
+using SymEngine::outArg;
+using SymEngine::make_rcp;
+#ifdef HAVE_SYMENGINE_MPFR
+using SymEngine::RealMPFR;
+using SymEngine::mpfr_class;
+#endif // HAVE_SYMENGINE_MPFR
+#ifdef HAVE_SYMENGINE_MPC
+using SymEngine::ComplexMPC;
+#endif // HAVE_SYMENGINE_MPC
 using SymEngine::multinomial_coefficients;
 using SymEngine::RCP;
 using SymEngine::rcp_dynamic_cast;
+using SymEngine::rcp_static_cast;
+using SymEngine::is_a;
+using SymEngine::RCPBasicKeyLess;
+using SymEngine::set_basic;
+using SymEngine::mp_get_ui;
+using SymEngine::mp_get_si;
+using SymEngine::eye;
+using SymEngine::diag;
+using SymEngine::ones;
+using SymEngine::zeros;
+using SymEngine::parse;
+using SymEngine::SymEngineException;
 using SymEngine::sin;
 using SymEngine::cos;
 using SymEngine::I;
@@ -135,6 +171,24 @@ using SymEngine::zero;
 using SymEngine::real_double;
 using SymEngine::iaddnum;
 using SymEngine::sqrt;
+namespace SymEngine
+{
+
+	template <typename T>
+	inline bool is_aligned(T* p, size_t n = alignof(T))
+	{
+		return 0 == reinterpret_cast<uintptr_t>(p) % n;
+	}
+}
+
+//! Print stacktrace on segfault
+void symengine_print_stack_on_segfault()
+{
+	SymEngine::print_stack_on_segfault();
+}
+
+
+
 
 static auto physics_objectCount = 0;
 
