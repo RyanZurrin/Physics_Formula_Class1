@@ -96,15 +96,16 @@ public:
 		return mass * acceleration;
 	}
 
-	/**
-	 * method: newtons_second_law_for_acceleration(long double netForce, long double mass) const
-	 * arguments: netForce, mass
-	 * purpose:	calculates the acceleration due to a force
-	 * returns: long double, acceleration
-	 */
-	static long double newtons_second_law_for_acceleration(const long double netForce, const long double mass)
+	/// <summary>
+	/// Calculates acceleration from force and mass.
+	/// </summary>
+	/// <param name="F">The force in Newtons.</param>
+	/// <param name="m">The mass.</param>
+	/// <returns>acceleration</returns>
+	template<typename T>
+	static auto acceleration_from_force_mass(const T F, const T m)
 	{
-		return netForce / mass;
+		return F / m;
 	}
 
 	/**

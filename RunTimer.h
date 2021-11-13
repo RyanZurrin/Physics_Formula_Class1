@@ -52,7 +52,7 @@ inline std::chrono::duration<long long, std::ratio<1,1000000000>> RunTimer::runT
 
 inline std::chrono::duration<long long, std::ratio<1, 1000000000>> RunTimer::runTimeMS()
 {
-	return std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
+	return std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
 
 }
 inline std::chrono::duration<long long, std::ratio<1, 1000000000>> RunTimer::runTimeS()
@@ -72,12 +72,12 @@ inline void RunTimer::displayRunTime(const std::string& timeFormat = "m")
 	if (timeFormat == "ns" || timeFormat == "NS")
 	{
 		elapsed = runTimeNS();
-		printf("\n\nTime measured: %.9f ns.\n", static_cast<double>(elapsed.count()));
+		printf("\n\nTime measured: %.0f ns.\n", static_cast<double>(elapsed.count()));
 	}
 	else if (timeFormat == "ms" || timeFormat == "MS")
 	{
 		elapsed = runTimeMS();
-		printf("\n\nTime measured: %.9f ms.\n", elapsed.count() * 1e-6);
+		printf("\n\nTime measured: %.2f ms.\n", elapsed.count() * 1e-6);
 	}
 	else if (timeFormat == "s" || timeFormat == "S")
 	{

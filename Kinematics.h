@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 /**
  * @class Kinematics
  * @details driver class for solving complex physics problems
@@ -10,6 +10,7 @@
 #ifndef KINEMATICS_H
 #define KINEMATICS_H
 #include <iostream>
+#include <string>
 
 
 static int kinematics_objectCount = 0;
@@ -220,32 +221,51 @@ public:
 		return vi * t;
 	}
 
-	/**
-	 * method: acceleration_avg(ld vChange, ld tChange)   ss2.4  pg40
-	 * arguments: vChange = average change in velocity in m/s, tChange = change in time in seconds
-	 * purpose:	to find the average acceleration by dividing the avg velocity by the time
-	 * returns: ld, average acceleration
-	 */
-	static ld acceleration_avg(const ld vChange, const ld tChange)
-	{ return vChange / tChange; }
 
-	/**
-	 * method: acceleration_dispDtimeSqrd(ld displacement, ld time)
-	 * arguments: 1)displacement 2)time
-	 * purpose: this method can be used to calculate the acceleration of falling objects
-	 * returns: ld, acceleration of object
-	 */
-	static ld acceleration_dispDtimeSqrd(const ld displacement, const ld time)
-	{ return (2 * (displacement)) / (time * time); }
+	/// <summary>
+	/// Constant Acceleration average using final velocity, starting velocity and time.
+	/// </summary>
+	/// <param name="u">The final velocity.</param>
+	/// <param name="v">The initial velocity.</param>
+	/// <param name="t">The time taken.</param>
+	/// <returns>average acceleration</returns>
+	static ld acceleration_avg(const ld u, const ld v, const ld t)
+	{ return (u - v) / t; }
 
-	/**
-	 * method: acceleration_vStart_vEndDdisplacement(ld velocityStart, ld velocityEnd, ld displacement)const
-	 * arguments: velocity start, velocity end, total displacement
-	 * purpose: finds the acceleration using the starting and ending velocity and total displacement as known values
-	 * returns: ld, acceleration of object
-	 */
-	static ld acceleration_vStart_vEndDdisplacement(const ld velocityStart, const ld velocityEnd, const ld displacement)
-	{ return (velocityEnd * velocityEnd - velocityStart * velocityStart) / (2 * displacement); }
+	/// <summary>
+	/// Constant Acceleration average using change in velocity and time.
+	/// </summary>
+	/// <param name="deltaV">The change in velocity.</param>
+	/// <param name="t">The time.</param>
+	/// <returns>average acceleration</returns>
+	template<typename T>
+	static auto acceleration_avg(const T deltaV, const T t)
+	{ return deltaV / t; }
+
+
+	/// <summary>
+	/// Calculates the constant accelerations from distance, speed, and time.
+	/// </summary>
+	/// <param name="u">The initial speed.</param>
+	/// <param name="s">The distance.</param>
+	/// <param name="t">The time.</param>
+	/// <returns>acceleration</returns>
+	template<typename T>
+	static auto acceleration_from_distance_speed_time(const T u, const T s, const T t)
+	{ return (2 * (s - (u * t)) / (t * t)); }
+
+
+	/// <summary>
+	/// Calculates the constant accelerations from initialize velocity, final velocity
+	/// and the displacement.
+	/// </summary>
+	/// <param name="u">The initial velocity.</param>
+	/// <param name="v">The final velocity.</param>
+	/// <param name="s">The distance.</param>
+	/// <returns>acceleration</returns>
+	template<typename T>
+	static auto acceleration_from_initV_finV_displacement(const T u, const T v, const T s)
+	{ return (v * v - u * u) / (2.0 * s); }
 
 	/**
 	 * method: speed_avg_DdT(ld total_distance, ld time)   ss2.3 pg37
@@ -378,14 +398,16 @@ public:
 
 		return vector_values;
 	}
+	
 	/// <summary>
-	/// calculates projectile range
+	/// Calculates the horizontal range of a projectile.
 	/// </summary>
-	/// <param name="velocity">The velocity.</param>
-	/// <param name="angleTheta">The angle theta.</param>
+	/// <param name="v">The velocity.</param>
+	/// <param name="Θ">The angle theta.</param>
 	/// <returns>range of projectile</returns>
-	static ld range_projectile_level_ground(const ld velocity, const ld angleTheta)
-	{ return  ((velocity * velocity) * sin(2 * angleTheta * RADIAN) / (GA));	}
+	template<typename T>
+	static auto horizontal_range_projectile(const T v, const T Θ)
+	{ return  ((v * v) * sin(2 * Θ * RADIAN) / (GA));	}
 
 	 /// <summary>
 	 /// calculates the angle theta of a projectile
@@ -396,6 +418,22 @@ public:
 	static ld projectile_theta(const ld distance, const ld velocity)
 	{
 		return (asinh(distance * _Ga_) / (velocity * velocity)) / 2;
+	}
+
+	/// <summary>
+	/// Calculates the trajectories equation for a projectile
+	/// </summary>
+	/// <param name="v">The initial velocity.</param>
+	/// <param name="Θ">The angle theta of projectiles launch.</param>
+	/// <param name="h_0">The height initially started from.</param>
+	/// <returns>a string with the trajectory equation of projectile's parabola</returns>
+	template<typename T>
+	static auto trajectory_equation(T v, T Θ, T h_0)
+	{
+		auto prt1 = tan(Θ * RADIAN);
+		auto prt2 = GA / (2.0 * (v * v) * pow(cos(Θ * RADIAN), 2));
+		string results = "y = "+to_string(h_0)+" + " + to_string(prt1) + " - " + to_string(prt2) + "x^2";
+		return results;
 	}
 
 	 /// <summary>

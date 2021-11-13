@@ -507,64 +507,45 @@ MatrixND<T> MatrixND<T>::add(const MatrixND<T> & rhs)
 	return MatrixND<T>(vec,rows,cols);
 }
 
-/** dot product
-	https://en.wikipedia.org/wiki/Matrix_multiplication
-	calculate dot product of a matrix
-
-	@params rhs; the second matrix
-	@return matrix; the transformed product matrix
-
-*/
-
 template <typename T>
 MatrixND<T> MatrixND<T>::dot(const MatrixND<T> & rhs)
 {
-	if(cols != rhs.rows) {
+	if(rows != rhs.rows && cols != rhs.cols) {
 		std::cout << "Error! Can not resolve dot product on these matrices!"
 				  << std::endl;
-		std::cout << "Requested: [" << rows << "x" << cols << "] <alt+7> ["
-				  << rhs.rows << "x" << rhs.cols << "]" << std::endl;
-		MatrixND<T> matrix;
-		return matrix;
+		return *this;
 	}
 
-	std::vector<T> vec;
+	std::vector<T> vec(this->cols);
+	MatrixND<T> result(vec, 1, rhs.cols);
 	T sum = 0;
-	for(int j = 0; j < rows; j++) {
-		for(int k = 0; k < rhs.cols; k++) {
-			for(int i = 0; i < cols; i++) {
-				sum += data[i+j*cols] * rhs.data[k+i*rhs.cols];
-			}
-			vec.push_back(sum);
-			sum = 0;
+	for(int i = 0; i < rows; i++) {
+		for(int j = 0; j < rhs.cols; j++) {
+			sum += data[j * this->cols + i] * rhs.data[j * this->cols + i];
 		}
+		result.data[i] = sum;
+		sum = 0;
 	}
-	return MatrixND(vec,rows,rhs.cols);
+	
+	return result;
 }
-
-/** multiplication (Hardamard Product)
-	https://en.wikipedia.org/wiki/Hadamard_product_(matrices)
-	calculate elemetnwise product of a matrix
-
-	@params rhs; the second matrix
-	@return matrix; the transformed product matrix
-
-*/
 
 template <typename T>
 MatrixND<T> MatrixND<T>::mult(const MatrixND<T> & rhs)
 {
-	if(rows != rhs.rows || cols != rhs.cols) {
-		MatrixND<T> matrix;
-		return matrix;
+	assert(this->cols == rhs.rows);
+	std::vector<T> d(this->rows*rhs.cols);
+	MatrixND<T> result(d, this->rows, rhs.cols);
+	for (int i = 0; i < this->rows; i++) {
+		for (int j = 0; j < rhs.cols; j++) {
+			long int sum = 0;
+			for (int k = 0; k < rhs.rows; k++) {
+				sum += data[i * this->cols + k] * rhs.data[k * rhs.cols + j];
+				result.data[i * this->rows + j] = sum;
+			}
+		}
 	}
-
-	std::vector<T> vec;
-	for(unsigned int i = 0; i < data.size(); i++) {
-		vec.push_back(data[i] * rhs.data[i]);
-	}
-
-	return MatrixND<T>(vec,rows,cols);
+	return result;
 }
 
 /** multiplication (scalar)
@@ -617,6 +598,7 @@ template <typename T>
 void MatrixND<T>::print()
 {
 	const auto total = rows * cols;
+	std::cout << endl;
 	for(unsigned int i = 0; i < total; i++) {
 		std::cout<< setw(5) << left << data[i];
 		if((i+1) % cols == 0)
@@ -636,11 +618,15 @@ void MatrixND<T>::print()
 template <typename T>
 MatrixND<T> MatrixND<T>::transpose()
 {
-	std::vector<T> vec;
-	for(unsigned int i = 0; i < data.size(); i++) {
-		vec.push_back(data[(cols*(i%rows)+i/rows)]);
+	std::vector<T> vec(this->rows*this->cols);
+	MatrixND<T> results(vec, cols, rows);
+	for(unsigned int i = 0; i < cols; i++) {
+		for(int j = 0; j< rows; j++)
+		{
+			results.data[j*cols+i] = data[i*cols+j];
+		}		
 	}
-	return Matrix<T>(vec, cols, rows);
+	return results;
 }
 
 /** Concat
