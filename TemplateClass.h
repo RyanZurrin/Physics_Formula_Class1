@@ -12,11 +12,11 @@
 
 
 static int objectCount = 0;
-typedef long double ld;
 
+template<typename T>
 class TemplateClass
 {
-	ld templateVar;
+	T templateVar;
 	static auto countIncrease() { objectCount += 1; }
 	static auto countDecrease() { objectCount -= 1; }
 public:
@@ -69,7 +69,7 @@ public:
 
 	~TemplateClass() = default;
 
-	auto setTemplateVar(ld var) { templateVar = var; }
+	auto setTemplateVar(T var) { templateVar = var; }
 	[[nodiscard]] auto getTemplateVar() const { return templateVar; }
 
 
