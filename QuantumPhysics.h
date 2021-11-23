@@ -543,8 +543,8 @@ public:
 	/// <param name="x">The accuracy of measurement.</param>
 	/// <param name="m">The mass.</param>
 	/// <returns>minimum uncertainty of velocity</returns>
-	template<typename X, typename M>
-	static constexpr auto min_uncertaintyInVelocity(const X x, const M m);
+	template<typename XX, typename M>
+	static constexpr auto min_uncertaintyInVelocity(const XX x, const M m);
 
 	/// <summary>
 	/// Suppose the velocity of an electron(m) in an atom is known to an accuracy
@@ -904,8 +904,8 @@ template<typename P, typename F>
 	 return (m * (velocity * velocity)) / (2.0 * q);
  }
 
- template<typename X, typename M>
- constexpr auto QuantumPhysics::min_uncertaintyInVelocity(const X x, const M m)
+ template<typename XX, typename M>
+ constexpr auto QuantumPhysics::min_uncertaintyInVelocity(const XX x, const M m)
  {
 	 return _PLANKS_J_ / (4.0 * _PI * x * m);
  }

@@ -64,6 +64,7 @@ public:
 	void		 show_angle()const;
 	void		 show_mode()const;
 	void		 show_arcLength()const;
+	std::string	 getID() const { return ID; }
 	long double		 return_x()const;
 	long double		 return_y()const;
 	virtual unsigned long return_mag()const;
@@ -709,7 +710,9 @@ inline ostream& operator<<(ostream& os, const Vector2D& v)
 }
 inline istream& operator>>(istream& is, Vector2D& v)
 {
-  if(v.mode == 'R' || v.mode == 'r'){
+	std::string id = v.getID();
+	std::cout << "please enter the x y values of " << id << "\n>>";
+	if(v.mode == 'R' || v.mode == 'r'){
 	is>> v.x >> v.y;
 	v.calculate_polar();
   }

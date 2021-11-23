@@ -73,6 +73,7 @@ public:
 	long double distance_to_plane(T a, T b, T c, T d);
 	[[nodiscard]] unsigned long	square() const override; //gives square of the vector
 	[[nodiscard]] long double	dot_product(const Vector3D &vec) const; //scalar dot_product
+	[[nodiscard]] static long double dot_product(const long double uMag, const long double vMag, const long double angleBetween);
 	[[nodiscard]] long double	distance(const Vector3D &vec)const;    //gives distance between two vectors
 	[[nodiscard]] unsigned long	find_magnitude()const override;  //magnitude of the vector
 	[[nodiscard]] Vector3D		cross_product(const Vector3D &vec)const;    //cross_product
@@ -369,6 +370,8 @@ inline ostream& operator<<(ostream& os, const Vector3D & v)
 inline istream& operator>>(istream& is, Vector3D& v)
 {
 	long double x_, y_, z_;
+	std::string id = v.getID();
+	std::cout << "please enter the x y z values of " << id << "\n>>";
 	is >> x_ >> y_ >> z_;
 	v.setX(x_); v.setY(y_); v.setZ(z_);
 	return is;
@@ -379,6 +382,10 @@ inline istream& operator>>(istream& is, Vector3D& v)
 inline long double Vector3D::dot_product(const Vector3D &vec) const
 {
 	return x * vec.x + vec.y * y + vec.z * z;
+}
+inline long double Vector3D::dot_product(const long double uMag, const long double vMag, const long double angleBetween)
+{
+	return uMag * vMag * cos(angleBetween*RADIAN);
 }
 //cross product
 inline Vector3D Vector3D::cross_product(const Vector3D &vec)const

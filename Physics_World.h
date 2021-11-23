@@ -7,6 +7,9 @@
  */
 #ifndef PHYSICS_WORLD_H
 #define PHYSICS_WORLD_H
+
+#define TYPE long double
+
 #include <symengine/basic.h>
 #include <symengine/add.h>
 #include <symengine/symbol.h>
@@ -20,7 +23,6 @@
 #include <symengine/ntheory.h>
 #include <symengine/expression.h>
 #include <symengine/cwrapper.h>
-#include <symengine/printers.h>
 #include <symengine/matrix.h>
 #include <symengine/eval.h>
 #include <symengine/parser.h>
@@ -63,6 +65,7 @@
 #include "Momentum.h"
 #include "Parallelogram.h"
 #include "PeriodicElements.h"
+#include "Point2D.h"
 #include "Pyramid.h"
 #include "RandomNumbers.h"
 #include "Rectangle.h"
@@ -76,6 +79,7 @@
 #include "TransitiveClosure.h"
 #include "TriangleSolver.h"
 #include "UniformCircularMotion.h"
+#include "Vector.h"
 #include "Vector3D.h"
 #include "VectorND.h"
 #include "VisionOpticalInstruments.h"
@@ -287,6 +291,13 @@ double E()
 	auto t2 = std::chrono::high_resolution_clock::now();
 
 	return std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1000000000.0;
+}
+
+double f(double x, void* params)
+{
+	double alpha = *static_cast<double*>(params);
+	double f     = log(alpha * x) / sqrt(x);
+	return f;
 }
 
 
@@ -979,8 +990,8 @@ public:
 	unique_ptr<LinearRegression> linear_regression;
 	unique_ptr<LogisticRegression> logistic_regression;
 	unique_ptr<ETL> etl;
-	unique_ptr<MatrixND<long double>> matrixNd;
-	unique_ptr<VectorND<long double>> vectorNd;
+	unique_ptr<MatrixND<TYPE>> matrixNd;
+	unique_ptr<VectorND<TYPE>> vectorNd;
 	unique_ptr<TriangleSolver> triangle;
 	unique_ptr<Kinematics> kinematics;
 	unique_ptr<Friction> friction;
@@ -1024,11 +1035,13 @@ public:
 	unique_ptr<Pyramid> pyramid;
 	unique_ptr<Circle> circle;
 	unique_ptr<Parallelogram> parallelogram;
+	unique_ptr<Point2D<TYPE>> point2d;
+	unique_ptr<rez::Vector<TYPE>> vector;
 
 
 	Physics_World();
-	Physics_World(long double t1, long double t2, long double t3);
-	Physics_World(long double t1, long double t2);
+	Physics_World(TYPE t1, TYPE t2, TYPE t3);
+	Physics_World(TYPE t1, TYPE t2);
 	Physics_World(const Physics_World&); //copy constructor
 	Physics_World& operator=(const Physics_World&); //copy assignment operator
 	Physics_World(Physics_World&& o) noexcept :
@@ -1080,7 +1093,9 @@ public:
 		sphere(std::move(o.sphere)),
 		pyramid(std::move(o.pyramid)),
 		circle(std::move(o.circle)),
-		parallelogram(std::move(o.parallelogram)){} // move constructor
+		parallelogram(std::move(o.parallelogram)),
+		point2d(std::move(o.point2d)),
+		vector(std::move(o.vector)){} // move constructor
 
 	/**========================================================================
 	 * overloaded operators
@@ -1169,8 +1184,8 @@ inline Physics_World::Physics_World()
 	linear_regression = std::make_unique<LinearRegression>();
 	logistic_regression = std::make_unique<LogisticRegression>();
 	etl = std::make_unique<ETL>();
-	matrixNd = std::make_unique<MatrixND<long double>>();
-	vectorNd = std::make_unique<VectorND<long double>>();
+	matrixNd = std::make_unique<MatrixND<TYPE>>();
+	vectorNd = std::make_unique<VectorND<TYPE>>();
 	triangle = std::make_unique<TriangleSolver>();
 	kinematics = std::make_unique<Kinematics>();
 	drag = std::make_unique<Drag>();
@@ -1214,6 +1229,8 @@ inline Physics_World::Physics_World()
 	pyramid = std::make_unique<Pyramid>();
 	circle = std::make_unique<Circle>();
 	parallelogram = std::make_unique<Parallelogram>();
+	point2d = std::make_unique<Point2D<TYPE>>();
+	vector = std::make_unique <rez::Vector<TYPE>>();
 	countIncrease();
 	//countShow();
 }
@@ -1237,14 +1254,14 @@ inline Physics_World& Physics_World::operator=(const Physics_World& r)
 	return *this;
 }
 
-inline Physics_World::Physics_World(const long double t1, const long double t2, const long double t3)
+inline Physics_World::Physics_World(const TYPE t1, const TYPE t2, const TYPE t3)
 {
 	atomic = std::make_unique<AtomicPhysics>();
 	linear_regression = std::make_unique<LinearRegression>();
 	logistic_regression = std::make_unique<LogisticRegression>();
 	etl = std::make_unique<ETL>();
-	matrixNd = std::make_unique<MatrixND<long double>>();
-	vectorNd = std::make_unique<VectorND<long double>>();
+	matrixNd = std::make_unique<MatrixND<TYPE>>();
+	vectorNd = std::make_unique<VectorND<TYPE>>();
 	triangle = std::make_unique<TriangleSolver>();
 	kinematics = std::make_unique<Kinematics>();
 	drag = std::make_unique<Drag>();
@@ -1288,19 +1305,21 @@ inline Physics_World::Physics_World(const long double t1, const long double t2, 
 	pyramid = std::make_unique<Pyramid>();
 	circle = std::make_unique<Circle>();
 	parallelogram = std::make_unique<Parallelogram>();
+	point2d = std::make_unique<Point2D<TYPE>>();
+	vector = std::make_unique <rez::Vector<TYPE>>();
 	this->vector3d->set_coordinates(t1, t2, t3);
 
 	countIncrease();
 }
 
-inline Physics_World::Physics_World(const long double t1, const long double t2)
+inline Physics_World::Physics_World(const TYPE t1, const TYPE t2)
 {
 	atomic  = std::make_unique<AtomicPhysics>();
 	linear_regression = std::make_unique<LinearRegression>();
 	logistic_regression = std::make_unique<LogisticRegression>();
 	etl = std::make_unique<ETL>();
-	matrixNd = std::make_unique<MatrixND<long double>>();
-	vectorNd = std::make_unique<VectorND<long double>>();
+	matrixNd = std::make_unique<MatrixND<TYPE>>();
+	vectorNd = std::make_unique<VectorND<TYPE>>();
 	triangle = std::make_unique<TriangleSolver>();
 	kinematics = std::make_unique<Kinematics>();
 	drag = std::make_unique<Drag>();
@@ -1344,6 +1363,8 @@ inline Physics_World::Physics_World(const long double t1, const long double t2)
 	pyramid = std::make_unique<Pyramid>();
 	circle = std::make_unique<Circle>();
 	parallelogram = std::make_unique<Parallelogram>();
+	point2d = std::make_unique<Point2D<TYPE>>();
+	vector = std::make_unique <rez::Vector<TYPE>>();
 	this->vector2d->set_coordinates(t1, t2);
 }
 
