@@ -6,6 +6,7 @@
  * @lastEdit 11/22/21
  */
 
+#include "Vector2D.h"
 #ifndef POINT_H
 #define POINT_H
 #include <iostream>
@@ -15,20 +16,15 @@ static int pointObjectCount = 0;
 template <typename NumericType>
 class Point2D
 {
-	NumericType x_;
-	NumericType y_;
+	Vector2D points;
 	static auto countIncrease() { pointObjectCount += 1; }
 	static auto countDecrease() { pointObjectCount -= 1; }
 public:
 	/// <summary>
 	/// Initializes a new instance of the <see cref="Point2D"/> class.
 	/// </summary>
-	Point2D()
-	{
-		x_ = 0.0;
-		y_ = 0.0;
-		countIncrease();
-	}
+	Point2D() :points(0,0)
+	{ countIncrease(); }
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="Point2D"/> class.
@@ -37,12 +33,12 @@ public:
 	/// <param name="y_val">The y value.</param>
 	Point2D(NumericType x_val, NumericType y_val)
 	{
-		if (x_ == NAN || x_ == INFINITY || y_ == NAN || y_ == INFINITY)
+		if (x_val == NAN || x_val == INFINITY || y_val == NAN || y_val == INFINITY)
 		{
 			throw std::invalid_argument("Coordinates must be finite");
 		}
-		x_ = x_val;
-		y_ = y_val;
+		points.set_x(x_val);
+		points.set_y(y_val);
 		countIncrease();
 	}
 
@@ -53,8 +49,8 @@ public:
 	/// <param name="p">The p.</param>
 	Point2D(const Point2D& p)
 	{
-		x_ = p.x_;
-		y_ = p.y_;
+		points.set_x(p.getX());
+		points.set_y(p.getY());
 		countIncrease();
 	}
 
@@ -65,8 +61,8 @@ public:
 	/// <param name="p">The p.</param>
 	Point2D(Point2D&& p) noexcept
 	{
-		x_ = p.x_;
-		y_ = p.y_;
+		points.set_x(p.getX());
+		points.set_y(p.getY());
 		countIncrease();
 	}
 
@@ -80,8 +76,8 @@ public:
 	{
 		if (this != &p)
 		{
-			x_ = p.x_;
-			y_ = p.y_;
+			points.set_x(p.getX());
+			points.set_y(p.getY());
 			countIncrease();
 		}
 		return *this;
@@ -94,8 +90,8 @@ public:
 	/// <returns></returns>
 	Point2D& operator=(Point2D other)
 	{
-		std::swap(x_, other.x_);
-		std::swap(y_, other.y_);
+		points.set_x(other.getX());
+		points.set_y(other.getY());
 		return *this;
 	}
 
@@ -121,38 +117,38 @@ public:
 	/// </summary>
 	/// <param name="xVar">The x variable.</param>
 	/// <returns>void</returns>
-	auto setX(NumericType xVar) { x_ = xVar; }
+	auto setX(NumericType xVar) { points.set_x(xVar); }
 
 	/// <summary>
 	/// Sets the y.
 	/// </summary>
 	/// <param name="yVar">The y variable.</param>
 	/// <returns>void</returns>
-	auto setY(NumericType yVar) { y_ = yVar; }
+	auto setY(NumericType yVar) { points.set_y(yVar); }
 
 	/// <summary>
 	/// returns the x instance.
 	/// </summary>
 	/// <returns>the x-coordinate</returns>
-	[[nodiscard]] auto getX() const { return x_; }
+	[[nodiscard]] auto getX() const { return points.return_x(); }
 
 	/// <summary>
 	/// returns the y instance.
 	/// </summary>
 	/// <returns>the y-coordinate</returns>
-	[[nodiscard]] auto getY() const { return y_; }
+	[[nodiscard]] auto getY() const { return points.return_y(); }
 
 	/// <summary>
 	/// the polar radius of this point.
 	/// </summary>
 	/// <returns>the polar radius of this point in polar coordinates: sqrt(x*x + y*y)</returns>
-	auto r() { return sqrt(x_ * x_ + y_ * y_); }
+	auto r() { return points.square(); }
 
 	/// <summary>
 	/// the angle of this point in polar coordinates.
 	/// </summary>
 	/// <returns>the angle (in radians) of this point in polar coordinates (between –&pi; and &pi;)</returns>
-	auto theta() { return atan2(y_, x_); }
+	auto theta() { return atan2(points.return_y(), points.return_x()); }
 
 	/// <summary>
 	/// the angle between this point and that point.
@@ -218,7 +214,7 @@ public:
 	/// To the string.
 	/// </summary>
 	/// <returns></returns>
-	auto display() { std::cout << "(" << x_ << ", " << y_ << ")"; }
+	auto display() { std::cout << "(" << this->getX() << ", " << this->getY() << ")"; }
 
 	template<typename NumericType>
 	friend ostream& operator<<(ostream& os, const Point2D<NumericType>& p);
@@ -240,7 +236,7 @@ inline auto Point2D<NumericType>::angleTo(Point2D<NumericType> that)
 template<typename NumericType>
 inline int Point2D<NumericType>::ccw(Point2D<NumericType> a, Point2D<NumericType> b, Point2D<NumericType> c)
 {
-	auto area2 = (b.x_ - a.x_) * (c.y_ - a.y_) - (b.y_ - a.y_) * (c.x_ - a.x_);
+	auto area2 = area2(a, b, c);
 	if (area2 < 0)
 		return -1;
 	else if (area2 > 0)
@@ -252,22 +248,25 @@ inline int Point2D<NumericType>::ccw(Point2D<NumericType> a, Point2D<NumericType
 template<typename NumericType>
 inline auto Point2D<NumericType>::area2(Point2D<NumericType> a, Point2D<NumericType> b, Point2D<NumericType> c)
 {
-	return (b.x_ - a.x_) * (c.y_ - a.y_) - (b.y_ - a.y_) * (c.x_ - a.x_);
+	return (b.points.return_x() - a.points.return_x()) *
+		(c.points.return_y() - a.points.return_y()) -
+		(b.points.return_y() - a.points.return_y()) *
+		(c.points.return_x() - a.points.return_x());
 }
 
 template<typename NumericType>
 inline auto Point2D<NumericType>::distanceTo(Point2D<NumericType> that)
 {
-	double dx = this.x_ - that.x_;
-	double dy = this.y_ - that.y_;
+	double dx = this->points.return_x() - that.points.return_x();
+	double dy = this->points.return_y() - that.points.return_y();
 	return sqrt(dx * dx + dy * dy);
 }
 
 template<typename NumericType>
 inline auto Point2D<NumericType>::distanceSquaredTo(Point2D<NumericType> that)
 {
-	auto dx = this.x_ - that.x_;
-	auto dy = this.y_ - that.y_;
+	auto dx = this->points.return_x() - that.points.return_x();
+	auto dy = this->points.return_y() - that.points.return_y();
 	return dx * dx + dy * dy;
 }
 
@@ -277,7 +276,7 @@ inline auto Point2D<NumericType>::distanceSquaredTo(Point2D<NumericType> that)
 template <typename NumericType>
 inline auto Point2D<NumericType>::compareByX(Point2D<NumericType> other)
 {
-	if (this->x_ > other->x_)
+	if (this->points.return_x() > other.points.return_x())
 		return 1;
 	else if (this->x_ < other->x_)
 		return -1;
@@ -288,7 +287,7 @@ inline auto Point2D<NumericType>::compareByX(Point2D<NumericType> other)
 template <typename NumericType>
 inline auto Point2D<NumericType>::compareByY(Point2D<NumericType> other)
 {
-	if (this->y_ > other->y_)
+	if (this->points.return_y() > other.points.return_y())
 		return 1;
 	else if (this->y_ < other->y_)
 		return -1;
@@ -299,8 +298,7 @@ inline auto Point2D<NumericType>::compareByY(Point2D<NumericType> other)
 template<typename NumericType>
 inline auto Point2D<NumericType>::compareByR(Point2D other)
 {
-	double delta = (this->x_ * this->x_ + this->y_ * this->y_) -
-		(other->x_ * other->x_ + other->y_ * other->y_);
+	const double delta = this->r() - other.r();
 	if (delta < 0)
 		return -1;
 	else if (delta > 0)

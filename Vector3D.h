@@ -77,6 +77,7 @@ public:
 	[[nodiscard]] long double	distance(const Vector3D &vec)const;    //gives distance between two vectors
 	[[nodiscard]] unsigned long	find_magnitude()const override;  //magnitude of the vector
 	[[nodiscard]] Vector3D		cross_product(const Vector3D &vec)const;    //cross_product
+	[[nodiscard]] long double	scaler_triple_product(Vector3D& b, Vector3D& c) const;
 	Vector3D	normalize_vector();   //normalized vector
 	bool isOrthogonalWith(Vector3D& v)const;
 	void typeOfAngleBetween(const Vector3D& v)const;
@@ -394,6 +395,10 @@ inline Vector3D Vector3D::cross_product(const Vector3D &vec)const
 	long double nj=z*vec.x-x*vec.z;
 	long double nk=x*vec.y-y*vec.x;
 	return Vector3D(ni,nj,nk);
+}
+inline long double Vector3D::scaler_triple_product(Vector3D& b, Vector3D& c) const
+{
+	return this->dot_product(b.cross_product(c));
 }
 inline unsigned long Vector3D::find_magnitude()const
 {

@@ -19,15 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Angle.h" />
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="AtomicPhysics.h" />
+    <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="BinarySpacePartition.h" />
+    <ClInclude Include="Boundaries.h" />
+    <ClInclude Include="Bounds.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Circuits.h" />
     <ClInclude Include="CollisionPackage.h" />
     <ClInclude Include="Cone.h" />
+    <ClInclude Include="Convexhull.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Distance.h" />
     <ClInclude Include="DynamicsAndForces.h" />
     <ClInclude Include="ElectricCharge.h" />
     <ClInclude Include="ElectricCurrent.h" />
@@ -38,25 +45,39 @@
     <ClInclude Include="FluidDynamics.h" />
     <ClInclude Include="FluidStatics.h" />
     <ClInclude Include="GeometricOptics.h" />
+    <ClInclude Include="GeoUtils.h" />
     <ClInclude Include="Hearing.h" />
     <ClInclude Include="Heat.h" />
+    <ClInclude Include="Inclusion.h" />
+    <ClInclude Include="Intersection.h" />
+    <ClInclude Include="KDTree.h" />
     <ClInclude Include="Kinematics.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="LinearAlgebra.h" />
     <ClInclude Include="LinearRegression.h" />
     <ClInclude Include="LogisticRegression.h" />
     <ClInclude Include="Magnetism.h" />
     <ClInclude Include="MatrixND.h" />
+    <ClInclude Include="MonotonePartition.h" />
     <ClInclude Include="Parallelogram.h" />
     <ClInclude Include="PeriodicElements.h" />
     <ClInclude Include="Physics_World.h" />
+    <ClInclude Include="Plane.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="Point2D.h" />
+    <ClInclude Include="Polygon.h" />
+    <ClInclude Include="PolygonDCEL.h" />
+    <ClInclude Include="Polyhedron.h" />
     <ClInclude Include="Pyramid.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="QuantumPhysics.h" />
     <ClInclude Include="RandomNumbers.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="RectangularPrism.h" />
+    <ClInclude Include="RedBlackTree.h" />
     <ClInclude Include="RegexHelper.h" />
     <ClInclude Include="RunTimer.h" />
+    <ClInclude Include="Segment.h" />
     <ClInclude Include="SpecialRelativity.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Square.h" />
@@ -67,6 +88,7 @@
     <ClInclude Include="Thermodynamics.h" />
     <ClInclude Include="TransitiveClosure.h" />
     <ClInclude Include="TriangleSolver.h" />
+    <ClInclude Include="Triangulation.h" />
     <ClInclude Include="UniformCircularMotion.h" />
     <ClInclude Include="Drag.h" />
     <ClInclude Include="Elasticity.h" />
@@ -81,15 +103,31 @@
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="VectorND.h" />
     <ClInclude Include="VisionOpticalInstruments.h" />
+    <ClInclude Include="Voronoi.h" />
     <ClInclude Include="WaveOptics.h" />
     <ClInclude Include="Waves.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Angle.cpp" />
+    <ClCompile Include="BinarySpacePartition.cpp" />
+    <ClCompile Include="Convexhull.cpp" />
+    <ClCompile Include="Distance.cpp" />
+    <ClCompile Include="GeoUtils.cpp" />
+    <ClCompile Include="Inclusion.cpp" />
+    <ClCompile Include="Intersection.cpp" />
+    <ClCompile Include="KDTree.cpp" />
+    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="MonotonePartition.cpp" />
     <ClCompile Include="PeriodicElements.cpp" />
+    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Polygon.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="RandomNumbers.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="testFactory.cpp" />
+    <ClCompile Include="Triangulation.cpp" />
     <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="Voronoi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="drunkRace.txt" />
