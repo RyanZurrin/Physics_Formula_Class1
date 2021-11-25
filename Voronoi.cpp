@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <queue>
 #include <list>
-#include <Iterator>
+#include <iterator>
 #include "Line.h"
 #include "Segment.h"
 #include "Intersection.h"
