@@ -1,7 +1,8 @@
 #pragma once
 #include "Vector.h"
 #include "Point.h"
-
+#include <iostream>
+using namespace std;
 namespace rez {
 
 	template<class T>
@@ -64,7 +65,18 @@ namespace rez {
 		{
 			return d;
 		}
+
+		template <typename T>
+		friend ostream& operator<<(ostream& os, const Plane<T>& rhs);
 	};
 
 	typedef Plane<float> Planef;
+
+	template<typename T>
+	ostream& operator<<(ostream& os, const Plane<T>& rhs)
+	{
+		os << "the normal vector is: ";
+		os << "<" << rhs.normal[0] << ", " << rhs.normal[1] << ", " << rhs.normal[2] << ">" << std::endl;
+		return os;
+	}
 }

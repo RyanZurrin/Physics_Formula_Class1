@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-
+#include "Intersection.h"
 #include "Point.h"
 #include "Line.h"
 #include "Plane.h"

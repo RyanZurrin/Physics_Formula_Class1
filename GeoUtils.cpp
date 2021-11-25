@@ -171,12 +171,12 @@ bool rez::leftOrBetween(const Point3d& a, const Point3d& b, const Point3d& c)
 static bool incone(const rez::Vertex2dSimple* v1, const rez::Vertex2dSimple* v2)
 {
 	if (rez::leftOrBeyond(v1->point, v1->next->point, v1->prev->point)) {
-		// v1 is vonvx vertex
+		// v1 is convex vertex
 		return rez::left(v1->point, v2->point, v1->prev->point)
 			&& rez::left(v2->point, v1->point, v1->next->point);
 	}
 
-	// v1 is relex vertex
+	// v1 is reflex vertex
 	return !(rez::leftOrBeyond(v1->point, v2->point, v1->next->point)
 		&& rez::leftOrBeyond(v2->point, v1->point, v1->prev->point));
 }

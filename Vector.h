@@ -74,11 +74,26 @@ namespace rez
 
 		// Returns the underline array object 
 		std::array<coordinate_type, dimensions> data();
+
+		template<typename coordinate_type, size_t dimensions>
+		friend std::ostream& operator<<(std::ostream& os, const Vector<coordinate_type, dimensions>& rhs);
 	};
 
 	typedef Vector<float, DIM2>		Vector2f;
 	typedef Vector<float, DIM3>		Vector3f;
 
+	template<typename coordinate_type, size_t dimensions>
+	std::ostream& operator<<(std::ostream& os, const Vector<coordinate_type, dimensions>& rhs)
+	{
+		os << "the vector is < ";
+		for (int i = 0; i < dimensions; i++)
+		{
+			os << rhs.coords[i] << " ";
+		}
+		os << "> \n";
+		
+		return os;
+	}
 
 	template<typename coordinate_type, size_t dimensions>
 	inline bool Vector<coordinate_type, dimensions>::operator==(const Vector<coordinate_type, dimensions>& _other) const
