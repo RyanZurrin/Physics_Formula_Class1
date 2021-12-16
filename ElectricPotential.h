@@ -692,9 +692,9 @@ inline ld ElectricPotential::chargeOnPointToArriveWithSpeed(const ld m, const ld
 	return (m*(v*v))/(2.0*V);
 }
 
-inline ld ElectricPotential::temperatureChangeFromCapacitanceBurn(const ld V, const ld C, const ld m, const ld _c = c.human_body_average_S[0])
+inline ld ElectricPotential::temperatureChangeFromCapacitanceBurn(const ld V, const ld C, const ld m, const ld _c_ = _c.human_body_average_S[0])
 {
-	return (C*(V*V))/(2.0*m*_c);
+	return (C*(V*V))/(2.0*m*_c_);
 }
 
 inline ld ElectricPotential::kineticEnergyFinalToMovePositiveCharge(const ld q, const ld Vab)

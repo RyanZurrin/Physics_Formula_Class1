@@ -411,7 +411,7 @@ inline unsigned long Vector3D::square()const
 
 inline Vector3D Vector3D::normalize_vector()
 {
-	assert(find_magnitude()!=0);
+	//assert(find_magnitude()!=0);
 	const auto length = sqrt((this->x * this->x) + (this->y * this->y) + (this->z * this->z));
 	this->x /= length;
 	this->y /= length;

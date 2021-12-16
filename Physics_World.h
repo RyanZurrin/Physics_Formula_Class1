@@ -61,6 +61,7 @@
 #include "LinearRegression.h"
 #include "LogisticRegression.h"
 #include "Magnetism.h"
+#include "MathFx.h"
 #include "MatrixND.h"
 #include "Momentum.h"
 #include "Parallelogram.h"

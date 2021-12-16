@@ -4,7 +4,6 @@
 #include "Inclusion.h"
 
 #include <algorithm>
-#include <Iterator>
 #include <list>
 
 using namespace rez;

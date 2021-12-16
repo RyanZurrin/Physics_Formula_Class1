@@ -1,0 +1,24 @@
+
+=== Start: [2021/12/01 22:29:57] === 
+Analysis started...
+Result file: D:\src\cpp\Physics_Formula_Class1\My Inspector Results - Physics_Formula_Class\r008mi1\r008mi1.inspxe 
+Analysis started for d:\src\cpp\physics_formula_class1\x64\debug\physics_formula_class.exe (pid = 42380) 
+Loaded module: d:\src\cpp\physics_formula_class1\x64\debug\physics_formula_class.exe, address range [0x7ff7fb240000-0x7ff7fb3f4fff] 
+Loaded module: c:\windows\system32\kernelbase.dll, address range [0x7ffdb1f80000-0x7ffdb2247fff], minimal analysis 
+Loaded module: c:\windows\system32\kernel32.dll, address range [0x7ffdb3740000-0x7ffdb37fdfff], minimal analysis 
+Loaded module: c:\windows\system32\ntdll.dll, address range [0x7ffdb4390000-0x7ffdb4584fff], minimal analysis 
+Loaded module: d:\program files (x86)\intelswtools\inspector 2020\bin64\dnclrprofinfo.dll, address range [0x7ffd7bda0000-0x7ffd7bdc8fff] 
+Loaded module: d:\src\cpp\physics_formula_class1\x64\debug\symengine-0.7.dll, address range [0x7ffce3ef0000-0x7ffce4afbfff] 
+Loaded module: c:\windows\system32\msvcp140d.dll, address range [0x7ffd654c0000-0x7ffd655a1fff] 
+Loaded module: c:\windows\system32\vcruntime140_1d.dll, address range [0x7ffd7df80000-0x7ffd7df8efff] 
+Loaded module: c:\windows\system32\vcruntime140d.dll, address range [0x7ffd74620000-0x7ffd7464afff] 
+Loaded module: c:\windows\system32\ucrtbased.dll, address range [0x7ffd11e70000-0x7ffd12036fff] 
+Loaded module: c:\windows\system32\kernel.appcore.dll, address range [0x7ffdb02c0000-0x7ffdb02d1fff] 
+Loaded module: c:\windows\system32\msvcrt.dll, address range [0x7ffdb3ab0000-0x7ffdb3b4dfff], minimal analysis 
+Loaded module: c:\windows\system32\rpcrt4.dll, address range [0x7ffdb2740000-0x7ffdb2869fff], minimal analysis 
+Process d:\src\cpp\physics_formula_class1\x64\debug\physics_formula_class.exe exited with code 0. Leak analysis starting. Please wait... 
+Completed analysis for d:\src\cpp\physics_formula_class1\x64\debug\physics_formula_class.exe 
+Application exit code: 0 
+Result file: D:\src\cpp\Physics_Formula_Class1\My Inspector Results - Physics_Formula_Class\r008mi1\r008mi1.inspxe 
+Analysis completed
+=== End: [2021/12/01 22:30:10] === 

@@ -20,7 +20,7 @@
  <contextValues type="bag"/>
  <All_Configurations-All_Platforms>
   <analysis_type_settings>
-   <selected_analysis_type_path>D:\Program Files (x86)\IntelSWTools\Inspector 2020\config\analysis_type\mi3.cfg</selected_analysis_type_path>
+   <selected_analysis_type_path>D:\Program Files (x86)\IntelSWTools\Inspector 2020\config\analysis_type\mi1.cfg</selected_analysis_type_path>
   </analysis_type_settings>
   <target_settings>
    <selected_workload>
@@ -58,10 +58,10 @@ PATH=D:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2020\windows\re
          <value>bin=D:\src\cpp\Physics_Formula_Class1</value>
         </item>
         <item>
-         <value>bin=D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\bin\HostX86\x64</value>
+         <value>bin=D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x64</value>
         </item>
         <item>
-         <value>bin=D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\bin\HostX86\x86</value>
+         <value>bin=D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x86</value>
         </item>
         <item>
          <value>bin=C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86</value>
@@ -83,6 +83,36 @@ PATH=D:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2020\windows\re
         </item>
         <item>
          <value>bin=C:\Windows\Microsoft.NET\Framework\v4.0.30319</value>
+        </item>
+        <item>
+         <value>bin=C:\Python310\Scripts</value>
+        </item>
+        <item>
+         <value>bin=C:\Python310</value>
+        </item>
+        <item>
+         <value>bin=C:\Program Files\Microsoft\jdk-11.0.12.7-hotspot\bin</value>
+        </item>
+        <item>
+         <value>bin=D:\ProgramData\Miniconda3</value>
+        </item>
+        <item>
+         <value>bin=D:\ProgramData\Miniconda3\Library\mingw-w64\bin</value>
+        </item>
+        <item>
+         <value>bin=D:\ProgramData\Miniconda3\Library\usr\bin</value>
+        </item>
+        <item>
+         <value>bin=D:\ProgramData\Miniconda3\Library\bin</value>
+        </item>
+        <item>
+         <value>bin=D:\ProgramData\Miniconda3\Scripts</value>
+        </item>
+        <item>
+         <value>bin=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.3\bin</value>
+        </item>
+        <item>
+         <value>bin=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.3\libnvvp</value>
         </item>
         <item>
          <value>bin=C:\Program Files (x86)\Razer Chroma SDK\bin</value>
@@ -163,22 +193,10 @@ PATH=D:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2020\windows\re
          <value>bin=C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn</value>
         </item>
         <item>
-         <value>bin=D:\Program Files\Git\cmd</value>
-        </item>
-        <item>
          <value>bin=D:\Program Files\CMake\bin</value>
         </item>
         <item>
-         <value>bin=D:\Program Files\nodejs</value>
-        </item>
-        <item>
          <value>bin=C:\ProgramData\chocolatey\bin</value>
-        </item>
-        <item>
-         <value>bin=C:\Program Files\Wolfram Research\WolframScript</value>
-        </item>
-        <item>
-         <value>bin=C:\Program Files\NVIDIA Corporation\Nsight Compute 2020.3.0</value>
         </item>
         <item>
          <value>bin=C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps</value>
@@ -199,6 +217,45 @@ PATH=D:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2020\windows\re
          <value>bin=C:\MinGW\bin</value>
         </item>
         <item>
+         <value>bin=C:\Program Files\NVIDIA Corporation\Nsight Compute 2021.1.1</value>
+        </item>
+        <item>
+         <value>bin=C:\Users\ryanz\AppData\Roaming\Python\Python39\Scripts</value>
+        </item>
+        <item>
+         <value>bin=D:\Program Files\Go\bin</value>
+        </item>
+        <item>
+         <value>bin=C:\Program Files\Wolfram Research\WolframScript</value>
+        </item>
+        <item>
+         <value>bin=D:\Program Files\PuTTY</value>
+        </item>
+        <item>
+         <value>bin=C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn</value>
+        </item>
+        <item>
+         <value>bin=C:\Program Files\Azure Data Studio\bin</value>
+        </item>
+        <item>
+         <value>bin=C:\Program Files\Docker\Docker\resources\bin</value>
+        </item>
+        <item>
+         <value>bin=C:\ProgramData\DockerDesktop\version-bin</value>
+        </item>
+        <item>
+         <value>bin=G:\calbre</value>
+        </item>
+        <item>
+         <value>bin=D:\Program Files\Git\cmd</value>
+        </item>
+        <item>
+         <value>bin=D:\Program Files\nodejs</value>
+        </item>
+        <item>
+         <value>bin=C:\Users\ryanz\.poetry\bin</value>
+        </item>
+        <item>
          <value>bin=C:\Users\ryanz\.cargo\bin</value>
         </item>
         <item>
@@ -209,6 +266,24 @@ PATH=D:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2020\windows\re
         </item>
         <item>
          <value>bin=C:\Users\ryanz\.dotnet\tools</value>
+        </item>
+        <item>
+         <value>bin=C:\Spark\spark-3.1.1-bin-hadoop2.7\bin</value>
+        </item>
+        <item>
+         <value>bin=C:\hadoop\bin</value>
+        </item>
+        <item>
+         <value>bin=C:\Program Files\Java\jre1.8.0_301\bin</value>
+        </item>
+        <item>
+         <value>bin=C:\Users\ryanz\go\bin</value>
+        </item>
+        <item>
+         <value>bin=M:\Users\ryanz\AppData\Local\Programs\MiKTeX\miktex\bin\x64</value>
+        </item>
+        <item>
+         <value>bin=c:\users\ryanz\.local\bin</value>
         </item>
         <item>
          <value>bin=C:\Users\ryanz\AppData\Roaming\npm</value>

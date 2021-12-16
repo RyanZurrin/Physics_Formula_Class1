@@ -1,0 +1,17 @@
+-r
+D:\src\cpp\Physics_Formula_Class1\My Inspector Results - Physics_Formula_Class\r008mi1
+--no-access-checks
+--no-analyze-stack
+--leak-maximum=100000
+--leak-check-only
+--leak-check-on-exit
+--check-resource-leaks
+--leak-check-report-reachable
+--freelist-vol=0
+--guard-zone-size=0
+--stack-depth=8
+--no-close-console
+--mrte-mode=auto
+--heartbeat=1
+--
+D:\src\cpp\Physics_Formula_Class1\x64\Debug\Physics_Formula_Class.exe

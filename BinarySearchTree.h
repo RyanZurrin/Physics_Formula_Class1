@@ -29,8 +29,8 @@ namespace rez {
 		BSTNode* root = nullptr;
 		Compare comp;
 
-		BSTNode* find(KType& _value);
-		void transplant(BSTNode* found, BSTNode* replacement);
+		BSTNode* find(KType& _key);
+		void transplant(BSTNode* u, BSTNode* v);
 		BSTNode* treeMin(BSTNode* branch_root);
 		BSTNode* treeMax(BSTNode* branch_root);
 		BSTNode* findSplitNode(KType& _min, KType& _max);
@@ -66,9 +66,11 @@ namespace rez {
 			return false;
 		}
 
-		void inOrderTravers(BSTNode*, std::list<VType>&);
-		void preOrderTravers(BSTNode*, std::list<VType>&);
-		void postOrderTravers(BSTNode*, std::list<VType>&);
+		void inOrderTraverse(BSTNode*, std::list<VType>&);
+		void inOrderTraverse();
+		void inOrderHelper(BSTNode* root);
+		void preOrderTraverse(BSTNode*, std::list<VType>&);
+		void postOrderTraverse(BSTNode*, std::list<VType>&);
 	};
 
 	template<class KType, class VType, class Compare>
@@ -297,7 +299,7 @@ namespace rez {
 	}
 
 	template<class KType, class VType, class Compare>
-	void BST<KType, VType, Compare>::inOrderTravers(BSTNode* _node, std::list<VType>& _list) {
+	void BST<KType, VType, Compare>::inOrderTraverse(BSTNode* _node, std::list<VType>& _list) {
 		if (!_node)
 			return;
 		inOrderTravers(_node->left, _list);
@@ -306,7 +308,24 @@ namespace rez {
 	}
 
 	template<class KType, class VType, class Compare>
-	void BST<KType, VType, Compare>::preOrderTravers(BSTNode* _node, std::list<VType>& _list) {
+	inline void BST<KType, VType, Compare>::inOrderTraverse()
+	{
+		BSTNode* curr = root;
+		if (!curr)
+			return;		
+		inOrderHelper(curr);
+	}
+
+	template<class KType, class VType, class Compare>
+	inline void BST<KType, VType, Compare>::inOrderHelper(BSTNode* root)
+	{
+		inOrderHelper(root->left);
+		std::cout << root->key << " ";
+		inOrderHelper(root->right);
+	}
+
+	template<class KType, class VType, class Compare>
+	void BST<KType, VType, Compare>::preOrderTraverse(BSTNode* _node, std::list<VType>& _list) {
 		if (!_node)
 			return;
 		_list.push_back(_node->value);
@@ -315,7 +334,7 @@ namespace rez {
 	}
 
 	template<class KType, class VType, class Compare>
-	void BST<KType, VType, Compare>::postOrderTravers(BSTNode* _node, std::list<VType>& _list) {
+	void BST<KType, VType, Compare>::postOrderTraverse(BSTNode* _node, std::list<VType>& _list) {
 		if (!_node)
 			return;
 		inOrderTravers(_node->left, _list);
