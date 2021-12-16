@@ -18,8 +18,7 @@ public:
 	{
 		_torquePtr = nullptr;
 	}
-
-
+	
 	/**
 	 * @brief Returns the magnitude of torque
 	 * @param r is the distance from the pivot point to the point where the force

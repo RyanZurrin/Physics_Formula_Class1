@@ -69,7 +69,7 @@ static struct SpecificHeatCapacity
 	const std::vector<ld> steam_100C_G = { 1520.0, .363 };//< 1520.0J/kg*C`, .363kCal/kg*dC` >
 	const std::vector<ld> steam_dry_100C_G = { 2020.0, .482 };//< 2020.0J/kg*C`, .482kCal/kg*dC` >
 
-}c;
+}_c;
 
 /**
  * structure of latent heat coefficients for fusion (melting point)
@@ -94,7 +94,7 @@ static struct LatentHeatFusion
 	const std::vector<ld> uranium = { 1133.0, 84000.0, 20.0 };// <MeltingPoint(1133.0), j/kg(84000.0), kCal/kg(20.0)>
 	const std::vector<ld> tungsten = { 3410.0, 184000.0, 44.0 };// <MeltingPoint(3410.0), j/kg(184000.0), kCal/kg(44.0)>
 
-}Lf;
+}_Lf;
 
 /**
  * structure of latent heat coefficients for vaporization (boiling point)
@@ -118,7 +118,7 @@ static struct LatentHeatVaporization
 	const std::vector<ld> copper = { 2595.0, 5069000.0, 1211.0 };// <BoilingPoint(2595.0), j/kg(5069000.0), kCal/kg(1211.0)>
 	const std::vector<ld> uranium = { 3900.0, 1900000.0, 454.0 };// <BoilingPoint(3900.0), j/kg(1900000.0), kCal/kg(454.0)>
 	const std::vector<ld> tungsten = { 5900.0, 4810000.0, 1150.0 };// <BoilingPoint(5900.0), j/kg(4810000.0), kCal/kg(1150.0)>
-}Lv;
+}_Lv;
 
 /**
  * @brief structure of thermal conductivities of common substances
@@ -147,7 +147,7 @@ static struct ThermalConductivity
 	const ld downFeathers = .025;
 	const ld air = .023;
 	const ld styrofoam = .010;
-}k;
+}_k;
 
 
 
@@ -462,9 +462,9 @@ public:
 	 * @param Tf is the final temp after the drop occurs
 	 * @param _c is the specific heat of something(default is waters value of
 	 */
-	static ld initialTempFromFallingWater(const ld h, const ld Tf, const ld _c = c.water_L[0])
+	static ld initialTempFromFallingWater(const ld h, const ld Tf, const ld _c_ = _c.water_L[0])
 	{
-		return  Tf - (_Ga_ * h) / _c;
+		return  Tf - (_Ga_ * h) / _c_;
 	}
 
 	/**
@@ -533,12 +533,12 @@ public:
 	/**
 	 * @brief calculates the thickness of ice on a windshield
 	 */
-	static ld thicknessOfIceOnWindshield(const ld iceTemp, const ld surfaceArea, const ld energyToMelt, const ld _Lf = Lf.water[1], const ld _c = c.ice_average_S[0], const ld density = 917.0)
+	static ld thicknessOfIceOnWindshield(const ld iceTemp, const ld surfaceArea, const ld energyToMelt, const ld _Lf_ = _Lf.water[1], const ld _c_ = _c.ice_average_S[0], const ld density = 917.0)
 	{
-		cout << "lf: " << _Lf << endl;
-		const double q1 = _c * -iceTemp;
+		cout << "lf: " << _Lf_ << endl;
+		const double q1 = _c_ * -iceTemp;
 		cout << "q1: " << q1 << endl;
-		const double q2 = q1 + _Lf;
+		const double q2 = q1 + _Lf_;
 		cout << "q2: " << q2 << endl;
 		const double q3 = energyToMelt / q2;
 		cout << "q3: " << q3 << endl;
@@ -552,7 +552,7 @@ public:
 	/**
 	 * @calculaes tF of a ice cube placed in water
 	 */
-	static ld finalTemperatureMeltingIceInWater(const ld mI, const ld cI, const ld Ti, const ld mW, const ld cW, const ld Tw, const ld Lfw = Lf.water[2] )
+	static ld finalTemperatureMeltingIceInWater(const ld mI, const ld cI, const ld Ti, const ld mW, const ld cW, const ld Tw, const ld Lfw = _Lf.water[2] )
 	{
 		const double q1 = mI * cI * -Ti;
 		const double q2 = mI * Lfw;

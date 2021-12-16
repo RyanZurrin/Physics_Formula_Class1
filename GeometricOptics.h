@@ -153,7 +153,7 @@ static std::multimap<std::string, ld> refractions {
 };
 template<typename T>
 static void printVec(const T& t) {
-	std::copy(t.cbegin(), t.cend(), std::ostream_iterator<typename T::value_type>(std::cout, ", "));
+	std::copy(t.cbegin(), t.cend(), ostream_iterator<typename T::value_type>(std::cout, ", "));
 }//end printVector
 
 template<typename K, typename V>

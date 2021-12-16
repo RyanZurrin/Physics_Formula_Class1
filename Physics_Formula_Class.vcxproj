@@ -57,6 +57,7 @@
     <ClInclude Include="LinearRegression.h" />
     <ClInclude Include="LogisticRegression.h" />
     <ClInclude Include="Magnetism.h" />
+    <ClInclude Include="MathFx.h" />
     <ClInclude Include="MatrixND.h" />
     <ClInclude Include="MonotonePartition.h" />
     <ClInclude Include="Parallelogram.h" />
@@ -122,8 +123,6 @@
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="QuadTree.cpp" />
-    <ClCompile Include="RandomNumbers.cpp" />
-    <ClCompile Include="Square.cpp" />
     <ClCompile Include="testFactory.cpp" />
     <ClCompile Include="Triangulation.cpp" />
     <ClCompile Include="Vector.cpp" />
@@ -266,6 +265,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>H:\Includes\eigen-3.4-rc1\eigen-3.4-rc1\Eigen;C:\Program Files %28x86%29\ReactPhysics3D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <HeapReserveSize>20000000</HeapReserveSize>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>

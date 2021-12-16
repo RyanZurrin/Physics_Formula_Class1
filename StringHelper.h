@@ -40,7 +40,7 @@ t_string<CharT> remove(t_string<CharT> text, CharT const ch)
 template<typename CharT>
 t_string<CharT> to_upper(t_string<CharT> text)
 {
-	std::ranges::transform(
+	transform(
 		text,std::begin(text), std::toupper);
 	return text;
 }
@@ -53,7 +53,7 @@ t_string<CharT> to_upper(t_string<CharT> text)
 template<typename CharT>
 t_string<CharT> to_lower(t_string<CharT> text)
 {
-	std::ranges::transform(
+	transform(
 		text,std::begin(text), std::tolower);
 	return text;
 }
