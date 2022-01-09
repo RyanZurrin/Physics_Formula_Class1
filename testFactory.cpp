@@ -16,17 +16,24 @@ int main(int argc, char* argv[])
 	//_________________________________________________________________________
 	//add test code between starred areas
 	//*************************************************************************
-	ETL etl("winedata.csv", ",", true);
-	std::vector<std::vector<std::string>> dataSet = etl.readCSV();
+	/*MatrixXd A = MatrixXd::Random(6, 6);
+	cout << "Here is a random 6x6 matrix, A:" << endl << A << endl << endl;
 
-	int rows = dataSet.size();
-	int cols = dataSet[0].size();
+	EigenSolver<MatrixXd> es(A);
+	cout << "The eigenvalues of A are:" << endl << es.eigenvalues() << endl;
+	cout << "The matrix of eigenvectors, V, is:" << endl << es.eigenvectors() << endl << endl;
 
-	Eigen::MatrixXd dataMat = etl.CSVtoEigen(dataSet, rows, cols);
+	complex<double> lambda = es.eigenvalues()[0];
+	cout << "Consider the first eigenvalue, lambda = " << lambda << endl;
+	VectorXcd v = es.eigenvectors().col(0);
+	cout << "If v is the corresponding eigenvector, then lambda * v = " << endl << lambda * v << endl;
+	cout << "... and A * v = " << endl << A.cast<complex<double> >() * v << endl << endl;
 
-	std::cout << "Data Matrix: " << std::endl;
-	cout << dataMat << endl;
-	
+	MatrixXcd D = es.eigenvalues().asDiagonal();
+	MatrixXcd V = es.eigenvectors();
+	cout << "Finally, V * D * V^(-1) = " << endl << V * D * V.inverse() << endl;*/
+	TriangleSolver test(5, 3, 4);
+	test.displayTriangleData();
 
 	//*************************************************************************
 	//Stopping timer and displaying the programs execution time

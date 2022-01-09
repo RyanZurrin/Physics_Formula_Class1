@@ -194,7 +194,7 @@ public:
     [[nodiscard]] double returnBase()const { return max_side; }
     [[nodiscard]] double returnMaxHeight()const { return max_height; }
     [[nodiscard]] double returnHeight_a()const { return height_a; }
-    [[nodiscard]] double returnHeight_b()const { return height_a; }
+    [[nodiscard]] double returnHeight_b()const { return height_b; }
     [[nodiscard]] double returnHeight_c()const { return height_c; }
     [[nodiscard]] double returnMedian_a()const { return median_a; }
     [[nodiscard]] double returnMedian_b()const { return median_b; }
@@ -1532,7 +1532,8 @@ inline void TriangleSolver::setAngles(double aA, double aB, double aC)
     angle_A = aA;
     angle_B = aB;
     angle_C = aC;
-    if (double check = aA + aB + aC; check != 180) {
+    double check = aA + aB + aC;
+    if (check != 180) {
         do {
             cout << "the angles need to add up to 180 degrees to be a real triangle\n"
                 << "please reenter the sides and make sure the total is 180 degrees.\n"
