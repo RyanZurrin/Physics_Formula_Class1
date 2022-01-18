@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 {
 	//starting time do not edit code between solid comment lines
 	//_________________________________________________________________________
-	RunTimer timer;
+	RunTimer timer(SECONDS);
 	timer.start();
 	//_________________________________________________________________________
 	//add test code between starred areas
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 	//Stopping timer and displaying the programs execution time
 	//_________________________________________________________________________
 	timer.stop();
-	timer.displayRunTime("ms");
+	timer.display();
 	//_________________________________________________________________________
 	return EXIT_SUCCESS;
 
