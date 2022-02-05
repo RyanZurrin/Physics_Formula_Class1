@@ -201,6 +201,19 @@ public:
 	static ld velocity_avg_DdT(const ld displacement, const ld time)
 	{ return  displacement / time; }
 
+	/// <summary>
+	/// Calculates the initial velocity given the final velocity, the distance s and the time t in seconds
+	/// </summary>
+	/// <param name="v_f">The final velocity.</param>
+	/// <param name="s">The distance.</param>
+	/// <param name="t">The time.</param>
+	/// <returns>initial velocity</returns>
+	template<typename T>
+	static auto initial_velocity(const T v_f, const T s, const T t)
+	{
+		return (2.0 * s - t * v_f) / t;
+	}
+
 	/**
 	 * method: PhysicsWorld::velocity_falling_object_down(ld y, ld yf, ld v, ld a)
 	 * arguments: y0 = start position,  yf = final position v = velocity, a = acceleration
